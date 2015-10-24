@@ -1,0 +1,28 @@
+/*
+* Theme Name: Tyger
+* File name: style.css
+* Theme URL: tyger.mordorthemes.com
+* Description: Tyger - Beautiful onepage template
+* Author: Mordorthemes
+* Author URL: http://www.mordorthemes.com
+* Support: support@mordorthemes.com
+* Version: 1.0
+*/
+
+
+/*------------------------------------------------------
+
+CSS TABLE OF CONTENTS: 
+
+1. IMPORTING EXTERNAL CSS
+
+---------------------------------------------------------*/
+
+@import url("normalize.css");
+@import url("foundation.css");
+@import url("owl-carousel.css");
+@import url("owl.transitions.css");
+@import url("animate.css");
+@import url("tyger-fonts.css");
+@import url("cubeportfolio.css");
+@import url("layout.css"); 

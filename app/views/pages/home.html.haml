@@ -4,24 +4,23 @@
     %meta{:charset => "utf-8"}
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %title TYGER | Onepage template
-    %link{:href => "tyger/css/style.css", :rel => "stylesheet"}
+    %link{:href => "/tyger/css/style.css", :rel => "stylesheet"}
     / color styles - uncomment your preferred
-    %link{:href => "tyger/css/skins/red.css", :name => "colors", :rel => "stylesheet", :type => "text/css"}
-    /
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/orange.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/yellow.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/green.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/blue.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/brown.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/violet.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/purple.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/turquoise.css" name="colors" />
-      <link rel="stylesheet" type="text/css" href="tyger/css/skins/red.css" name="colors" />
+    %link{:href => "/tyger/css/skins/red.css", :name => "colors", :rel => "stylesheet", :type => "text/css"}
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/orange.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/yellow.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/green.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/blue.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/brown.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/violet.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/purple.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/turquoise.css" name="colors" />
+    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/red.css" name="colors" />
     / Style Switcher Box delete for remove styleswitcher
-    %link{:href => "tyger/css/styleswitcher.css", :rel => "stylesheet"}
+    %link{:href => "/tyger/css/styleswitcher.css", :rel => "stylesheet"}
     %link{:href => "http://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}
     %link{:href => "http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,200", :rel => "stylesheet", :type => "text/css"}
-    %script{:src => "tyger/js/vendor/modernizr.js"}
+    %script{:src => "/tyger/js/vendor/modernizr.js"}
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
   %body
     / start styleswitcher, remove this
@@ -123,7 +122,7 @@
               %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
         .row
           .medium-6.columns.animated{"data-animate" => "fadeInLeft", "data-animate-delay" => "0"}
-            %img{:alt => "", :src => "tyger/img/placeholder.jpg"}
+            %img{:alt => "", :src => "/tyger/img/placeholder.jpg"}
           .medium-6.columns.animated{"data-animate" => "fadeInRight", "data-animate-delay" => "0"}
             / start accordion
             %ul.accordion{"data-accordion" => "myAccordionGroup"}
@@ -185,7 +184,7 @@
                   %h3 Retina ready
                   %p Lorem ipsum dolor sit amet, consectetur adiping elit consectetur adiping.
                 .medium-4.small-12.left
-                  %img{:alt => "", :src => "tyger/img/placeholder2.jpg"}
+                  %img{:alt => "", :src => "/tyger/img/placeholder2.jpg"}
                 .medium-4.small-12.left.main-service.text-left
                   %h3 Modern
                   %p Lorem ipsum dolor sit amet, consectetur adiping elit consectetur adiping.
@@ -203,13 +202,13 @@
               #panel3.content
                 .medium-8.medium-centered.columns
                   .medium-4.columns.main-service
-                    %img{:alt => "", :src => "tyger/img/html5.png"}
+                    %img{:alt => "", :src => "/tyger/img/html5.png"}
                     %p Lorem ipsum dolor sit amet, consectetur adiping elit.
                   .medium-4.columns.main-service
-                    %img{:alt => "", :src => "tyger/img/css3.png"}
+                    %img{:alt => "", :src => "/tyger/img/css3.png"}
                     %p Lorem ipsum dolor sit amet, consectetur adiping elit.
                   .medium-4.columns.main-service
-                    %img{:alt => "", :src => "tyger/img/jquery.png"}
+                    %img{:alt => "", :src => "/tyger/img/jquery.png"}
                     %p
                       Lorem ipsum
                       dolor sit amet, consectetur adiping elit.
@@ -393,7 +392,7 @@
               .cbp-item
                 .cbp-caption
                   .cbp-caption-defaultWrap
-                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                    %img{:alt => "", :src => "/tyger/img/team/placeholder.jpg"}
                 .cbp-l-grid-slider-team-wrap
                   .cbp-l-grid-slider-team-name
                     %h4 Erica Doe
@@ -412,7 +411,7 @@
               .cbp-item
                 .cbp-caption
                   .cbp-caption-defaultWrap
-                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                    %img{:alt => "", :src => "/tyger/img/team/placeholder.jpg"}
                 .cbp-l-grid-slider-team-wrap
                   .cbp-l-grid-slider-team-name
                     %h4 Roxanne White
@@ -431,7 +430,7 @@
               .cbp-item
                 .cbp-caption
                   .cbp-caption-defaultWrap
-                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                    %img{:alt => "", :src => "/tyger/img/team/placeholder.jpg"}
                 .cbp-l-grid-slider-team-wrap
                   .cbp-l-grid-slider-team-name
                     %h4 Paul Stark
@@ -450,7 +449,7 @@
               .cbp-item
                 .cbp-caption
                   .cbp-caption-defaultWrap
-                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                    %img{:alt => "", :src => "/tyger/img/team/placeholder.jpg"}
                 .cbp-l-grid-slider-team-wrap
                   .cbp-l-grid-slider-team-name
                     %h4 Roberta Smith
@@ -469,7 +468,7 @@
               .cbp-item
                 .cbp-caption
                   .cbp-caption-defaultWrap
-                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                    %img{:alt => "", :src => "/tyger/img/team/placeholder.jpg"}
                 .cbp-l-grid-slider-team-wrap
                   .cbp-l-grid-slider-team-name
                     %h4 Claudia Everell
@@ -488,7 +487,7 @@
               .cbp-item
                 .cbp-caption
                   .cbp-caption-defaultWrap
-                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                    %img{:alt => "", :src => "/tyger/img/team/placeholder.jpg"}
                 .cbp-l-grid-slider-team-wrap
                   .cbp-l-grid-slider-team-name
                     %h4 Chris Matthew
@@ -515,17 +514,17 @@
         .row
           .medium-12.columns
             .medium-4.columns.blog-item-preview
-              %img{:alt => "", :src => "tyger/img/blog/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/blog/placeholder.jpg"}
               %h5.white Insert here your post title
               %a.link-btn{"data-hover" => "Read More", :href => "blog_detail.html"}
                 %span Read More
             .medium-4.columns.blog-item-preview
-              %img{:alt => "", :src => "tyger/img/blog/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/blog/placeholder.jpg"}
               %h5.white Insert here your post title
               %a.link-btn{"data-hover" => "Read More", :href => "blog_detail.html"}
                 %span Read More
             .medium-4.columns.blog-item-preview
-              %img{:alt => "", :src => "tyger/img/blog/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/blog/placeholder.jpg"}
               %h5.white Insert here your post title
               %a.link-btn{"data-hover" => "Read More", :href => "blog_detail.html"}
                 %span Read More
@@ -562,105 +561,105 @@
           .cbp-item.logo
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project1.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
           / start item
           .cbp-item.web
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project2.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
           / start item
           .cbp-item.logo
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project3.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
           / start item
           .cbp-item.other
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project4.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
           / start item
           .cbp-item.web.logo
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project5.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
           / start item
           .cbp-item.web.other
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project1.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
           / start item
           .cbp-item.other.logo
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project2.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
           / start item
           .cbp-item.other.web
             .cbp-caption
               .cbp-caption-defaultWrap
-                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+                %img{:alt => "", :src => "/tyger/img/works/placeholder.jpg"}
               .cbp-caption-activeWrap
                 .th-detail
                   .cbp-l-caption-alignCenter
                     .cbp-l-caption-body
                       .cbp-l-grid-projects-title Title Project
                       %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project3.html"} more info
-                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "/tyger/img/works/placeholder_big.jpg"} view larger
           / end item
         / end portfolio
       / end works/portfolio section
@@ -670,12 +669,12 @@
           .medium-10.columns.medium-centered
             / start #clients slider
             #clients-slider
-              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
-              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
-              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
-              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
-              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
-              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
             / end #clients slider
       / end dark section
       / start contacts section
@@ -766,17 +765,17 @@
             %p.white 2014 © Mordorthemes. All rights reserved.
       / end footer
     / end #wrapper
-    %script{:src => "tyger/js/vendor/jquery.js"}
-    %script{:src => "tyger/js/foundation.min.js"}
-    %script{:src => "tyger/js/foundation/foundation.accordion.js"}
-    %script{:src => "tyger/js/plugins.js"}
+    %script{:src => "/tyger/js/vendor/jquery.js"}
+    %script{:src => "/tyger/js/foundation.min.js"}
+    %script{:src => "/tyger/js/foundation/foundation.accordion.js"}
+    %script{:src => "/tyger/js/plugins.js"}
     %script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
-    %script{:src => "tyger/js/jquery.cubeportfolio.min.js"}
-    %script{:src => "tyger/js/map.js"}
-    %script{:src => "tyger/js/custom.js"}
+    %script{:src => "/tyger/js/jquery.cubeportfolio.min.js"}
+    %script{:src => "/tyger/js/map.js"}
+    %script{:src => "/tyger/js/custom.js"}
     / Start Style Switcher to remove
-    %script{:src => "tyger/js/styleswitcher.js"}
-    %script{:src => "tyger/js/jquery-cookie.js"}
+    %script{:src => "/tyger/js/styleswitcher.js"}
+    %script{:src => "/tyger/js/jquery-cookie.js"}
     / End Style Switcher
     :javascript
       $(document).foundation();

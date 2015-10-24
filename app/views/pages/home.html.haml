@@ -1,0 +1,782 @@
+!!!
+%html.no-js{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %title TYGER | Onepage template
+    %link{:href => "tyger/css/style.css", :rel => "stylesheet"}
+    / color styles - uncomment your preferred
+    %link{:href => "tyger/css/skins/red.css", :name => "colors", :rel => "stylesheet", :type => "text/css"}
+    /
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/orange.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/yellow.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/green.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/blue.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/brown.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/violet.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/purple.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/turquoise.css" name="colors" />
+      <link rel="stylesheet" type="text/css" href="tyger/css/skins/red.css" name="colors" />
+    / Style Switcher Box delete for remove styleswitcher
+    %link{:href => "tyger/css/styleswitcher.css", :rel => "stylesheet"}
+    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,200", :rel => "stylesheet", :type => "text/css"}
+    %script{:src => "tyger/js/vendor/modernizr.js"}
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+  %body
+    / start styleswitcher, remove this
+    .switcher
+    / end styleswitcher
+    / Preloader
+    .mask
+      #loader.rotating
+    / /Preloader
+    / start header
+    %header
+      .row
+        .medium-6.small-6.columns.text-align-left
+          / start logo
+          %h1.logo
+            %a{:href => "index.html", :title => ""} Tyger
+          / end logo
+        .medium-6.small-6.columns.text-right
+          / start open/close menu
+          %a#trigger-overlay{:href => "#", :title => ""}
+            %i.icon.tyger-navicon
+          / end open/close menu
+    / end header
+    / start navigation
+    .overlay-menu.overlay-hugeinc
+      %a.overlay-close{:href => "#", :title => ""}
+        %i.icon.tyger-close-empty
+      %nav
+        %ul
+          %li
+            %a.inner-link{:href => "#about"}
+              %span About
+          %li
+            %a.inner-link{:href => "#services"}
+              %span Services
+          %li
+            %a.inner-link{:href => "#team"}
+              %span Team
+          %li
+            %a.inner-link{:href => "blog.html"}
+              %span Blog
+          %li
+            %a.inner-link{:href => "#works"}
+              %span Portfolio
+          %li
+            %a.inner-link{:href => "#contacts"}
+              %span Contacts
+    / end navigation
+    / start main slider section
+    %section#main-slider
+      / start slider
+      #slider
+        / start slider item
+        .slider-cont.parallax-background.bg2
+          .overlay
+          .slider-caption.slider-caption-center
+            %h2{"data-caption-animate" => "fadeInUp"}
+              %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
+              or
+              %span.color= link_to "Login", new_user_session_path
+            %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"}
+              Impress your visitor with a unique an creative onepage design. Perfect for agencies, photographers, designers or any different type of products.
+        / end slider item
+        / start slider item
+        .slider-cont.parallax-background.bg2
+          .overlay
+          .slider-caption.slider-caption-center
+            %h2{"data-caption-animate" => "fadeInUp"}
+              %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
+              or
+              %span.color= link_to "Login", new_user_session_path
+            %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"}
+              Tyger adapt to any devices. Pixel perfect design for tablet and smartphone devices.
+        / end slider item
+        / start slider item
+        .slider-cont.parallax-background.bg3
+          .slider-caption.slider-caption-center
+            %h2{"data-caption-animate" => "fadeInUp"}
+              %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
+              or
+              %span.color= link_to "Login", new_user_session_path
+            %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Looks beautiful & ultra-sharp on Retina Screen Displays. Powerful Layout with Responsive functionality that can be adapted to any screen size.
+        / end slider item
+      / end slider
+    / end main slider section
+    / start #wrapper
+    #wrapper
+      / start section about
+      %section#about
+        .row
+          .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+            .title-section
+              %h3
+                %strong Company
+          .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+            .section-desc
+              %h4
+                %strong As one of the core design principles, typography can really make or break a website design
+              %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
+        .row
+          .medium-6.columns.animated{"data-animate" => "fadeInLeft", "data-animate-delay" => "0"}
+            %img{:alt => "", :src => "tyger/img/placeholder.jpg"}
+          .medium-6.columns.animated{"data-animate" => "fadeInRight", "data-animate-delay" => "0"}
+            / start accordion
+            %ul.accordion{"data-accordion" => "myAccordionGroup"}
+              %li.accordion-navigation
+                %a{:href => "#panel1c"} Easy customization
+                #panel1c.content
+                  %p
+                    Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero ace venenatis faucibus. Nullam quis ante.
+                    Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero ace venenatis faucibus. Nullam quis ante.
+              %li.accordion-navigation
+                %a{:href => "#panel2c"} Widgets
+                #panel2c.content
+                  %p Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero ace venenatis faucibus. Nullam quis ante.
+              %li.accordion-navigation
+                %a{:href => "#panel3c"} Light and powerful
+                #panel3c.content
+                  %p Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero ace venenatis faucibus. Nullam quis ante.
+              %li.accordion-navigation
+                %a{:href => "#panel4c"} Behind a solid framework
+                #panel4c.content
+                  %p Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero ace venenatis faucibus. Nullam quis ante.
+            / end accordion
+      / end section about
+      / start section dark
+      %section.dark
+        .row
+          .subtitle.white
+            %h2.white
+              Our Methodologies
+              %span.color .
+            %p.white Aliquam at feugiat est. Mauris laoreet sapien non liberon bibendum, sit amet volutpat a laoreet.
+        / start tabs
+        .row.tabs-container
+          .medium-6.medium-centered.columns
+            / start tabs menu
+            %ul.medium-block-grid-3.small-block-grid-3.tabs.service-tab{"data-tab" => ""}
+              %li.active
+                %a{:href => "#panel1"}
+                  %i.icon.tyger-arrow-streamline-target
+                  %h5 Mission
+              %li
+                %a{:href => "#panel2"}
+                  %i.icon.tyger-monocle-mustache-streamline
+                  %h5 Vision
+              %li
+                %a{:href => "#panel3"}
+                  %i.icon.tyger-map-streamline-user
+                  %h5 Value
+            / end tabs menu
+          .medium-12.medium-centered.columns
+            / start tabs content
+            .tabs-content
+              / start tab item
+              #panel1.content.active
+                .medium-4.small-12.left.main-service.text-right
+                  %h3 Responsive
+                  %p Lorem ipsum dolor sit amet, consectetur adiping elit consectetur adiping.
+                  %br/
+                  %h3 Retina ready
+                  %p Lorem ipsum dolor sit amet, consectetur adiping elit consectetur adiping.
+                .medium-4.small-12.left
+                  %img{:alt => "", :src => "tyger/img/placeholder2.jpg"}
+                .medium-4.small-12.left.main-service.text-left
+                  %h3 Modern
+                  %p Lorem ipsum dolor sit amet, consectetur adiping elit consectetur adiping.
+                  %br/
+                  %h3 Customizable
+                  %p Lorem ipsum dolor sit amet, consectetur adiping elit consectetur adiping.
+              / end tab item
+              / start tab item
+              #panel2.content
+                .medium-8.medium-centered.columns.main-service
+                  %h3 We create identity
+                  %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc euismod nec ipsum id vehicula. Aenean a pulvinar sem. Phasellus commodo neque nec volutpat elementum. Aenean nisl orci, condim entum ultrices consequat eu, vehicula ac mauris.Asunt in anim uis aute irure dolor in reprehenderit
+              / end tab item
+              / start tab item
+              #panel3.content
+                .medium-8.medium-centered.columns
+                  .medium-4.columns.main-service
+                    %img{:alt => "", :src => "tyger/img/html5.png"}
+                    %p Lorem ipsum dolor sit amet, consectetur adiping elit.
+                  .medium-4.columns.main-service
+                    %img{:alt => "", :src => "tyger/img/css3.png"}
+                    %p Lorem ipsum dolor sit amet, consectetur adiping elit.
+                  .medium-4.columns.main-service
+                    %img{:alt => "", :src => "tyger/img/jquery.png"}
+                    %p
+                      Lorem ipsum
+                      dolor sit amet, consectetur adiping elit.
+              / end tab item
+            / end tabs content
+        / end tabs
+      / end section dark
+      / start services section
+      %section#services
+        .row
+          .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+            .title-section
+              %h3 Services
+              %i.icon.tyger-crown-king-streamline
+          .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+            .section-desc
+              %h4
+                %strong Strategy, Experience Design & Technology.
+              %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
+        .row
+          .medium-12.columns
+            #services-container.cbp-l-grid-gallery
+              / start service
+              .cbp-item.service
+                %i.icon.tyger-design-pencil-rule-streamline
+                %h5 Web Design
+                %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
+                %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More", :href => "services/service1.html"}
+                  %span Read More
+              / end service
+              / start service
+              .cbp-item.service
+                %i.icon.tyger-chef-food-restaurant-streamline
+                %h5 Branding & Identity
+                %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
+                %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More", :href => "services/service2.html"}
+                  %span Read More
+              / end service
+              / start service
+              .cbp-item.service
+                %i.icon.tyger-camera-streamline-video
+                %h5 Camera Streaming
+                %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
+                %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More", :href => "services/service3.html"}
+                  %span Read More
+              / end service
+      / end service section
+      / start dark section
+      %section.dark
+        .row
+          / start counter
+          .medium-3.columns.counter-box
+            .counter.animated{"data-perc" => "456"}
+              .icon-counter
+                %i.icon.tyger-crown-king-streamline
+              .number-detail
+                .number
+                %h3 Awards
+          / end counter
+          / start counter
+          .medium-3.columns.counter-box
+            .counter{"data-perc" => "600"}
+              .icon-counter
+                %i.icon.tyger-eat-food-hotdog-streamline
+              .number-detail
+                .number
+                %h3 Hot Dogs
+          / end counter
+          / start counter
+          .medium-3.columns.counter-box
+            .counter.animated{"data-perc" => "456"}
+              .icon-counter
+                %i.icon.tyger-happy-smiley-streamline
+              .number-detail
+                .number
+                %h3 Happy Clients
+          / end counter
+          / start counter
+          .medium-3.columns.counter-box
+            .counter{"data-perc" => "600"}
+              .icon-counter
+                %i.icon.tyger-streamline-suitcase-travel
+              .number-detail
+                .number
+                %h3 Projects Finished
+          / end counter
+      / end dark section
+      / start parallax section
+      %section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
+        .overlay
+        .row
+          .medium-6.columns.medium-centered.text-center
+            / start testimonial slider
+            #testimonial-slider
+              / start testimonial item
+              .subtitle.white
+                %h2.white Beautifully, Flexible
+                %p Looks beautiful & ultra-sharp on Retina Screen Displays.
+                %cite Isaac Asimov
+              / end testimonial item
+              / start testimonial item
+              .subtitle.white
+                %h2.white Ready for Customizations
+                %p Powerful Layout with easy grid to customize
+                %cite H.P. Lovecraft
+              / end testimonial item
+              / start testimonial item
+              .subtitle.white
+                %h2.white Based on Foundation 5
+                %p Responsive functionality that can be adapted to any screen size.
+                %cite Norman Bates
+              / end testimonial item
+            / end testimonial slider
+      / end parallax section
+      / start dark section
+      %section.dark
+        .subtitle.white
+          %h2.white
+            Start growing your online business
+            %span.color .
+          %p.white Our Prices
+        / start Pricing tables (hidden in layout.css)
+        #pricing-tables
+          .row
+            / start Table
+            .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+              %ul.pricing-table
+                %li.title Standard
+                %li.price $99.99
+                %li.description An awesome description
+                %li.bullet-item 1 Database
+                %li.bullet-item 5GB Storage
+                %li.bullet-item 20 Users
+                %li.cta-button
+                  %a.button{:href => "#"} Buy Now
+            / end Table
+            / start Table
+            .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+              %ul.pricing-table
+                %li.title Medium
+                %li.price $139.99
+                %li.description An awesome description
+                %li.bullet-item 1 Database
+                %li.bullet-item 5GB Storage
+                %li.bullet-item 20 Users
+                %li.cta-button
+                  %a.button{:href => "#"} Buy Now
+            / end Table
+            / start Table
+            .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+              %ul.pricing-table
+                %li.title Large
+                %li.price $199.99
+                %li.description An awesome description
+                %li.bullet-item 1 Database
+                %li.bullet-item 5GB Storage
+                %li.bullet-item 20 Users
+                %li.cta-button
+                  %a.button{:href => "#"} Buy Now
+            / end Table
+            .medium-12.columns.text-center
+              %p.white Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
+        / end Pricing tables
+      / end dark section
+      / start team section
+      %section#team
+        .row
+          .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+            .title-section
+              %h3
+                %strong Our Team
+          .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+            .section-desc
+              %h4 We create inspired experiences.
+              %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
+        .row
+          .medium-12.columns
+            / start team slider
+            #team-slider.cbp-l-grid-slider-team.cbp-slider-edge
+              / start team member
+              .cbp-item
+                .cbp-caption
+                  .cbp-caption-defaultWrap
+                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                .cbp-l-grid-slider-team-wrap
+                  .cbp-l-grid-slider-team-name
+                    %h4 Erica Doe
+                  .cbp-l-grid-slider-team-social
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-facebook
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-twitter
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-google-plus
+                .cbp-l-grid-slider-team-position CEO, Director General
+                .cbp-l-grid-slider-team-desc
+                  %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla nemo ad quibusdam consequuntur sapiente officia natus reprehenderit, doloribus in dolores!
+              / end team member
+              / start team member
+              .cbp-item
+                .cbp-caption
+                  .cbp-caption-defaultWrap
+                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                .cbp-l-grid-slider-team-wrap
+                  .cbp-l-grid-slider-team-name
+                    %h4 Roxanne White
+                  .cbp-l-grid-slider-team-social
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-facebook
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-twitter
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-google-plus
+                .cbp-l-grid-slider-team-position Manager
+                .cbp-l-grid-slider-team-desc
+                  %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla nemo ad quibusdam consequuntur sapiente officia natus reprehenderit, doloribus in dolores!
+              / end team member
+              / start team member
+              .cbp-item
+                .cbp-caption
+                  .cbp-caption-defaultWrap
+                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                .cbp-l-grid-slider-team-wrap
+                  .cbp-l-grid-slider-team-name
+                    %h4 Paul Stark
+                  .cbp-l-grid-slider-team-social
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-facebook
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-twitter
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-google-plus
+                .cbp-l-grid-slider-team-position Developer
+                .cbp-l-grid-slider-team-desc
+                  %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla nemo ad quibusdam consequuntur sapiente officia natus reprehenderit, doloribus in dolores!
+              / end team member
+              / start team member
+              .cbp-item
+                .cbp-caption
+                  .cbp-caption-defaultWrap
+                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                .cbp-l-grid-slider-team-wrap
+                  .cbp-l-grid-slider-team-name
+                    %h4 Roberta Smith
+                  .cbp-l-grid-slider-team-social
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-facebook
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-twitter
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-google-plus
+                .cbp-l-grid-slider-team-position Designer
+                .cbp-l-grid-slider-team-desc
+                  %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla nemo ad quibusdam consequuntur sapiente officia natus reprehenderit, doloribus in dolores!
+              / end team member
+              / start team member
+              .cbp-item
+                .cbp-caption
+                  .cbp-caption-defaultWrap
+                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                .cbp-l-grid-slider-team-wrap
+                  .cbp-l-grid-slider-team-name
+                    %h4 Claudia Everell
+                  .cbp-l-grid-slider-team-social
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-facebook
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-twitter
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-google-plus
+                .cbp-l-grid-slider-team-position Designer
+                .cbp-l-grid-slider-team-desc
+                  %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla nemo ad quibusdam consequuntur sapiente officia natus reprehenderit, doloribus in dolores!
+              / end team member
+              / start team member
+              .cbp-item
+                .cbp-caption
+                  .cbp-caption-defaultWrap
+                    %img{:alt => "", :src => "tyger/img/team/placeholder.jpg"}
+                .cbp-l-grid-slider-team-wrap
+                  .cbp-l-grid-slider-team-name
+                    %h4 Chris Matthew
+                  .cbp-l-grid-slider-team-social
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-facebook
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-twitter
+                    %a{:href => "", :title => ""}
+                      %i.icon.tyger-google-plus
+                .cbp-l-grid-slider-team-position Developer
+                .cbp-l-grid-slider-team-desc
+                  %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla nemo ad quibusdam consequuntur sapiente officia natus reprehenderit, doloribus in dolores!
+              / end team member
+            / end team slider
+      / end team section
+      / start  section blog preview
+      %section.dark
+        .subtitle.white
+          %h2.white
+            Recent post from our blog
+            %span.color .
+          %p.white Aliquam at feugiat est. Mauris laoreet sapien non liberon bibendum, sit amet volutpat a laoreet.
+        .row
+          .medium-12.columns
+            .medium-4.columns.blog-item-preview
+              %img{:alt => "", :src => "tyger/img/blog/placeholder.jpg"}
+              %h5.white Insert here your post title
+              %a.link-btn{"data-hover" => "Read More", :href => "blog_detail.html"}
+                %span Read More
+            .medium-4.columns.blog-item-preview
+              %img{:alt => "", :src => "tyger/img/blog/placeholder.jpg"}
+              %h5.white Insert here your post title
+              %a.link-btn{"data-hover" => "Read More", :href => "blog_detail.html"}
+                %span Read More
+            .medium-4.columns.blog-item-preview
+              %img{:alt => "", :src => "tyger/img/blog/placeholder.jpg"}
+              %h5.white Insert here your post title
+              %a.link-btn{"data-hover" => "Read More", :href => "blog_detail.html"}
+                %span Read More
+      / end  section blog preview
+      / start works/portfolio section
+      %section#works
+        .row
+          .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+            .title-section
+              %h3 Portfolio
+          .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+            .section-desc
+              %h4 Our passion for what we do transfers into our works
+              %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
+          .medium-6.columns.medium-centered
+            / start portfolio filters
+            #filters-container.cbp-l-filters-alignCenter
+              .cbp-filter-item-active.cbp-filter-item{"data-filter" => "*"}
+                ALL WORKS
+                .cbp-filter-counter
+              .cbp-filter-item{"data-filter" => ".web"}
+                WEB DESIGN
+                .cbp-filter-counter
+              .cbp-filter-item{"data-filter" => ".logo"}
+                LOGO
+                .cbp-filter-counter
+              .cbp-filter-item{"data-filter" => ".other"}
+                OTHER
+                .cbp-filter-counter
+            / end portfolio filters
+        / start portfolio
+        #grid-container.cbp-l-grid-fullWidth
+          / start item
+          .cbp-item.logo
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project1.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+          / start item
+          .cbp-item.web
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project2.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+          / start item
+          .cbp-item.logo
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project3.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+          / start item
+          .cbp-item.other
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project4.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+          / start item
+          .cbp-item.web.logo
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project5.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+          / start item
+          .cbp-item.web.other
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project1.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+          / start item
+          .cbp-item.other.logo
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project2.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+          / start item
+          .cbp-item.other.web
+            .cbp-caption
+              .cbp-caption-defaultWrap
+                %img{:alt => "", :src => "tyger/img/works/placeholder.jpg"}
+              .cbp-caption-activeWrap
+                .th-detail
+                  .cbp-l-caption-alignCenter
+                    .cbp-l-caption-body
+                      .cbp-l-grid-projects-title Title Project
+                      %a.cbp-singlePage.cbp-l-caption-buttonLeft{:href => "projects/project3.html"} more info
+                      %a.cbp-lightbox.cbp-l-caption-buttonRight{"data-title" => "Title Project<br>You can add more detail", :href => "tyger/img/works/placeholder_big.jpg"} view larger
+          / end item
+        / end portfolio
+      / end works/portfolio section
+      / start dark section
+      %section.dark
+        .row
+          .medium-10.columns.medium-centered
+            / start #clients slider
+            #clients-slider
+              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
+              %img{:alt => "", :src => "tyger/img/clients/placeholder.jpg"}
+            / end #clients slider
+      / end dark section
+      / start contacts section
+      %section#contacts
+        .row
+          .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+            .title-section
+              %h3 Contacts
+          .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+            .section-desc
+              %h4 Meet our creative people
+              %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
+          .medium-6.columns.medium-centered
+            / start link-box
+            %ul.medium-block-grid-3.small-block-grid-1
+              / start link-box item
+              %li.link-box
+                .about
+                  %i.icon.tyger-map-pin-streamline
+                  %p 18 Short Street, 9C
+                  %p Los Angeles, LA 10013
+              / end link-box item
+              / start link-box item
+              %li.link-box
+                .about
+                  %i.icon.tyger-iphone-streamline
+                  %p +24 524 235681
+                  %p +24 568 548236
+              / end link-box item
+              / start link-box item
+              %li.link-box
+                .about
+                  %i.icon.tyger-email-mail-streamline
+                  %p info@tyger.com
+                  %p support@tyger.com
+              / end link-box item
+            / end link-box
+        .row
+          / start contact form
+          #message
+          %form#contactform{:action => "php/contact.php", :method => "post", :name => "contactform"}
+            .large-6.columns
+              %input#name{:name => "name", :placeholder => "Name", :type => "text"}
+            .large-6.columns
+              %input#email{:name => "email", :placeholder => "Email", :type => "text"}
+            .large-12.columns
+              %textarea#comments{:name => "comments", :placeholder => "Message"}
+            .large-12.columns.text-center
+              %button#submit{:name => "email", :type => "submit"} SEND
+          / end contact form
+      / end contacts section
+      / start section dark
+      %section#map.dark
+        #google-map
+          .subtitle.white
+            %h2
+              Localize Us
+              %span.color .
+            %p Aliquam at feugiat est. Mauris laoreet sapien non liberon bibendum, sit amet volutpat a laoreet.
+          %i.icon.icon-map-1
+          / start map
+          #map_canvas
+          / end map
+      / end section dark
+      / start footer
+      %footer
+        .row
+          .medium-12.text-center.columns
+            %h1.logo
+              %a{:href => "index.html", :title => ""} Tyger
+            .medium-4.columns.medium-centered
+              %ul.medium-block-grid-5.small-block-grid-5.social-links
+                %li
+                  %a{:href => "#", :title => ""}
+                    %i.icon.tyger-skype
+                %li
+                  %a{:href => "#", :title => ""}
+                    %i.icon.tyger-twitter
+                %li
+                  %a{:href => "#", :title => ""}
+                    %i.icon.tyger-facebook
+                %li
+                  %a{:href => "#", :title => ""}
+                    %i.icon.tyger-google-plus
+                %li
+                  %a{:href => "#", :title => ""}
+                    %i.icon.tyger-pinterest
+            %p.white 2014 © Mordorthemes. All rights reserved.
+      / end footer
+    / end #wrapper
+    %script{:src => "tyger/js/vendor/jquery.js"}
+    %script{:src => "tyger/js/foundation.min.js"}
+    %script{:src => "tyger/js/foundation/foundation.accordion.js"}
+    %script{:src => "tyger/js/plugins.js"}
+    %script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
+    %script{:src => "tyger/js/jquery.cubeportfolio.min.js"}
+    %script{:src => "tyger/js/map.js"}
+    %script{:src => "tyger/js/custom.js"}
+    / Start Style Switcher to remove
+    %script{:src => "tyger/js/styleswitcher.js"}
+    %script{:src => "tyger/js/jquery-cookie.js"}
+    / End Style Switcher
+    :javascript
+      $(document).foundation();

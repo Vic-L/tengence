@@ -36,6 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :users, :last_name, :string, null: false, default: ""
       t.string :users, :company_name, :string, null: false, default: ""
       t.text :users, :keywords, :text
+      t.string :users, :subscribed_plan, :string, default: 'free'
 
       t.timestamps null: false
     end

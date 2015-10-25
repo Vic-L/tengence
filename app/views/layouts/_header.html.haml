@@ -11,6 +11,11 @@
       %a#trigger-overlay{:href => "#", :title => ""}
         %i.icon.tyger-navicon
       / end open/close menu
+- flash.each do |name, msg|
+  - if msg.is_a?(String)
+    %div{:'data-alert' => '', class: "alert-box round #{name.to_s == 'notice' ? 'success' : 'alert'}"}
+      = content_tag :div, msg
+      %a.close{href: "#", class: "close"} &times;
 / end header
 / start navigation
 .overlay-menu.overlay-hugeinc

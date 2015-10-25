@@ -1,59 +1,86 @@
 #wrapper
-  / start contacts section
-  %section#contacts
+  / start dark section
+  %section#pricing-plans.dark
     .row
-      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+      .medium-3.small-12.columns.animated.medium-centered{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
-          %h3 Contacts
-      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-        .section-desc
-          %h4 Meet our creative people
-          %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
-      .medium-6.columns.medium-centered
-        / start link-box
-        %ul.medium-block-grid-3.small-block-grid-1
-          / start link-box item
-          %li.link-box
-            .about
-              %i.icon.tyger-map-pin-streamline
-              %p 18 Short Street, 9C
-              %p Los Angeles, LA 10013
-          / end link-box item
-          / start link-box item
-          %li.link-box
-            .about
-              %i.icon.tyger-iphone-streamline
-              %p +24 524 235681
-              %p +24 568 548236
-          / end link-box item
-          / start link-box item
-          %li.link-box
-            .about
-              %i.icon.tyger-email-mail-streamline
-              %p info@tyger.com
-              %p support@tyger.com
-          / end link-box item
-        / end link-box
+          %h3 Prices
+    / start Pricing tables (hidden in layout.css)
+    #pricing-tables
+      .row
+        / start Table
+        .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+          %ul.pricing-table
+            %li.title Lite
+            %li.price Free
+            %li.description An awesome description
+            %li.bullet-item 1 Database
+            %li.bullet-item 5GB Storage
+            %li.bullet-item 20 Users
+            %li.cta-button
+              .button.disabled{:'data-plan' => 'free', :'data-plan-type' => 'free'} -
+        / end Table
+        / start Table
+        .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+          %ul.pricing-table
+            %li.title Standard
+            %li.price $40.00 / Mth
+            %li.description An awesome description
+            %li.bullet-item 1 Database
+            %li.bullet-item 5GB Storage
+            %li.bullet-item 20 Users
+            %li.cta-button
+              .button.buy-now{:'data-plan' => '$40.00 / Mth', :'data-plan-type' => 'standard'} Buy Now
+        / end Table
+        / start Table
+        .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+          %ul.pricing-table
+            %li.title Elite
+            %li.price $80.00 / Mth
+            %li.description An awesome description
+            %li.bullet-item 1 Database
+            %li.bullet-item 5GB Storage
+            %li.bullet-item 20 Users
+            %li.cta-button
+              .button.buy-now{:'data-plan' => '$80.00 / Mth', :'data-plan-type' => 'elite'} Buy Now
+        / end Table
+        .medium-12.columns.text-center
+          = link_to "I want to check Tengence out first. Skip", root_path
+    / end Pricing tables
+  / end dark section
+
+  %section#payment-method
     .row
-      / start contact form
       #message
       = form_tag checkout_path, id: 'contactform' do |f|
-        .large-6.columns.large-centered
-          %a#select-payment Select Payment Method
+        = hidden_field_tag 'subscribed_plan', nil
+        .large-6.columns.large-centered.text-center
+          Selected Plan        
+        .large-6.columns.large-centered#plan-price
+        .large-6.columns.large-centered.text-center
+          %br
+          Please Select Payment Method
         .large-6.columns.large-centered
           #payment-form
         .large-12.columns.text-center
           %button#submit{:name => "email", :type => "submit"} SEND
-      / end contact form
-  / end contacts section
 
 - content_for :javascript do
+  %script{:src => "https://js.braintreegateway.com/v2/braintree.js"}
   :javascript
-    $('#select-payment').click(function(){
-      braintree.setup(
-      // Replace this with a client token from your server
-      "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiI3M2Y5NTdmZjVhNzNiMzdjY2U3ZWY0NzQxZDIwYTRhOTQwNTI3YzVkNjgzNzYxMDQzYmY5M2IyOTVlNjdjM2Q4fGNyZWF0ZWRfYXQ9MjAxNS0xMC0yNVQwODo1NjoxNC4xNzcyNjk3MjErMDAwMFx1MDAyNm1lcmNoYW50X2lkPTM0OHBrOWNnZjNiZ3l3MmJcdTAwMjZwdWJsaWNfa2V5PTJuMjQ3ZHY4OWJxOXZtcHIiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzLzM0OHBrOWNnZjNiZ3l3MmIvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsInRocmVlRFNlY3VyZSI6eyJsb29rdXBVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi90aHJlZV9kX3NlY3VyZS9sb29rdXAifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQWNtZSBXaWRnZXRzLCBMdGQuIChTYW5kYm94KSIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwiYmlsbGluZ0FncmVlbWVudHNFbmFibGVkIjp0cnVlLCJtZXJjaGFudEFjY291bnRJZCI6ImFjbWV3aWRnZXRzbHRkc2FuZGJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJjb2luYmFzZUVuYWJsZWQiOmZhbHNlLCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=",
-      "dropin", {
-        container: "payment-form"
+    var BTclientToken = "";
+    $.ajax({url: '/braintree_client_token'}).done(function(data){
+      BTclientToken = data;
+      braintree.setup(BTclientToken, 'dropin', {container: "payment-form"});
+    });
+    $(function(){
+      $('.buy-now').click(function(){
+        $('#subscribed_plan').val($(this).data('plan-type'));
+        $('#plan-price').text($(this).data('plan'));
+        $('html,body').animate({scrollTop: $(this).offset().top});
+        if ($('#payment-method').is(":visible")) {
+        } else {
+          $('#payment-method').slideDown();
+        }
       });
     });

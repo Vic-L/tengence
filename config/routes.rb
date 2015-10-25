@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
   # braintree
   get "/braintree_client_token", to: 'brain_tree#client_token'
+  get "/upgrade", to: 'brain_tree#upgrade'
+  post "/checkout", to: 'brain_tree#checkout'
 end

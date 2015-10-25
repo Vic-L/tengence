@@ -727,42 +727,42 @@ jQuery(function() {
 
 
 
-/* ==============================================
-    Contact Form
-=============================================== */
-$('#contactform').submit(function(){
+// /* ==============================================
+//     Contact Form
+// =============================================== */
+// $('#contactform').submit(function(){
 
-	'use strict';
+// 	'use strict';
 
-	var action = $(this).attr('action');
+// 	var action = $(this).attr('action');
 
-	$("#message").slideUp(300,function() {
-		$('#message').hide();
+// 	$("#message").slideUp(300,function() {
+// 		$('#message').hide();
 
-		$('#submit')
-			.after('<img src="img/ajax-loader.gif" class="loader" />')
-			.attr('disabled','disabled');
+// 		$('#submit')
+// 			.after('<img src="img/ajax-loader.gif" class="loader" />')
+// 			.attr('disabled','disabled');
 
-		$.post(action, {
-			name: $('#name').val(),
-			email: $('#email').val(),
-			comments: $('#comments').val()
-		},
-			   function(data){
-			document.getElementById('message').innerHTML = data;
-			$('#message').slideDown(300);
-			$('#contactform img.loader').fadeOut('slow',function(){$(this).remove()});
-			$('#submit').removeAttr('disabled');
-			if(data.match('success') != null) $('#contactform').slideUp('slow');
+// 		$.post(action, {
+// 			name: $('#name').val(),
+// 			email: $('#email').val(),
+// 			comments: $('#comments').val()
+// 		},
+// 			   function(data){
+// 			document.getElementById('message').innerHTML = data;
+// 			$('#message').slideDown(300);
+// 			$('#contactform img.loader').fadeOut('slow',function(){$(this).remove()});
+// 			$('#submit').removeAttr('disabled');
+// 			if(data.match('success') != null) $('#contactform').slideUp('slow');
 
-		}
-			  );
+// 		}
+// 			  );
 
-	});
+// 	});
 
-	return false;
+// 	return false;
 
-});
+// });
 
 
 

@@ -8,8 +8,7 @@ class CreateTender < ActiveRecord::Migration
       t.string :buyer_email
       t.text :description
       t.date :published_date
-      t.date :closing_date
-      t.string :closing_time
+      t.datetime :closing_datetime
     end
   end
 end

@@ -7,7 +7,7 @@ end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer
   def sign_up
-    default_params.permit(:name, :email, :company_name, :password, :password_confirmation)
+    default_params.permit(:first_name, :last_name, :email, :company_name, :password, :password_confirmation)
   end
   
   def sign_in

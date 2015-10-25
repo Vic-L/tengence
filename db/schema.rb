@@ -36,11 +36,16 @@ ActiveRecord::Schema.define(version: 20151025054938) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.text     "users",                  limit: 65535
+    t.string   "braintree_customer_id",  limit: 255
+    t.string   "string",                 limit: 255,   default: "", null: false
+    t.string   "first_name",             limit: 255,   default: "", null: false
+    t.string   "last_name",              limit: 255,   default: "", null: false
+    t.string   "company_name",           limit: 255,   default: "", null: false
+    t.text     "keywords",               limit: 65535
+    t.text     "text",                   limit: 65535
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
-    t.string   "name",                   limit: 255,                null: false
-    t.string   "company_name",           limit: 255,                null: false
-    t.text     "keywords",               limit: 65535
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

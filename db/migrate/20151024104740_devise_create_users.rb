@@ -30,6 +30,12 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      # customs
+      t.string :users, :braintree_customer_id, :string, default: nil
+      t.string :users, :first_name, :string, null: false, default: ""
+      t.string :users, :last_name, :string, null: false, default: ""
+      t.string :users, :company_name, :string, null: false, default: ""
+      t.text :users, :keywords, :text
 
       t.timestamps null: false
     end

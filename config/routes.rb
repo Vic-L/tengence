@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   get "/upgrade", to: 'brain_tree#upgrade'
   post "/checkout", to: 'brain_tree#checkout'
 
-  resources :tender, only: [:index]
+  get '/current_tenders', to: 'current_tenders#index', as: :current_tenders
 end

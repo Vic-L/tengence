@@ -1,7 +1,7 @@
 class CreateTender < ActiveRecord::Migration
   def change
-    create_table :tenders do |t|
-      t.string :ref_no
+    create_table :tenders, id: false do |t|
+      t.string :ref_no, :primary_key
       t.string :buyer_company_name
       t.string :buyer_name
       t.string :buyer_contact_number

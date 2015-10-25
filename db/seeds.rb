@@ -1,6 +1,6 @@
 10000.times do
   Tender.create(
-    ref_no: 'Emanuel',
+    ref_no: Faker::Company.ein,
     buyer_company_name: Faker::Company.name,
     buyer_contact_number: Faker::PhoneNumber.phone_number,
     buyer_name: Faker::Name.name,

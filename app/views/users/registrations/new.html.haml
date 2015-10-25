@@ -1,155 +1,116 @@
-!!!
-%html.no-js{:lang => "en"}
-  %head
-    %meta{:charset => "utf-8"}
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-    %title TYGER | Onepage template
-    %link{:href => "/tyger/css/style.css", :rel => "stylesheet"}
-    / color styles - uncomment your preferred
-    %link{:href => "/tyger/css/skins/red.css", :name => "colors", :rel => "stylesheet", :type => "text/css"}
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/orange.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/yellow.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/green.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/blue.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/brown.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/violet.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/purple.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/turquoise.css" name="colors" />
-    -# <link rel="stylesheet" type="text/css" href="/tyger/css/skins/red.css" name="colors" />
-    / Style Switcher Box delete for remove styleswitcher
-    %link{:href => "/tyger/css/styleswitcher.css", :rel => "stylesheet"}
-    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}
-    %link{:href => "http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,200", :rel => "stylesheet", :type => "text/css"}
-    %script{:src => "/tyger/js/vendor/modernizr.js"}
-    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-  %body
-    / start styleswitcher, remove this
-    .switcher
-    / end styleswitcher
-    / Preloader
-    .mask
-      #loader.rotating
-    / /Preloader
-    / start header
-    %header
-      .row
-        .medium-6.small-6.columns.text-align-left
-          / start logo
-          %h1.logo
-            %a{:href => "index.html", :title => ""} Tyger
-          / end logo
-        .medium-6.small-6.columns.text-right
-          / start open/close menu
-          %a#trigger-overlay{:href => "#", :title => ""}
-            %i.icon.tyger-navicon
-          / end open/close menu
-    / end header
-    / start navigation
-    .overlay-menu.overlay-hugeinc
-      %a.overlay-close{:href => "#", :title => ""}
-        %i.icon.tyger-close-empty
-      %nav
-        %ul
-          %li
-            %a.inner-link{:href => "#about"}
-              %span About
-          %li
-            %a.inner-link{:href => "#services"}
-              %span Services
-          %li
-            %a.inner-link{:href => "#team"}
-              %span Team
-          %li
-            %a.inner-link{:href => "blog.html"}
-              %span Blog
-          %li
-            %a.inner-link{:href => "#works"}
-              %span Portfolio
-          %li
-            %a.inner-link{:href => "#contacts"}
-              %span Contacts
-    / end navigation
-    #wrapper
-      / start contacts section
-      %section#contacts
-        .row
-          .medium-3.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-            .title-section
-              %h3 Sign Up
-          -# .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-          -#   .section-desc
-          -#     %h4 Meet our creative people
-          -#     %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
-        .row
-          / start contact form
-          = form_for(resource, as: resource_name, url: registration_path(resource_name), id: 'contactform') do |f|
-            #message= devise_error_messages!
-            .large-6.columns
-              = f.email_field :email, autofocus: true
-            .large-6.column
-              - if @minimum_password_length
-                %em
-                  (#{@minimum_password_length} characters minimum)
-              = f.password_field :password, autocomplete: "off"
-              = f.password_field :password_confirmation, autocomplete: "off"
-            .large-12.columns
-              %textarea#comments{:name => "comments", :placeholder => "Message"}
-            .large-12.columns.text-center
-              %button#submit{:name => "email", :type => "submit"} SEND
-            .large-12.columns.text-center
-              = render "users/shared/links"
-          / end contact form
-      / end contacts section
-      / start section dark
-      %section#map.dark
-        #google-map
-          .subtitle.white
-            %h2
-              Localize Us
-              %span.color .
-            %p Aliquam at feugiat est. Mauris laoreet sapien non liberon bibendum, sit amet volutpat a laoreet.
-          %i.icon.icon-map-1
-          / start map
-          #map_canvas
-          / end map
-      / end section dark
-      / start footer
-      %footer
-        .row
-          .medium-12.text-center.columns
-            %h1.logo
-              %a{:href => "index.html", :title => ""} Tyger
-            .medium-4.columns.medium-centered
-              %ul.medium-block-grid-5.small-block-grid-5.social-links
-                %li
-                  %a{:href => "#", :title => ""}
-                    %i.icon.tyger-skype
-                %li
-                  %a{:href => "#", :title => ""}
-                    %i.icon.tyger-twitter
-                %li
-                  %a{:href => "#", :title => ""}
-                    %i.icon.tyger-facebook
-                %li
-                  %a{:href => "#", :title => ""}
-                    %i.icon.tyger-google-plus
-                %li
-                  %a{:href => "#", :title => ""}
-                    %i.icon.tyger-pinterest
-            %p.white 2014 © Mordorthemes. All rights reserved.
-      / end footer
-    / end #wrapper
-    %script{:src => "/tyger/js/vendor/jquery.js"}
-    %script{:src => "/tyger/js/foundation.min.js"}
-    %script{:src => "/tyger/js/foundation/foundation.accordion.js"}
-    %script{:src => "/tyger/js/plugins.js"}
-    %script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => "text/javascript"}
-    %script{:src => "/tyger/js/jquery.cubeportfolio.min.js"}
-    %script{:src => "/tyger/js/map.js"}
-    %script{:src => "/tyger/js/custom.js"}
-    / Start Style Switcher to remove
-    %script{:src => "/tyger/js/styleswitcher.js"}
-    %script{:src => "/tyger/js/jquery-cookie.js"}
-    / End Style Switcher
-    :javascript
-      $(document).foundation();
+/ start styleswitcher, remove this
+.switcher
+/ end styleswitcher
+/ Preloader
+.mask
+  #loader.rotating
+/ /Preloader
+/ start header
+%header
+  .row
+    .medium-6.small-6.columns.text-align-left
+      / start logo
+      %h1.logo
+        %a{:href => "index.html", :title => ""} Tyger
+      / end logo
+    .medium-6.small-6.columns.text-right
+      / start open/close menu
+      %a#trigger-overlay{:href => "#", :title => ""}
+        %i.icon.tyger-navicon
+      / end open/close menu
+/ end header
+/ start navigation
+.overlay-menu.overlay-hugeinc
+  %a.overlay-close{:href => "#", :title => ""}
+    %i.icon.tyger-close-empty
+  %nav
+    %ul
+      %li
+        %a.inner-link{:href => "#about"}
+          %span About
+      %li
+        %a.inner-link{:href => "#services"}
+          %span Services
+      %li
+        %a.inner-link{:href => "#team"}
+          %span Team
+      %li
+        %a.inner-link{:href => "blog.html"}
+          %span Blog
+      %li
+        %a.inner-link{:href => "#works"}
+          %span Portfolio
+      %li
+        %a.inner-link{:href => "#contacts"}
+          %span Contacts
+/ end navigation
+#wrapper
+  / start contacts section
+  %section#contacts
+    .row
+      .medium-3.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3 Sign Up
+      -# .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+      -#   .section-desc
+      -#     %h4 Meet our creative people
+      -#     %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
+    .row
+      / start contact form
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), id: 'contactform') do |f|
+        #message= devise_error_messages!
+        .large-6.columns
+          = f.email_field :email, autofocus: true
+        .large-6.column
+          - if @minimum_password_length
+            %em
+              (#{@minimum_password_length} characters minimum)
+          = f.password_field :password, autocomplete: "off"
+          = f.password_field :password_confirmation, autocomplete: "off"
+        .large-12.columns
+          %textarea#comments{:name => "comments", :placeholder => "Message"}
+        .large-12.columns.text-center
+          %button#submit{:name => "email", :type => "submit"} SEND
+        .large-12.columns.text-center
+          = render "users/shared/links"
+      / end contact form
+  / end contacts section
+  / start section dark
+  %section#map.dark
+    #google-map
+      .subtitle.white
+        %h2
+          Localize Us
+          %span.color .
+        %p Aliquam at feugiat est. Mauris laoreet sapien non liberon bibendum, sit amet volutpat a laoreet.
+      %i.icon.icon-map-1
+      / start map
+      #map_canvas
+      / end map
+  / end section dark
+  / start footer
+  %footer
+    .row
+      .medium-12.text-center.columns
+        %h1.logo
+          %a{:href => "index.html", :title => ""} Tyger
+        .medium-4.columns.medium-centered
+          %ul.medium-block-grid-5.small-block-grid-5.social-links
+            %li
+              %a{:href => "#", :title => ""}
+                %i.icon.tyger-skype
+            %li
+              %a{:href => "#", :title => ""}
+                %i.icon.tyger-twitter
+            %li
+              %a{:href => "#", :title => ""}
+                %i.icon.tyger-facebook
+            %li
+              %a{:href => "#", :title => ""}
+                %i.icon.tyger-google-plus
+            %li
+              %a{:href => "#", :title => ""}
+                %i.icon.tyger-pinterest
+        %p.white 2014 © Mordorthemes. All rights reserved.
+  / end footer
+/ end #wrapper

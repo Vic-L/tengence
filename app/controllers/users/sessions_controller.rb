@@ -24,7 +24,15 @@ class Users::SessionsController < Devise::SessionsController
   # end
   private
     def respond_to_on_destroy
-      render js: "window.location.reload()"
+      render js: "window.location.href='#{root_path}'"
+    end
+
+    def after_sign_in_path_for(resource_or_scope)
+      if resource_or_scope.braintree_customer_id
+        root_path
+      else
+        upgrade_path
+      end
     end
 
     def after_sign_out_path_for(resource_or_scope)

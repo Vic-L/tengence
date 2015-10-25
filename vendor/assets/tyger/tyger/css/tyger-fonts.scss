@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "tyger";
-  src:url("../fonts/tyger.eot");
-  src:url("../fonts/tyger.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/tyger.woff") format("woff"),
-    url("../fonts/tyger.ttf") format("truetype"),
-    url("../fonts/tyger.svg#tyger") format("svg");
+  src:font-url("tyger.eot");
+  src:font-url("tyger.eot?#iefix") format("embedded-opentype"),
+    font-url("tyger.woff") format("woff"),
+    font-url("tyger.ttf") format("truetype"),
+    font-url("tyger.svg#tyger") format("svg");
   font-weight: normal;
   font-style: normal;
 

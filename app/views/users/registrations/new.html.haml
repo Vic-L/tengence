@@ -51,6 +51,9 @@
       .medium-3.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
           %h3 Sign Up
+      .medium-3.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3 Login
       -# .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
       -#   .section-desc
       -#     %h4 Meet our creative people
@@ -59,35 +62,22 @@
       / start contact form
       = form_for(resource, as: resource_name, url: registration_path(resource_name), id: 'contactform') do |f|
         #message= devise_error_messages!
-        .large-6.columns
-          = f.email_field :email, autofocus: true
-        .large-6.column
-          - if @minimum_password_length
-            %em
-              (#{@minimum_password_length} characters minimum)
-          = f.password_field :password, autocomplete: "off"
-          = f.password_field :password_confirmation, autocomplete: "off"
-        .large-12.columns
-          %textarea#comments{:name => "comments", :placeholder => "Message"}
+        .large-6.column.large-centered
+          = f.text_field :name, autofocus: true, placeholder: 'Name'
+        .large-6.columns.large-centered
+          = f.email_field :email, placeholder: 'Email'
+        .large-6.column.large-centered
+          = f.text_field :company_name, placeholder: 'Company'
+        .large-6.column.large-centered
+          = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
+        .large-6.column.large-centered
+          = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation"
         .large-12.columns.text-center
           %button#submit{:name => "email", :type => "submit"} SEND
         .large-12.columns.text-center
           = render "users/shared/links"
       / end contact form
   / end contacts section
-  / start section dark
-  %section#map.dark
-    #google-map
-      .subtitle.white
-        %h2
-          Localize Us
-          %span.color .
-        %p Aliquam at feugiat est. Mauris laoreet sapien non liberon bibendum, sit amet volutpat a laoreet.
-      %i.icon.icon-map-1
-      / start map
-      #map_canvas
-      / end map
-  / end section dark
   / start footer
   %footer
     .row

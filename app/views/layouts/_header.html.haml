@@ -36,9 +36,10 @@
       %li
         %a.inner-link{:href => "#contacts"}
           %span Contacts
-      %li
-        %a.inner-link{:href => "/upgrade"}
-          %span Upgrade Now
+      - if current_user
+        %li
+          = link_to "#", class: 'inner-link', id: 'sign-out' do
+            %span Sign Out
 / end navigation
 / start styleswitcher, remove this
 .switcher
@@ -47,3 +48,14 @@
 .mask
   #loader.rotating
 / /Preloader
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $('#sign-out').click(function(){
+        $.ajax({
+          url: "#{destroy_user_session_path}",
+          method: 'DELETE'
+        });
+      });
+    });

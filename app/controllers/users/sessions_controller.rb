@@ -22,4 +22,12 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.for(:sign_in) << :attribute
   # end
+  private
+    def respond_to_on_destroy
+      render js: "window.location.reload()"
+    end
+
+    def after_sign_out_path_for(resource_or_scope)
+      root_path
+    end
 end

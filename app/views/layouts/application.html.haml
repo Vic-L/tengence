@@ -11,6 +11,7 @@
     = csrf_meta_tags
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
+    = render 'layouts/header'
     = yield
   
     = javascript_include_tag "application", "data-turbolinks-track" => true

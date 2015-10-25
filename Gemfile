@@ -48,3 +48,4 @@ end
 gem 'devise', '~> 3.5.2'
 gem 'rails_admin', '~> 0.7.0'
 gem 'high_voltage', '~> 2.4.0'
+gem "non-stupid-digest-assets", '~> 1.0.5'

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151025052311) do
+ActiveRecord::Schema.define(version: 20151025054938) do
+
+  create_table "tenders", force: :cascade do |t|
+    t.string "ref_no",               limit: 255
+    t.string "buyer_company_name",   limit: 255
+    t.string "buyer_name",           limit: 255
+    t.string "buyer_contact_number", limit: 255
+    t.string "buyer_email",          limit: 255
+    t.text   "description",          limit: 65535
+    t.date   "published_date"
+    t.date   "closing_date"
+    t.string "closing_time",         limit: 255
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,   default: "", null: false

@@ -36,26 +36,38 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
+    def update_resource(resource, params)
+      if params['password'].blank?
+        resource.update_without_password(params)
+      else
+        resource.update(params)
+        # resource.update_with_password(params) # use this if require current password
+      end
+    end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.for(:sign_up) << :attribute
-  # end
+    def after_update_path_for(resource)
+      edit_user_registration_path(resource)
+    end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.for(:account_update) << :attribute
-  # end
+    # If you have extra params to permit, append them to the sanitizer.
+    # def configure_sign_up_params
+    #   devise_parameter_sanitizer.for(:sign_up) << :attribute
+    # end
 
-  # The path used after sign up.
-  def after_sign_up_path_for(resource)
-    # upgrade_path
-    current_tenders_path
-  end
+    # If you have extra params to permit, append them to the sanitizer.
+    # def configure_account_update_params
+    #   devise_parameter_sanitizer.for(:account_update) << :attribute
+    # end
 
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+    # The path used after sign up.
+    def after_sign_up_path_for(resource)
+      # upgrade_path
+      current_tenders_path
+    end
+
+    # The path used after sign up for inactive accounts.
+    # def after_inactive_sign_up_path_for(resource)
+    #   super(resource)
+    # end
 end

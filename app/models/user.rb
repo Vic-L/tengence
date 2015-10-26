@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer
+  def account_update
+    default_params.permit(:first_name, :last_name, :email, :company_name, :password, :password_confirmation)
+  end
+
   def sign_up
     default_params.permit(:first_name, :last_name, :email, :company_name, :password, :password_confirmation)
   end

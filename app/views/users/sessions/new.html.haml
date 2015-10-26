@@ -17,9 +17,9 @@
           = f.email_field :email, placeholder: 'Email'
         .large-6.column.large-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
-        .large-12.columns.text-center
+        .large-6.columns.large-centered.text-center
           %button#submit{:name => "email", :type => "submit"} Login
-        .large-12.columns.text-center
+        .large-6.columns.large-centered.shared-links
           = render "users/shared/links"
       / end contact form
   / end contacts section

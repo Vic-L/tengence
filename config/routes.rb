@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   post "/checkout", to: 'brain_tree#checkout'
 
   get '/current_tenders', to: 'current_tenders#index', as: :current_tenders
+  get '/past_tenders', to: 'past_tenders#index', as: :past_tenders
 end

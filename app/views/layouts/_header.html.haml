@@ -30,8 +30,8 @@
         %a.inner-link#current-tenders{:href => "#"}
           %span Current Tenders
       %li
-        %a.inner-link{:href => "#services"}
-          %span Services
+        %a.inner-link#past-tenders{:href => "#"}
+          %span Past Tenders
       %li
         %a.inner-link{:href => "#team"}
           %span Team
@@ -75,5 +75,8 @@
       });
       $('#current-tenders').click(function(){
         window.location.href = "#{root_path}";
+      });
+      $('#past-tenders').click(function(){
+        window.location.href = "#{past_tenders_path}";
       });
     });

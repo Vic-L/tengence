@@ -1,7 +1,7 @@
 class CreateTender < ActiveRecord::Migration
   def change
     create_table :tenders, id: false, primary_key: :ref_no do |t|
-      t.string :ref_no, index: true
+      t.string :ref_no
       t.string :buyer_company_name
       t.string :buyer_name
       t.string :buyer_contact_number
@@ -11,6 +11,8 @@ class CreateTender < ActiveRecord::Migration
       t.datetime :closing_datetime
       t.string :external_link, limit: 2083
     end
+
+    add_index :tenders, :ref_no, unique: true
   end
 end
 

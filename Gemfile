@@ -36,7 +36,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'letter_opener'
-  gem 'faker'
 end
 
 group :development do
@@ -47,6 +46,7 @@ group :development do
   gem 'spring'
 end
 
+gem 'faker'
 gem 'devise', '~> 3.5.2'
 gem 'rails_admin', '~> 0.7.0'
 gem 'high_voltage', '~> 2.4.0'

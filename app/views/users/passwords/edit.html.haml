@@ -1,0 +1,22 @@
+#wrapper
+  %section
+    .row
+      .medium-8.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3 Change Password
+      -# .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+      -#   .section-desc
+      -#     %h4 Meet our creative people
+      -#     %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
+    .row
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+        = f.hidden_field :reset_password_token
+        #message= devise_error_messages!
+        .large-6.column.large-centered
+          = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Password (minimum 8 characters)"
+        .large-6.column.large-centered
+          = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation"
+        .large-6.columns.large-centered.text-center
+          %button#submit{:type => "submit"} Change my password
+        .large-6.columns.large-centered.shared-links
+          = render "users/shared/links"

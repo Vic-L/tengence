@@ -29,7 +29,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
   protected
     def after_resetting_password_path_for(resource)
-      new_user_session_path
+      current_tenders_path
     end
 
     # The path used after sending reset password instructions

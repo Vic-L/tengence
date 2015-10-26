@@ -28,12 +28,13 @@
     %i.icon.tyger-close-empty
   %nav
     %ul
-      %li
-        %a.inner-link#current-tenders{:href => "#"}
-          %span Current Tenders
-      %li
-        %a.inner-link#past-tenders{:href => "#"}
-          %span Past Tenders
+      - if current_user
+        %li
+          %a.inner-link#current-tenders{:href => "#"}
+            %span Current Tenders
+        %li
+          %a.inner-link#past-tenders{:href => "#"}
+            %span Past Tenders
       %li
         %a.inner-link{:href => "#team"}
           %span Team

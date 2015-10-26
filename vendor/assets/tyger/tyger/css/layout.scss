@@ -120,7 +120,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1.logo a:link, h1.logo a:visited   {
 	bottom: 4px;
-    color: #fff;
+    color: black;
     font-family: "Montserrat",serif;
     font-size: 1.6rem;
     font-weight: 900;
@@ -182,7 +182,7 @@ header {
 	top: 0;
 	left: 0;
 	width: 100%;
-	background-color: transparent;
+	background-color: white;
 	color: #fff;
 	z-index: 10000;
 	padding: 4px 0px;
@@ -217,13 +217,26 @@ Navigation
 }
 
 #trigger-overlay{
-	color: #fff;
+	color: #000;
     font-size: 50px;
     position: relative;
     top: 7px;
 }
-#trigger-overlay:hover{
-	color:#ff4444;
+
+header h1.logo a:hover,
+header #trigger-overlay:hover{
+	color: #ff4444;
+}
+
+header.shrink h1.logo a:link, 
+header.shrink h1.logo a:visited,
+header.shrink #trigger-overlay {
+	color: white;
+}
+
+header.shrink h1.logo a:hover, 
+header.shrink #trigger-overlay:hover {
+	color: #ff4444;
 }
 
 /* Overlay closing cross */

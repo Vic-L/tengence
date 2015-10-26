@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20151025173536) do
     t.text     "description",          limit: 65535
     t.date     "published_date"
     t.datetime "closing_datetime"
+    t.string   "external_link",        limit: 2083
   end
 
   create_table "past_tenders", id: false, force: :cascade do |t|
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20151025173536) do
     t.text     "description",          limit: 65535
     t.date     "published_date"
     t.datetime "closing_datetime"
+    t.string   "external_link",        limit: 2083
   end
 
   create_table "tenders", id: false, force: :cascade do |t|
@@ -47,6 +49,7 @@ ActiveRecord::Schema.define(version: 20151025173536) do
     t.text     "description",          limit: 65535
     t.date     "published_date"
     t.datetime "closing_datetime"
+    t.string   "external_link",        limit: 2083
   end
 
   create_table "users", force: :cascade do |t|

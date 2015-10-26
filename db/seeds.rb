@@ -7,6 +7,7 @@
     buyer_email: Faker::Internet.email,
     description: Faker::Lorem.sentences(5).join(" "),
     published_date: Faker::Date.between(7.days.ago, Date.today),
-    closing_datetime: Faker::Time.between(DateTime.now, DateTime.now + 7.days)
+    closing_datetime: Faker::Time.between(DateTime.now - 7.days, DateTime.now + 7.days),
+    external_link: Faker::Internet.url
   )
 end

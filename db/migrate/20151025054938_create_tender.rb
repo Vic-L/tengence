@@ -9,6 +9,7 @@ class CreateTender < ActiveRecord::Migration
       t.text :description
       t.date :published_date
       t.datetime :closing_datetime
+      t.string :external_link, limit: 2083
     end
   end
 end

@@ -1,4 +1,6 @@
-10000.times do
+p 'start'
+10000.times do |a|
+  puts a
   Tender.create(
     ref_no: Faker::Company.ein,
     buyer_company_name: Faker::Company.name,

@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20151025173536) do
 
   create_table "current_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
-    t.string   "primary_key",          limit: 255
     t.string   "buyer_company_name",   limit: 255
     t.string   "buyer_name",           limit: 255
     t.string   "buyer_contact_number", limit: 255
@@ -28,7 +27,6 @@ ActiveRecord::Schema.define(version: 20151025173536) do
 
   create_table "past_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
-    t.string   "primary_key",          limit: 255
     t.string   "buyer_company_name",   limit: 255
     t.string   "buyer_name",           limit: 255
     t.string   "buyer_contact_number", limit: 255
@@ -41,7 +39,6 @@ ActiveRecord::Schema.define(version: 20151025173536) do
 
   create_table "tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
-    t.string   "primary_key",          limit: 255
     t.string   "buyer_company_name",   limit: 255
     t.string   "buyer_name",           limit: 255
     t.string   "buyer_contact_number", limit: 255

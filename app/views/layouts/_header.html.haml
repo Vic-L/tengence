@@ -4,7 +4,10 @@
     .medium-6.small-6.columns.text-align-left
       / start logo
       %h1.logo
-        %a{:href => "index.html", :title => ""} Tyger
+        - if current_user
+          %a{:href => "/current_tenders", :title => ""} Tengence
+        - else
+          %a{:href => "/", :title => ""} Tengence
       / end logo
     .medium-6.small-6.columns.text-right
       / start open/close menu
@@ -24,8 +27,8 @@
   %nav
     %ul
       %li
-        %a.inner-link{:href => "#about"}
-          %span About
+        %a.inner-link#current-tenders{:href => "#"}
+          %span Current Tenders
       %li
         %a.inner-link{:href => "#services"}
           %span Services
@@ -69,5 +72,8 @@
       });
       $('#account-settings').click(function(){
         window.location.href = "#{edit_user_registration_path}";
+      });
+      $('#current-tenders').click(function(){
+        window.location.href = "#{root_path}";
       });
     });

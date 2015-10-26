@@ -43,6 +43,10 @@
           %span Contacts
       - if current_user
         %li
+          = link_to "#", class: 'inner-link', id: 'account-settings' do
+            %span Account
+      - if current_user
+        %li
           = link_to "#", class: 'inner-link', id: 'sign-out' do
             %span Sign Out
 / end navigation
@@ -62,5 +66,8 @@
           url: "#{destroy_user_session_path}",
           method: 'DELETE'
         });
+      });
+      $('#account-settings').click(function(){
+        window.location.href = "#{edit_user_registration_path}";
       });
     });

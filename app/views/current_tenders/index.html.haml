@@ -1,13 +1,14 @@
 #wrapper
   %section#search-field
-    .row
-      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-        .title-section
-          %h3 Search
-      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-        .section-desc
-          = form_tag '/current_tenders' do
-            = text_field_tag 'query', params[:query], placeholder: "Search for a keyword"
+    = form_tag '/current_tenders', method: 'get' do
+      .row
+        .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+          .title-section
+            %h3 Search
+        .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+          .section-desc
+            = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+
   %section#curent-tender-results
     .row
       .large-12.column

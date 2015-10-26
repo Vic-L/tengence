@@ -80,4 +80,7 @@ Rails.application.configure do
 
   # Preview rails mailers
   config.action_mailer.delivery_method = :smtp
+
+  # default host
+  config.action_mailer.default_url_options = { host: 'www.alerts.tengence.com.sg' }
 end

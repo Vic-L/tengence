@@ -1,6 +1,5 @@
 #wrapper
-  / start contacts section
-  %section#contacts
+  %section
     .row
       .medium-3.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
@@ -11,19 +10,17 @@
       -#     %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
     .row
       / start contact form
-      = form_for(resource, as: resource_name, url: session_path(resource_name), id: 'contactform') do |f|
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         #message= devise_error_messages!
         .large-6.column.large-centered
           = f.email_field :email, placeholder: 'Email'
         .large-6.column.large-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
         .large-6.columns.large-centered.text-center
-          %button#submit{:name => "email", :type => "submit"} Login
+          %button#submit{:type => "submit"} Login
         .large-6.columns.large-centered.shared-links
           = render "users/shared/links"
-      / end contact form
-  / end contacts section
-  / start footer
+
   %footer
     .row
       .medium-12.text-center.columns
@@ -47,5 +44,3 @@
               %a{:href => "#", :title => ""}
                 %i.icon.tyger-pinterest
         %p.white 2014 © Mordorthemes. All rights reserved.
-  / end footer
-/ end #wrapper

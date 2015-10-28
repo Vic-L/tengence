@@ -8,9 +8,9 @@ class CurrentTendersController < ApplicationController
       results_ref_nos = results.hits.hit.map do |result|
         result.fields["ref_no"][0]
       end
-      @tenders = CurrentTender.where(ref_no: results_ref_nos)
+      @tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
     else
-      @tenders = CurrentTender.order(closing_datetime: :desc).page(params[:page])
+      @tenders = CurrentTender.includes(:users).order(closing_datetime: :desc).page(params[:page])
     end
   end
 end

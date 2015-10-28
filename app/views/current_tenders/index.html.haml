@@ -35,8 +35,11 @@
                   = tender.closing_datetime.strftime('%H:%M %p')
                 %td.medium-2
                   = tender.buyer_name_and_company
-                %td.medium-1
-                  Watch
+                %td.medium-1{id: "watch-tender-#{tender.ref_no}"}
+                  - if tender.users.include? current_user
+                    Watched
+                  - else
+                    = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
                 %td.medium-1
                   More Details
             

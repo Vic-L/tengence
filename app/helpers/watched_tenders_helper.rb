@@ -1,0 +1,2 @@
+module WatchedTendersHelper
+end

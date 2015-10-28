@@ -3,7 +3,7 @@ class CurrentTender < ActiveRecord::Base
   after_initialize :readonly!
   paginates_per 50
 
-  has_many :watched_tenders
+  has_many :watched_tenders, foreign_key: :tender_id
   has_many :users, through: :watched_tenders 
 
   default_scope { order(closing_datetime: :desc) }

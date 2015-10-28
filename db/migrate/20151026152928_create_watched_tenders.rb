@@ -1,8 +1,8 @@
 class CreateWatchedTenders < ActiveRecord::Migration
   def change
     create_table :watched_tenders do |t|
-      t.references :users, index: true
-      t.references :tenders, index: true
+      t.references :user, index: true
+      t.string :tender_id, index: true
 
       t.timestamps
     end

@@ -79,13 +79,13 @@ ActiveRecord::Schema.define(version: 20151026152928) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "watched_tenders", force: :cascade do |t|
-    t.integer  "users_id",   limit: 4
-    t.integer  "tenders_id", limit: 4
+    t.integer  "user_id",    limit: 4
+    t.string   "tender_id",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "watched_tenders", ["tenders_id"], name: "index_watched_tenders_on_tenders_id", using: :btree
-  add_index "watched_tenders", ["users_id"], name: "index_watched_tenders_on_users_id", using: :btree
+  add_index "watched_tenders", ["tender_id"], name: "index_watched_tenders_on_tender_id", using: :btree
+  add_index "watched_tenders", ["user_id"], name: "index_watched_tenders_on_user_id", using: :btree
 
 end

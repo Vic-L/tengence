@@ -1,6 +1,6 @@
 class AlertsMailer < ApplicationMailer
   self.smtp_settings = {
-    :host => ENV['MAIL_ADDRESS'],
+    :address => ENV['MAIL_ADDRESS'],
     :port => 587,
     :user_name => ENV['MAIL_USERNAME'],
     :password => ENV['MAIL_PASSWORD'],

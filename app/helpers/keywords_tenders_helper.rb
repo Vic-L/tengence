@@ -1,0 +1,2 @@
+module KeywordsTendersHelper
+end

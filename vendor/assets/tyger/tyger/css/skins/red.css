@@ -16,9 +16,9 @@ a.slider-link:link, a.slider-link:visited, a.link-btn span, .button, button#subm
 }
 
 /* selected link on menu */
-li.active a{
+/*li.active a{
 	color:#ff4444 !important;
-}
+}*/
 
 /* filter counter in portfolio */
 .cbp-l-filters-alignCenter .cbp-filter-counter::before {

@@ -37,5 +37,7 @@
                 %td.medium-2
                   = tender.buyer_company_name
                 %td.medium-1
-                  More Details
+                  = link_to "More", tender_path(id: tender), remote: true
+
+#view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
             

@@ -35,18 +35,21 @@
         %li
           %a.inner-link#past-tenders{:href => "#"}
             %span Past Tenders
-      %li
-        %a.inner-link{:href => "#team"}
-          %span Team
-      %li
-        %a.inner-link{:href => "blog.html"}
-          %span Blog
-      %li
-        %a.inner-link{:href => "#works"}
-          %span Portfolio
-      %li
-        %a.inner-link{:href => "#contacts"}
-          %span Contacts
+        %li
+          %a.inner-link#watched-tenders{:href => "#"}
+            %span Watched Tenders
+      -# %li
+      -#   %a.inner-link{:href => "#team"}
+      -#     %span Team
+      -# %li
+      -#   %a.inner-link{:href => "blog.html"}
+      -#     %span Blog
+      -# %li
+      -#   %a.inner-link{:href => "#works"}
+      -#     %span Portfolio
+      -# %li
+      -#   %a.inner-link{:href => "#contacts"}
+      -#     %span Contacts
       - if current_user
         %li
           = link_to "#", class: 'inner-link', id: 'account-settings' do
@@ -88,6 +91,9 @@
       });
       $('#past-tenders').click(function(){
         window.location.href = "#{past_tenders_path}";
+      });
+      $('#watched-tenders').click(function(){
+        window.location.href = "#{watched_tenders_path}";
       });
       $('#sign-up').click(function(){
         window.location.href = "#{new_user_registration_path}";

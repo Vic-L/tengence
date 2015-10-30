@@ -41,4 +41,37 @@ class AwsManager
       start: 1
     })
   end
+
+  def self.watched_tenders_search keyword, ref_nos_array
+    if ref_nos_array.blank?
+      fq = ""
+    else
+      fq = "(or"
+      ref_nos_array.each do |ref_no|
+        fq += " ref_no:'#{ref_no}'"
+      end
+      fq += ")"
+      "(or actors:'Alec Guinness' actors:'Harrison Ford' actors:'James Earl Jones')"
+    end
+
+    client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_ENDPOINT'])
+    resp = client.search({
+      # cursor: "initial",
+      # expr: "Expr",
+      # facet: "Facet",
+      filter_query: "fq",
+      # highlight: "Highlight",
+      # partial: true,
+      query: keyword, # required
+      query_options: {
+        fields: ['description'],
+        operators: ['and','escape','fuzzy','near','not','or','phrase','precedence','prefix']
+      }.to_json,
+      query_parser: "simple", # accepts simple, structured, lucene, dismax
+      'return': ['description', 'ref_no'].join(','),
+      size: 100,
+      # sort: "Sort",
+      start: 1
+    })
+  end
 end

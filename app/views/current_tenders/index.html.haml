@@ -14,18 +14,17 @@
       .large-12.column
         %table#results-table{role: 'grid'}
           %thead
-            %th.row
-              %th.medium-5 Description
-              %th.medium-1 Published Date
-              %th.medium-1 Closing Date
-              %th.medium-1 Closing Time
-              %th.medium-2 Buyer (Name & Company)
-              %th.medium-1 Watch
-              %th.medium-1 More Details
+            %th.medium-4 Description
+            %th.medium-1 Published Date
+            %th.medium-1 Closing Date
+            %th.medium-1 Closing Time
+            %th.medium-2 Buyer
+            %th.medium-2 Buyer Company
+            %th.medium-1 Action
           %tbody
             - @tenders.each do |tender|
-              %tr.row
-                %td.medium-5
+              %tr
+                %td.medium-3
                   = tender.description
                 %td.medium-1
                   = tender.published_date
@@ -34,12 +33,14 @@
                 %td.medium-1
                   = tender.closing_datetime.strftime('%H:%M %p')
                 %td.medium-2
-                  = tender.buyer_name_and_company
-                %td.medium-1{id: "watch-tender-#{tender.ref_no}"}
-                  - if tender.users.include? current_user
-                    Watched
-                  - else
-                    = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
+                  = tender.buyer_name
+                %td.medium-2
+                  = tender.buyer_company_name
                 %td.medium-1
+                  %div{id: "watch-tender-#{tender.ref_no}"}
+                    - if tender.users.include? current_user
+                      Watched
+                    - else
+                      = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
                   More Details
             

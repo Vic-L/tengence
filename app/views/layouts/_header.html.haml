@@ -39,6 +39,9 @@
           %a.inner-link#watched-tenders{:href => "#"}
             %span Watched Tenders
         %li
+          %a.inner-link#keywords-tenders{:href => "#"}
+            %span Keywords Tenders
+        %li
           %a.inner-link#my-keywords{:href => "#"}
             %span My Keywords
         %li
@@ -95,6 +98,9 @@
       });
       $('#watched-tenders').click(function(){
         window.location.href = "#{watched_tenders_path}";
+      });
+      $('#keywords-tenders').click(function(){
+        window.location.href = "#{keywords_tenders_path}";
       });
       $('#my-keywords').click(function(){
         window.location.href = "#{keywords_user_path}";

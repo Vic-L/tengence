@@ -15,4 +15,9 @@ Rails.application.routes.draw do
   get '/past_tenders', to: 'past_tenders#index', as: :past_tenders
 
   resources :watched_tenders
+
+  resource :user do
+    get 'keywords', to: 'users/keywords#edit'
+    post 'keywords', to: 'users/keywords#update'
+  end
 end

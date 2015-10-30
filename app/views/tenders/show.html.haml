@@ -1,0 +1,44 @@
+#wrapper
+  .row
+    .large-8.column.main
+      .row
+        .large-12.column
+          .header Reference No
+        .large-12.column
+          = @tender.ref_no
+      .row
+        .large-12.column
+          .header Buyer Company Name
+        .large-12.column
+          = @tender.buyer_company_name
+      .row
+        .large-12.column
+          .header Description
+        .large-12.column
+          = @tender.description
+      .row
+        .large-12.column
+          .header Published Date
+        .large-12.column
+          = @tender.published_date.strftime("%A, %b %d")
+      .row
+        .large-12.column
+          .header Closing Date & Time
+        .large-12.column
+          = @tender.closing_datetime.strftime("%A, %b %d %H:%M:%S")
+    .large-4.column
+      .row
+        .large-12.column
+          .header Buyer Name
+        .large-12.column
+          = @tender.buyer_name
+      .row
+        .large-12.column
+          .header Buyer Contact Number
+        .large-12.column
+          = @tender.buyer_contact_number
+      .row
+        .large-12.column
+          .header Buyer Email
+        .large-12.column
+          = @tender.buyer_email

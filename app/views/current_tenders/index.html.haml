@@ -44,6 +44,6 @@
                       = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
                   %br
                   %div
-                    = link_to "More", tender_path(id: tender), remote: true
+                    = link_to "More", tender_path(id: tender)
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

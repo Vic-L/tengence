@@ -108,13 +108,21 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
     .table269 img {width: 100%!important;}
         
     }
+    .table-with-border {
+      border: 1px solid #b2b2b2;
+    }
+    .table-with-border th,
+    .table-with-border td {
+      border: 1px solid #b2b2b2;
+      padding: 5px;
+    }
 } </style>
 
 <!-- Wrapper 5 (Banner + 2 Column) -->
 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full" >
   <tbody>
     <tr mc:repeatable>
-      <td width="100%" valign="top" bgcolor="#f8f8f8" style="background-color: rgb(248, 248, 248);">
+      <td width="100%" valign="top" bgcolor="#f8f8f8" style="background-color: rgb(255, 255, 255);">
           <div mc:hideable>
             
             <!-- Wrapper -->
@@ -147,6 +155,13 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                 <tr>
                                   <td valign="middle" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(0,0,0); line-height: 22px;"mc:edit="11">
                                     <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->
+                                    <table width="600" border="0" cellpadding="0" cellspacing="0" align="left" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
+                                      <tr>
+                                        <td valign="middle" width="100%" style="text-align: right;">
+                                        <%= @date %> | <%= @count %> tenders found
+                                        </td>
+                                      </tr>
+                                    </table>
                                     <%= "Dear #{@user.first_name}," %>
                                     
                                     <br>
@@ -156,12 +171,28 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                     
                                     <br>
                                     <br>
-                                    
-                                    <% @tenders.each do |tender| %>
-                                      <%= tender.description %>
-                                      <br>
-                                    <% end %>
 
+                                    <table width="600" class="full table-with-border" cellspacing="0" bgcolor="#f1f1f1" style="background-color: rgb(241, 241, 241);">
+                                      <thead>
+                                        <th>Reference No.</th>
+                                        <th>Buyer</th>
+                                        <th>Closing Date</th>
+                                        <th>Closing Time</th>
+                                        <th>Action</th>
+                                      </thead>
+                                      <tbody>
+                                        <% @tenders.each do |tender| %>
+                                          <tr>
+                                            <td><%= tender.ref_no %></td>
+                                            <td><%= tender.buyer_company_name %></td>
+                                            <td><%= tender.closing_datetime.strftime('%a, %e %b %Y') %></td>
+                                            <td><%= tender.closing_datetime.strftime('%H:%M %p') %></td>
+                                            <td><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
+                                          </tr>
+                                        <% end %>
+                                      </tbody>
+                                    </table>
+                                    
                                     <br>
 
                                   </td>

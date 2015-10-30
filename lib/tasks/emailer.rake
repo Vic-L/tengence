@@ -14,7 +14,7 @@ namespace :emailer do
       end
       results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
       next if results_ref_nos.blank?
-      AlertsMailer.alert_mail(user.id, results_ref_nos).deliver_now
+      AlertsMailer.alert_mail(user.id, results_ref_nos, results_ref_nos.size).deliver_now
     end
   end
 end

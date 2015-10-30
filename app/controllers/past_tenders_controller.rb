@@ -10,7 +10,7 @@ class PastTendersController < ApplicationController
       end
       @tenders = PastTender.where(ref_no: results_ref_nos)
     else
-      @tenders = PastTender.order(closing_datetime: :desc).page(params[:page])
+      @tenders = PastTender.order(closing_datetime: :desc)
     end
   end
 end

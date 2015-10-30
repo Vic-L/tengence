@@ -10,7 +10,7 @@ class CurrentTendersController < ApplicationController
       end
       @tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
     else
-      @tenders = CurrentTender.includes(:users).order(closing_datetime: :desc).page(params[:page])
+      @tenders = CurrentTender.includes(:users)
     end
   end
 end

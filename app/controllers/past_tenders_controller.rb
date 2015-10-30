@@ -8,9 +8,9 @@ class PastTendersController < ApplicationController
       results_ref_nos = results.hits.hit.map do |result|
         result.fields["ref_no"][0]
       end
-      @tenders = PastTender.where(ref_no: results_ref_nos)
+      @tenders = PastTender.where(ref_no: results_ref_nos).page(params[:page]).per(50)
     else
-      @tenders = PastTender.order(closing_datetime: :desc)
+      @tenders = PastTender.page(params[:page]).per(50)
     end
   end
 end

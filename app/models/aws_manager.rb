@@ -42,7 +42,7 @@ class AwsManager
     })
   end
 
-  def self.watched_tenders_search keyword, ref_nos_array
+  def self.watched_tenders_search keyword, ref_nos_array=nil
     if ref_nos_array.blank?
       fq = ""
     else

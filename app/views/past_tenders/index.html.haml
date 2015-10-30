@@ -14,18 +14,17 @@
       .large-12.column
         %table#results-table{role: 'grid'}
           %thead
-            %th.row
-              %th.medium-5 Description
-              %th.medium-1 Published Date
-              %th.medium-1 Closing Date
-              %th.medium-1 Closing Time
-              %th.medium-2 Buyer
-              %th.medium-2 Buyer Company
-              %th.medium-1 More Details
+            %th.medium-4 Description
+            %th.medium-1 Published Date
+            %th.medium-1 Closing Date
+            %th.medium-1 Closing Time
+            %th.medium-2 Buyer
+            %th.medium-2 Buyer Company
+            %th.medium-1 Action
           %tbody
             - @tenders.each do |tender|
-              %tr.row
-                %td.medium-5
+              %tr
+                %td.medium-4
                   = tender.description
                 %td.medium-1
                   = tender.published_date

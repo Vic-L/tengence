@@ -1,11 +1,13 @@
 class KeywordsValidator < ActiveModel::Validator
   def validate(user)
-    case user.subscribed_plan
-    when "free"
-      user.errors[:keywords] << "can't be more than #{FREE_PLAN_KEYWORDS_LIMIT}" if user.keywords.split(",").count > FREE_PLAN_KEYWORDS_LIMIT
-    when "standard"
-      user.errors[:keywords] << "can't be more than #{STANDARD_PLAN_KEYWORDS_LIMIT}" if user.keywords.split(",").count > STANDARD_PLAN_KEYWORDS_LIMIT
-    when "elite"
+    if user.keywords
+      case user.subscribed_plan
+      when "free"
+        user.errors[:keywords] << "can't be more than #{FREE_PLAN_KEYWORDS_LIMIT}" if user.keywords.split(",").count > FREE_PLAN_KEYWORDS_LIMIT
+      when "standard"
+        user.errors[:keywords] << "can't be more than #{STANDARD_PLAN_KEYWORDS_LIMIT}" if user.keywords.split(",").count > STANDARD_PLAN_KEYWORDS_LIMIT
+      when "elite"
+      end
     end
   end
 end

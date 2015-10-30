@@ -1,0 +1,61 @@
+#wrapper
+  %section#search-field
+    = form_tag '/current_tenders', method: 'get' do
+      .row
+        .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+          .title-section
+            %h3 Search
+        .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+          .section-desc
+            = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+
+  %section#tender-results
+    .row
+      .large-12.column
+        %table#results-table{role: 'grid'}
+          %thead
+            %th.medium-4 Description
+            %th.medium-1 Published Date
+            %th.medium-1 Closing Date
+            %th.medium-1 Closing Time
+            %th.medium-2 Buyer
+            %th.medium-2 Buyer Company
+            %th.medium-1 Actions
+          %tbody
+            - @current_watched_tenders.each do |tender|
+              %tr.current_tenders
+                %td.medium-4
+                  = tender.description
+                %td.medium-1
+                  = tender.published_date
+                %td.medium-1
+                  = tender.closing_datetime.strftime('%a, %e %b %Y')
+                %td.medium-1
+                  = tender.closing_datetime.strftime('%H:%M %p')
+                %td.medium-2
+                  = tender.buyer_name
+                %td.medium-2
+                  = tender.buyer_company_name
+                %td.medium-1
+                  %div{id: "watch-tender-#{tender.ref_no}"}
+                    Watched
+                  More Details
+            - @past_watched_tenders.each do |tender|
+              %tr.current_tenders
+                %td.medium-4
+                  = tender.description
+                %td.medium-1
+                  = tender.published_date
+                %td.medium-1
+                  = tender.closing_datetime.strftime('%a, %e %b %Y')
+                %td.medium-1
+                  = tender.closing_datetime.strftime('%H:%M %p')
+                %td.medium-2
+                  = tender.buyer_name
+                %td.medium-2
+                  = tender.buyer_company_name
+                %td.medium-1
+                  %div{id: "watch-tender-#{tender.ref_no}"}
+                    Watched
+                  More Details
+            

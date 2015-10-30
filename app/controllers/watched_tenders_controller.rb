@@ -19,4 +19,9 @@ class WatchedTendersController < ApplicationController
   def create
     @watched_tender = WatchedTender.create(user_id: current_user.id, tender_id: params[:ref_no])
   end
+
+  def destroy
+    @tender = Tender.find(params[:id])
+    WatchedTender.find_by(tender_id: params[:id]).destroy
+  end
 end

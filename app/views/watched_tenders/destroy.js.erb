@@ -1,0 +1,1 @@
+$("#watch-tender-<%= @tender.ref_no %>").empty().append("<%= j link_to 'Watch', watched_tenders_path(ref_no: @tender.ref_no), method: 'post', remote: true %>");

@@ -1,1 +1,1 @@
-$("#watch-tender-<%= @watched_tender.tender_id %>").text("Watched");
+$("#watch-tender-<%= @watched_tender.tender_id %>").empty().append("<%= j link_to 'Unwatch', watched_tender_path(id: @watched_tender.tender_id), method: 'delete', remote: true %>");

@@ -39,7 +39,7 @@
                 %td.medium-1
                   %div{id: "watch-tender-#{tender.ref_no}"}
                     - if tender.users.include? current_user
-                      Watched
+                      = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true
                     - else
                       = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
                   More Details

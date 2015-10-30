@@ -51,7 +51,6 @@ class AwsManager
         fq += " ref_no:'#{ref_no}'"
       end
       fq += ")"
-      "(or actors:'Alec Guinness' actors:'Harrison Ford' actors:'James Earl Jones')"
     end
 
     client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_ENDPOINT'])
@@ -59,7 +58,7 @@ class AwsManager
       # cursor: "initial",
       # expr: "Expr",
       # facet: "Facet",
-      filter_query: "fq",
+      filter_query: fq,
       # highlight: "Highlight",
       # partial: true,
       query: keyword, # required

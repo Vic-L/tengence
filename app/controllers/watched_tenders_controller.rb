@@ -3,7 +3,7 @@ class WatchedTendersController < ApplicationController
 
   def index
     if params['query']
-      results = AwsManager.watched_tenders_search(params['query'],current_user.watched_tenders.pluck(&:ref_no))
+      results = AwsManager.watched_tenders_search(params['query'],current_user.watched_tenders.pluck(:tender_id))
       @results_count = results.hits.found
       results_ref_nos = results.hits.hit.map do |result|
         result.fields["ref_no"][0]

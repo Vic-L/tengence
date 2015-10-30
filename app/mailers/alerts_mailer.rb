@@ -10,8 +10,10 @@ class AlertsMailer < ApplicationMailer
   default from: "Tengence <tengencesingapore@gmail.com>"
   default reply_to: "tengencesingapore@gmail.com"
 
-  def alert_mail user_id
+  def alert_mail user_id, ref_nos_array
     @user = User.find(user_id)
-    mail(to: @user.email, subject: "Tengence Alerts #{Time.now.in_time_zone('Asia/Singapore').to_date.yesterday}", :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
+    @tenders = Tender.where(ref_no: ref_nos_array)
+    mail(to: @user.email, subject: "Tengence Alerts #{Time.now.in_time_zone('Asia/Singapore').to_date.yesterday}")
+    # , :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
   end
 end

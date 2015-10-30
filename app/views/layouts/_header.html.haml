@@ -38,6 +38,22 @@
         %li
           %a.inner-link#watched-tenders{:href => "#"}
             %span Watched Tenders
+        %li
+          %a.inner-link#my-keywords{:href => "#"}
+            %span My Keywords
+        %li
+          = link_to "#", class: 'inner-link', id: 'account-settings' do
+            %span Account
+        %li
+          = link_to "#", class: 'inner-link', id: 'sign-out' do
+            %span Sign Out
+      - else
+        %li
+          = link_to "#", class: 'inner-link', id: 'sign-up' do
+            %span Sign Up
+        %li
+          = link_to "#", class: 'inner-link', id: 'login' do
+            %span Login
       -# %li
       -#   %a.inner-link{:href => "#team"}
       -#     %span Team
@@ -50,21 +66,6 @@
       -# %li
       -#   %a.inner-link{:href => "#contacts"}
       -#     %span Contacts
-      - if current_user
-        %li
-          = link_to "#", class: 'inner-link', id: 'account-settings' do
-            %span Account
-      - if current_user
-        %li
-          = link_to "#", class: 'inner-link', id: 'sign-out' do
-            %span Sign Out
-      - else
-        %li
-          = link_to "#", class: 'inner-link', id: 'sign-up' do
-            %span Sign Up
-        %li
-          = link_to "#", class: 'inner-link', id: 'login' do
-            %span Login
 / end navigation
 / start styleswitcher, remove this
 .switcher
@@ -94,6 +95,9 @@
       });
       $('#watched-tenders').click(function(){
         window.location.href = "#{watched_tenders_path}";
+      });
+      $('#my-keywords').click(function(){
+        window.location.href = "#{keywords_user_path}";
       });
       $('#sign-up').click(function(){
         window.location.href = "#{new_user_registration_path}";

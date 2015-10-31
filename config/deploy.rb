@@ -35,6 +35,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :keep_releases, 5
 
 load "lib/capistrano/nginx.rb"
+load "lib/capistrano/rails.rb"
+load "lib/capistrano/whenever.rb"
 
 namespace :deploy do
   after "deploy", "deploy:restart"

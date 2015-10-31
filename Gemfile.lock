@@ -65,6 +65,8 @@ GEM
     capistrano-thin (1.1.1)
       capistrano (~> 3.0)
       thin (~> 1.6)
+    capistrano3-nginx (2.1.4)
+      capistrano (>= 3.0.0)
     celluloid (0.17.2)
       celluloid-essentials
       celluloid-extras
@@ -277,8 +279,9 @@ DEPENDENCIES
   capistrano (~> 3.4.0)
   capistrano-bundler (~> 1.1.2)
   capistrano-ext (~> 1.2.1)
-  capistrano-rvm
+  capistrano-rvm (~> 0.1.2)
   capistrano-thin (~> 1.1.0)
+  capistrano3-nginx (~> 2.0)
   coffee-rails (~> 4.1.0)
   devise (~> 3.5.2)
   dotenv-rails (~> 2.0.2)

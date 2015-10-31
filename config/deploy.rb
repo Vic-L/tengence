@@ -20,7 +20,7 @@ set :deploy_to, '/var/www/tengence_alerts'
 # set :log_level, :debug
 
 # Default value for :pty is false
-# set :pty, true
+set :pty, false # false for sidekiq to work
 
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/sidekiq.yml', '.env', 'public/robots.txt', 'config/thin/production.yml')

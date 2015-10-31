@@ -51,6 +51,7 @@ group :development do
   gem 'capistrano3-nginx', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rails-console', '~> 1.0.0'
+  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
 end
 
 gem 'faker', '~> 1.5.0'

@@ -33,7 +33,7 @@ set :nginx_service_path, "/etc/init.d/nginx"
 
 # Path where to look for static files
 # default value: "public"
-# set :nginx_static_dir, "my_static_folder"
+set :nginx_static_dir, "#{shared_path}/public"
 
 # Path where nginx available site are stored
 # default value: "/etc/nginx/sites-available"

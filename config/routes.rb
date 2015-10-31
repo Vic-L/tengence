@@ -22,4 +22,9 @@ Rails.application.routes.draw do
     get 'keywords', to: 'users/keywords#edit'
     post 'keywords', to: 'users/keywords#update'
   end
+
+  require 'sidekiq/web'
+  authenticate :user, lambda { |u| u.email == "vljc17@gmail.com" } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

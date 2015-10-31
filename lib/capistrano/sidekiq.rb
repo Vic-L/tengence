@@ -12,4 +12,4 @@
 # :sidekiq_processes =>  1
 # :sidekiq_concurrency => nil
 set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
-set :sidekiq_queue, ['default', 'mailer']
+set :sidekiq_queue, ['default', 'mailers']

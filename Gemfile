@@ -49,6 +49,9 @@ group :development do
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-thin', '~> 1.1.0'
   gem 'capistrano3-nginx', '~> 2.0'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-faster-assets', '~> 1.0'
+  gem 'capistrano-rails-console', '~> 1.0.0'
 end
 
 gem 'faker'

@@ -59,8 +59,6 @@ GEM
       sshkit (~> 1.2)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    capistrano-faster-assets (1.0.2)
-      capistrano (>= 3.1)
     capistrano-rails (1.1.5)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -286,7 +284,6 @@ DEPENDENCIES
   capistrano (~> 3.4.0)
   capistrano-bundler (~> 1.1.2)
   capistrano-ext (~> 1.2.1)
-  capistrano-faster-assets (~> 1.0)
   capistrano-rails (~> 1.1)
   capistrano-rails-console (~> 1.0.0)
   capistrano-rvm (~> 0.1.2)
@@ -295,7 +292,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise (~> 3.5.2)
   dotenv-rails (~> 2.0.2)
-  faker
+  faker (~> 1.5.0)
   high_voltage (~> 2.4.0)
   jbuilder (~> 2.0)
   jquery-rails

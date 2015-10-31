@@ -50,11 +50,10 @@ group :development do
   gem 'capistrano-thin', '~> 1.1.0'
   gem 'capistrano3-nginx', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1'
-  gem 'capistrano-faster-assets', '~> 1.0'
   gem 'capistrano-rails-console', '~> 1.0.0'
 end
 
-gem 'faker'
+gem 'faker', '~> 1.5.0'
 gem 'devise', '~> 3.5.2'
 gem 'rails_admin', '~> 0.7.0'
 gem 'high_voltage', '~> 2.4.0'

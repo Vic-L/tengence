@@ -47,6 +47,7 @@ group :development do
   gem 'capistrano-ext', '~> 1.2.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rvm'
+  gem 'capistrano-thin', '~> 1.1.0'
 end
 
 gem 'faker'

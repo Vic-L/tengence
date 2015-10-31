@@ -15,4 +15,3 @@
 .rvmrc
 database.yml
 .env
-Gemfile.lock

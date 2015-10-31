@@ -1,7 +1,7 @@
 namespace :emailer do
   task :schedule_send_keywords_tenders_emails => :environment do
     new_tenders_ref_nos_array = CurrentTender.where(published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
-    break if new_tenders_ref_nos_array.blank?
+    return nil if new_tenders_ref_nos_array.blank?
     User.all.each do |user|
       begin
         results_ref_nos = []

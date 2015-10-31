@@ -24,6 +24,6 @@ def local(time)
   TZInfo::Timezone.get("Asia/Singapore").local_to_utc(Time.parse(time))
 end
 
-every :day, :at => local('3:00am'), :tz => 'Asia/Singapore' do
+every :day, :at => local('11:30pm'), :tz => 'Asia/Singapore' do
   rake "emailer:schedule_send_keywords_tenders_emails"
 end

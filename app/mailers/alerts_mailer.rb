@@ -15,6 +15,7 @@ class AlertsMailer < ApplicationMailer
     @count = tenders_count
     @tenders = Tender.where(ref_no: ref_nos_array)
     @date = Time.now.in_time_zone('Asia/Singapore').to_date.yesterday
-    mail(to: @user.email, subject: "Tengence Alerts #{@date}", :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
+    mail(to: @user.email, subject: "Tengence Alerts #{@date}")
+      # , :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
   end
 end

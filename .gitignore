@@ -13,5 +13,10 @@
 /tmp
 .DS_Store
 .rvmrc
+
+# under linked files(capistrano)
 database.yml
 .env
+robots.txt
+sidekiq.yml
+config/thin/production.yml

@@ -1,3 +1,7 @@
+require Rails.root.join('lib', 'rails_admin', 'send_emailer_now.rb')
+
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendEmailerNow)
+
 RailsAdmin.config do |config|
 
   ### Popular gems integration
@@ -26,6 +30,8 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+
+    send_emailer_now              #custom for user only
 
     ## With an audit adapter, you can add:
     # history_index

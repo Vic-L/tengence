@@ -6,8 +6,8 @@
           %a{:href => "/current_tenders", :title => ""} Tengence
         - else
           %a{:href => "/", :title => ""} Tengence
-    .medium-9.small-6.columns.text-center
-      - if current_user
+    - if current_user
+      .medium-9.small-6.columns.text-center
         .shortcut
           = link_to "Current Tenders", current_tenders_path
           |
@@ -18,7 +18,8 @@
           = link_to "Keywords Tenders", keywords_tenders_path
           %a#trigger-overlay{:href => "#", :title => ""}
             %i.icon.tyger-navicon
-      - else
+    - else
+      .medium-9.small-6.columns.text-right
         %a#trigger-overlay{:href => "#", :title => ""}
           %i.icon.tyger-navicon
 - flash.each do |name, msg|

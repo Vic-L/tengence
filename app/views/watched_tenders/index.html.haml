@@ -33,9 +33,9 @@
                   %td.medium-4
                     = tender.description
                   %td.medium-1
-                    = tender.published_date
+                    = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
                   %td.medium-1
-                    = tender.closing_datetime.strftime('%a, %e %b %Y')
+                    = "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}"
                   %td.medium-1
                     = tender.closing_datetime.strftime('%H:%M %p')
                   %td.medium-2
@@ -56,9 +56,9 @@
                   %td.medium-4
                     = tender.description
                   %td.medium-1
-                    = tender.published_date
+                    = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
                   %td.medium-1
-                    = tender.closing_datetime.strftime('%a, %e %b %Y')
+                    = "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}"
                   %td.medium-1
                     = tender.closing_datetime.strftime('%H:%M %p')
                   %td.medium-2

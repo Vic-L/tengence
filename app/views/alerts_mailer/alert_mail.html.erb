@@ -184,7 +184,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                           <tr>
                                             <td><%= tender.ref_no %></td>
                                             <td><%= tender.buyer_company_name %></td>
-                                            <td><%= tender.closing_datetime.strftime('%a, %e %b %Y') %></td>
+                                            <td><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                             <td><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
                                           </tr>
                                         <% end %>

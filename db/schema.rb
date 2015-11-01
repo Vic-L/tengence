@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026152928) do
+ActiveRecord::Schema.define(version: 20151101065145) do
 
   create_table "current_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151026152928) do
     t.date     "published_date"
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
+    t.string   "status",               limit: 255,   default: "active"
   end
 
   add_index "tenders", ["ref_no"], name: "index_tenders_on_ref_no", unique: true, using: :btree

@@ -667,7 +667,7 @@ jQuery(function() {
 		$(this).each(function(){
 			dataperc = $(this).attr("data-perc"),
 				$(this).find(".number").delay(6000).countTo({
-				from: 50,
+				from: 0,
 				to: dataperc,
 				speed: 3000,
 				refreshInterval: 50,

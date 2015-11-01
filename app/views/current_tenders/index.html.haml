@@ -1,4 +1,14 @@
 #wrapper
+  %section#hero
+    .row
+      .large-12.column.text-center
+        .counter.animated{"data-perc" => "35"}
+          .icon-counter
+            %i.icon.tyger-crown-king-streamline
+          .number-detail
+            %h2
+              %span.number
+              %span.text= " Tender Sources and counting"
   %section#search-field
     = form_tag '/current_tenders', method: 'get' do
       .row

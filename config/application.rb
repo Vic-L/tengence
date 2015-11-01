@@ -25,5 +25,9 @@ module Tengence
 
     # set sidekiq as queue adapter for active job
     config.active_job.queue_adapter = :sidekiq
+
+    # set default timezone as Singapore
+    config.time_zone = 'Singapore'
+    config.active_record.default_timezone = :local
   end
 end

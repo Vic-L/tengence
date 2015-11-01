@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     passwords:  "users/passwords" }
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  # static pages
   root 'pages#home'
 
   # braintree

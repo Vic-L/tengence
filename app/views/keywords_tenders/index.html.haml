@@ -19,9 +19,9 @@
                 %th.medium-1 Published Date
                 %th.medium-1 Closing Date
                 %th.medium-1 Closing Time
-                %th.medium-2 Buyer
-                %th.medium-2 Buyer Company
-                %th.medium-1 Action
+                %th.medium-2 Buyer Entity
+                %th.medium-1 Watchlist
+                %th.medium-1 Details
               %tbody
                 - @tenders.each do |tender|
                   %tr
@@ -34,8 +34,6 @@
                     %td.medium-1
                       = tender.closing_datetime.strftime('%H:%M %p')
                     %td.medium-2
-                      = tender.buyer_name
-                    %td.medium-2
                       = tender.buyer_company_name
                     %td.medium-1
                       %div{id: "watch-tender-#{tender.ref_no}"}
@@ -43,7 +41,7 @@
                           = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true
                         - else
                           = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
-                      %br
+                    %td.medium-1
                       %div
                         = link_to "More", tender_path(id: tender), remote: true
       = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}

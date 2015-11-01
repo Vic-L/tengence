@@ -10,6 +10,7 @@ class CurrentTendersController < ApplicationController
       end
       @tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos).page(params[:page]).per(50)
     else
+      @results_count = CurrentTender.count
       @tenders = CurrentTender.includes(:users).page(params[:page]).per(50)
     end
   end

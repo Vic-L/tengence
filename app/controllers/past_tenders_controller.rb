@@ -10,6 +10,7 @@ class PastTendersController < ApplicationController
       end
       @tenders = PastTender.where(ref_no: results_ref_nos).page(params[:page]).per(50)
     else
+      @results_count = PastTender.count
       @tenders = PastTender.page(params[:page]).per(50)
     end
   end

@@ -1,43 +1,47 @@
 #wrapper
-  %section#search-field
-    = form_tag '/past_tenders', method: 'get' do
-      .row
-        .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-          .title-section
-            %h3 Search
-        .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-          .section-desc
-            = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+  - if @results_count == 0
+    %section#tender-results
+      %p There are no tenders available
+  - else
+    %section#search-field
+      = form_tag '/past_tenders', method: 'get' do
+        .row
+          .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+            .title-section
+              %h3 Search
+          .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+            .section-desc
+              = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
 
-  %section#tender-results
-    .row
-      .large-12.column
-        %table#results-table{role: 'grid'}
-          %thead
-            %th.medium-4 Description
-            %th.medium-1 Published Date
-            %th.medium-1 Closing Date
-            %th.medium-1 Closing Time
-            %th.medium-2 Buyer
-            %th.medium-2 Buyer Company
-            %th.medium-1 Action
-          %tbody
-            - @tenders.each do |tender|
-              %tr
-                %td.medium-4
-                  = tender.description
-                %td.medium-1
-                  = tender.published_date
-                %td.medium-1
-                  = tender.closing_datetime.strftime('%a, %e %b %Y')
-                %td.medium-1
-                  = tender.closing_datetime.strftime('%H:%M %p')
-                %td.medium-2
-                  = tender.buyer_name
-                %td.medium-2
-                  = tender.buyer_company_name
-                %td.medium-1
-                  = link_to "More", tender_path(id: tender), remote: true
+    %section#tender-results
+      = render partial: 'tenders/total_count', locals: {results_count: @results_count}
+      .row
+        .large-12.column
+          %table#results-table{role: 'grid'}
+            %thead
+              %th.medium-4 Description
+              %th.medium-1 Published Date
+              %th.medium-1 Closing Date
+              %th.medium-1 Closing Time
+              %th.medium-2 Buyer
+              %th.medium-2 Buyer Company
+              %th.medium-1 Action
+            %tbody
+              - @tenders.each do |tender|
+                %tr
+                  %td.medium-4
+                    = tender.description
+                  %td.medium-1
+                    = tender.published_date
+                  %td.medium-1
+                    = tender.closing_datetime.strftime('%a, %e %b %Y')
+                  %td.medium-1
+                    = tender.closing_datetime.strftime('%H:%M %p')
+                  %td.medium-2
+                    = tender.buyer_name
+                  %td.medium-2
+                    = tender.buyer_company_name
+                  %td.medium-1
+                    = link_to "More", tender_path(id: tender), remote: true
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
-            

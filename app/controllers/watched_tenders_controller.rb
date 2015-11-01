@@ -13,6 +13,7 @@ class WatchedTendersController < ApplicationController
     else
       @current_watched_tenders = CurrentTender.where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
       @past_watched_tenders = PastTender.where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+      @results_count = @current_watched_tenders.size + @past_watched_tenders.size
     end
   end
 

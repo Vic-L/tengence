@@ -224,12 +224,17 @@ Navigation
 }
 
 .shortcut {
-	font-size: 1.375rem;
+	font-size: 2.75rem;
+	display: inline;
+	line-height: 1.4;
+	color: black;
 }
 
 .shortcut a {
 	font-size: 16px;
 	color: black;
+	position: relative;
+	bottom: 9px;
 }
 
 header h1.logo a:hover,
@@ -242,7 +247,8 @@ header.shrink h1.logo a:link,
 header.shrink h1.logo a:visited,
 header.shrink #trigger-overlay,
 header.shrink .shortcut a:link,
-header.shrink .shortcut a:visited {
+header.shrink .shortcut a:visited,
+header.shrink .shortcut {
 	color: white;
 }
 

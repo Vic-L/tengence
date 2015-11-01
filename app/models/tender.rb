@@ -4,4 +4,8 @@ class Tender < ActiveRecord::Base
   has_many :users, through: :watched_tenders
 
   default_scope { order(closing_datetime: :desc) } 
+
+  def is_gebiz?
+    !!(self.external_link =~ /gebiz.gov/)
+  end
 end

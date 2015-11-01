@@ -31,8 +31,9 @@
         .header Original Link
       .large-12.column
         - if tender.is_gebiz?
-          Step 1) Click this <a href='http://www.gebiz.gov.sg' target='_blank'>link</a>.
-          Step 2) Click this <a href='#{tender.external_link}' target='_blank'>link</a>.
+          Step 1) Click this <a href='http://www.gebiz.gov.sg' target='_blank'>link</a> to open up an instance with GeBiz.
+          %br
+          Step 2) Cilck this <a href='#{tender.external_link}' target='_blank'>link</a> to view this tender on Gebiz.
         - else
           = link_to tender.external_link, tender.external_link, target: '_blank'
 

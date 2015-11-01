@@ -8,7 +8,7 @@ namespace :emailer do
         next if user.keywords.blank?
         user.keywords.split(",").each do |keyword|
           # get tenders for each keyword belonging to a user
-          results = AwsManager.watched_tenders_search(keyword,new_tenders_ref_nos_array)
+          results = AwsManager.watched_tenders_search(keyword: keyword, ref_nos_array: new_tenders_ref_nos_array)
           results_ref_nos << results.hits.hit.map do |result|
             result.fields["ref_no"][0]
           end

@@ -50,6 +50,9 @@
         %li
           = link_to "#", class: 'inner-link', id: 'sign-out' do
             %span Sign Out
+        %li
+          = link_to "#", class: 'inner-link', id: 'tos' do
+            %span Terms of Service
       - else
         %li
           = link_to "#", class: 'inner-link', id: 'sign-up' do
@@ -57,6 +60,9 @@
         %li
           = link_to "#", class: 'inner-link', id: 'login' do
             %span Login
+        %li
+          = link_to "#", class: 'inner-link', id: 'tos' do
+            %span Terms of Service
       -# %li
       -#   %a.inner-link{:href => "#team"}
       -#     %span Team
@@ -107,6 +113,9 @@
       });
       $('#sign-up').click(function(){
         window.location.href = "#{new_user_registration_path}";
+      });
+      $('#tos').click(function(){
+        window.location.href = "/terms-of-service";
       });
       $('#login').click(function(){
         window.location.href = "#{new_user_session_path}";

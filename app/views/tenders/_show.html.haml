@@ -26,6 +26,11 @@
         .header Closing Date & Time
       .large-12.column
         = tender.closing_datetime.strftime("%A, %b %d %H:%M:%S")
+    .row
+      .large-12.column
+        .header Original Link
+      .large-12.column
+        = link_to tender.external_link, tender.external_link, target: '_blank'
   .large-4.column
     .row
       .large-12.column

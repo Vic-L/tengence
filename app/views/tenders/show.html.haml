@@ -32,9 +32,9 @@
         .large-12.column
           - if @tender.is_gebiz?
             Step 1) Click this <a href='http://www.gebiz.gov.sg' target='_blank'>link</a>.
-            Step 2) Click this <a href='#{tender.external_link}' target='_blank'>link</a>.
+            Step 2) Click this <a href='#{@tender.external_link}' target='_blank'>link</a>.
           - else
-            = link_to tender.external_link, tender.external_link, target: '_blank'
+            = link_to @tender.external_link, @tender.external_link, target: '_blank'
     .large-4.column
       .row
         .large-12.column

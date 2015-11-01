@@ -6,7 +6,7 @@ class AwsManager
         raise "File is too large"
       else
         JSON.parse(json) # will raise exception
-        client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_ENDPOINT'])
+        client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_DOCUMENT_ENDPOINT'])
         resp = client.upload_documents({
           documents: json, # file/IO object, or string data, required
           content_type: "application/json", # required, accepts application/json, application/xml
@@ -21,7 +21,7 @@ class AwsManager
   end
 
   def self.search keyword:, cursor: nil
-    client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_ENDPOINT'])
+    client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_SEARCH_ENDPOINT'])
     resp = client.search({
       cursor: cursor || "initial",
       # expr: "Expr",
@@ -53,7 +53,7 @@ class AwsManager
       fq += ")"
     end
 
-    client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_ENDPOINT'])
+    client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_SEARCH_ENDPOINT'])
     resp = client.search({
       # cursor: "initial",
       # expr: "Expr",

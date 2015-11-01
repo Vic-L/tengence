@@ -1,20 +1,21 @@
 #wrapper
-  - if @results_count == 0
-    %section#tender-results
-      %p There are no tenders available
-  - else
-    %section#search-field
-      = form_tag '/watched_tenders', method: 'get' do
-        .row
-          .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-            .title-section
-              %h3 Search
-          .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-            .section-desc
-              = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+  %section#search-field
+    = form_tag '/watched_tenders', method: 'get' do
+      .row
+        .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+          .title-section
+            %h3 Search
+        .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+          .section-desc
+            = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
 
-    %section#tender-results
-      = render partial: 'tenders/total_count', locals: {results_count: @results_count}
+  %section#tender-results
+    - if @results_count == 0
+      .row
+        .large-12.column.text-center
+          %p There are no tenders available
+    - else
+      = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: nil}
       .row
         .large-12.column
           %table#results-table{role: 'grid'}
@@ -73,5 +74,6 @@
                     %br
                     %div
                       = link_to "More", tender_path(id: tender), remote: true
+      = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

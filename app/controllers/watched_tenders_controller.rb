@@ -2,7 +2,7 @@ class WatchedTendersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if params['query']
+    unless params['query'].blank?
       results = AwsManager.watched_tenders_search(keyword: params['query'], ref_nos_array: current_user.watched_tenders.pluck(:tender_id))
       @results_count = results.hits.found
       results_ref_nos = results.hits.hit.map do |result|

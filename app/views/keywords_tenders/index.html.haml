@@ -1,10 +1,12 @@
 #wrapper
   - if @results_count == 0
     %section#tender-results
-      %p There are no tenders available
+      .row
+        .large-12.column
+          %p There are no tenders available
   - else
     %section#tender-results
-      = render partial: 'tenders/total_count', locals: {results_count: @results_count}
+      = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
       .row
         .large-12.column
           - if @tenders.nil?
@@ -44,5 +46,6 @@
                       %br
                       %div
                         = link_to "More", tender_path(id: tender), remote: true
-
+      = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+      
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

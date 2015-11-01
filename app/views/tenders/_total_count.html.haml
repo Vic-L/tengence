@@ -1,4 +1,8 @@
 .row
   .large-12.column.text-right
-    Total tenders: 
-    %span#total-count= @results_count
+    - if tenders && @results_count > 50
+      = paginate tenders
+      = " | Total tenders: "
+    - else
+      Total tenders: 
+    %span.total-count= @results_count

@@ -20,3 +20,29 @@
           %button#submit{:type => "submit"} Login
         .large-6.columns.large-centered.shared-links
           = render "users/shared/links"
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $("form#new_user").validate({
+        rules: {
+          "user[email]": {
+            required: true,
+            email: true,
+          },
+          "user[password]": {
+            required: true,
+            minlength: 8
+          }
+        },
+        messages: {
+          "user[email]": {
+            required: "An email is required.",
+            email: "Your email is in an invalid format."
+          },
+          "user[password]": {
+            required: "A password is required.",
+            minlength: "Your password should be at least 8 characters."
+          }
+        }
+      });
+    });

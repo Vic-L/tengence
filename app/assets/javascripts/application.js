@@ -10,12 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
- //=require tyger/js/vendor/jquery
+//= require tyger/js/vendor/jquery
 //= require jquery_ujs
 //= require tyger/js/vendor/modernizr
- //=require tyger/js/foundation.min
- //=require tyger/js/foundation/foundation.accordion
- //=require tyger/js/plugins
- //=require tyger/js/jquery.cubeportfolio.min
- //=require tyger/js/custom
+//= require tyger/js/foundation.min
+//= require tyger/js/foundation/foundation.accordion
+//= require tyger/js/plugins
+//= require tyger/js/jquery.cubeportfolio.min
+//= require tyger/js/custom
+//= require jquery.validate.min
+//= require jquery.validate.additional-methods.min
 //= require_tree .

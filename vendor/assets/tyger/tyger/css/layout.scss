@@ -1061,17 +1061,32 @@ label {
 	color: #333;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password],
+input[type=email],
+textarea {
 	width: 100%;
 	background: none;
 	height: 45px;
 	line-height: 45px;
 	padding: 0 20px;
-	margin-bottom: 20px;
 	border: 1px solid #d9d9d9;
 	color: #666;
 	font-weight: 300;
 	box-shadow: none;
+}
+input[type=text],
+input[type=email],
+textarea {
+	margin-bottom: 20px;
+}
+
+input[type=text].error,
+input[type=password].error,
+input[type=password],
+input[type=email].error,
+textarea.error {
+	margin-bottom: 0;
 }
 
 input[type=submit]:before {
@@ -1104,7 +1119,10 @@ textarea {
 	box-shadow: none;
 }
 
-input[type=text], textarea {
+input[type=text],
+input[type=password],
+input[type=email],
+textarea {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -1130,7 +1148,10 @@ input[type=text], textarea {
 	text-shadow: none;
 }
 
-input[type=text].required, textarea.required {
+input[type=text].required,
+input[type=password].required,
+input[type=email].required,
+textarea.required {
 	border: 1px solid #fff;
 }
 

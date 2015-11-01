@@ -16,39 +16,122 @@
           = f.text_field :first_name, autofocus: true, placeholder: 'First Name'
         .large-6.column.large-centered
           = f.text_field :last_name, placeholder: 'Last Name'
+        .large-6.column.large-centered
+          = f.text_field :company_name, placeholder: 'Company'
         .large-6.columns.large-centered
           = f.email_field :email, placeholder: 'Email'
         .large-6.column.large-centered
-          = f.text_field :company_name, placeholder: 'Company'
-        .large-6.column.large-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
-        .large-6.column.large-centered
-          = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation"
+          %a.show-password Show Password
+          %br
+          %br
+        .large-6.columns.large-centered
+          = check_box_tag 'eula', 1, false
+          By signing up, you agree to Tengence's <a href="/terms-of-service" target="_blank">Terms Of Service</a>.
         .large-6.columns.large-centered.text-center
           %button#submit{type: 'submit'} Sign Up
         .large-6.columns.large-centered.shared-links
           = render "users/shared/links"
 
-  %footer
-    .row
-      .medium-12.text-center.columns
-        %h1.logo
-          %a{:href => "index.html", :title => ""} Tyger
-        .medium-4.columns.medium-centered
-          %ul.medium-block-grid-5.small-block-grid-5.social-links
-            %li
-              %a{:href => "#", :title => ""}
-                %i.icon.tyger-skype
-            %li
-              %a{:href => "#", :title => ""}
-                %i.icon.tyger-twitter
-            %li
-              %a{:href => "#", :title => ""}
-                %i.icon.tyger-facebook
-            %li
-              %a{:href => "#", :title => ""}
-                %i.icon.tyger-google-plus
-            %li
-              %a{:href => "#", :title => ""}
-                %i.icon.tyger-pinterest
-        %p.white 2014 © Mordorthemes. All rights reserved.
+  -# %footer
+  -#   .row
+  -#     .medium-12.text-center.columns
+  -#       %h1.logo
+  -#         %a{:href => "index.html", :title => ""} Tyger
+  -#       .medium-4.columns.medium-centered
+  -#         %ul.medium-block-grid-5.small-block-grid-5.social-links
+  -#           %li
+  -#             %a{:href => "#", :title => ""}
+  -#               %i.icon.tyger-skype
+  -#           %li
+  -#             %a{:href => "#", :title => ""}
+  -#               %i.icon.tyger-twitter
+  -#           %li
+  -#             %a{:href => "#", :title => ""}
+  -#               %i.icon.tyger-facebook
+  -#           %li
+  -#             %a{:href => "#", :title => ""}
+  -#               %i.icon.tyger-google-plus
+  -#           %li
+  -#             %a{:href => "#", :title => ""}
+  -#               %i.icon.tyger-pinterest
+  -#       %p.white 2014 © Mordorthemes. All rights reserved.
+- content_for :javascript do
+  :javascript
+    $(function(){
+      /* logic for show/hide password */
+      $("form#new_user input[type='password']").each(function (index, input) {
+        var $input = $(input);
+        $("form#new_user .show-password").click(function () {
+          var change = "";
+          if ($(this).html() === "Show Password") {
+            $(this).html("Hide Password")
+            change = "text";
+          } else {
+            $(this).html("Show Password");
+            change = "password";
+          }
+          var rep = $("<input type='" + change + "' />")
+            .attr("id", $input.attr("id"))
+            .attr("name", $input.attr("name"))
+            .attr("placeholder", $input.attr("placeholder"))
+            .attr('class', $input.attr('class'))
+            .val($input.val())
+            .insertBefore($input);
+          $input.remove();
+          $input = rep;
+        });
+      });
+      $("form#new_user").validate({
+        rules: {
+          "user[email]": {
+            required: true,
+            email: true,
+            // remote: "/users/check_email_taken"
+          },
+          "user[first_name]": {
+            required: true,
+            minlength: 2
+          },
+          "user[last_name]": {
+            required: true,
+            minlength: 2
+          },
+          "user[company_name]": {
+            required: true,
+          },
+          "user[password]": {
+            required: true,
+            minlength: 8
+          },
+          "eula": {
+            required: true
+          }
+        },
+        messages: {
+          "user[email]": {
+            required: "An email is required.",
+            email: "Your email is in an invalid format.",
+            // remote: "Email already in use."
+          },
+          "user[first_name]": {
+            required: "Your first name is required.",
+            minlength: "Your first name should be more than 2 characters."
+          },
+          "user[last_name]": {
+            required: "Your last name is required.",
+            minlength: "Your last name should be more than 2 characters."
+          },
+          "user[company_name]": {
+            required: "Your company name is required."
+          },
+          "user[password]": {
+            required: "A password is required.",
+            minlength: "Your password should be at least 8 characters."
+          },
+          "eula": {
+            required: "Please check this."
+          }
+        }
+      });
+    });

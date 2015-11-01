@@ -1,19 +1,33 @@
-/ start header
 %header
   .row
-    .medium-6.small-6.columns.text-align-left
-      / start logo
+    .medium-4.small-6.columns.text-align-left
       %h1.logo
         - if current_user
           %a{:href => "/current_tenders", :title => ""} Tengence
         - else
           %a{:href => "/", :title => ""} Tengence
-      / end logo
-    .medium-6.small-6.columns.text-right
-      / start open/close menu
-      %a#trigger-overlay{:href => "#", :title => ""}
-        %i.icon.tyger-navicon
-      / end open/close menu
+    - if current_user
+      .medium-8.small-6.columns.text-center
+        .row
+          .large-offset-2.large-2.columns
+            .shortcut
+              = link_to "Current Tenders", current_tenders_path
+          .large-2.column
+            .shortcut
+              = link_to "Past Tenders", past_tenders_path
+          .large-2.column
+            .shortcut
+              = link_to "Watched Tenders", watched_tenders_path
+          .large-2.column
+            .shortcut
+              = link_to "Keywords Tenders", keywords_tenders_path
+          .large-2.column.text-right
+            %a#trigger-overlay{:href => "#", :title => ""}
+              %i.icon.tyger-navicon
+    - else
+      .medium-8.small-6.columns.text-right
+        %a#trigger-overlay{:href => "#", :title => ""}
+          %i.icon.tyger-navicon
 - flash.each do |name, msg|
   .row.flash-row
     .medium-12.column
@@ -21,26 +35,12 @@
         %div{:'data-alert' => '', class: "alert-box round #{name.to_s}"}
           = content_tag :div, msg
           %a.close{href: "#", class: "close"} &times;
-/ end header
-/ start navigation
 .overlay-menu.overlay-hugeinc
   %a.overlay-close{:href => "#", :title => ""}
     %i.icon.tyger-close-empty
   %nav
     %ul
       - if current_user
-        %li
-          %a.inner-link#current-tenders{:href => "#"}
-            %span Current Tenders
-        %li
-          %a.inner-link#past-tenders{:href => "#"}
-            %span Past Tenders
-        %li
-          %a.inner-link#watched-tenders{:href => "#"}
-            %span Watched Tenders
-        %li
-          %a.inner-link#keywords-tenders{:href => "#"}
-            %span Keywords Tenders
         %li
           %a.inner-link#my-keywords{:href => "#"}
             %span My Keywords
@@ -95,18 +95,6 @@
       });
       $('#account-settings').click(function(){
         window.location.href = "#{edit_user_registration_path}";
-      });
-      $('#current-tenders').click(function(){
-        window.location.href = "#{root_path}";
-      });
-      $('#past-tenders').click(function(){
-        window.location.href = "#{past_tenders_path}";
-      });
-      $('#watched-tenders').click(function(){
-        window.location.href = "#{watched_tenders_path}";
-      });
-      $('#keywords-tenders').click(function(){
-        window.location.href = "#{keywords_tenders_path}";
       });
       $('#my-keywords').click(function(){
         window.location.href = "#{keywords_user_path}";

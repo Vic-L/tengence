@@ -218,24 +218,37 @@ Navigation
 
 #trigger-overlay{
 	color: #000;
-    font-size: 50px;
-    position: relative;
-    top: 7px;
+  font-size: 50px;
+  position: relative;
+  top: 7px;
+}
+
+.shortcut {
+	font-size: 1.375rem;
+}
+
+.shortcut a {
+	font-size: 16px;
+	color: black;
 }
 
 header h1.logo a:hover,
-header #trigger-overlay:hover{
+header #trigger-overlay:hover,
+header .shortcut a:hover {
 	color: #ff4444;
 }
 
 header.shrink h1.logo a:link, 
 header.shrink h1.logo a:visited,
-header.shrink #trigger-overlay {
+header.shrink #trigger-overlay,
+header.shrink .shortcut a:link,
+header.shrink .shortcut a:visited {
 	color: white;
 }
 
 header.shrink h1.logo a:hover, 
-header.shrink #trigger-overlay:hover {
+header.shrink #trigger-overlay:hover,
+header.shrink .shortcut a:hover {
 	color: #ff4444;
 }
 

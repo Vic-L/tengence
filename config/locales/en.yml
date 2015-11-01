@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  admin:
+    actions:
+      send_emailer_now:
+        menu: 'Send emailer to user now'

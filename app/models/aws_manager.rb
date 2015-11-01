@@ -38,7 +38,7 @@ class AwsManager
       'return': ['description', 'ref_no'].join(','),
       size: 100,
       # sort: "Sort",
-      start: 1
+      start: 0
     })
   end
 
@@ -70,7 +70,7 @@ class AwsManager
       'return': ['description', 'ref_no'].join(','),
       size: 100,
       # sort: "Sort",
-      start: 1
+      start: 0
     })
   end
 end

@@ -29,5 +29,6 @@ module Tengence
     # set default timezone as Singapore
     config.time_zone = 'Singapore'
     config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_attributes = false
   end
 end

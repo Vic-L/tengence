@@ -3,7 +3,10 @@ Rails.application.routes.draw do
     sessions: "users/sessions",
     registrations: "users/registrations",
     passwords:  "users/passwords" }
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  devise_scope :user do
+    get "users/check_email_taken"=> 'users/registrations#check_email_taken',
+      :as => :check_email_taken
+  end
 
   # static pages
   root 'pages#home'
@@ -28,5 +31,6 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.email == "vljc17@gmail.com" } do
     mount Sidekiq::Web => '/sidekiq'
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end
 end

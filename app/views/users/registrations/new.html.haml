@@ -87,7 +87,7 @@
           "user[email]": {
             required: true,
             email: true,
-            // remote: "/users/check_email_taken"
+            remote: "#{check_email_taken_path}"
           },
           "user[first_name]": {
             required: true,
@@ -112,7 +112,7 @@
           "user[email]": {
             required: "An email is required.",
             email: "Your email is in an invalid format.",
-            // remote: "Email already in use."
+            remote: "Email already in use."
           },
           "user[first_name]": {
             required: "Your first name is required.",

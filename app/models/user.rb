@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   has_many :past_tenders, through: :watched_tenders
   validates_with KeywordsValidator
 
+  def self.email_available?(email)
+    User.find_by_email(email).blank?
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

@@ -36,6 +36,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def check_email_taken
+    # the jquery validate plugin expects true for valid parameters
+    email_wrapper = params[:user]
+    rv = User.email_available?(email_wrapper[:email])
+    render json: rv.to_json
+  end
+
   protected
     def update_resource(resource, params)
       if params['password'].blank?

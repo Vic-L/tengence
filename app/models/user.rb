@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :watched_tenders
+  has_many :watched_tenders, dependent: :destroy
   has_many :current_tenders, through: :watched_tenders
   has_many :past_tenders, through: :watched_tenders
   validates_with KeywordsValidator

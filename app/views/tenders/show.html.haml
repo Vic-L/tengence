@@ -20,12 +20,12 @@
         .large-12.column
           .header Published Date
         .large-12.column
-          = @tender.published_date.strftime("%A, %b %d")
+          = "#{@tender.published_date.day.ordinalize} #{@tender.published_date.strftime('%b %Y')}"
       .row
         .large-12.column
           .header Closing Date & Time
         .large-12.column
-          = @tender.closing_datetime.strftime("%A, %b %d %H:%M:%S")
+          = @tender.closing_datetime.strftime('%H:%M %p')
       .row
         .large-12.column
           .header Original Link

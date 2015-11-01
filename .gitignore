@@ -20,3 +20,4 @@ database.yml
 robots.txt
 sidekiq.yml
 config/thin/production.yml
+dump.rdb

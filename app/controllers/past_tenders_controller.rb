@@ -3,7 +3,7 @@ class PastTendersController < ApplicationController
 
   def index
     if params['query']
-      results = AwsManager.search(params['query'])
+      results = AwsManager.search(keyword: params['query'])
       @results_count = results.hits.found
       results_ref_nos = results.hits.hit.map do |result|
         result.fields["ref_no"][0]

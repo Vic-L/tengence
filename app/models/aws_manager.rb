@@ -20,10 +20,10 @@ class AwsManager
     end
   end
 
-  def self.search keyword
+  def self.search keyword:, cursor: nil
     client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_ENDPOINT'])
     resp = client.search({
-      # cursor: "initial",
+      cursor: cursor || "initial",
       # expr: "Expr",
       # facet: "Facet",
       # filter_query: "FilterQuery",
@@ -36,13 +36,13 @@ class AwsManager
       }.to_json,
       query_parser: "simple", # accepts simple, structured, lucene, dismax
       'return': ['description', 'ref_no'].join(','),
-      size: 100,
+      size: 10000,
       # sort: "Sort",
       start: 0
     })
   end
 
-  def self.watched_tenders_search keyword, ref_nos_array=nil
+  def self.watched_tenders_search keyword:, ref_nos_array: nil
     if ref_nos_array.blank?
       fq = ""
     else
@@ -68,7 +68,7 @@ class AwsManager
       }.to_json,
       query_parser: "simple", # accepts simple, structured, lucene, dismax
       'return': ['description', 'ref_no'].join(','),
-      size: 100,
+      size: 10000,
       # sort: "Sort",
       start: 0
     })

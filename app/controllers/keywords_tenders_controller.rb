@@ -8,7 +8,7 @@ class KeywordsTendersController < ApplicationController
       results_ref_nos = []
       current_user.keywords.split(",").each do |keyword|
         # get tenders for each keyword belonging to a user
-        results = AwsManager.watched_tenders_search(keyword, CurrentTender.pluck(:ref_no))
+        results = AwsManager.watched_tenders_search(keyword: keyword, ref_nos_array: CurrentTender.pluck(:ref_no))
         results_ref_nos << results.hits.hit.map do |result|
           result.fields["ref_no"][0]
         end

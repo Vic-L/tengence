@@ -8,12 +8,10 @@ class WatchedTendersController < ApplicationController
       results_ref_nos = results.hits.hit.map do |result|
         result.fields["ref_no"][0]
       end
-      @current_watched_tenders = CurrentTender.where(ref_no: results_ref_nos)
-      @past_watched_tenders = PastTender.where(ref_no: results_ref_nos)
+      @tenders = Tender.where(ref_no: results_ref_nos)
     else
-      @current_watched_tenders = CurrentTender.where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
-      @past_watched_tenders = PastTender.where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
-      @results_count = @current_watched_tenders.size + @past_watched_tenders.size
+      @tenders = Tender.where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+      @results_count = @tenders.size
     end
   end
 

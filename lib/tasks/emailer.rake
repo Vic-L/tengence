@@ -1,22 +1,23 @@
 namespace :emailer do
   task :schedule_send_keywords_tenders_emails => :environment do
-    new_tenders_ref_nos_array = CurrentTender.where(published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
-    return nil if new_tenders_ref_nos_array.blank?
+    # new_tenders_ref_nos_array = CurrentTender.where(published_date: Time.now.in_time_zone('Asia/Singapore').to_date - 6.days).pluck(:ref_no)
+    # return nil if new_tenders_ref_nos_array.blank?
     User.all.each do |user|
       begin
         results_ref_nos = []
         next if user.keywords.blank?
         user.keywords.split(",").each do |keyword|
           # get tenders for each keyword belonging to a user
-          results = AwsManager.watched_tenders_search(keyword: keyword, ref_nos_array: new_tenders_ref_nos_array)
+          results = AwsManager.search(keyword: keyword)
           results_ref_nos << results.hits.hit.map do |result|
             result.fields["ref_no"][0]
           end
         end
         results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
-        next if results_ref_nos.blank?
-        AlertsMailer.alert_mail(user.id, results_ref_nos, results_ref_nos.size).deliver_later!(wait: 7.hours)
-        results_ref_nos.each do |ref_no|
+        current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+        next if current_tenders_ref_nos.blank?
+        AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_later!(wait: 7.hours)
+        current_tenders_ref_nos.each do |ref_no|
           WatchedTender.create(tender_id: ref_no, user_id: user.id)
         end
       rescue => e

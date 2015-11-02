@@ -4,7 +4,7 @@
 .keywords_tenders,
 .tenders
   #wrapper
-    margin-top: 84px
+    padding-top: 80px
   &.index
     #wrapper
       section#hero
@@ -27,6 +27,22 @@
           margin-bottom: 0
       section#tender-results
         padding-top: 0
+        .button
+          margin-bottom: 0
+          width: 100%
+          height: 100%
+          &.unwatch-button
+            background: #ff4444
+            &:hover
+              background: #d60303
+          &.watch-button
+            background: #44cc9b
+            &:hover
+              background: darken(#44cc9b,20%)
+          &.more-button
+            background: #238aae
+            &:hover
+              background: darken(#238aae,20%)
         nav.pagination
           display: inline
         span.total-count

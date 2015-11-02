@@ -26,9 +26,9 @@
             %td.medium-1
               %div{id: "watch-tender-#{tender.ref_no}"}
                 - if tender.users.include? current_user
-                  = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true
+                  = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true, class: "button unwatch-button"
                 - else
-                  = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
+                  = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true, class: "button watch-button"
             %td.medium-1
               %div
-                = link_to "More", tender_path(id: tender), remote: true
+                = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button'

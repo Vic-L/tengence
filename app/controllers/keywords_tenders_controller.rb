@@ -8,14 +8,14 @@ class KeywordsTendersController < ApplicationController
       results_ref_nos = []
       current_user.keywords.split(",").each do |keyword|
         # get tenders for each keyword belonging to a user
-        results = AwsManager.watched_tenders_search(keyword: keyword, ref_nos_array: CurrentTender.pluck(:ref_no))
+        results = AwsManager.search(keyword: keyword)
         results_ref_nos << results.hits.hit.map do |result|
           result.fields["ref_no"][0]
         end
       end
       results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
-      @results_count = results_ref_nos.size
       @tenders = CurrentTender.where(ref_no: results_ref_nos).page(params[:page]).per(50)
+      @results_count = @tenders.size
     end
   end
 end

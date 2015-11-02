@@ -1,49 +1,39 @@
 #wrapper
-  - if @results_count == 0
+  - if params['query'].blank?
+    %section#hero
+      .row
+        .large-6.column.text-center
+          .counter.animated{"data-perc" => "#{CurrentTender.count}"}
+            .number-detail
+              %h2
+                .number
+                .text Current Tenders
+        .large-6.column.text-center
+          .counter.animated{"data-perc" => "35"}
+            .number-detail
+              %h2
+                .number
+                .text Tender Sources and counting
+  %section#description
+    .row
+      .large-12.column
+        Come to this section to quickly filter all the Current Tenders to your desired Keywords! Add them quickly to your watchlist if necessary.
+  - if @results_count.nil?
     %section#tender-results
       .row
         .large-12.column
-          %p There are no tenders available
+          %p Click #{link_to "here", keywords_user_path} to set your keywords and get emails everyday on new tenders related to your set of keywords.
   - else
-    %section#tender-results
-      = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
-      .row
-        .large-12.column
-          - if @tenders.nil?
-            Click #{link_to "here", keywords_user_path} to set your keywords and get emails everyday on new tenders related to your set of keywords.
-          - else
-            %p Your keywords: #{current_user.keywords}.
-            %table#results-table{role: 'grid'}
-              %thead
-                %th.medium-4 Description
-                %th.medium-1 Published Date
-                %th.medium-1 Closing Date
-                %th.medium-1 Closing Time
-                %th.medium-2 Buyer Entity
-                %th.medium-1 Watchlist
-                %th.medium-1 Details
-              %tbody
-                - @tenders.each do |tender|
-                  %tr
-                    %td.medium-3
-                      = tender.description
-                    %td.medium-1
-                      = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
-                    %td.medium-1
-                      = "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}"
-                    %td.medium-1
-                      = tender.closing_datetime.strftime('%H:%M %p')
-                    %td.medium-2
-                      = tender.buyer_company_name
-                    %td.medium-1
-                      %div{id: "watch-tender-#{tender.ref_no}"}
-                        - if tender.users.include? current_user
-                          = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true
-                        - else
-                          = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true
-                    %td.medium-1
-                      %div
-                        = link_to "More", tender_path(id: tender), remote: true
-      = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+    - if @results_count == 0
+      %section#tender-results
+        .row
+          .large-12.column
+            %p There are no tenders available
+            %p Click #{link_to "here", keywords_user_path} to change your keywords and get emails everyday on new tenders related to your set of keywords.
+    - else
+      %section#tender-results
+        = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+        = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
+        = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
       
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

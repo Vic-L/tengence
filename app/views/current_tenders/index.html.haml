@@ -1,5 +1,5 @@
 #wrapper
-  - if params['query'].blank?
+  - if params['query'].blank? && params['page'].blank?
     %section#hero
       .row
         .large-6.column.text-center
@@ -28,8 +28,21 @@
           .title-section
             %h3 Search Open Tenders
         .medium-8.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-          .section-desc
-            = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+          .row
+            .medium-8.column
+              .section-desc
+                = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+            .medium-2.column
+              .section-desc
+                %button.search-submit-button{type: "submit"}
+                  = fa_icon('search')
+            .medium-2.column
+              .section-desc
+                = link_to current_tenders_path do
+                  %button.back-button{type: "button"}
+                    = fa_icon('mail-reply')
+
+            .medium-2.column
   %section#tender-results
     - if @results_count == 0
       .row

@@ -18,3 +18,12 @@
 .flash-row {
   background: transparent;
 }
+
+html,body {
+  &.loading {
+    cursor: wait !important;
+    a:hover {
+      cursor: wait !important;
+    }
+  }
+}

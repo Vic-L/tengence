@@ -18,4 +18,7 @@
     / End Style Switcher
     :javascript
       $(document).foundation();
+      $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+        $('html,body').removeClass('loading');
+      });
     = yield :javascript

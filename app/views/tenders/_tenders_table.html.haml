@@ -32,3 +32,10 @@
             %td.medium-1
               %div
                 = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button'
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
+        $('html,body').addClass('loading');
+      });
+    });

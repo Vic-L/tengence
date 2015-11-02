@@ -182,7 +182,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                       <tbody>
                                         <% @tenders.each do |tender| %>
                                           <tr>
-                                            <td><%= tender.ref_no %></td>
+                                            <td><%= tender.ref_no_for_display %></td>
                                             <td><%= tender.buyer_company_name %></td>
                                             <td><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                             <td><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>

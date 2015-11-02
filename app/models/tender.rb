@@ -8,4 +8,12 @@ class Tender < ActiveRecord::Base
   def is_gebiz?
     !!(self.external_link =~ /gebiz.gov/)
   end
+
+  def ref_no_for_display
+    if ref_no =~ /^tengence-/
+      "-"
+    else
+      ref_no
+    end
+  end
 end

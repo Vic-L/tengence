@@ -43,6 +43,9 @@ module RailsAdmin
                     redirect_to back_or_index, flash: {error: "There are no tenders matching your keywords."}
                   else
                     AlertsMailer.alert_mail(@object.id, results_ref_nos, results_ref_nos.size).deliver_later
+                    results_ref_nos.each do |ref_no|
+                      WatchedTender.delay(:retry => true).create(tender_id: ref_no, user_id: user.id)
+                    end
                     redirect_to back_or_index, flash: {success: "Alert Email has been sent to #{@object.email}."}
                   end
                 end

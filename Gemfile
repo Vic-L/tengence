@@ -53,6 +53,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rails-console', '~> 1.0.0'
   gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
+
 end
 
 gem 'faker', '~> 1.5.0'
@@ -70,3 +71,4 @@ gem 'sidekiq', '~> 3.5.2'
 gem 'font-awesome-rails', '~> 4.4.0.0'
 gem 'virtus', '~> 1.0.5'
 gem 'slack-notifier', '~> 1.3.1'
+gem 'rack-mini-profiler'

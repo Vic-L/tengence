@@ -48,9 +48,9 @@
           = link_to "#", class: 'inner-link', id: 'tos' do
             %span Terms of Service
       - else
-        %li
-          = link_to "#", class: 'inner-link', id: 'sign-up' do
-            %span Sign Up
+        -# %li
+        -#   = link_to "#", class: 'inner-link', id: 'sign-up' do
+        -#     %span Sign Up
         %li
           = link_to "#", class: 'inner-link', id: 'login' do
             %span Login
@@ -69,14 +69,8 @@
       -# %li
       -#   %a.inner-link{:href => "#contacts"}
       -#     %span Contacts
-/ end navigation
-/ start styleswitcher, remove this
-.switcher
-/ end styleswitcher
-/ Preloader
 .mask
   #loader.rotating
-/ /Preloader
 
 - content_for :javascript do
   :javascript

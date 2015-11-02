@@ -7,8 +7,8 @@ class AlertsMailer < ApplicationMailer
     :authentication => 'plain',
     :enable_starttls_auto => true}
 
-  default from: "Tengence <tengencesingapore@gmail.com>"
-  default reply_to: "tengencesingapore@gmail.com"
+  default from: "Tengence Team <hello@tengence.com.sg>"
+  default reply_to: "hello@tengence.com.sg"
 
   def alert_mail user_id, ref_nos_array, tenders_count
     @user = User.find(user_id)

@@ -20,4 +20,5 @@
 //= require tyger/js/custom
 //= require jquery.validate.min
 //= require jquery.validate.additional-methods.min
+//= require notify.min
 //= require_tree .

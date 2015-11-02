@@ -1,1 +1,5 @@
-$("#watch-tender-<%= @tender.ref_no %>").empty().append("<%= j link_to 'Watch', watched_tenders_path(ref_no: @tender.ref_no), method: 'post', remote: true %>");
+$("#watch-tender-<%= @tender.ref_no %>").empty().append("<%= j link_to 'Watch', watched_tenders_path(ref_no: @tender.ref_no), method: 'post', remote: true, class: 'button watch-button' %>");
+$("#watch-tender-<%= @tender.ref_no %>").notify(
+  "Successfully removed from watchlist", "success", 
+  { position: "top", autoHideDelay: 3000}
+);

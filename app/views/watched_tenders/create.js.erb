@@ -1,1 +1,5 @@
-$("#watch-tender-<%= @watched_tender.tender_id %>").empty().append("<%= j link_to 'Unwatch', watched_tender_path(id: @watched_tender.tender_id), method: 'delete', remote: true %>");
+$("#watch-tender-<%= @watched_tender.tender_id %>").empty().append("<%= j link_to 'Unwatch', watched_tender_path(id: @watched_tender.tender_id), method: 'delete', remote: true, class: 'button unwatch-button' %>");
+$("#watch-tender-<%= @watched_tender.tender_id %>").notify(
+  "Successfully added to watchlist", "success", 
+  { position: "top" }
+);

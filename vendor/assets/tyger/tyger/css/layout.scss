@@ -412,6 +412,7 @@ Main Slider
 	color: #fff !important;
 	top: 50%;
 	transform: translateY(-50%);
+	background: rgba(0,0,0,0.7);
 }
 
 .slider-caption h2 {
@@ -483,6 +484,7 @@ a.slider-link:hover {
 .bg3 {
 	// background: image-url('tyger/img/slider/placeholder3.jpg');
 	background: image-url('home_bg.jpg');
+	background-position: center;
 }
 
 .testimonial {

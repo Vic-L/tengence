@@ -11,7 +11,7 @@ class InternalMailer < ApplicationMailer
     @count = tenders_count
     @tenders = Tender.where(ref_no: ref_nos_array)
     @date = Time.now.in_time_zone('Asia/Singapore').to_date.yesterday
-    mail(to: 'tengencesingapore@gmail.com', subject: "TA #{@date} for #{@user.email}", template_path: 'alerts_mailer', template_name: 'alert_mail')
+    mail(to: 'tengencesingapore@gmail.com', subject: "TA #{@date} for #{@user.email}", cc: 'vljc17@gmail.com', template_path: 'alerts_mailer', template_name: 'alert_mail')
       # , :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
   end
 end

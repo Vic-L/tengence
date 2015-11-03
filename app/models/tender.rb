@@ -3,7 +3,7 @@ class Tender < ActiveRecord::Base
   has_many :watched_tenders
   has_many :users, through: :watched_tenders
 
-  default_scope { order(closing_datetime: :desc) } 
+  default_scope { order(published_date: :desc) } 
 
   def is_gebiz?
     !!(self.external_link =~ /gebiz.gov/)

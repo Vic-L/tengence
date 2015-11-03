@@ -6,7 +6,7 @@ class CurrentTender < ActiveRecord::Base
   has_many :watched_tenders, foreign_key: :tender_id
   has_many :users, through: :watched_tenders 
 
-  default_scope { order(closing_datetime: :desc) }
+  default_scope { order(published_date: :desc) }
 
   def buyer_name_and_company
     "#{self.buyer_name} (#{self.buyer_company_name})"

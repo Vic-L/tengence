@@ -23,7 +23,12 @@
           = "#{@tender.published_date.day.ordinalize} #{@tender.published_date.strftime('%b %Y')}"
       .row
         .large-12.column
-          .header Closing Date & Time
+          .header Closing Date
+        .large-12.column
+          = "#{@tender.closing_datetime.day.ordinalize} #{@tender.closing_datetime.strftime('%b %Y')}"
+      .row
+        .large-12.column
+          .header Closing Time
         .large-12.column
           = @tender.closing_datetime.strftime('%H:%M %p')
       .row

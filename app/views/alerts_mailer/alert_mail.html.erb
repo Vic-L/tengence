@@ -174,7 +174,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
 
                                     <table width="600" class="full table-with-border" cellspacing="0" bgcolor="#f1f1f1" style="background-color: rgb(241, 241, 241);">
                                       <thead>
-                                        <th>Reference No.</th>
+                                        <th>Description</th>
                                         <th>Buyer</th>
                                         <th>Closing Date</th>
                                         <th>Action</th>
@@ -182,7 +182,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                       <tbody>
                                         <% @tenders.each do |tender| %>
                                           <tr>
-                                            <td><%= tender.ref_no_for_display %></td>
+                                            <td><%= tender.description %></td>
                                             <td><%= tender.buyer_company_name %></td>
                                             <td><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                             <td><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>

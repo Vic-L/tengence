@@ -1,6 +1,8 @@
 require Rails.root.join('lib', 'rails_admin', 'send_emailer_now.rb')
+require Rails.root.join('lib', 'rails_admin', 'send_test_mailer.rb')
 
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendEmailerNow)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendTestMailer)
 
 RailsAdmin.config do |config|
 
@@ -29,9 +31,9 @@ RailsAdmin.config do |config|
     show
     edit
     delete
-    show_in_app
 
     send_emailer_now              #custom for user only
+    send_test_mailer              #custom for user only
 
     ## With an audit adapter, you can add:
     # history_index

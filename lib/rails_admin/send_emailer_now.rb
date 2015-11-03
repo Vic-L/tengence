@@ -44,6 +44,7 @@ module RailsAdmin
                     redirect_to back_or_index, flash: {error: "There are no tenders matching #{@object.email}'s keywords that were published yesterday."}
                   else
                     AlertsMailer.alert_mail(@object.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_later
+                    InternalMailer.alert_mail(@object.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_later
                     current_tenders_ref_nos.each do |ref_no|
                       WatchedTender.delay(:retry => true).create(tender_id: ref_no, user_id: @object.id)
                     end

@@ -30,6 +30,14 @@ class User < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
+
+  rails_admin do
+    list do
+      field :email
+      field :keywords
+      field :current_sign_in_at
+    end
+  end
 end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer

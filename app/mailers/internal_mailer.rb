@@ -1,6 +1,6 @@
 class InternalMailer < ApplicationMailer
-  self.delivery_method = :sendmail
-  
+  self.delivery_method = :sendmail if Rails.env.production?
+
   default from: 'notification@tengence.com.sg'
 
   def notify subject, content, to_target="tengencesingapore@gmail.com"

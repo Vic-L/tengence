@@ -14,8 +14,9 @@ class KeywordsTendersController < ApplicationController
         end
       end
       results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
-      @tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos).page(params[:page]).per(50)
-      @results_count = @tenders.size
+      tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
+      @tenders = tenders.page(params[:page]).per(50)
+      @results_count = tenders.size
     end
   end
 end

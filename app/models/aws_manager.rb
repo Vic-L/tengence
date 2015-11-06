@@ -21,7 +21,6 @@ class AwsManager
   end
 
   def self.search keyword:, cursor: nil
-    keyword = keyword.split(" ").map{|a| a += "~1" }.join(" ") # limit fuzzy search to 1
     client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_SEARCH_ENDPOINT'])
     resp = client.search({
       cursor: cursor || "initial",
@@ -33,7 +32,7 @@ class AwsManager
       query: keyword, # required
       query_options: {
         fields: ['description'],
-        operators: ['and','escape','near','not','or','phrase','precedence','prefix']
+        operators: ['and','escape','fuzzy','near','not','or','phrase','precedence','prefix']
       }.to_json,
       query_parser: "simple", # accepts simple, structured, lucene, dismax
       'return': ['description', 'ref_no'].join(','),
@@ -44,7 +43,6 @@ class AwsManager
   end
 
   def self.watched_tenders_search keyword:, ref_nos_array: nil
-    keyword = keyword.split(" ").map{|a| a += "~1" }.join(" ") # limit fuzzy search to 1
     if ref_nos_array.blank?
       fq = ""
     else
@@ -66,7 +64,7 @@ class AwsManager
       query: keyword, # required
       query_options: {
         fields: ['description'],
-        operators: ['and','escape','near','not','or','phrase','precedence','prefix']
+        operators: ['and','escape','fuzzy','near','not','or','phrase','precedence','prefix']
       }.to_json,
       query_parser: "simple", # accepts simple, structured, lucene, dismax
       'return': ['description', 'ref_no'].join(','),

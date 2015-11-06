@@ -2,6 +2,12 @@ namespace :emailer do
   task :schedule_send_keywords_tenders_emails => :environment do
     # new_tenders_ref_nos_array = CurrentTender.where(published_date: Time.now.in_time_zone('Asia/Singapore').to_date - 6.days).pluck(:ref_no)
     # return nil if new_tenders_ref_nos_array.blank?
+
+    # dun send email is weekend
+    if (Time.now.in_time_zone('Asia/Singapore').to_date.saturday? || Time.now.in_time_zone('Asia/Singapore').to_date.sunday?)
+      NotifyViaSlack.call(content: "Give me a break its the weekend!")
+      abort 'its the weekend!'
+    end
     User.all.each do |user|
       begin
         results_ref_nos = []
@@ -14,8 +20,13 @@ namespace :emailer do
           end
         end
         results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
-        current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
-        NotifyViaSlack.call(content: "#{user.email} has no tenders matching his keywords") and next if current_tenders_ref_nos.blank?
+
+        if Time.now.in_time_zone('Asia/Singapore').to_date.monday?
+          current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+        else
+          current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+        end
+        NotifyViaSlack.call(content: "#{user.email} has no tenders matching his/her keywords") and next if current_tenders_ref_nos.blank?
 
         AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_later!(wait: 30.minutes)
         InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_later

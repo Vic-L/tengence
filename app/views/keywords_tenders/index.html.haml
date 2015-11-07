@@ -32,8 +32,14 @@
             %p Click #{link_to "here", keywords_user_path} to change your keywords and get emails everyday on new tenders related to your set of keywords.
     - else
       %section#tender-results
-        = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+        .row
+          .large-6.column
+            %p Your keywords: #{current_user.keywords}.
+          .large-6.column.text-right
+            = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
         = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
-        = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+        .row
+          .large-offset-6.large-6.column.text-right
+            = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
       
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

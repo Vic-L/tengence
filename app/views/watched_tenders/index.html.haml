@@ -55,9 +55,51 @@
       .row
         .large-offset-6.large-6.column.text-right
           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: nil}
-      = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
+      .row
+        .large-12.column
+          %table#results-table{role: 'grid'}
+            %thead
+              %th.medium-1 Status
+              %th.medium-4 Description
+              %th.medium-1 Published Date
+              %th.medium-1 Closing Date
+              %th.medium-1 Closing Time
+              %th.medium-2 Buyer Entity
+              %th.medium-1 Watchlist
+              %th.medium-1 Details
+            %tbody
+              - @tenders.each do |tender|
+                %tr
+                  %td.medium-1
+                    = tender.status.capitalize
+                  %td.medium-4
+                    = tender.description
+                  %td.medium-1
+                    = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
+                  %td.medium-1
+                    = "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}"
+                  %td.medium-1
+                    = tender.closing_datetime.strftime('%H:%M %p')
+                  %td.medium-2
+                    = tender.buyer_company_name
+                  %td.medium-1
+                    %div{id: "watch-tender-#{tender.ref_no}"}
+                      - if tender.users.include? current_user
+                        = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true, class: "button unwatch-button"
+                      - else
+                        = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true, class: "button watch-button"
+                  %td.medium-1
+                    %div
+                      = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button'
       .row
         .large-offset-6.large-6.column.text-right
           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
+        $('html,body').addClass('loading');
+      });
+    });

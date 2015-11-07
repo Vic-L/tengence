@@ -2,7 +2,7 @@
   .large-12.column
     %table#results-table{role: 'grid'}
       %thead
-        %th.medium-4 Description
+        %th.medium-5 Description
         %th.medium-1 Published Date
         %th.medium-1 Closing Date
         %th.medium-1 Closing Time
@@ -12,7 +12,7 @@
       %tbody
         - tenders.each do |tender|
           %tr
-            %td.medium-3
+            %td.medium-5
               = tender.description
             %td.medium-1
               = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"

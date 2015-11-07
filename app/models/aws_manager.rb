@@ -32,7 +32,7 @@ class AwsManager
       query: keyword, # required
       query_options: {
         fields: ['description'],
-        operators: ['and','escape','fuzzy','near','not','or','phrase','precedence','prefix']
+        operators: ['and','escape','not','or','phrase','precedence','prefix']
       }.to_json,
       query_parser: "simple", # accepts simple, structured, lucene, dismax
       'return': ['description', 'ref_no'].join(','),
@@ -44,7 +44,7 @@ class AwsManager
 
   def self.watched_tenders_search keyword:, ref_nos_array: nil
     if ref_nos_array.blank?
-      fq = ""
+      fq = nil
     else
       fq = "(or"
       ref_nos_array.each do |ref_no|
@@ -64,7 +64,7 @@ class AwsManager
       query: keyword, # required
       query_options: {
         fields: ['description'],
-        operators: ['and','escape','fuzzy','near','not','or','phrase','precedence','prefix']
+        operators: ['and','escape','not','or','phrase','precedence','prefix']
       }.to_json,
       query_parser: "simple", # accepts simple, structured, lucene, dismax
       'return': ['description', 'ref_no'].join(','),
@@ -74,3 +74,4 @@ class AwsManager
     })
   end
 end
+# resp = client.search({filter_query: fq,query: keyword,query_options: {fields: ['description'],operators: ['and','escape','near','not','or','phrase']}.to_json,query_parser: "simple",'return': ['description', 'ref_no'].join(','),size: 10000})

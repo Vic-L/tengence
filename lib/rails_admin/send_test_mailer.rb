@@ -39,7 +39,13 @@ module RailsAdmin
                     end
                   end
                   results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
-                  current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+
+                  if Time.now.in_time_zone('Asia/Singapore').to_date.monday?
+                    current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+                  else
+                    current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+                  end
+
                   if current_tenders_ref_nos.blank?
                     redirect_to back_or_index, flash: {error: "There are no tenders matching #{@object.email}'s keywords that were published yesterday."}
                   else

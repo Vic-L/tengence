@@ -32,10 +32,15 @@
             %p Click #{link_to "here", keywords_user_path} to change your keywords and get emails everyday on new tenders related to your set of keywords.
     - else
       %section#tender-results
+        = form_tag update_keywords_path, method: :post do
+          .row
+            .large-8.columns.large-centered.text-center
+              Your keywords:
+              = text_area_tag 'keywords', cookies[:keywords] || current_user.keywords, placeholder: "Enter up to 20 keywords separated by commas, eg. jurong,maintenance, event"
+              %button#submit{:type => "submit"} UPDATE
+        %br
         .row
-          .large-6.column
-            %p Your keywords: #{current_user.keywords}.
-          .large-6.column.text-right
+          .large-offset-6.large-6.column.text-right
             = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
         = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
         .row

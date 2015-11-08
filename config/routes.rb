@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/current_tenders', to: 'current_tenders#index', as: :current_tenders
   get '/past_tenders', to: 'past_tenders#index', as: :past_tenders
   get '/keywords_tenders', to: 'keywords_tenders#index', as: :keywords_tenders
+  post '/update_keywords', to: 'keywords_tenders#update_keywords', as: :update_keywords
 
   resources :tenders
   resources :watched_tenders

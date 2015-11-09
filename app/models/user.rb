@@ -35,7 +35,11 @@ class User < ActiveRecord::Base
     list do
       field :email
       field :keywords
-      field :current_sign_in_at
+      field :current_sign_in_at do
+        pretty_value do # used in list view columns and show views, defaults to formatted_value for non-association fields
+          "#{(value + 8.hours).day.ordinalize} #{(value + 8.hours).strftime('%b %Y')} #{(value + 8.hours).strftime('%H:%M %p')}"
+        end
+      end
     end
   end
 end

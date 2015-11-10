@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101065145) do
+ActiveRecord::Schema.define(version: 20151110063039) do
 
   create_table "current_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20151101065145) do
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
     t.string   "status",               limit: 255,   default: "active"
+    t.string   "category",             limit: 255
+    t.text     "remarks",              limit: 65535
   end
 
   add_index "tenders", ["ref_no"], name: "index_tenders_on_ref_no", unique: true, using: :btree
@@ -65,7 +67,6 @@ ActiveRecord::Schema.define(version: 20151101065145) do
     t.string   "last_sign_in_ip",        limit: 255
     t.string   "users",                  limit: 255,   default: "free"
     t.string   "braintree_customer_id",  limit: 255
-    t.string   "string",                 limit: 255,   default: "free"
     t.string   "first_name",             limit: 255,   default: "",     null: false
     t.string   "last_name",              limit: 255,   default: "",     null: false
     t.string   "company_name",           limit: 255,   default: "",     null: false

@@ -36,9 +36,9 @@
         .header Original Link
       .large-12.column
         - if tender.is_gebiz?
-          Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' target='_blank'>link</a> to open up an instance with GeBiz.
+          Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' class='external-link' target='_blank'>link</a> to open up an instance with GeBiz. You only have to do this once per session.
           %br
-          Step 2) Cilck this <a href='#{tender.external_link}' target='_blank'>link</a> to view this tender on Gebiz.
+          Step 2) Cilck this <a href='#{@tender.external_link}' class='external-link' target='_blank'>link</a> to view this tender on Gebiz.
         - else
           = link_to tender.external_link, tender.external_link, target: '_blank'
 

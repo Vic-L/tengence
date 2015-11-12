@@ -3,15 +3,20 @@ class WatchedTendersController < ApplicationController
 
   def index
     unless params['query'].blank?
+      @type = params['type']
       results = AwsManager.watched_tenders_search(keyword: params['query'], ref_nos_array: current_user.watched_tenders.pluck(:tender_id))
-      @results_count = results.hits.found
       results_ref_nos = results.hits.hit.map do |result|
         result.fields["ref_no"][0]
       end
-      @tenders = Tender.where(ref_no: results_ref_nos)
+      @current_tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
+      @current_tenders_count = @current_tenders.size
+      @past_tenders = PastTender.includes(:users).where(ref_no: results_ref_nos)
+      @past_tenders_count = @past_tenders.size
     else
-      @tenders = Tender.where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
-      @results_count = @tenders.size
+      @current_tenders = CurrentTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+      @current_tenders_count = @current_tenders.size
+      @past_tenders = PastTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+      @past_tenders_count = @past_tenders.size
     end
   end
 

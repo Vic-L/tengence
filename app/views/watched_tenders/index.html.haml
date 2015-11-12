@@ -24,76 +24,94 @@
         %br
         %br
         PS: All Tenders sent to you via the daily email notification are automatically added to your watchlist.
-  
-  %section#search-field
-    = form_tag '/watched_tenders', method: 'get' do
-      .row
-        .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-          .title-section
-            %h3 Search
-        .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-          .row
-            .medium-8.column
-              .section-desc
-                = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
-            .medium-2.column
-              .section-desc
-                %button.search-submit-button{type: "submit"}
-                  = fa_icon('search')
-            .medium-2.column
-              .section-desc
-                = link_to watched_tenders_path do
-                  %button.back-button{type: "button"}
-                    = fa_icon('mail-reply')
+  %hr
+  .row
+    .large-12.column
+      %ul.tabs{"data-tab" => ""}
+        %li.tab-title{class: "#{(@type == 'current' || @type.nil?) ? 'active' : ''}"}
+          %a{:href => "#current-watched-tenders"} Current Tenders
+        %li.tab-title{class: "#{@type == 'past' ? 'active' : ''}"}
+          %a{:href => "#past-watched-tenders"} Past Tenders
 
-  %section#tender-results
-    - if @results_count == 0
-      .row
-        .large-12.column.text-center
-          %p There are no tenders available
-    - else
-      .row
-        .large-offset-6.large-6.column.text-right
-          = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: nil}
-      .row
-        .large-12.column
-          %table#results-table{role: 'grid'}
-            %thead
-              -# %th.medium-1 Status
-              %th.medium-5 Description
-              %th.medium-1 Published Date
-              %th.medium-1 Closing Date
-              %th.medium-1 Closing Time
-              %th.medium-2 Buyer Entity
-              %th.medium-1 Watchlist
-              %th.medium-1 Details
-            %tbody
-              - @tenders.each do |tender|
-                %tr
-                  -# %td.medium-1
-                  -#   = tender.status.capitalize
-                  %td.medium-5
-                    = tender.description
-                  %td.medium-1
-                    = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
-                  %td.medium-1
-                    = "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}"
-                  %td.medium-1
-                    = tender.closing_datetime.strftime('%H:%M %p')
-                  %td.medium-2
-                    = tender.buyer_company_name
-                  %td.medium-1
-                    %div{id: "watch-tender-#{tender.ref_no}"}
-                      - if tender.users.include? current_user
-                        = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true, class: "button unwatch-button"
-                      - else
-                        = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true, class: "button watch-button"
-                  %td.medium-1
-                    %div
-                      = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button'
-      .row
-        .large-offset-6.large-6.column.text-right
-          = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+  .row
+    .large-12.column
+      .tabs-content
+
+        #current-watched-tenders.content{class: "#{(@type == 'current' || @type.nil?) ? 'active' : ''}"}
+          %section.search-field
+            = form_tag '/watched_tenders', method: 'get' do
+              = hidden_field_tag 'type', 'current'
+              .row
+                .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+                  .title-section
+                    %h3 Search
+                .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+                  .row
+                    .medium-8.column
+                      .section-desc
+                        = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+                    .medium-2.column
+                      .section-desc
+                        %button.search-submit-button{type: "submit"}
+                          = fa_icon('search')
+                    .medium-2.column
+                      .section-desc
+                        = link_to watched_tenders_path do
+                          %button.back-button{type: "button"}
+                            = fa_icon('mail-reply')
+          %section.tender-results
+            - if @current_tenders_count == 0
+              .row
+                .large-12.column.text-center
+                  %p There are no tenders available
+            - else
+              .row
+                .large-offset-6.large-6.column.text-right
+                  = render partial: 'tenders/total_count', locals: {results_count: @current_tenders_count, tenders: nil}
+              .row
+                .large-12.column
+                  = render partial: 'tenders/watched_tenders_table', locals: {tenders: @current_tenders}
+              .row
+                .large-offset-6.large-6.column.text-right
+                  = render partial: 'tenders/total_count', locals: {results_count: @current_tenders_count, tenders: @current_tenders}
+       
+        #past-watched-tenders.content{class: "#{@type == 'past' ? 'active' : ''}"}
+          %section.search-field
+            = form_tag '/watched_tenders', method: 'get' do
+              = hidden_field_tag 'type', 'past'
+              .row
+                .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+                  .title-section
+                    %h3 Search
+                .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+                  .row
+                    .medium-8.column
+                      .section-desc
+                        = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+                    .medium-2.column
+                      .section-desc
+                        %button.search-submit-button{type: "submit"}
+                          = fa_icon('search')
+                    .medium-2.column
+                      .section-desc
+                        = link_to watched_tenders_path do
+                          %button.back-button{type: "button"}
+                            = fa_icon('mail-reply')
+          %section.tender-results
+            - if @past_tenders_count == 0
+              .row
+                .large-12.column.text-center
+                  %p There are no tenders available
+            - else
+              .row
+                .large-offset-6.large-6.column.text-right
+                  = render partial: 'tenders/total_count', locals: {results_count: @past_tenders_count, tenders: nil}
+              .row
+                .large-12.column
+                  = render partial: 'tenders/watched_tenders_table', locals: {tenders: @past_tenders}
+              .row
+                .large-offset-6.large-6.column.text-right
+                  = render partial: 'tenders/total_count', locals: {results_count: @past_tenders_count, tenders: @past_tenders}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
 - content_for :javascript do

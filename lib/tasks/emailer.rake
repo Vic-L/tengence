@@ -10,8 +10,8 @@ namespace :emailer do
     end
     User.all.each do |user|
       begin
-        results_ref_nos = []
         NotifyViaSlack.call(content: "#{user.email} has no keywords") and next if user.keywords.blank?
+        results_ref_nos = []
         user.keywords.split(",").each do |keyword|
           # get tenders for each keyword belonging to a user
           results = AwsManager.search(keyword: keyword)

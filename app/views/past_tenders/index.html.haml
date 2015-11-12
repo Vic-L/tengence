@@ -2,13 +2,13 @@
   - if params['query'].blank?
     %section#hero
       .row
-        .large-6.column.text-center
+        .small-6.column.text-center
           .counter.animated{"data-perc" => "#{CurrentTender.count}"}
             .number-detail
               %h2
                 .number
                 .text Current Tenders
-        .large-6.column.text-center
+        .small-6.column.text-center
           .counter.animated{"data-perc" => "46"}
             .number-detail
               %h2
@@ -16,7 +16,7 @@
                 .text Tender Sources and counting
   %section#description
     .row
-      .large-12.column
+      .small-12.column
         These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.
         %br
         %br
@@ -45,15 +45,15 @@
   %section#tender-results
     - if @results_count == 0
       .row
-        .large-12.column.text-center
+        .small-12.column.text-center
           %p There are no tenders available
     - else
       .row
-        .large-offset-6.large-6.column.text-right
+        .small-offset-6.small-6.column.text-right
           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
       = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
       .row
-        .large-offset-6.large-6.column.text-right
+        .small-offset-6.small-6.column.text-right
           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

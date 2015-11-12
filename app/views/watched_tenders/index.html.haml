@@ -2,13 +2,13 @@
   - if params['query'].blank?
     %section#hero
       .row
-        .large-6.column.text-center
+        .small-6.column.text-center
           .counter.animated{"data-perc" => "#{CurrentTender.count}"}
             .number-detail
               %h2
                 .number
                 .text Current Tenders
-        .large-6.column.text-center
+        .small-6.column.text-center
           .counter.animated{"data-perc" => "46"}
             .number-detail
               %h2
@@ -16,7 +16,7 @@
                 .text Tender Sources and counting
   %section#description
     .row
-      .large-12.column
+      .small-12.column
         Did you know that you can add Tenders to your watch list? The watchlist is your personalized list of Tenders that you are interested in!
         %br
         %br
@@ -26,7 +26,7 @@
         PS: All Tenders sent to you via the daily email notification are automatically added to your watchlist.
   %hr
   .row
-    .large-12.column
+    .small-12.column
       %ul.tabs{"data-tab" => ""}
         %li.tab-title{class: "#{(@type == 'current' || @type.nil?) ? 'active' : ''}"}
           %a{:href => "#current-watched-tenders"} Current Tenders
@@ -34,7 +34,7 @@
           %a{:href => "#past-watched-tenders"} Past Tenders
 
   .row
-    .large-12.column
+    .small-12.column
       .tabs-content
 
         #current-watched-tenders.content{class: "#{(@type == 'current' || @type.nil?) ? 'active' : ''}"}
@@ -62,17 +62,17 @@
           %section.tender-results
             - if @current_tenders_count == 0
               .row
-                .large-12.column.text-center
+                .small-12.column.text-center
                   %p There are no tenders available
             - else
               .row
-                .large-offset-6.large-6.column.text-right
+                .small-offset-6.small-6.column.text-right
                   = render partial: 'tenders/total_count', locals: {results_count: @current_tenders_count, tenders: nil}
               .row
-                .large-12.column
+                .small-12.column
                   = render partial: 'tenders/watched_tenders_table', locals: {tenders: @current_tenders}
               .row
-                .large-offset-6.large-6.column.text-right
+                .small-offset-6.small-6.column.text-right
                   = render partial: 'tenders/total_count', locals: {results_count: @current_tenders_count, tenders: @current_tenders}
        
         #past-watched-tenders.content{class: "#{@type == 'past' ? 'active' : ''}"}
@@ -100,17 +100,17 @@
           %section.tender-results
             - if @past_tenders_count == 0
               .row
-                .large-12.column.text-center
+                .small-12.column.text-center
                   %p There are no tenders available
             - else
               .row
-                .large-offset-6.large-6.column.text-right
+                .small-offset-6.small-6.column.text-right
                   = render partial: 'tenders/total_count', locals: {results_count: @past_tenders_count, tenders: nil}
               .row
-                .large-12.column
+                .small-12.column
                   = render partial: 'tenders/watched_tenders_table', locals: {tenders: @past_tenders}
               .row
-                .large-offset-6.large-6.column.text-right
+                .small-offset-6.small-6.column.text-right
                   = render partial: 'tenders/total_count', locals: {results_count: @past_tenders_count, tenders: @past_tenders}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

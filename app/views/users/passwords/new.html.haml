@@ -11,9 +11,9 @@
     .row
       = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
         #message= devise_error_messages!
-        .large-6.column.large-centered
+        .small-6.column.small-centered
           = f.email_field :email, autofocus: true, placeholder: 'Email'
-        .large-6.columns.large-centered.text-center
+        .small-6.columns.small-centered.text-center
           %button#submit{:type => "submit"} Send me reset password instructions
-        .large-6.columns.large-centered.shared-links
+        .small-6.columns.small-centered.shared-links
           = render "users/shared/links"

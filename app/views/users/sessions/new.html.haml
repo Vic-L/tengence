@@ -12,13 +12,13 @@
       / start contact form
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         #message= devise_error_messages!
-        .large-6.column.large-centered
+        .small-6.column.small-centered
           = f.email_field :email, placeholder: 'Email'
-        .large-6.column.large-centered
+        .small-6.column.small-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
-        .large-6.columns.large-centered.text-center
+        .small-6.columns.small-centered.text-center
           %button#submit{:type => "submit"} Login
-        .large-6.columns.large-centered.shared-links
+        .small-6.columns.small-centered.shared-links
           -# = render "users/shared/links"
           = link_to "Forgot your password?", new_password_path(resource_name)
           %br

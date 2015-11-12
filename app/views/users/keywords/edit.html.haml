@@ -7,6 +7,6 @@
     .row
       #message
       = form_tag keywords_user_path, method: :post do
-        .large-8.columns.medium-centered.text-center
+        .small-8.columns.medium-centered.text-center
           = text_area_tag 'keywords', cookies[:keywords] || current_user.keywords, placeholder: "Enter up to 20 keywords separated by commas, eg. jurong,maintenance, event"
           %button#submit{:type => "submit"} SUBMIT

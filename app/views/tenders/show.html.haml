@@ -1,59 +1,59 @@
 #wrapper
   .row#content
-    .large-8.column.main
+    .small-8.column.main
       .row
-        .large-12.column
+        .small-12.column
           .header Reference No
-        .large-12.column
+        .small-12.column
           = @tender.ref_no_for_display
       .row
-        .large-12.column
+        .small-12.column
           .header Buyer Company Name
-        .large-12.column
+        .small-12.column
           = @tender.buyer_company_name
       .row
-        .large-12.column
+        .small-12.column
           .header Description
-        .large-12.column
+        .small-12.column
           = @tender.description
       .row
-        .large-12.column
+        .small-12.column
           .header Published Date
-        .large-12.column
+        .small-12.column
           = "#{@tender.published_date.day.ordinalize} #{@tender.published_date.strftime('%b %Y')}"
       .row
-        .large-12.column
+        .small-12.column
           .header Closing Date
-        .large-12.column
+        .small-12.column
           = "#{@tender.closing_datetime.day.ordinalize} #{@tender.closing_datetime.strftime('%b %Y')}"
       .row
-        .large-12.column
+        .small-12.column
           .header Closing Time
-        .large-12.column
+        .small-12.column
           = @tender.closing_datetime.strftime('%H:%M %p')
       .row
-        .large-12.column
+        .small-12.column
           .header Original Link
-        .large-12.column
+        .small-12.column
           - if @tender.is_gebiz?
             Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' class='external-link' target='_blank'>link</a> to open up an instance with GeBiz. You only have to do this once per session.
             %br
             Step 2) Cilck this <a href='#{@tender.external_link}' class='external-link' target='_blank'>link</a> to view this tender on Gebiz.
           - else
             = link_to @tender.external_link, @tender.external_link, target: '_blank'
-    .large-4.column
+    .small-4.column
       .row
-        .large-12.column
+        .small-12.column
           .header Buyer Name
-        .large-12.column
+        .small-12.column
           = @tender.buyer_name
       .row
-        .large-12.column
+        .small-12.column
           .header Buyer Contact Number
-        .large-12.column
+        .small-12.column
           = @tender.buyer_contact_number
       .row
-        .large-12.column
+        .small-12.column
           .header Buyer Email
-        .large-12.column
+        .small-12.column
           = @tender.buyer_email

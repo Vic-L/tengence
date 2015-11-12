@@ -12,25 +12,25 @@
       / start contact form
       = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
         #message= devise_error_messages!
-        .large-6.column.large-centered
+        .small-6.column.small-centered
           = f.text_field :first_name, autofocus: true, placeholder: 'First Name'
-        .large-6.column.large-centered
+        .small-6.column.small-centered
           = f.text_field :last_name, placeholder: 'Last Name'
-        .large-6.column.large-centered
+        .small-6.column.small-centered
           = f.text_field :company_name, placeholder: 'Company'
-        .large-6.columns.large-centered
+        .small-6.columns.small-centered
           = f.email_field :email, placeholder: 'Email'
-        .large-6.column.large-centered
+        .small-6.column.small-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
           %a.show-password Show Password
           %br
           %br
-        .large-6.columns.large-centered
+        .small-6.columns.small-centered
           = check_box_tag 'eula', 1, false
           By signing up, you agree to Tengence's <a href="/terms-of-service" target="_blank">Terms Of Service</a>.
-        .large-6.columns.large-centered.text-center
+        .small-6.columns.small-centered.text-center
           %button#submit{type: 'submit'} Sign Up
-        .large-6.columns.large-centered.shared-links
+        .small-6.columns.small-centered.shared-links
           = render "users/shared/links"
 
   -# %footer

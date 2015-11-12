@@ -54,15 +54,15 @@
       #message
       = form_tag checkout_path, id: 'contactform' do |f|
         = hidden_field_tag 'subscribed_plan', nil
-        .large-6.columns.large-centered.text-center
+        .small-6.columns.small-centered.text-center
           Selected Plan        
-        .large-6.columns.large-centered#plan-price
-        .large-6.columns.large-centered.text-center
+        .small-6.columns.small-centered#plan-price
+        .small-6.columns.small-centered.text-center
           %br
           Please Select Payment Method
-        .large-6.columns.large-centered
+        .small-6.columns.small-centered
           #payment-form
-        .large-12.columns.text-center
+        .small-12.columns.text-center
           %button#submit{:name => "email", :type => "submit"} SEND
 
 - content_for :javascript do

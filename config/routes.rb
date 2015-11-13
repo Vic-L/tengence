@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # static pages
   root 'pages#home'
+  post 'contact_us_email', to: 'pages#contact_us_email'
 
   # braintree
   get "/braintree_client_token", to: 'brain_tree#client_token'

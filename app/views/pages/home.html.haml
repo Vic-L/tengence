@@ -8,6 +8,28 @@
           -# %span.color= link_to "Login", new_user_session_path
           %span.color We are a Big Data driven Business Intelligence firm specializing in Government Contracts.
         %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Our core sectors of expertise are competitor analysis, insights generation and predictive analytics. 
+%section#contacts
+  .row
+    .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+      .title-section
+        %h3
+          %strong Contact Us
+    .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+      .section-desc
+        %h4
+          %strong As one of the core design principles, typography can really make or break a website design
+        %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
+  .row
+    #message
+    = form_tag '/contact_us_email', remote: true, id: 'contactform' do
+      .small-6.columns
+        = text_field_tag "name", nil, placeholder: "Name"
+      .small-6.columns
+        = email_field_tag "email", nil, placeholder: "Email"
+      .small-12.columns
+        = text_area_tag "comments", nil, placeholder: "Message"
+      .small-12.columns.text-center
+        %button#submit{:type => "submit"} SEND
 -# #wrapper
 -#   %section#about
 -#     .row
@@ -479,43 +501,6 @@
 -#           %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
 -#           %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
 -#           %img{:alt => "", :src => "/tyger/img/clients/placeholder.jpg"}
--#   %section#contacts
--#     .row
--#       .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
--#         .title-section
--#           %h3 Contacts
--#       .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
--#         .section-desc
--#           %h4 Meet our creative people
--#           %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
--#       .medium-6.columns.medium-centered
--#         %ul.medium-block-grid-3.small-block-grid-1
--#           %li.link-box
--#             .about
--#               %i.icon.tyger-map-pin-streamline
--#               %p 18 Short Street, 9C
--#               %p Los Angeles, LA 10013
--#           %li.link-box
--#             .about
--#               %i.icon.tyger-iphone-streamline
--#               %p +24 524 235681
--#               %p +24 568 548236
--#           %li.link-box
--#             .about
--#               %i.icon.tyger-email-mail-streamline
--#               %p info@tyger.com
--#               %p support@tyger.com
--#     .row
--#       #message
--#       %form#contactform{:action => "php/contact.php", :method => "post", :name => "contactform"}
--#         .small-6.columns
--#           %input#name{:name => "name", :placeholder => "Name", :type => "text"}
--#         .small-6.columns
--#           %input#email{:name => "email", :placeholder => "Email", :type => "text"}
--#         .small-12.columns
--#           %textarea#comments{:name => "comments", :placeholder => "Message"}
--#         .small-12.columns.text-center
--#           %button#submit{:name => "email", :type => "submit"} SEND
 -#   %section#map.dark
 -#     #google-map
 -#       .subtitle.white

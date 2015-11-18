@@ -31,10 +31,17 @@ class WatchedTendersController < ApplicationController
 
   def create
     @watched_tender = WatchedTender.create(user_id: current_user.id, tender_id: params[:ref_no])
+    @tender_ref_no = params[:ref_no]
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
-    @tender = Tender.find(params[:id])
-    WatchedTender.find_by(tender_id: params[:id]).destroy
+    @tender_ref_no = params[:id]
+    DestroyWatchedTenderWorker.perform_async(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 end

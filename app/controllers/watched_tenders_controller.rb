@@ -13,10 +13,12 @@ class WatchedTendersController < ApplicationController
       @past_tenders = PastTender.includes(:users).where(ref_no: results_ref_nos)
       @past_tenders_count = @past_tenders.size
     else
-      @current_tenders = CurrentTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
-      @current_tenders_count = @current_tenders.size
-      @past_tenders = PastTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
-      @past_tenders_count = @past_tenders.size
+      current_tenders = CurrentTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+      @current_tenders = current_tenders.page(params[:page]).per(50)
+      @current_tenders_count = current_tenders.size
+      past_tenders = PastTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+      @past_tenders = past_tenders.page(params[:page]).per(50)
+      @past_tenders_count = past_tenders.size
     end
   end
 

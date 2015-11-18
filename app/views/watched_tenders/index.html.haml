@@ -67,7 +67,7 @@
             - else
               .row
                 .small-offset-6.small-6.column.text-right
-                  = render partial: 'tenders/total_count', locals: {results_count: @current_tenders_count, tenders: nil}
+                  = render partial: 'tenders/total_count', locals: {results_count: @current_tenders_count, tenders: @current_tenders}
               .row
                 .small-12.column
                   = render partial: 'tenders/watched_tenders_table', locals: {tenders: @current_tenders}
@@ -105,7 +105,7 @@
             - else
               .row
                 .small-offset-6.small-6.column.text-right
-                  = render partial: 'tenders/total_count', locals: {results_count: @past_tenders_count, tenders: nil}
+                  = render partial: 'tenders/total_count', locals: {results_count: @past_tenders_count, tenders: @past_tenders}
               .row
                 .small-12.column
                   = render partial: 'tenders/watched_tenders_table', locals: {tenders: @past_tenders}

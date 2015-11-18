@@ -32,5 +32,6 @@ module Tengence
     config.active_record.time_zone_aware_attributes = false
 
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/workers/**/"]
   end
 end

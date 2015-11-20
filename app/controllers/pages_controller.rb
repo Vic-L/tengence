@@ -5,6 +5,9 @@ class PagesController < ActionController::Base
   def home
   end
 
+  def post_a_tender
+  end
+
   def contact_us_email
     name = params[:name]
     email = params[:email]

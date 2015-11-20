@@ -46,4 +46,12 @@
           = f.text_area :description, placeholder: "Fill in tender description"
         .small-8.columns.small-centered.text-center
           %button#submit{:type => "submit"} SEND
-  
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $('#tender_closing_datetime').fdatepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        pickTime: true
+      });
+    });

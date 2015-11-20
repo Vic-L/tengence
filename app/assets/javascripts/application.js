@@ -21,4 +21,5 @@
 //= require jquery.validate.min
 //= require jquery.validate.additional-methods.min
 //= require notify.min
+//= require foundation-datepicker.min
 //= require_tree .

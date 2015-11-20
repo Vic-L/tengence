@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110063039) do
+ActiveRecord::Schema.define(version: 20151120052149) do
 
   create_table "current_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20151110063039) do
     t.string   "subscribed_plan",        limit: 255,   default: "free"
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
+    t.string   "access_level",           limit: 255,                    null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

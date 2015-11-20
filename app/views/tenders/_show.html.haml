@@ -1,17 +1,18 @@
 %a.close-reveal-modal{:'aria-label' => "Close"} &#215;
 .row
   .small-8.column.main
-    - if !tender.inhouse?
+    - if !tender.in_house?
       .row
         .small-12.column
           .header Reference No
         .small-12.column
           = tender.ref_no_for_display
-    .row
-      .small-12.column
-        .header Buyer Company Name
-      .small-12.column
-        = tender.buyer_company_name
+      .row
+        .small-12.column
+          .header Buyer Company Name
+        .small-12.column
+          = tender.buyer_company_name
+
     .row
       .small-12.column
         .header Description
@@ -26,36 +27,69 @@
       .small-12.column
         .header Closing Date
       .small-12.column
-        = "#{@tender.closing_datetime.day.ordinalize} #{@tender.closing_datetime.strftime('%b %Y')}"
+        = "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}"
     .row
       .small-12.column
         .header Closing Time
       .small-12.column
-        = @tender.closing_datetime.strftime('%H:%M %p')
-    .row
-      .small-12.column
-        .header Original Link
-      .small-12.column
-        - if tender.is_gebiz?
-          Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' class='external-link' target='_blank'>link</a> to open up an instance with GeBiz. You only have to do this once per session.
-          %br
-          Step 2) Cilck this <a href='#{@tender.external_link}' class='external-link' target='_blank'>link</a> to view this tender on Gebiz.
-        - else
-          = link_to tender.external_link, tender.external_link, target: '_blank'
+        = tender.closing_datetime.strftime('%H:%M %p')
+    - if !tender.in_house?
+      .row
+        .small-12.column
+          .header Original Link
+        .small-12.column
+          - if tender.is_gebiz?
+            Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' class='external-link' target='_blank'>link</a> to open up an instance with GeBiz. You only have to do this once per session.
+            %br
+            Step 2) Cilck this <a href='#{tender.external_link}' class='external-link' target='_blank'>link</a> to view this tender on Gebiz.
+          - else
+            = link_to tender.external_link, tender.external_link, target: '_blank'
 
   .small-4.column
-    .row
-      .small-12.column
-        .header Buyer Name
-      .small-12.column
-        = tender.buyer_name
-    .row
-      .small-12.column
-        .header Buyer Contact Number
-      .small-12.column
-        = tender.buyer_contact_number
-    .row
-      .small-12.column
-        .header Buyer Email
-      .small-12.column
-        = tender.buyer_email
+    - if !tender.in_house?
+      .row
+        .small-12.column
+          .header Buyer Name
+        .small-12.column
+          = tender.buyer_name
+      .row
+        .small-12.column
+          .header Buyer Contact Number
+        .small-12.column
+          = tender.buyer_contact_number
+      .row
+        .small-12.column
+          .header Buyer Email
+        .small-12.column
+          = tender.buyer_email
+    - else
+      .row
+        .small-12.column
+          .header#reveal-in-house-tender-details-button Click here to show details
+      #in-house-tender-details
+        .row
+          .small-12.column
+            .header Buyer Company
+          .small-12.column
+            = tender.buyer_company_name
+        .row
+          .small-12.column
+            .header Buyer Name
+          .small-12.column
+            = tender.buyer_name
+        .row
+          .small-12.column
+            .header Buyer Contact Number
+          .small-12.column
+            = tender.buyer_contact_number
+        .row
+          .small-12.column
+            .header Buyer Email
+          .small-12.column
+            = tender.buyer_email
+
+:javascript
+  $('#reveal-in-house-tender-details-button').click(function(){
+    $('#in-house-tender-details').show();
+    $('#reveal-in-house-tender-details-button').hide();
+  });

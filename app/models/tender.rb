@@ -6,4 +6,15 @@ class Tender < ActiveRecord::Base
 
   default_scope { order(published_date: :desc) } 
   validates_presence_of :buyer_name, :buyer_email, :buyer_contact_number, :published_date, :closing_datetime
+
+  after_commit :add_to_cloudsearch, on: :create
+  after_commit :update_cloudsearch, on: :update
+
+  def add_to_cloudsearch
+    AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no)
+  end
+
+  def update_cloudsearch
+    UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no)
+  end
 end

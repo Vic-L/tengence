@@ -39,7 +39,7 @@ class PagesController < ApplicationController
     rescue => e
       NotifyViaSlack.call(content: "Error when refreshing cloudsearch:\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     ensure
-      return "success".to_json
+      render json: "success".to_json
     end
   end
 

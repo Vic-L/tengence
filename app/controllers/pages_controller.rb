@@ -11,6 +11,38 @@ class PagesController < ApplicationController
   def terms_of_service
   end
 
+  def refresh_cloudsearch
+    begin
+      array = []
+      Tender.all.each do |tender|
+        array << {
+          'type': "delete",
+          'id': tender.ref_no
+        }
+      end; nil
+      AwsManager.upload_document array.to_json
+      NotifyViaSlack.call(content: "Deleted all records on AWSCloudSearch")
+
+      array = []
+      Tender.all.each do |tender|
+        array << {
+          'type': "add",
+          'id': tender.ref_no,
+          'fields': {
+            'ref_no': tender.ref_no,
+            'description': tender.description
+          }
+        }
+      end; nil
+      AwsManager.upload_document array.to_json
+      NotifyViaSlack.call(content: "Added all records on AWSCloudSearch")
+    rescue => e
+      NotifyViaSlack.call(content: "Error when refreshing cloudsearch:\r\n#{e.message}\r\n#{e.backtrace.to_s}")
+    ensure
+      return "success".to_json
+    end
+  end
+
   def contact_us_email
     name = params[:name]
     email = params[:email]

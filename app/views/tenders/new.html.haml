@@ -57,6 +57,9 @@
         format: 'yyyy-mm-dd hh:ii',
         pickTime: true
       });
+      $('#tender_closing_datetime').on('changeDate',function(){
+        $('form.new_tender').valid();
+      });
       $("form.new_tender").validate({
         rules: {
           "tender[buyer_name]": {

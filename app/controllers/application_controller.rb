@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+    def deny_read_only_access
+      if user_signed_in? && current_user.read_only?
+        flash[:alert] = "You are not authorized to view this page."
+        redirect_to current_tenders_path
+      end
+    end
 
     def devise_parameter_sanitizer
       if resource_class == User

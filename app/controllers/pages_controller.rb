@@ -1,6 +1,6 @@
-class PagesController < ActionController::Base
-  layout :layout_for_page
-  before_action :authenticate_current_user
+class PagesController < ApplicationController
+  before_action :authenticate_current_user, only: [:home]
+  before_action :deny_read_only_access, only: [:post_a_tender]
 
   def home
   end
@@ -29,14 +29,6 @@ class PagesController < ActionController::Base
   end
 
   private
-    def layout_for_page
-      case params[:id]
-      when 'lol'
-      else
-        'application'
-      end
-    end
-
     def authenticate_current_user
       if user_signed_in?
         redirect_to current_tenders_path

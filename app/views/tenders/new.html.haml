@@ -16,8 +16,10 @@
         = f.hidden_field :ref_no
         = f.hidden_field :published_date
         .small-8.columns.small-centered
-          Company Name (may not be your company)
-          = f.text_field :buyer_company_name, value: current_user.company_name, placeholder: "Vijay "
+          Company: #{current_user.company_name}
+          = f.hidden_field :buyer_company_name
+          %br
+          %br
         .small-8.columns.small-centered
           Buyer Name (may not be your name)
           = f.text_field :buyer_name, value: current_user.name, placeholder: "Please leave full name"
@@ -29,6 +31,7 @@
           = f.text_field :buyer_contact_number, placeholder: "eg 98765432"
         .small-8.columns.small-centered
           Budget
+          #budget-error
           %br
           = f.radio_button(:budget, "$0 - $999")
           = label_tag(:budget, "$0 - $999")
@@ -42,7 +45,7 @@
           Closing Date Time
           = f.datetime_field :closing_datetime, placeholder: "Closing date & time"
         .small-12.columns.small-centered
-          Tender Description
+          Buyer Description
           = f.text_area :description, placeholder: "Fill in tender description"
         .small-8.columns.small-centered.text-center
           %button#submit{:type => "submit"} SEND
@@ -53,5 +56,50 @@
       $('#tender_closing_datetime').fdatepicker({
         format: 'yyyy-mm-dd hh:ii',
         pickTime: true
+      });
+      $("form.new_tender").validate({
+        rules: {
+          "tender[buyer_name]": {
+            required: true
+          },
+          "tender[buyer_email]": {
+            required: true,
+            email: true
+          },
+          "tender[budget]": {
+            required: true
+          },
+          "tender[closing_datetime]": {
+            required: true
+          },
+          "tender[description]": {
+            required: true
+          }
+        },
+        errorPlacement: function(error, element) {
+          if (element.attr("name") == "tender[budget]") {
+            error.insertAfter("#budget-error");
+          } else {
+            error.insertAfter(element);
+          }
+        },
+        messages: {
+          "tender[buyer_email]": {
+            required: "Email of person of contact is required.",
+            email: "Your email is in an invalid format."
+          },
+          "tender[buyer_name]": {
+            required: "Name of person of contact is required."
+          },
+          "tender[budget]": {
+            required: "Budget range required"
+          },
+          "tender[closing_datetime]": {
+            required: "Closing date time required"
+          },
+          "tender[description]": {
+            required: "Tender description is required"
+          }
+        }
       });
     });

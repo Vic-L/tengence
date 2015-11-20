@@ -4,6 +4,7 @@ class Tender < ActiveRecord::Base
   has_many :users, through: :watched_tenders
 
   default_scope { order(published_date: :desc) } 
+  validates_presence_of :buyer_name, :buyer_email, :buyer_contact_number, :published_date, :closing_datetime
 
   def is_gebiz?
     !!(self.external_link =~ /gebiz.gov/)

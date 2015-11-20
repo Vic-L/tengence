@@ -1,15 +1,10 @@
 #wrapper
   %section#form
     .row
-      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+      .small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
           %h3
-            %strong Contact Us
-      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-        .section-desc
-          %h4
-            %strong As one of the core design principles, typography can really make or break a website design
-          %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
+            %strong Post a Buying Requirement
     .row
       #message
       = form_for @tender do |f|
@@ -32,9 +27,6 @@
         .small-8.columns.small-centered
           Budget
           #budget-error
-          %br
-          = f.radio_button(:budget, "$0 - $999")
-          = label_tag(:budget, "$0 - $999")
           = f.radio_button(:budget, "$1000 - $4999")
           = label_tag(:budget, "$1000 - $4999")
           = f.radio_button(:budget, "$5000 - $9999")
@@ -46,6 +38,7 @@
           = f.datetime_field :closing_datetime, placeholder: "Closing date & time"
         .small-12.columns.small-centered
           Buyer Description
+          #description-error
           = f.text_area :description, placeholder: "Fill in tender description"
         .small-8.columns.small-centered.text-center
           %button#submit{:type => "submit"} SEND
@@ -56,6 +49,12 @@
       $('#tender_closing_datetime').fdatepicker({
         format: 'yyyy-mm-dd hh:ii',
         pickTime: true
+      });
+      $(document).on("focusin", "#tender_closing_datetime", function(event) {
+        $(this).prop('readonly', true);
+      });
+      $(document).on("focusout", "#tender_closing_datetime", function(event) {
+        $(this).prop('readonly', false);
       });
       $('#tender_closing_datetime').on('changeDate',function(){
         $('form.new_tender').valid();
@@ -88,7 +87,9 @@
         },
         errorPlacement: function(error, element) {
           if (element.attr("name") == "tender[budget]") {
-            error.insertAfter("#budget-error");
+            error.appendTo("#budget-error");
+          } else if (element.attr("name") == "tender[description]") {
+            error.appendTo("#description-error");
           } else {
             error.insertAfter(element);
           }

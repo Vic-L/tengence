@@ -142,7 +142,6 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
-    high_voltage (2.4.0)
     hitimes (1.2.3)
     i18n (0.7.0)
     ice_nine (0.11.1)
@@ -329,7 +328,6 @@ DEPENDENCIES
   dotenv-rails (~> 2.0.2)
   faker (~> 1.5.0)
   font-awesome-rails (~> 4.4.0.0)
-  high_voltage (~> 2.4.0)
   jbuilder (~> 2.0)
   jquery-rails
   kaminari (~> 0.16.3)

@@ -59,7 +59,6 @@ end
 gem 'faker', '~> 1.5.0'
 gem 'devise', '~> 3.5.2'
 gem 'rails_admin', '~> 0.7.0'
-gem 'high_voltage', '~> 2.4.0'
 gem "non-stupid-digest-assets", '~> 1.0.5'
 gem 'dotenv-rails', '~> 2.0.2'
 gem 'braintree', '~> 2.52.0'

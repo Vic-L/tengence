@@ -1,4 +1,5 @@
 class CurrentTender < ActiveRecord::Base
+  include TenderFunctions
   self.primary_key = 'ref_no'
   after_initialize :readonly!
   paginates_per 50
@@ -7,8 +8,4 @@ class CurrentTender < ActiveRecord::Base
   has_many :users, through: :watched_tenders 
 
   default_scope { order(published_date: :desc) }
-
-  def buyer_name_and_company
-    "#{self.buyer_name} (#{self.buyer_company_name})"
-  end
 end

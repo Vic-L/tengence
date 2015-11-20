@@ -33,5 +33,6 @@ module Tengence
 
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
     config.autoload_paths += Dir["#{config.root}/app/workers/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/models/**/"]
   end
 end

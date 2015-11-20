@@ -1,11 +1,12 @@
 %a.close-reveal-modal{:'aria-label' => "Close"} &#215;
 .row
   .small-8.column.main
-    .row
-      .small-12.column
-        .header Reference No
-      .small-12.column
-        = tender.ref_no_for_display
+    - if !tender.inhouse?
+      .row
+        .small-12.column
+          .header Reference No
+        .small-12.column
+          = tender.ref_no_for_display
     .row
       .small-12.column
         .header Buyer Company Name

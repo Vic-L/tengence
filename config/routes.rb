@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   post 'contact_us_email', to: 'pages#contact_us_email'
   get 'post-a-tender', to: 'pages#post_a_tender'
+  get 'terms-of-service', to: 'pages#terms_of_service'
 
   # braintree
   get "/braintree_client_token", to: 'brain_tree#client_token'

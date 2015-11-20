@@ -8,6 +8,9 @@ class PagesController < ApplicationController
   def post_a_tender
   end
 
+  def terms_of_service
+  end
+
   def contact_us_email
     name = params[:name]
     email = params[:email]

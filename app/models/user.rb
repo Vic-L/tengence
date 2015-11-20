@@ -23,6 +23,12 @@ class User < ActiveRecord::Base
   has_many :past_tenders, through: :watched_tenders
   validates_with KeywordsValidator
 
+  include AASM
+  aasm column: :access_level do
+    state :read_only, :initial => true
+    state :write_only
+  end
+
   def self.email_available?(email)
     User.find_by_email(email).blank?
   end

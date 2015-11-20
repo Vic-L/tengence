@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def deny_write_only_access
+      if user_signed_in? && current_user.write_only?
+        flash[:alert] = "You are not authorized to view this page."
+        redirect_to post_a_tender_path
+      end
+    end
+
     def devise_parameter_sanitizer
       if resource_class == User
         User::ParameterSanitizer.new(User, :user, params)

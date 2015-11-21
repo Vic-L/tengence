@@ -12,7 +12,7 @@ class TendersController < ApplicationController
     @tender.save
     if @tender.persisted?
       flash[:success] = "Tender Created Successfully!"
-      redirect_to current_tenders_path
+      redirect_to current_posted_tenders_path
     else
       flash[:alert] = @tender.errors.full_messages.to_sentence
       redirect_to new_tender_path

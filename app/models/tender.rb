@@ -9,6 +9,7 @@ class Tender < ActiveRecord::Base
 
   after_commit :add_to_cloudsearch, on: :create
   after_commit :update_cloudsearch, on: :update
+  after_commit :remove_from_cloudsearch, on: :destroy
 
   def add_to_cloudsearch
     AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no)
@@ -16,5 +17,9 @@ class Tender < ActiveRecord::Base
 
   def update_cloudsearch
     UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no)
+  end
+
+  def remove_from_cloudsearch
+    RemoveSingleTenderFromCloudsearchWorker.perform_async(self.ref_no)
   end
 end

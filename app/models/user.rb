@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :watched_tenders, dependent: :destroy
   has_many :current_tenders, through: :watched_tenders
   has_many :past_tenders, through: :watched_tenders
+  has_many :current_posted_tenders, foreign_key: "postee_id"
+  has_many :past_posted_tenders, foreign_key: "postee_id"
   validates_with KeywordsValidator
 
   include AASM

@@ -3,9 +3,12 @@
     .medium-3.small-6.columns.text-align-left
       %h1.logo
         - if current_user
-          %a{:href => "/current_tenders", :title => ""} Tengence
+          - if current_user.read_only?
+            = link_to 'Tengence', current_tenders_path, title: ''
+          - elsif current_user.write_only?
+            = link_to 'Tengence', current_posted_tenders_path, title: ''
         - else
-          %a{:href => "/", :title => ""} Tengence
+          = link_to 'Tengence', root_path, title: ''
     - if current_user
       - if current_user.read_only?
         .medium-9.small-6.columns.text-center

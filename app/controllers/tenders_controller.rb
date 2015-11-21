@@ -23,6 +23,20 @@ class TendersController < ApplicationController
     @tender = Tender.find_by(ref_no: params[:id])
   end
 
+  def edit
+    @tender = Tender.find(params[:id])
+  end
+
+  def update
+    @tender = Tender.find(tender_params[:ref_no])
+    if @tender.update(tender_params)
+      flash[:success] = "Buying requirement successfully updated!"
+      render js: "window.location.reload()"
+    else
+      render js: "alert('#{@tender.errors.full_messages.to_sentence}');"
+    end
+  end
+
   private
     def store_location
       unless user_signed_in?

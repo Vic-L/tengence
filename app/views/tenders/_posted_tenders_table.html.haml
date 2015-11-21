@@ -26,17 +26,14 @@
             - if type == 'current'
               %td.medium-1
                 %div{id: "edit-tender-#{tender.ref_no}"}
-                  -# - if tender.postee.include? current_user
-                  -#   = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true, class: "button unwatch-button"
-                  -# - else
-                  -#   = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true, class: "button watch-button"
+                  = link_to "Edit", edit_tender_path(tender.ref_no), method: 'get', remote: true, class: "button edit-button"
             %td.medium-1
               %div
                 = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button'
 - content_for :javascript do
   :javascript
     $(function(){
-      $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
+      $(document).on('click', '.edit-button, .more-button', function(){
         $('html,body').addClass('loading');
       });
     });

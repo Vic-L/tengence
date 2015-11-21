@@ -66,7 +66,11 @@ class PagesController < ApplicationController
   private
     def authenticate_current_user
       if user_signed_in?
-        redirect_to current_tenders_path
+        if current_user.read_only?
+          redirect_to current_tenders_path
+        elsif current_user.write_only?
+          redirect_to current_posted_tenders_path
+        end
       end
     end
 end

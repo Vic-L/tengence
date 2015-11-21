@@ -1,7 +1,7 @@
 class Tender < ActiveRecord::Base
   include TenderFunctions
   self.primary_key = 'ref_no'
-  has_many :watched_tenders
+  has_many :watched_tenders, dependent: :destroy
   has_many :users, through: :watched_tenders
 
   default_scope { order(published_date: :desc) } 

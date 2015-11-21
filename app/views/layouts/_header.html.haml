@@ -7,17 +7,26 @@
         - else
           %a{:href => "/", :title => ""} Tengence
     - if current_user
-      .medium-9.small-6.columns.text-center
-        .shortcut
-          = link_to "Current Tenders", current_tenders_path
-          |
-          = link_to "Past Tenders", past_tenders_path
-          |
-          = link_to "My Watchlist", watched_tenders_path
-          |
-          = link_to "Keywords Tenders", keywords_tenders_path
-          %a#trigger-overlay{:href => "#", :title => ""}
-            %i.icon.tyger-navicon
+      - if current_user.read_only?
+        .medium-9.small-6.columns.text-center
+          .shortcut
+            = link_to "Current Tenders", current_tenders_path
+            |
+            = link_to "Past Tenders", past_tenders_path
+            |
+            = link_to "My Watchlist", watched_tenders_path
+            |
+            = link_to "Keywords Tenders", keywords_tenders_path
+            %a#trigger-overlay{:href => "#", :title => ""}
+              %i.icon.tyger-navicon
+      - elsif current_user.write_only?
+        .medium-9.small-6.columns.text-right
+          .shortcut
+            = link_to "Your Tenders", current_posted_tenders_path
+            |
+            = link_to "Past Tenders", past_posted_tenders_path
+            %a#trigger-overlay{:href => "#", :title => ""}
+              %i.icon.tyger-navicon
     - else
       .medium-9.small-6.columns.text-right
         %a#trigger-overlay{:href => "#", :title => ""}
@@ -35,9 +44,10 @@
   %nav
     %ul
       - if current_user
-        %li
-          %a.inner-link#my-keywords{:href => "#"}
-            %span My Keywords
+        - if current_user.read_only?
+          %li
+            %a.inner-link#my-keywords{:href => "#"}
+              %span My Keywords
         %li
           = link_to "#", class: 'inner-link', id: 'account-settings' do
             %span Account

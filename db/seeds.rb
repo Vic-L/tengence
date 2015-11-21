@@ -13,3 +13,5 @@ p 'start'
     external_link: Faker::Internet.url
   )
 end
+p "Create vljc17@gmail.com User"
+User.create(email: "vljc17@gmail.com", company_name: "qweqwe", first_name: "qwe", last_name: "qwe", password: "qweqweqwe")

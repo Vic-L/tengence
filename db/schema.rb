@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151120054016) do
+ActiveRecord::Schema.define(version: 20151121024710) do
+
+  create_table "current_posted_tenders", id: false, force: :cascade do |t|
+    t.string   "ref_no",               limit: 255
+    t.string   "buyer_company_name",   limit: 255
+    t.string   "buyer_name",           limit: 255
+    t.string   "buyer_contact_number", limit: 255
+    t.string   "buyer_email",          limit: 255
+    t.text     "description",          limit: 65535
+    t.date     "published_date"
+    t.datetime "closing_datetime"
+    t.string   "external_link",        limit: 2083
+    t.string   "status",               limit: 255,   default: "active"
+    t.string   "category",             limit: 255
+    t.text     "remarks",              limit: 65535
+    t.string   "budget",               limit: 255
+  end
 
   create_table "current_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -23,6 +39,22 @@ ActiveRecord::Schema.define(version: 20151120054016) do
     t.date     "published_date"
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
+  end
+
+  create_table "past_posted_tenders", id: false, force: :cascade do |t|
+    t.string   "ref_no",               limit: 255
+    t.string   "buyer_company_name",   limit: 255
+    t.string   "buyer_name",           limit: 255
+    t.string   "buyer_contact_number", limit: 255
+    t.string   "buyer_email",          limit: 255
+    t.text     "description",          limit: 65535
+    t.date     "published_date"
+    t.datetime "closing_datetime"
+    t.string   "external_link",        limit: 2083
+    t.string   "status",               limit: 255,   default: "active"
+    t.string   "category",             limit: 255
+    t.text     "remarks",              limit: 65535
+    t.string   "budget",               limit: 255
   end
 
   create_table "past_tenders", id: false, force: :cascade do |t|

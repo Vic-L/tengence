@@ -4,7 +4,7 @@ class TendersController < ApplicationController
   before_action :deny_read_only_access, except: [:show]
 
   def new
-    @tender = Tender.new(ref_no: "InHouse-#{Time.now.to_formatted_s(:number)}", published_date: Date.today, buyer_company_name: current_user.company_name)
+    @tender = Tender.new(ref_no: "InHouse-#{Time.now.to_formatted_s(:number)}", published_date: Date.today, buyer_company_name: current_user.company_name, postee_id: current_user.id)
   end
 
   def create
@@ -40,6 +40,7 @@ class TendersController < ApplicationController
         :buyer_contact_number,
         :budget,
         :closing_datetime,
+        :postee_id,
         :description
       )
     end

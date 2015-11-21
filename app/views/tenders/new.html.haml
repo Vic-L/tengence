@@ -10,6 +10,7 @@
       = form_for @tender do |f|
         = f.hidden_field :ref_no
         = f.hidden_field :published_date
+        = f.hidden_field :postee_id
         .small-8.columns.small-centered
           Company: #{current_user.company_name}
           = f.hidden_field :buyer_company_name

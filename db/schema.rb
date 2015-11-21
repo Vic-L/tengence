@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
+    t.integer  "postee_id",            limit: 4
   end
 
   create_table "current_tenders", id: false, force: :cascade do |t|
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
+    t.integer  "postee_id",            limit: 4
   end
 
   create_table "past_tenders", id: false, force: :cascade do |t|
@@ -72,6 +74,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
+    t.integer  "postee_id",            limit: 4
   end
 
   create_table "tenders", id: false, force: :cascade do |t|
@@ -88,6 +91,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
+    t.integer  "postee_id",            limit: 4
   end
 
   add_index "tenders", ["ref_no"], name: "index_tenders_on_ref_no", unique: true, using: :btree

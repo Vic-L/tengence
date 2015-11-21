@@ -3,7 +3,8 @@ class CurrentPostedTendersController < ApplicationController
   before_action :deny_read_only_access
 
   def index
-    @results_count = CurrentPostedTender.count
-    @tenders = CurrentPostedTender.includes(:users).page(params[:page]).per(50)
+    tenders = current_user.current_posted_tenders
+    @results_count = tenders.count
+    @tenders = tenders.includes(:postee).page(params[:page]).per(50)
   end
 end

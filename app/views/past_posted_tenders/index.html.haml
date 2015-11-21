@@ -51,7 +51,7 @@
       .row
         .small-offset-6.small-6.column.text-right
           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
-      = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
+      = render partial: 'tenders/posted_tenders_table', locals: {tenders: @tenders,type: 'past'}
       .row
         .small-offset-6.small-6.column.text-right
           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}

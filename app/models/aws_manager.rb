@@ -41,37 +41,5 @@ class AwsManager
       # start: 0
     })
   end
-
-  def self.watched_tenders_search keyword:, ref_nos_array: nil
-    if ref_nos_array.blank?
-      fq = nil
-    else
-      fq = "(or"
-      ref_nos_array.each do |ref_no|
-        fq += " ref_no:'#{ref_no}'"
-      end
-      fq += ")"
-    end
-
-    client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_SEARCH_ENDPOINT'])
-    resp = client.search({
-      # cursor: "initial",
-      # expr: "Expr",
-      # facet: "Facet",
-      filter_query: fq,
-      # highlight: "Highlight",
-      # partial: true,
-      query: keyword, # required
-      query_options: {
-        fields: ['description'],
-        operators: ['and','escape','not','or','phrase','precedence','prefix']
-      }.to_json,
-      query_parser: "simple", # accepts simple, structured, lucene, dismax
-      'return': ['description', 'ref_no'].join(','),
-      size: 10000,
-      # sort: "Sort",
-      # start: 0
-    })
-  end
 end
 # resp = client.search({filter_query: fq,query: keyword,query_options: {fields: ['description'],operators: ['and','escape','near','not','or','phrase']}.to_json,query_parser: "simple",'return': ['description', 'ref_no'].join(','),size: 10000})

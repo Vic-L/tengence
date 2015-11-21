@@ -1,22 +1,27 @@
 class AwsManager
   def self.upload_document json
-    # check if more than 5 mb
-    begin
-      if json.bytesize > 5000000
-        raise "File is too large"
-      else
-        JSON.parse(json) # will raise exception
-        client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_DOCUMENT_ENDPOINT'])
-        resp = client.upload_documents({
-          documents: json, # file/IO object, or string data, required
-          content_type: "application/json", # required, accepts application/json, application/xml
-        })
+    if Rails.env.production?
+      # check if more than 5 mb
+      begin
+        if json.bytesize > 5000000
+          raise "File is too large"
+        else
+          JSON.parse(json) # will raise exception
+          client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_DOCUMENT_ENDPOINT'])
+          resp = client.upload_documents({
+            documents: json, # file/IO object, or string data, required
+            content_type: "application/json", # required, accepts application/json, application/xml
+          })
+        end
+        return resp # return a Seahorse::Client::Response
+      rescue JSON::ParserError => e
+        return e.message
+      rescue => e
+        return e.message
       end
-      return resp # return a Seahorse::Client::Response
-    rescue JSON::ParserError => e
-      return e.message
-    rescue => e
-      return e.message
+    else
+      puts "Upload documents to AWSCloudSearch"
+      return "success"
     end
   end
 

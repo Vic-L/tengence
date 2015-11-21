@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.date     "published_date"
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
-    t.string   "status",               limit: 255,   default: "active"
+    t.string   "status",               limit: 255,   default: "open"
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.date     "published_date"
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
+    t.string   "status",               limit: 255,   default: "open"
   end
 
   create_table "past_posted_tenders", id: false, force: :cascade do |t|
@@ -51,7 +52,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.date     "published_date"
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
-    t.string   "status",               limit: 255,   default: "active"
+    t.string   "status",               limit: 255,   default: "open"
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
@@ -67,7 +68,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.date     "published_date"
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
-    t.string   "status",               limit: 255,   default: "active"
+    t.string   "status",               limit: 255,   default: "open"
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
@@ -83,7 +84,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.date     "published_date"
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
-    t.string   "status",               limit: 255,   default: "active"
+    t.string   "status",               limit: 255,   default: "open"
     t.string   "category",             limit: 255
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255

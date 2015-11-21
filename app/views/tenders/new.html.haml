@@ -17,13 +17,13 @@
           %br
         .small-8.columns.small-centered
           Buyer Name (may not be your name)
-          = f.text_field :buyer_name, value: current_user.name, placeholder: "Please leave full name"
+          = f.text_field :buyer_name, value: current_user.name, placeholder: "Leaving the full name will be helpful"
         .small-8.columns.small-centered
           Buyer Email (may not be your email)
-          = f.text_field :buyer_email, value: current_user.email, placeholder: "Buyer Email"
+          = f.text_field :buyer_email, value: current_user.email
         .small-8.columns.small-centered
           Buyer Contact Number (may not be your phone number)
-          = f.text_field :buyer_contact_number, placeholder: "eg 98765432"
+          = f.text_field :buyer_contact_number
         .small-8.columns.small-centered
           Budget
           #budget-error

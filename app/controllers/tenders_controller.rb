@@ -55,7 +55,8 @@ class TendersController < ApplicationController
         :budget,
         :closing_datetime,
         :postee_id,
-        :description
+        :description,
+        :long_description
       )
     end
 end

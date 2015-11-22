@@ -71,7 +71,7 @@
     - else
       .row
         .small-12.column
-          .header#reveal-in-house-tender-details-button Click here to show details
+          .header#reveal-tender-text Click <a id='reveal-in-house-tender-details-button'>here</a> to show details
       #in-house-tender-details
         .row
           .small-12.column
@@ -97,5 +97,5 @@
 :javascript
   $('#reveal-in-house-tender-details-button').click(function(){
     $('#in-house-tender-details').show();
-    $('#reveal-in-house-tender-details-button').hide();
+    $('#reveal-tender-text').hide();
   });

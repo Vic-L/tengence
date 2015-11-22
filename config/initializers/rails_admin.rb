@@ -1,8 +1,10 @@
 require Rails.root.join('lib', 'rails_admin', 'send_emailer_now.rb')
 require Rails.root.join('lib', 'rails_admin', 'send_test_mailer.rb')
+require Rails.root.join('lib', 'rails_admin', 'toggle_access_level.rb')
 
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendEmailerNow)
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendTestMailer)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::ToggleAccessLevel)
 
 RailsAdmin.config do |config|
 
@@ -34,6 +36,7 @@ RailsAdmin.config do |config|
 
     send_emailer_now              #custom for user only
     send_test_mailer              #custom for user only
+    toggle_access_level           #toggle access level
 
     ## With an audit adapter, you can add:
     # history_index

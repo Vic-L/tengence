@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121031818) do
+ActiveRecord::Schema.define(version: 20151122133717) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20151121031818) do
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
+    t.text     "long_description",     limit: 65535
   end
 
   add_index "tenders", ["ref_no"], name: "index_tenders_on_ref_no", unique: true, using: :btree

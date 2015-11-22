@@ -1,9 +1,13 @@
 #wrapper
+  %section#post-tender
+    .row
+      .small-12.column.text-center
+        = link_to 'Post a Buying Requirement', new_tender_path, class: 'button', id: 'post-a-tender-button'
   %section#tender-results
     - if @results_count == 0
       .row
         .small-12.column.text-center
-          %p There are no tenders available
+          %p You have not posted any tenders
     - else
       .row
         .small-offset-6.small-6.column.text-right

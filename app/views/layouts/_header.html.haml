@@ -25,6 +25,8 @@
       - elsif current_user.write_only?
         .medium-9.small-6.columns.text-right
           .shortcut
+            = link_to "Post Tender", new_tender_path
+            |
             = link_to "Your Tenders", current_posted_tenders_path
             |
             = link_to "Past Tenders", past_posted_tenders_path

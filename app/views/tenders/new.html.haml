@@ -12,21 +12,21 @@
         = f.hidden_field :published_date
         = f.hidden_field :postee_id
         .small-8.columns.small-centered
-          Company: #{current_user.company_name}
+          <strong>Company: #{current_user.company_name}</strong>
           = f.hidden_field :buyer_company_name
           %br
           %br
         .small-8.columns.small-centered
-          Buyer Name (may not be your name)
+          <strong>Buyer Name</strong> (may not be your name)
           = f.text_field :buyer_name, value: current_user.name, placeholder: "Leaving the full name will be helpful"
         .small-8.columns.small-centered
-          Buyer Email (may not be your email)
+          <strong>Buyer Email</strong> (may not be your email)
           = f.text_field :buyer_email, value: current_user.email
         .small-8.columns.small-centered
-          Buyer Contact Number (may not be your phone number)
+          <strong>Buyer Contact Number</strong> (may not be your phone number)
           = f.text_field :buyer_contact_number
         .small-8.columns.small-centered
-          Budget
+          <strong>Budget</strong>
           #budget-error
           = f.radio_button(:budget, "$1000 - $4999")
           = label_tag(:budget, "$1000 - $4999")
@@ -35,12 +35,12 @@
           = f.radio_button(:budget, "> $10000")
           = label_tag(:budget, "> $10000")
         .small-8.columns.small-centered
-          Closing Date Time
-          = f.datetime_field :closing_datetime, placeholder: "Closing date & time"
+          <strong>Closing Date Time</strong>
+          = f.text_field :closing_datetime, placeholder: "Closing date & time"
         .small-12.columns.small-centered
-          Buyer Description
+          <strong>Fill in Your Buying Requirements Description</strong>
           #description-error
-          = f.text_area :description, placeholder: "Fill in tender description"
+          = f.text_area :description, placeholder: "You can fill in details like:\r\nExpected Quantity (IT Equipment, Furniture, T-Shirt Printing etc)\r\nScope of Work (Painting, Renovation)\r\nPax (Events, Catering)"
         .small-8.columns.small-centered.text-center
           %button#submit{:type => "submit"} SEND
 

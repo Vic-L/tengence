@@ -17,6 +17,9 @@
           %br
           %br
         .small-8.columns.small-centered
+          <strong>Short Description of Your Buying Requirement</strong>
+          = f.text_area :description
+        .small-8.columns.small-centered
           <strong>Buyer Name</strong> (may not be your name)
           = f.text_field :buyer_name, value: current_user.name, placeholder: "Leaving the full name will be helpful"
         .small-8.columns.small-centered
@@ -40,7 +43,7 @@
         .small-12.columns.small-centered
           <strong>Fill in Your Buying Requirements Description</strong>
           #description-error
-          = f.text_area :description, placeholder: "You can fill in details like:\r\nExpected Quantity (IT Equipment, Furniture, T-Shirt Printing etc)\r\nScope of Work (Painting, Renovation)\r\nPax (Events, Catering)"
+          = f.text_area :long_description, placeholder: "You can fill in details like:\r\nExpected Quantity (IT Equipment, Furniture, T-Shirt Printing etc)\r\nScope of Work (Painting, Renovation)\r\nPax (Events, Catering)"
         .small-8.columns.small-centered.text-center
           %button#submit{:type => "submit"} SEND
 
@@ -84,6 +87,9 @@
           },
           "tender[description]": {
             required: true
+          },
+          "tender[long_description]": {
+            required: true
           }
         },
         errorPlacement: function(error, element) {
@@ -111,6 +117,9 @@
           },
           "tender[description]": {
             required: "Tender description is required"
+          },
+          "tender[description]": {
+            required: "A short description of your buying requirement is required"
           },
           "tender[buyer_contact_number]": {
             required: "Contact number of the person of contact is required",

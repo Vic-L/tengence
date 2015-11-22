@@ -95,7 +95,7 @@
         errorPlacement: function(error, element) {
           if (element.attr("name") == "tender[budget]") {
             error.appendTo("#budget-error");
-          } else if (element.attr("name") == "tender[description]") {
+          } else if (element.attr("name") == "tender[long_description]") {
             error.appendTo("#description-error");
           } else {
             error.insertAfter(element);
@@ -115,7 +115,7 @@
           "tender[closing_datetime]": {
             required: "Closing date time required"
           },
-          "tender[description]": {
+          "tender[long_description]": {
             required: "Tender description is required"
           },
           "tender[description]": {

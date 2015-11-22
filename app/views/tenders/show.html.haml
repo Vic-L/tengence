@@ -32,7 +32,13 @@
           .header Closing Time
         .small-12.column
           = @tender.closing_datetime.strftime('%H:%M %p')
-      - if !@tender.in_house?
+      - if @tender.in_house?
+        .row
+          .small-12.column
+            .header Full Description
+          .small-12.column
+            = @tender.long_description
+      - else
         .row
           .small-12.column
             .header Original Link

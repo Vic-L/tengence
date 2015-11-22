@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122133717) do
+ActiveRecord::Schema.define(version: 20151122173639) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20151122133717) do
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
+    t.text     "long_description",     limit: 65535
   end
 
   create_table "current_tenders", id: false, force: :cascade do |t|
@@ -41,6 +42,11 @@ ActiveRecord::Schema.define(version: 20151122133717) do
     t.datetime "closing_datetime"
     t.string   "external_link",        limit: 2083
     t.string   "status",               limit: 255,   default: "open"
+    t.string   "category",             limit: 255
+    t.text     "remarks",              limit: 65535
+    t.string   "budget",               limit: 255
+    t.integer  "postee_id",            limit: 4
+    t.text     "long_description",     limit: 65535
   end
 
   create_table "past_posted_tenders", id: false, force: :cascade do |t|
@@ -58,6 +64,7 @@ ActiveRecord::Schema.define(version: 20151122133717) do
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
+    t.text     "long_description",     limit: 65535
   end
 
   create_table "past_tenders", id: false, force: :cascade do |t|
@@ -75,6 +82,7 @@ ActiveRecord::Schema.define(version: 20151122133717) do
     t.text     "remarks",              limit: 65535
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
+    t.text     "long_description",     limit: 65535
   end
 
   create_table "tenders", id: false, force: :cascade do |t|

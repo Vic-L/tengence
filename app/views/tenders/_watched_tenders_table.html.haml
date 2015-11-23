@@ -1,16 +1,21 @@
 %table.results-table{role: 'grid'}
   %thead
+    %th.medium-1
+      = check_box_tag 'select_all'
+      %a#destroy-all-button= fa_icon('trash')
     %th.medium-1 Status
     %th.medium-4 Description
     %th.medium-1 Published Date
     %th.medium-1 Closing Date
     %th.medium-1 Closing Time
-    %th.medium-2 Buyer Entity
+    %th.medium-1 Buyer Entity
     %th.medium-1 Watchlist
     %th.medium-1 Details
   %tbody
-    - tenders.each do |tender|
+    - tenders.each_with_index do |tender, index|
       %tr
+        %td.medium-1
+          = check_box_tag "select_single[]", tender.ref_no, false, id: "select_single_#{index}"
         %td.medium-1
           = tender.status.capitalize
         %td.medium-4
@@ -32,3 +37,31 @@
         %td.medium-1
           %div
             = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button'
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $('#select_all').change(function(){
+        if (this.checked) {
+          $("input[id^='select_single_']").prop('checked', true);
+        } else {
+          $("input[id^='select_single_']").prop('checked', false);
+        }
+      });
+      $('#destroy-all-button').click(function(event){
+        if (confirm('Delete all checked tenders from your watchlist. Are you sure?')) {
+          var selected = [];
+          $("input[id^='select_single_']").each(function(){
+            if (this.checked) {
+              selected.push($(this).attr('value'));
+            }
+          });
+          $.ajax({
+            url: "#{mass_destroy_path}",
+            method: 'POST',
+            data: {
+              ids: selected
+            }
+          });
+        }
+      });
+    });

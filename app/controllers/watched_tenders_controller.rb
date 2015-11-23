@@ -45,4 +45,9 @@ class WatchedTendersController < ApplicationController
       format.js
     end
   end
+
+  def mass_destroy
+    current_user.watched_tenders.where(tender_id: params[:ids]).destroy_all
+    render js: "window.location.reload()"
+  end
 end

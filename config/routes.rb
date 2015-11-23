@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get '/past_posted_tenders', to: 'past_posted_tenders#index', as: :past_posted_tenders
   get '/keywords_tenders', to: 'keywords_tenders#index', as: :keywords_tenders
   post '/update_keywords', to: 'keywords_tenders#update_keywords', as: :update_keywords
+  post '/mass_destroy', to: 'watched_tenders#mass_destroy', as: :mass_destroy
 
   resources :tenders
   resources :watched_tenders

@@ -10,7 +10,7 @@ class CreateTender < ActiveRecord::Migration
       t.date :published_date
       t.datetime :closing_datetime
       t.string :external_link, limit: 2083
-      t.string :status, default: 'open'
+      t.string :status, default: 'active'
     end
 
     add_index :tenders, :ref_no, unique: true

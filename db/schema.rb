@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122173639) do
+ActiveRecord::Schema.define(version: 20151124162211) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255

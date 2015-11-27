@@ -13,6 +13,6 @@ class AddSingleTenderToCloudsearchWorker
       }
     }
     AwsManager.upload_document [hash].to_json
-    NotifyViaSlack.call(content: "<@ganther> New Tender Posted\r\nalerts.tengence.com.sg/admin/tenders/#{tender.ref_no}")
+    NotifyViaSlack.call(content: "<@ganther> New Tender Posted\r\nalerts.tengence.com.sg/admin/tender/#{tender.ref_no}")
   end
 end

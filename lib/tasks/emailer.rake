@@ -28,7 +28,7 @@ namespace :emailer do
         end
         NotifyViaSlack.call(content: "#{user.email} has no tenders matching his/her keywords") and next if current_tenders_ref_nos.blank?
 
-        AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_later!(wait: 1.hour)
+        AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_later!(wait: 2.hours)
         InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_now
 
         current_tenders_ref_nos.each do |ref_no|

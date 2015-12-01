@@ -12,7 +12,7 @@ class AddSingleTenderToCloudsearchWorker
         'description': tender.description
       }
     }
-    AwsManager.upload_document [hash].to_json
+    AwsManager.upload_document([hash].to_json) if Rails.env.production?
     NotifyViaSlack.call(content: "<@ganther> New Tender Posted\r\nalerts.tengence.com.sg/admin/tender/#{tender.ref_no}")
   end
 end

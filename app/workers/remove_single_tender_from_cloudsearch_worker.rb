@@ -7,7 +7,7 @@ class RemoveSingleTenderFromCloudsearchWorker
       'type': "delete",
       'id': ref_no
     }
-    AwsManager.upload_document [hash].to_json
+    AwsManager.upload_document([hash].to_json) if Rails.env.production?
     NotifyViaSlack.call(content: "<@ganther> Tender #{ref_no} removed from CloudSearch")
   end
 end

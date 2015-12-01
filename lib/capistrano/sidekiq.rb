@@ -25,4 +25,14 @@ namespace :emailer do
       end
     end
   end
+
+  task :send_keywords_tenders_emails_NOW do
+    on roles(:app) do
+      within release_path do
+        with :rails_env => fetch(:rails_env) do
+          execute :rake, "emailer:send_keywords_tenders_emails_NOW"
+        end
+      end
+    end
+  end
 end

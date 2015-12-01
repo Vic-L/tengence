@@ -20,8 +20,12 @@ class PagesController < ApplicationController
           'id': tender.ref_no
         }
       end; nil
-      AwsManager.upload_document array.to_json
-      NotifyViaSlack.call(content: "Deleted all records on AWSCloudSearch")
+      response = AwsManager.upload_document array.to_json
+      if response.class == String
+        NotifyViaSlack.call(content: "<@vic-l> ERROR deleting records!!\r\n#{response}")
+      else
+        NotifyViaSlack.call(content: "Deleted all records on AWSCloudSearch")
+      end
 
       array = []
       Tender.all.each do |tender|
@@ -34,8 +38,12 @@ class PagesController < ApplicationController
           }
         }
       end; nil
-      AwsManager.upload_document array.to_json
-      NotifyViaSlack.call(content: "Added all records on AWSCloudSearch")
+      response = AwsManager.upload_document array.to_json
+      if response.class == String
+        NotifyViaSlack.call(content: "<@vic-l> ERROR adding records to AWSCloudSearch!!\r\n#{response}")
+      else
+        NotifyViaSlack.call(content: "Added all records on AWSCloudSearch")
+      end
     rescue => e
       NotifyViaSlack.call(content: "Error when refreshing cloudsearch:\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     ensure

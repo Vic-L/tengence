@@ -17,14 +17,14 @@ Paperclip::Attachment.default_options.merge!(
   s3_permissions:       'public-read',
   # s3_server_side_encryption: :aes256,
   s3_protocol:          :https,
-  path:                 ':uploadable_name/:uploadable_id/:class/:attachment/:style_:hash.:extension',
+  path:                 ':uploadable_name/:uploadable_id/:class/:style_:hash.:extension',
   hash_data:            ':class/:attachment/:id/:style/:updated_at',
   hash_secret:          'WeLoveOnePiece'
 )
 
 if Rails.env.test?
   Paperclip::Attachment.default_options.merge!(
-    :path => "/tmp/paperclip/:uploadable_name/:uploadable_id/:class/:attachment/:style_:hash.:extension",
+    :path => "/tmp/paperclip/:uploadable_name/:uploadable_id/:class/:style_:hash.:extension",
     :storage => :filesystem,
     :use_timestamp => false,
   )

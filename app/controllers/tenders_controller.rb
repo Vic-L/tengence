@@ -5,6 +5,7 @@ class TendersController < ApplicationController
 
   def new
     @tender = Tender.new(ref_no: "InHouse-#{Time.now.to_formatted_s(:number)}", published_date: Date.today, buyer_company_name: current_user.company_name, postee_id: current_user.id)
+    @tender.documents.build
   end
 
   def create
@@ -56,7 +57,8 @@ class TendersController < ApplicationController
         :closing_datetime,
         :postee_id,
         :description,
-        :long_description
+        :long_description,
+        documents_attributes: [:upload]
       )
     end
 end

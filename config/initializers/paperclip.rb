@@ -1,29 +1,30 @@
-Paperclip.interpolates :imageable_name  do |attachment, style|
-  attachment.instance.imageable_type.pluralize.downcase
+Paperclip.interpolates :uploadable_name  do |attachment, style|
+  attachment.instance.uploadable_type.pluralize.downcase
 end
 
-Paperclip.interpolates :imageable_id  do |attachment, style|
-  attachment.instance.imageable_id.to_s
+Paperclip.interpolates :uploadable_id  do |attachment, style|
+  attachment.instance.uploadable_id.to_s
 end
 
 Paperclip::Attachment.default_options.merge!(
   storage:              :s3,
+  s3_region:            ENV['AWS_S3_REGION'],
   s3_credentials:       {
-    :bucket => ENV['AWS_BUCKET'],
+    :bucket => ENV['AWS_S3_BUCKET'],
     :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
     :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
   },
-  s3_permissions:       :public_read,
-  s3_server_side_encryption: :aes256,
-  s3_protocol:          'https',
-  path:                 ':imageable_name/:imageable_id/:class/:attachment/:style_:hash.:extension',
+  s3_permissions:       'public-read',
+  # s3_server_side_encryption: :aes256,
+  s3_protocol:          :https,
+  path:                 ':uploadable_name/:uploadable_id/:class/:attachment/:style_:hash.:extension',
   hash_data:            ':class/:attachment/:id/:style/:updated_at',
   hash_secret:          'WeLoveOnePiece'
 )
 
 if Rails.env.test?
   Paperclip::Attachment.default_options.merge!(
-    :path => "/tmp/paperclip/:imageable_name/:imageable_id/:class/:attachment/:style_:hash.:extension",
+    :path => "/tmp/paperclip/:uploadable_name/:uploadable_id/:class/:attachment/:style_:hash.:extension",
     :storage => :filesystem,
     :use_timestamp => false,
   )

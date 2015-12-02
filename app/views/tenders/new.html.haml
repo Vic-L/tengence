@@ -7,7 +7,7 @@
             %strong Post a Buying Requirement
     .row
       #message
-      = form_for @tender do |f|
+      = form_for @tender, html: { multipart: true } do |f|
         = f.hidden_field :ref_no
         = f.hidden_field :published_date
         = f.hidden_field :postee_id
@@ -46,6 +46,10 @@
           <strong>Fill in Your Buying Requirements Description</strong>
           #description-error
           = f.text_area :long_description, placeholder: "You can fill in details like:\r\nExpected Quantity (IT Equipment, Furniture, T-Shirt Printing etc)\r\nScope of Work (Painting, Renovation)\r\nPax (Events, Catering)"
+        .small-12.columns.small-centered
+          <strong>Documents</strong>
+          = f.fields_for :documents do |ff|
+            = ff.file_field :upload
         .small-8.columns.small-centered.text-center
           %button#submit{:type => "submit"} POST BUYING REQUIREMENT
 

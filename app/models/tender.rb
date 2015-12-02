@@ -5,7 +5,9 @@ class Tender < ActiveRecord::Base
 
   has_many :watched_tenders, dependent: :destroy
   has_many :users, through: :watched_tenders
+  
   has_many :documents, as: :uploadable, dependent: :destroy
+  accepts_nested_attributes_for :documents, :allow_destroy => true
 
   default_scope { order(published_date: :desc) } 
   validates_presence_of :buyer_name, :buyer_email, :buyer_contact_number, :published_date, :closing_datetime

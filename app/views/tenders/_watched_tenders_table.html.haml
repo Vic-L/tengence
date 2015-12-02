@@ -19,7 +19,7 @@
         %td.medium-1
           = tender.status.capitalize
         %td.medium-4
-          = tender.description
+          = simple_format tender.description, {}, wrapper_tag: 'div'
         %td.medium-1
           = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
         %td.medium-1

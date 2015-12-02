@@ -16,7 +16,7 @@
         .small-12.column
           .header Description
         .small-12.column
-          = @tender.description
+          = simple_format @tender.description, {}, wrapper_tag: 'div'
       .row
         .small-12.column
           .header Published Date
@@ -37,7 +37,7 @@
           .small-12.column
             .header Full Description
           .small-12.column
-            = @tender.long_description
+            = simple_format @tender.long_description, {}, wrapper_tag: 'div'
         .row
           .small-12.column
             .header Budget

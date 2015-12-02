@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20151202172520) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.integer  "uploadable_id",       limit: 4
+    t.string   "uploadable_id",       limit: 255
     t.string   "uploadable_type",     limit: 255
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
@@ -60,7 +60,8 @@ ActiveRecord::Schema.define(version: 20151202172520) do
     t.datetime "upload_updated_at"
   end
 
-  add_index "documents", ["uploadable_type", "uploadable_id"], name: "index_documents_on_uploadable_type_and_uploadable_id", using: :btree
+  add_index "documents", ["uploadable_id"], name: "index_documents_on_uploadable_id", using: :btree
+  add_index "documents", ["uploadable_type"], name: "index_documents_on_uploadable_type", using: :btree
 
   create_table "past_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255

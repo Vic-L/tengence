@@ -21,16 +21,18 @@
           = f.text_area :description
         .small-8.columns.small-centered
           <strong>Buyer Name</strong> (may not be your name)
-          = f.text_field :buyer_name, value: current_user.name, placeholder: "Leaving the full name will be helpful"
+          = f.text_field :buyer_name, value: nil
         .small-8.columns.small-centered
-          <strong>Buyer Email</strong> (may not be your email)
-          = f.text_field :buyer_email, value: current_user.email
+          <strong>Buyer Email(s)</strong> (separate multiple emails with commas)
+          = f.text_field :buyer_email, value: nil
         .small-8.columns.small-centered
           <strong>Buyer Contact Number</strong> (may not be your phone number)
           = f.text_field :buyer_contact_number
         .small-8.columns.small-centered
           <strong>Budget</strong>
           #budget-error
+          = f.radio_button(:budget, "<$1000")
+          = label_tag(:budget, "<$1000")
           = f.radio_button(:budget, "$1000 - $4999")
           = label_tag(:budget, "$1000 - $4999")
           = f.radio_button(:budget, "$5000 - $9999")

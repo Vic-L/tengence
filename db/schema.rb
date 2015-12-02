@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202160102) do
+ActiveRecord::Schema.define(version: 20151202172520) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -50,10 +50,14 @@ ActiveRecord::Schema.define(version: 20151202160102) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.integer  "uploadable_id",   limit: 4
-    t.string   "uploadable_type", limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "uploadable_id",       limit: 4
+    t.string   "uploadable_type",     limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "upload_file_name",    limit: 255
+    t.string   "upload_content_type", limit: 255
+    t.integer  "upload_file_size",    limit: 4
+    t.datetime "upload_updated_at"
   end
 
   add_index "documents", ["uploadable_type", "uploadable_id"], name: "index_documents_on_uploadable_type_and_uploadable_id", using: :btree

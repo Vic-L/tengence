@@ -34,7 +34,7 @@
       = label_tag(:budget, "> $10000")
     .small-12.columns.small-centered
       <strong>Closing Date Time</strong>
-      = f.datetime_field :closing_datetime, value: f.object.closing_datetime.strftime("%Y-%m-%e %H:%M"), placeholder: "Closing date & time"
+      = f.datetime_field :closing_datetime, value: f.object.closing_datetime.strftime("%Y-%m-%d %H:%M"), placeholder: "Closing date & time"
     .small-12.columns.small-centered
       <strong>Fill in Your Buying Requirements Description</strong>
       #description-error

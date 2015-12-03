@@ -24,14 +24,14 @@ class BrainTreeController < ApplicationController
             transaction = Braintree::Transaction.sale(:amount => params[:subscribed_plan] == 'standard' ? "40.00" : "80.00",:customer_id => bt_customer.customer.id,:options => {:submit_for_settlement => true})
             if transaction.success?
               current_user.update(braintree_customer_id: bt_customer.customer.id, subscribed_plan: params[:subscribed_plan])
-              flash[:success] = "Thank you for subscribing with Tengence. Your next billing cycle will be on #{(Date.today + 30.days).strftime('%a, %e %b %Y')}."
+              flash[:success] = "Thank you for subscribing with Tengence. Your next billing cycle will be on #{(Date.today + 30.days).strftime('%a, %d %b %Y')}."
             else
               flash[:error] = "Errors: " + transaction.errors.map{|e| e.message }.join(" ")
             end
           else
             # if is an upgrade from paid
             current_user.update(braintree_customer_id: bt_customer.customer.id, subscribed_plan: params[:subscribed_plan])
-            flash[:success] = "Thank you for subscribing with Tengence. Your next billing cycle will be on #{(Date.today + 30.days).strftime('%az, %e %b %Y')}."
+            flash[:success] = "Thank you for subscribing with Tengence. Your next billing cycle will be on #{(Date.today + 30.days).strftime('%az, %d %b %Y')}."
           end
         else
           flash[:error] = "Errors: " + bt_customer.errors.map{|e| e.message }.join(" ")

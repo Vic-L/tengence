@@ -9,33 +9,46 @@
             = link_to 'Tengence', current_posted_tenders_path, title: ''
         - else
           = link_to 'Tengence', root_path, title: ''
-    - if current_user
-      - if current_user.read_only?
-        .medium-9.small-6.columns.text-center
-          .shortcut
-            = link_to "Current Tenders", current_tenders_path
-            |
-            = link_to "Past Tenders", past_tenders_path
-            |
-            = link_to "My Watchlist", watched_tenders_path
-            |
-            = link_to "Keywords Tenders", keywords_tenders_path
-            %a#trigger-overlay{:href => "#", :title => ""}
-              %i.icon.tyger-navicon
-      - elsif current_user.write_only?
-        .medium-9.small-6.columns.text-right
-          .shortcut
-            = link_to "Post Tender", new_tender_path
-            |
-            = link_to "Your Tenders", current_posted_tenders_path
-            |
-            = link_to "Past Tenders", past_posted_tenders_path
-            %a#trigger-overlay{:href => "#", :title => ""}
-              %i.icon.tyger-navicon
-    - else
-      .medium-9.small-6.columns.text-right
-        %a#trigger-overlay{:href => "#", :title => ""}
-          %i.icon.tyger-navicon
+    .small-6.columns.show-for-small-only.text-right
+      .menu-toggle-button{"data-menu-id" => "navigation"}
+        %i.icon.tyger-navicon
+    .medium-9.small-12.columns.text-right
+      %ul#navigation.menu-list
+        - if current_user
+          - if current_user.read_only?
+            %li
+              = link_to "Current Tenders", current_tenders_path
+            %li
+              = link_to "Past Tenders", past_tenders_path
+            %li
+              = link_to "My Watchlist", watched_tenders_path
+            %li
+              = link_to "Keywords Tenders", keywords_tenders_path
+            %li
+              = link_to "Logout", destroy_user_session_path, method: :delete
+            -# %li
+            -#   %a{"data-scroll" => "", :href => "#works"} Portfolio
+            -# %li
+            -#   %a{"data-scroll" => "", :href => "#contacts"} Contacts
+          - elsif current_user.write_only?
+            %li
+              = link_to "Post Tender", new_tender_path
+            %li
+              = link_to "Your Tenders", current_posted_tenders_path
+            %li
+              = link_to "Past Tenders", past_posted_tenders_path
+            %li
+              = link_to "Logout", destroy_user_session_path, method: :delete
+        - else
+          %li
+            = link_to "Login", new_user_session_path
+          %li
+            = link_to "Terms of Services", terms_of_service_path
+          %li
+            %a{"data-scroll" => "", :href => "#how-it-works"} How It Works
+          %li
+            %a{"data-scroll" => "", :href => "#contacts"} Contacts
+
 - flash.each do |name, msg|
   .row.flash-row
     .medium-12.column
@@ -43,47 +56,6 @@
         %div{:'data-alert' => '', class: "alert-box round #{name.to_s}"}
           = content_tag :div, msg
           %a.close{href: "#", class: "close"} &times;
-.overlay-menu.overlay-hugeinc
-  %a.overlay-close{:href => "#", :title => ""}
-    %i.icon.tyger-close-empty
-  %nav
-    %ul
-      - if current_user
-        - if current_user.read_only?
-          %li
-            %a.inner-link#my-keywords{:href => "#"}
-              %span My Keywords
-        %li
-          = link_to "#", class: 'inner-link', id: 'account-settings' do
-            %span Account
-        %li
-          = link_to "#", class: 'inner-link', id: 'sign-out' do
-            %span Sign Out
-        %li
-          = link_to "#", class: 'inner-link', id: 'tos' do
-            %span Terms of Service
-      - else
-        -# %li
-        -#   = link_to "#", class: 'inner-link', id: 'sign-up' do
-        -#     %span Sign Up
-        %li
-          = link_to "#", class: 'inner-link', id: 'login' do
-            %span Login
-        %li
-          = link_to "#", class: 'inner-link', id: 'tos' do
-            %span Terms of Service
-      -# %li
-      -#   %a.inner-link{:href => "#team"}
-      -#     %span Team
-      -# %li
-      -#   %a.inner-link{:href => "blog.html"}
-      -#     %span Blog
-      -# %li
-      -#   %a.inner-link{:href => "#works"}
-      -#     %span Portfolio
-      -# %li
-      -#   %a.inner-link{:href => "#contacts"}
-      -#     %span Contacts
 .mask
   #loader.rotating
 

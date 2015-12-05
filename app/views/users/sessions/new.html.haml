@@ -16,6 +16,9 @@
           = f.email_field :email, placeholder: 'Email'
         .small-6.column.small-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
+          %a.show-password Show Password
+          %br
+          %br
         .small-6.columns.small-centered.text-center
           %button#submit{:type => "submit"} Login
         .small-6.columns.small-centered.shared-links
@@ -25,6 +28,28 @@
 - content_for :javascript do
   :javascript
     $(function(){
+      $("form#new_user input[type='password']").each(function (index, input) {
+        var $input = $(input);
+        $("form#new_user .show-password").click(function () {
+          var change = "";
+          if ($(this).html() === "Show Password") {
+            $(this).html("Hide Password")
+            change = "text";
+          } else {
+            $(this).html("Show Password");
+            change = "password";
+          }
+          var rep = $("<input type='" + change + "' />")
+            .attr("id", $input.attr("id"))
+            .attr("name", $input.attr("name"))
+            .attr("placeholder", $input.attr("placeholder"))
+            .attr('class', $input.attr('class'))
+            .val($input.val())
+            .insertBefore($input);
+          $input.remove();
+          $input = rep;
+        });
+      });
       $("form#new_user").validate({
         rules: {
           "user[email]": {

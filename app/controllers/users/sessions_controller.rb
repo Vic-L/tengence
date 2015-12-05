@@ -23,9 +23,9 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.for(:sign_in) << :attribute
   # end
   private
-    def respond_to_on_destroy
-      render js: "window.location.href='#{root_path}'"
-    end
+    # def respond_to_on_destroy
+    #   render js: "window.location.href='#{root_path}'"
+    # end
 
     def after_sign_in_path_for(resource_or_scope)
       stored_location_for(:users) || (current_user.write_only? ? post_a_tender_path : root_path)

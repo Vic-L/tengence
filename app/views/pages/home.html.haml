@@ -6,8 +6,60 @@
           -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
           -# or
           -# %span.color= link_to "Login", new_user_session_path
-          %span.color We are a Big Data driven Business Intelligence firm specializing in Government Contracts.
-        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Our core sectors of expertise are competitor analysis, insights generation and predictive analytics. 
+          %span We Track Tenders
+        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} To bring you business opportunities
+
+%section#how-it-works
+  .row
+    .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+      .title-section
+        %h3
+          %strong How It Works
+    .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+      .section-desc
+        %h4
+          %strong We track tenders and notify you whenever you have related tender opportunities. Find out more below.
+  .row
+    .medium-12.columns
+      #services-container.cbp-l-grid-gallery
+        .cbp-item.service
+          %i.icon.tyger-design-pencil-rule-streamline
+          %h5 Web Design
+          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
+          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
+            %span Read More
+        .cbp-item.service
+          %i.icon.tyger-chef-food-restaurant-streamline
+          %h5 Branding & Identity
+          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
+          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
+            %span Read More
+        .cbp-item.service
+          %i.icon.tyger-camera-streamline-video
+          %h5 Camera Streaming
+          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
+          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
+            %span Read More
+        .cbp-item.service{style: 'visibility: hidden'}
+        .cbp-item.service
+          %i.icon.tyger-chef-food-restaurant-streamline
+          %h5 Branding & Identity
+          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
+          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
+            %span Read More
+
+%section#sources-and-counting
+  .row
+    .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+      .title-section
+        %h3
+          %strong Our Tender Sources
+    .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+      .section-desc
+        %h4
+          %strong 46 Sources & Counting
+        %p We are working on adding new tender sources daily so as to bring you more business leads.
+
 %section#contacts
   .row
     .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
@@ -17,8 +69,7 @@
     .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
       .section-desc
         %h4
-          %strong As one of the core design principles, typography can really make or break a website design
-        %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common, but these days we have massive choice when it comes to selecting fonts for our designs.
+          %strong Find out how you can join our platform!
   .row
     #message
     = form_tag '/contact_us_email', remote: true, id: 'contactform' do

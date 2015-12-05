@@ -68,8 +68,7 @@
             .header Documents
           - @tender.documents.each do |doc|
             .small-12.column
-              = link_to "#{doc.upload.original_filename} (#{number_to_human_size(doc.upload.size)})", doc.upload.first.url
-              %br
+              = link_to "#{doc.upload.original_filename} (#{number_to_human_size(doc.upload.size)})", doc.upload.url, target: '_blank'
 
     .small-4.column
       - if !@tender.in_house?

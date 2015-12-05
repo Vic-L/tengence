@@ -1,7 +1,9 @@
 #wrapper
   .row#content
     .small-8.column.main
+      
       - if !@tender.in_house?
+
         .row
           .small-12.column
             .header Reference No
@@ -32,7 +34,9 @@
           .header Closing Time
         .small-12.column
           = @tender.closing_datetime.strftime('%H:%M %p')
+      
       - if @tender.in_house?
+
         .row
           .small-12.column
             .header Full Description
@@ -43,7 +47,9 @@
             .header Budget
           .small-12.column
             = @tender.budget
+      
       - else
+
         .row
           .small-12.column
             .header Original Link
@@ -54,6 +60,17 @@
               Step 2) Cilck this <a href='#{@tender.external_link}' class='external-link' target='_blank'>link</a> to view this tender on Gebiz.
             - else
               = link_to @tender.external_link, @tender.external_link, target: '_blank'
+      
+      - unless @tender.documents.blank?
+        
+        .row
+          .small-12.column
+            .header Documents
+          - @tender.documents.each do |doc|
+            .small-12.column
+              = link_to "#{doc.upload.original_filename} (#{number_to_human_size(doc.upload.size)})", doc.upload.first.url
+              %br
+
     .small-4.column
       - if !@tender.in_house?
         .row
@@ -74,7 +91,7 @@
       - else
         .row
           .small-12.column
-            .header#reveal-in-house-tender-details-button Click here to show details
+            .header#reveal-tender-text Click <a id='reveal-in-house-tender-details-button'>here</a> to show details
         #in-house-tender-details
           .row
             .small-12.column

@@ -26,14 +26,7 @@
             - if type == 'current'
               %td.medium-1
                 %div{id: "edit-tender-#{tender.ref_no}"}
-                  = link_to "Edit", edit_tender_path(tender.ref_no), method: 'get', remote: true, class: "button edit-button"
+                  = link_to "Edit", edit_tender_path(tender.ref_no), method: 'get', class: "button edit-button", target: '_blank'
             %td.medium-1
               %div
                 = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button'
-- content_for :javascript do
-  :javascript
-    $(function(){
-      $(document).on('click', '.edit-button, .more-button', function(){
-        $('html,body').addClass('loading');
-      });
-    });

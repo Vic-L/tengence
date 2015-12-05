@@ -32,10 +32,10 @@ class TendersController < ApplicationController
     @tender = Tender.find(tender_params[:ref_no])
     if @tender.update(tender_params)
       flash[:success] = "Buying requirement successfully updated!"
-      render js: "window.location.reload()"
     else
-      render js: "alert('#{@tender.errors.full_messages.to_sentence}');"
+      flash[:alert] = "#{@tender.errors.full_messages.to_sentence}"
     end
+    redirect_to :back
   end
 
   private

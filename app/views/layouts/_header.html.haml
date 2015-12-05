@@ -23,7 +23,9 @@
             %li
               = link_to "My Watchlist", watched_tenders_path
             %li
-              = link_to "Keywords Tenders", keywords_tenders_path
+              = link_to "Your Keywords", keywords_tenders_path
+            %li
+              = link_to "Account", edit_user_registration_path
             %li
               = link_to "Logout", destroy_user_session_path, method: :delete
             -# %li
@@ -37,6 +39,8 @@
               = link_to "Your Tenders", current_posted_tenders_path
             %li
               = link_to "Past Tenders", past_posted_tenders_path
+            %li
+              = link_to "Account", edit_user_registration_path
             %li
               = link_to "Logout", destroy_user_session_path, method: :delete
         - else

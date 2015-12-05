@@ -58,7 +58,11 @@ class TendersController < ApplicationController
         :postee_id,
         :description,
         :long_description,
-        documents_attributes: [:upload]
+        documents_attributes: [
+          :id,
+          :upload,
+          :_destroy
+        ]
       )
     end
 end

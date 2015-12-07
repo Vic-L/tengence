@@ -12,20 +12,20 @@ class Tender < ActiveRecord::Base
   default_scope { order(published_date: :desc) } 
   validates_presence_of :buyer_name, :buyer_email, :buyer_contact_number, :published_date, :closing_datetime
 
-  after_commit :add_to_cloudsearch, on: :create
-  after_commit :update_cloudsearch, on: :update
-  after_commit :remove_from_cloudsearch, on: :destroy
+  before_create :add_to_cloudsearch
+  before_update :update_cloudsearch
+  before_destroy :remove_from_cloudsearch
 
   def add_to_cloudsearch
-    AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no, self.description)
+    AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no, self.description) if self.description_changed?
   end
 
   def update_cloudsearch
-    UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no, self.description)
+    UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no, self.description) if self.description_changed?
   end
 
   def remove_from_cloudsearch
-    RemoveSingleTenderFromCloudsearchWorker.perform_async(self.ref_no, self.description)
+    RemoveSingleTenderFromCloudsearchWorker.perform_async(self.ref_no, self.description) if self.description_changed?
   end
 
   rails_admin do

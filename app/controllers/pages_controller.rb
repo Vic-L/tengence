@@ -16,20 +16,6 @@ class PagesController < ApplicationController
       array = []
       Tender.all.each do |tender|
         array << {
-          'type': "delete",
-          'id': tender.ref_no
-        }
-      end; nil
-      response = AwsManager.upload_document array.to_json
-      if response.class == String
-        NotifyViaSlack.call(content: "<@vic-l> ERROR deleting records!!\r\n#{response}")
-      else
-        NotifyViaSlack.call(content: "Deleted all records on AWSCloudSearch")
-      end
-
-      array = []
-      Tender.all.each do |tender|
-        array << {
           'type': "add",
           'id': tender.ref_no,
           'fields': {

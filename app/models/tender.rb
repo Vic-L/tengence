@@ -13,7 +13,7 @@ class Tender < ActiveRecord::Base
   validates_presence_of :buyer_name, :buyer_email, :buyer_contact_number, :published_date, :closing_datetime
 
   after_commit :add_to_cloudsearch, on: :create
-  before_update :update_cloudsearch, on: :update
+  before_update :update_cloudsearch
   after_commit :remove_from_cloudsearch, on: :destroy
 
   def add_to_cloudsearch

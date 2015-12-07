@@ -17,15 +17,15 @@ class Tender < ActiveRecord::Base
   after_commit :remove_from_cloudsearch, on: :destroy
 
   def add_to_cloudsearch
-    AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no)
+    AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no, self.description)
   end
 
   def update_cloudsearch
-    UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no)
+    UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no, self.description)
   end
 
   def remove_from_cloudsearch
-    RemoveSingleTenderFromCloudsearchWorker.perform_async(self.ref_no)
+    RemoveSingleTenderFromCloudsearchWorker.perform_async(self.ref_no, self.description)
   end
 
   rails_admin do

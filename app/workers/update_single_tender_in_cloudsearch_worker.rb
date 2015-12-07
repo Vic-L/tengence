@@ -2,22 +2,23 @@ class UpdateSingleTenderInCloudsearchWorker
   include Sidekiq::Worker
   sidekiq_options :backtrace => true, :retry => false
 
-  def perform ref_no
-    tender = Tender.find(ref_no)
+  def perform ref_no, description
     hash = {
       'type': "delete",
-      'id': tender.ref_no
+      'id': ref_no
     }
+    puts hash.to_s
     AwsManager.upload_document [hash].to_json
     hash = {
       'type': "add",
-      'id': tender.ref_no,
+      'id': ref_no,
       'fields': {
-        'ref_no': tender.ref_no,
-        'description': tender.description
+        'ref_no': ref_no,
+        'description': description
       }
     }
+    puts hash.to_s
     AwsManager.upload_document [hash].to_json
-    NotifyViaSlack.call(content: "<@ganther> Tender Updated\r\nalerts.tengence.com.sg/admin/tender/#{tender.ref_no}")
+    NotifyViaSlack.call(content: "<@ganther> Tender Updated\r\nalerts.tengence.com.sg/admin/tender/#{ref_no}")
   end
 end

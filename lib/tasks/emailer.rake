@@ -8,7 +8,7 @@ namespace :emailer do
       NotifyViaSlack.call(content: "Give me a break its the weekend!")
       abort 'its the weekend!'
     end
-    User.all.each do |user|
+    User.read_only.each do |user|
       begin
         NotifyViaSlack.call(content: "#{user.email} has no keywords") and next if user.keywords.blank?
         results_ref_nos = []
@@ -50,7 +50,7 @@ namespace :emailer do
       NotifyViaSlack.call(content: "Give me a break its the weekend!")
       abort 'its the weekend!'
     end
-    User.all.each do |user|
+    User.read_only.each do |user|
       begin
         NotifyViaSlack.call(content: "#{user.email} has no keywords") and next if user.keywords.blank?
         results_ref_nos = []

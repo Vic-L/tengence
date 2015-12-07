@@ -1,16 +1,7 @@
 class BrainTreeController < ApplicationController
   before_action :authenticate_user!, only: [:upgrade, :checkout]
 
-  def client_token
-    if current_user
-      render json: Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id).to_json
-    else
-      render json: Braintree::ClientToken.generate.to_json
-    end
-  end
-
   def upgrade
-
   end
 
   def checkout

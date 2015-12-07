@@ -1,0 +1,17 @@
+#wrapper
+  %section#payment-methods-list
+    - if @paypal_accounts.empty?
+
+      .row
+        .small-12.column
+          No Paypal Account
+
+    - if @credit_cards.empty?
+
+      .row
+        .small-12.column
+          No Credit Cards
+
+    .row
+      .small-12.column
+        = link_to "Add Payment Method", new_payment_method_path

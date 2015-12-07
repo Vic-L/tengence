@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'refresh_cloudsearch', to: 'pages#refresh_cloudsearch'
 
   # braintree
-  get "/braintree_client_token", to: 'brain_tree#client_token'
+  resources :payment_methods, path: '/payment-methods'
   get "/upgrade", to: 'brain_tree#upgrade'
   post "/checkout", to: 'brain_tree#checkout'
 

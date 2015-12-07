@@ -1,14 +1,13 @@
 #wrapper
-  / start dark section
+
   %section#pricing-plans.dark
     .row
       .medium-3.small-12.columns.animated.medium-centered{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
           %h3 Prices
-    / start Pricing tables (hidden in layout.css)
+
     #pricing-tables
       .row
-        / start Table
         .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
           %ul.pricing-table
             %li.title Lite
@@ -19,8 +18,7 @@
             %li.bullet-item 20 Users
             %li.cta-button
               .button.disabled{:'data-plan' => 'free', :'data-plan-type' => 'free'} -
-        / end Table
-        / start Table
+
         .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
           %ul.pricing-table
             %li.title Standard
@@ -31,8 +29,7 @@
             %li.bullet-item 20 Users
             %li.cta-button
               .button.buy-now{:'data-plan' => '$40.00 / Mth', :'data-plan-type' => 'standard'} Buy Now
-        / end Table
-        / start Table
+
         .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
           %ul.pricing-table
             %li.title Elite
@@ -43,11 +40,9 @@
             %li.bullet-item 20 Users
             %li.cta-button
               .button.buy-now{:'data-plan' => '$80.00 / Mth', :'data-plan-type' => 'elite'} Buy Now
-        / end Table
+
         .medium-12.columns.text-center
           = link_to "I want to check Tengence out first. Skip", root_path
-    / end Pricing tables
-  / end dark section
 
   %section#payment-method
     .row
@@ -68,11 +63,7 @@
 - content_for :javascript do
   %script{:src => "https://js.braintreegateway.com/v2/braintree.js"}
   :javascript
-    var BTclientToken = "";
-    $.ajax({url: '/braintree_client_token'}).done(function(data){
-      BTclientToken = data;
-      braintree.setup(BTclientToken, 'dropin', {container: "payment-form"});
-    });
+    var BTclientToken = "#{@client_token}";
     $(function(){
       $('.buy-now').click(function(){
         $('#subscribed_plan').val($(this).data('plan-type'));

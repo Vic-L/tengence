@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :tenders
   resources :watched_tenders
+  resources :viewed_tenders
 
   resource :user do
     get 'keywords', to: 'users/keywords#edit'

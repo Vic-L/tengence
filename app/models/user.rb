@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   has_many :watched_tenders, dependent: :destroy
+  has_many :viewed_tenders, dependent: :destroy
   has_many :current_tenders, through: :watched_tenders
   has_many :past_tenders, through: :watched_tenders
   has_many :current_posted_tenders, foreign_key: "postee_id"

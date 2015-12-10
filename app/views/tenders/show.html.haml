@@ -118,6 +118,13 @@
     $(function(){
       $('#reveal-in-house-tender-details-button').click(function(){
         $('#in-house-tender-details').show();
-        $('#reveal-in-house-tender-details-button').hide();
+        $('#reveal-tender-text').hide();
+        $.ajax({
+          url: "#{viewed_tenders_path}",
+          data: {
+            ref_no: "#{@tender.ref_no}"
+          },
+          method: "POST"
+        });
       });
     });

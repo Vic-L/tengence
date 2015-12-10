@@ -14,7 +14,7 @@
         - tenders.each do |tender|
           %tr
             %td.medium-5
-              = simple_format tender.description, {}, wrapper_tag: 'div'
+              = simple_format tender.description, {}, wrapper_tag: 'div', sanitize: false
             %td.medium-1
               = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
             %td.medium-1

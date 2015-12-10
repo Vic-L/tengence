@@ -27,12 +27,20 @@ RailsAdmin.config do |config|
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new
+    new do
+      except ['CurrentTender','CurrentPostedTender', 'PastTender','PastPostedTender']
+    end
     export
-    bulk_delete
+    bulk_delete do
+      except ['CurrentTender','CurrentPostedTender', 'PastTender','PastPostedTender']
+    end
     show
-    edit
-    delete
+    edit do
+      except ['CurrentTender','CurrentPostedTender', 'PastTender','PastPostedTender']
+    end
+    delete  do
+      except ['CurrentTender','CurrentPostedTender', 'PastTender','PastPostedTender']
+    end
 
     send_emailer_now              #custom for user only
     send_test_mailer              #custom for user only

@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
     state :write_only
   end
 
+  before_create :hash_email
+
   def self.email_available?(email)
     User.find_by_email(email).blank?
   end
@@ -52,6 +54,11 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  private
+    def hash_email
+      self.hashed_email = Digest::SHA256.hexdigest(email)
+    end
 end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer

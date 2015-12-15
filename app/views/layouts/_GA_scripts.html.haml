@@ -1,0 +1,32 @@
+- if Rails.env.production?
+  -# Google Tag Manager
+  %noscript
+    %iframe{:height => "0", :src => "//www.googletagmanager.com/ns.html?id=GTM-MJTJQM", :style => "display:none;visibility:hidden", :width => "0"}
+  :javascript
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MJTJQM');
+
+  :javascript
+    dataLayer = [];
+    var GA_UID = null,
+        GA_access_level = null;
+
+  - if user_signed_in?
+    
+    - if current_user.read_only?
+      - ga_access_level = "read_only"
+    - elsif current_user.write_only?
+      - ga_access_level = "write_only"
+    
+    :javascript
+      GA_UID = "user_#{current_user.hashed_email}";
+      GA_access_level = "#{ga_access_level}";
+
+  :javascript
+    dataLayer.push({
+      'access_level': GA_access_level,
+      'user_id': GA_UID
+    });

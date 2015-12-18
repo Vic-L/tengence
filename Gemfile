@@ -37,6 +37,12 @@ group :development, :test do
   gem 'letter_opener'
   gem 'pry'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'timecop' # for time manipulation
+  gem "fakeredis", :require => "fakeredis/rspec"
 end
 
 group :development do
@@ -75,3 +81,4 @@ gem 'rack-mini-profiler'
 gem 'aasm', '~> 4.5.0'
 gem "strip_attributes", '~> 1.7.1'
 gem 'paperclip', :git=> 'https://github.com/thoughtbot/paperclip', :ref => '523bd46c768226893f23889079a7aa9c73b57d68'
+gem 'selenium-webdriver', '~> 2.48.0'

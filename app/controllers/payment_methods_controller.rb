@@ -13,13 +13,34 @@ class PaymentMethodsController < ApplicationController
   end
 
   def create
+    # braintree will not duplicate payment method
     result = Braintree::PaymentMethod.create(
       customer_id: current_user.braintree_customer_id,
       payment_method_nonce: params['payment_method_nonce'],
       options: {
-        verify_card: true
+        verify_card: true,
+        make_default: true
       }
     )
+    if result.success?
+      result = Braintree::Subscription.create(
+        :payment_method_token => result.payment_method.token,
+        :plan_id => "standard_plan",
+        # :merchant_account_id => "gbp_account"
+      )
+      if result.success?
+        flash[:success] = "You have successfully subscribed to Tengence. Check your billing cycle <a href='#{main_app.root_path}'>here</a>. Lastly, welcome to the community.".html_safe
+        redirect_to current_tenders_path
+      else
+        flash[:alert] = "An error occurred. Our developers are notified and are currently working on it. Thank you for your patience."
+        NotifyViaSlack.call(content: "<@vic-l> ERROR in braintree payment methods\r\n#{result}")
+        redirect_to :back
+      end
+    else
+      flash[:alert] = "An error occurred. Our developers are notified and are currently working on it. Thank you for your patience."
+      NotifyViaSlack.call(content: "<@vic-l> ERROR in braintree payment methods\r\n#{result}")
+      redirect_to :back
+    end
   end
 
   private

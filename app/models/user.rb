@@ -48,6 +48,16 @@ class User < ActiveRecord::Base
     Braintree::Customer.find(self.braintree_customer_id)
   end
 
+  def braintree_payment_methods
+    braintree.payment_methods
+  end
+
+  def braintree_subscriptions
+    hash = {}
+    braintree.payment_methods.each{|pm| hash[pm] = pm.subscriptions}
+    hash
+  end
+
   def create_braintree_customer
     result = Braintree::Customer.create(
       first_name: self.first_name,

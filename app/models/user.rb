@@ -52,10 +52,8 @@ class User < ActiveRecord::Base
     braintree.payment_methods
   end
 
-  def braintree_subscriptions
-    hash = {}
-    braintree.payment_methods.each{|pm| hash[pm] = pm.subscriptions}
-    hash
+  def braintree_subscription
+    Braintree::Subscription.find(braintree_subscription_id)
   end
 
   def create_braintree_customer

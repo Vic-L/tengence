@@ -40,7 +40,7 @@ class WatchedTendersController < ApplicationController
 
   def destroy
     @tender_ref_no = params[:id]
-    DestroyWatchedTenderWorker.perform_async(params[:id])
+    DestroyWatchedTenderWorker.perform_async(current_user.id,params[:id])
     respond_to do |format|
       format.js
     end

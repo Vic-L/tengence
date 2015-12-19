@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   has_many :watched_tenders, dependent: :destroy
+  has_many :viewed_tenders, dependent: :destroy
   has_many :current_tenders, through: :watched_tenders
   has_many :past_tenders, through: :watched_tenders
   has_many :current_posted_tenders, foreign_key: "postee_id"
@@ -33,6 +34,7 @@ class User < ActiveRecord::Base
 
   before_validation :create_braintree_customer, on: :create
   before_destroy :delete_braintree_customer
+  before_create :hash_email
 
   def self.email_available?(email)
     User.find_by_email(email).blank?
@@ -82,6 +84,11 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  private
+    def hash_email
+      self.hashed_email = Digest::SHA256.hexdigest(email)
+    end
 end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer

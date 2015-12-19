@@ -11,6 +11,7 @@
     = csrf_meta_tags
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
+    = render 'layouts/ga_scripts'
     = render 'layouts/header'
     = yield
   
@@ -22,14 +23,3 @@
         $('html,body').removeClass('loading');
       });
     = yield :javascript
-
-    / Google Tag Manager
-    %noscript
-      %iframe{:height => "0", :src => "//www.googletagmanager.com/ns.html?id=GTM-MJTJQM", :style => "display:none;visibility:hidden", :width => "0"}
-    :javascript
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-MJTJQM');
-    / End Google Tag Manager

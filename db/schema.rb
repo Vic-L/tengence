@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202172520) do
+ActiveRecord::Schema.define(version: 20151215060606) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -141,10 +141,21 @@ ActiveRecord::Schema.define(version: 20151202172520) do
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
     t.string   "access_level",           limit: 255,                    null: false
+    t.string   "hashed_email",           limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "viewed_tenders", force: :cascade do |t|
+    t.string   "ref_no",     limit: 255
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "viewed_tenders", ["ref_no"], name: "index_viewed_tenders_on_ref_no", using: :btree
+  add_index "viewed_tenders", ["user_id"], name: "index_viewed_tenders_on_user_id", using: :btree
 
   create_table "watched_tenders", force: :cascade do |t|
     t.integer  "user_id",    limit: 4

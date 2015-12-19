@@ -1,5 +1,5 @@
 $("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").empty();
-$("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").append("<%= j link_to 'Unwatch', watched_tender_path(id: @tender_ref_no), method: 'delete', remote: true, class: 'button unwatch-button' %>");
+$("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").append("<%= j link_to 'Unwatch', watched_tender_path(id: @tender_ref_no), method: 'delete', remote: true, class: 'button unwatch-button', id: 'ga-tenders-unwatch' %>");
 $("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").notify(
   "Successfully added to watchlist", "success", 
   { position: "top" }

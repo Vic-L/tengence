@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151219103238) do
+ActiveRecord::Schema.define(version: 20151219134646) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 20151219103238) do
     t.string   "company_name",              limit: 255,   default: "",     null: false
     t.text     "keywords",                  limit: 65535
     t.text     "text",                      limit: 65535
-    t.string   "subscribed_plan",           limit: 255,   default: "free"
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
     t.string   "access_level",              limit: 255,                    null: false

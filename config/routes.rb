@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   # braintree
   resources :payment_methods, path: '/payment-methods'
   get "/upgrade", to: 'brain_tree#upgrade'
-  post "/checkout", to: 'brain_tree#checkout'
 
   get '/current_tenders', to: 'current_tenders#index', as: :current_tenders
   get '/past_tenders', to: 'past_tenders#index', as: :past_tenders

@@ -28,7 +28,7 @@
             %li.bullet-item 5GB Storage
             %li.bullet-item 20 Users
             %li.cta-button
-              .button.buy-now{:'data-plan' => '$40.00 / Mth', :'data-plan-type' => 'standard'} Buy Now
+              = link_to 'Buy Now', new_payment_method_path(plan: 'standard'), class: 'button buy-now'
 
         .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
           %ul.pricing-table
@@ -39,39 +39,7 @@
             %li.bullet-item 5GB Storage
             %li.bullet-item 20 Users
             %li.cta-button
-              .button.buy-now{:'data-plan' => '$80.00 / Mth', :'data-plan-type' => 'elite'} Buy Now
+              = link_to 'Buy Now', new_payment_method_path(plan: 'standard'), class: 'button buy-now'
 
         .medium-12.columns.text-center
           = link_to "I want to check Tengence out first. Skip", root_path
-
-  %section#payment-method
-    .row
-      #message
-      = form_tag checkout_path, id: 'contactform' do |f|
-        = hidden_field_tag 'subscribed_plan', nil
-        .small-6.columns.small-centered.text-center
-          Selected Plan        
-        .small-6.columns.small-centered#plan-price
-        .small-6.columns.small-centered.text-center
-          %br
-          Please Select Payment Method
-        .small-6.columns.small-centered
-          #payment-form
-        .small-12.columns.text-center
-          %button#submit{:name => "email", :type => "submit"} SEND
-
-- content_for :javascript do
-  %script{:src => "https://js.braintreegateway.com/v2/braintree.js"}
-  :javascript
-    var BTclientToken = "#{@client_token}";
-    $(function(){
-      $('.buy-now').click(function(){
-        $('#subscribed_plan').val($(this).data('plan-type'));
-        $('#plan-price').text($(this).data('plan'));
-        $('html,body').animate({scrollTop: $(this).offset().top});
-        if ($('#payment-method').is(":visible")) {
-        } else {
-          $('#payment-method').slideDown();
-        }
-      });
-    });

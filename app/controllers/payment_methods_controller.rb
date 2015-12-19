@@ -8,18 +8,14 @@ class PaymentMethodsController < ApplicationController
   end
   
   def new
+    @plan = params[:plan] if params[:plan]
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
   end
 
   def create
     result = Braintree::PaymentMethod.create(
       customer_id: current_user.braintree_customer_id,
-      payment_method_nonce: payment_method_params['payment_method_nonce'],
-      billing_address: {
-        country_code_alpha2: 'SGP',
-        company_name: payment_method_params['company_name']
-
-      },
+      payment_method_nonce: params['payment_method_nonce'],
       options: {
         verify_card: true
       }

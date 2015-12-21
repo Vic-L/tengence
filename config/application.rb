@@ -35,5 +35,8 @@ module Tengence
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
     config.autoload_paths += Dir["#{config.root}/app/workers/**/"]
     config.autoload_paths += Dir["#{config.root}/app/models/**/"]
+
+    # https
+    config.force_ssl = (ENV['FORCE_HTTPS'] == 'true')
   end
 end

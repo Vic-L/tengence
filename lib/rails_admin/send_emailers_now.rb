@@ -57,8 +57,8 @@ module RailsAdmin
                   NotifyViaSlack.call(content: "Error in email rake for user #{user.id}\r\n\r\n#{e.message}\r\n\r\n#{e.backtrace.to_s}")
                   InternalMailer.notify("Error in email rake for user #{user.id}", "#{e.message}\r\n\r\n#{e.backtrace.to_s}").deliver_now
                 end
-                redirect_to '/admin', flash: {success: "Alert Emails has been sent to ALL users."}
               end
+              redirect_to '/admin', flash: {success: "Alert Emails has been sent to ALL users."}
             end
           end
         end

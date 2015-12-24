@@ -13,7 +13,7 @@
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
     
     :javascript
-      dataLayer || (dataLayer = []);
+      dataLayer = [];
       var GA_tender_id = null, GA_UID = null,
         GA_access_level = null;
     

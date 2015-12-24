@@ -40,6 +40,6 @@
       });
       $(document).on('click','.ga-tenders-unwatch, .ga-tenders-watch, .ga-tenders-more', function(){
         GA_tender_id = $(this).data('tender-id');
-        dataLayer.set({'tender_id': GA_tender_id});
+        google_tag_manager["#{ENV['GTM_ID']}"].dataLayer.set('tender_id',GA_tender_id);
       });
     });

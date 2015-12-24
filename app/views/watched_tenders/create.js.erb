@@ -4,7 +4,4 @@ $("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").notify(
   "Successfully added to watchlist", "success", 
   { position: "top" }
 );
-var GA_tender_id || (GA_tender_id = null);
-GA_tender_id = "<%= @tender_ref_no %>";
-dataLayer.push({'tender_id': GA_tender_id});
 $('html,body').removeClass('loading');

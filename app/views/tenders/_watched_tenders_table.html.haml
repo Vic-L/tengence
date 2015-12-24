@@ -43,10 +43,6 @@
       $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
         $('html,body').addClass('loading');
       });
-      $(document).on('click','.ga-tenders-unwatch, .ga-tenders-watch, .ga-tenders-more', function(){
-        GA_tender_id = $(this).data('tender-id');
-        google_tag_manager["#{ENV['GTM_ID']}"].dataLayer.set('tender_id',GA_tender_id);
-      });
       $('#select_all').change(function(){
         if (this.checked) {
           $("input[id^='select_single_']").prop('checked', true);

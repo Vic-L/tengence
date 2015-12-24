@@ -55,11 +55,11 @@
           .header Original Link
         .small-12.column
           - if tender.is_gebiz?
-            Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' class='external-link' target='_blank' id='ga-tender-gebiz-1'>link</a> to open up an instance with GeBiz. You only have to do this once per session.
+            Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' class='external-link ga-tenders' target='_blank' data-gtm-category='' data-gtm-action='gebiz step 1' data-gtm-label="#{tender.ref_no}">link</a> to open up an instance with GeBiz. You only have to do this once per session.
             %br
-            Step 2) Cilck this <a href='#{tender.external_link}' class='external-link' target='_blank' id='ga-tender-gebiz-link'>link</a> to view this tender on Gebiz.
+            Step 2) Click this <a href='#{tender.external_link}' class='external-link ga-tenders' target='_blank' id='ga-tender-gebiz-link' data-gtm-category='' data-gtm-action='outbound link' data-gtm-label="#{tender.ref_no}">link</a> to view this tender on Gebiz.
           - else
-            = link_to tender.external_link, tender.external_link, target: '_blank', id: 'ga-tender-non-gebiz-link'
+            = link_to tender.external_link, tender.external_link, target: '_blank',class: 'ga-tenders', data: {gtm_category: '', gtm_action: 'outbound link', gtm_label: tender.ref_no}
 
     - unless tender.documents.blank?
       
@@ -90,7 +90,7 @@
     - else
       .row
         .small-12.column
-          .header#reveal-tender-text Click <a id='ga-tender-inhouse-more'>here</a> to show details
+          .header#reveal-tender-text Click <a id='ga-tender-inhouse-more' class='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label='#{tender.ref_no}'>here</a> to show details
       #in-house-tender-details
         .row
           .small-12.column

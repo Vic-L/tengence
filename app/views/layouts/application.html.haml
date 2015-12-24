@@ -11,7 +11,10 @@
     = csrf_meta_tags
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
-    = render 'layouts/ga_scripts'
+    
+    :javascript
+      datalayer || (datalayer = []);
+    
     = render 'layouts/header'
     = yield
   
@@ -23,3 +26,4 @@
         $('html,body').removeClass('loading');
       });
     = yield :javascript
+    = render 'layouts/ga_scripts'

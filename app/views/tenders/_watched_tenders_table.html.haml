@@ -44,7 +44,7 @@
         $('html,body').addClass('loading');
       });
       $(document).on('click','.ga-tenders-unwatch, .ga-tenders-watch, .ga-tenders-more', function(){
-        GA_tender_id = $(this).data('tender_id');
+        GA_tender_id = $(this).data('tender-id');
         dataLayer.push({'tender_id': GA_tender_id});
       });
       $('#select_all').change(function(){

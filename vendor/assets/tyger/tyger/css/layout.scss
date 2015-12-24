@@ -205,13 +205,19 @@ header.shrink {
 /* ==============================================
 Navigation
 =============================================== */
-li.active a{
-	color:#ff4444 !important;
-}
+header {
+	li.active a{
+		color:#ff4444;
+	}
 
-.menu-list a{
-	font-family: "Montserrat", serif;
-	font-weight:700;
+	.menu-list a{
+		font-family: "Montserrat", serif;
+		font-weight:700;
+	}
+
+	h1.logo a:hover {
+    color: #ff4444
+	}
 }
 
 header.shrink {
@@ -224,6 +230,10 @@ header.shrink {
 	h1.logo a:link,
 	h1.logo a:visited {
 		color: #fff;
+	}
+	h1.logo a:hover,
+	h1.logo a:link:hover, {
+		color: #ff4444;
 	}
 }
 

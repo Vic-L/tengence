@@ -4,11 +4,17 @@
       background: transparent
       &.shrink
         background-color: #212121
-      h1.logo a:hover,
-      #trigger-overlay:hover
-        color: #ff4444
-    li.active a
-      color: #ff4444 !important
+      h1.logo a
+        color: white
+        &:hover
+          color: #ff4444
+      ul.menu-list
+        li a
+          color: white
+        li a:hover,
+        li.active a,
+        li.active a:hover
+          color: #ff4444 !important
     .alert-box
       position: absolute
       top: 84px

@@ -1,5 +1,6 @@
 class BrainTreeController < ApplicationController
-  before_action :authenticate_user!, only: [:billing]
+  before_action :authenticate_user!
+  before_action :deny_subscribed_user, only: [:subscribe]
 
   def billing
   end
@@ -39,4 +40,9 @@ class BrainTreeController < ApplicationController
       redirect_to :back
     end
   end
+
+  private
+    def deny_subscribed_user
+      redirect_to :billing if current_user.braintree_subscription_id
+    end
 end

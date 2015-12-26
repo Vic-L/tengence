@@ -113,10 +113,3 @@
                   = render partial: 'tenders/total_count', locals: {results_count: @past_tenders_count, tenders: @past_tenders}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
-- content_for :javascript do
-  :javascript
-    $(function(){
-      $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
-        $('html,body').addClass('loading');
-      });
-    });

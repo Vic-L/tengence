@@ -21,12 +21,12 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-role :app, %w{alerts.tengence.com.sg}
-role :web, %w{alerts.tengence.com.sg}
-role :db,  %w{alerts.tengence.com.sg}
+role :app, %w{www.tengence.com.sg}
+role :web, %w{www.tengence.com.sg}
+role :db,  %w{www.tengence.com.sg}
 
 # server '54.149.206.7', user: 'ubuntu', roles: %w{web}
-server 'alerts.tengence.com.sg', user: 'ubuntu', roles: %w{web}
+server 'www.tengence.com.sg', user: 'ubuntu', roles: %w{web}
 
 # Configuration
 # =============

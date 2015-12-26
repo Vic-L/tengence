@@ -31,15 +31,18 @@
         %td.medium-1
           %div{id: "watch-tender-#{tender.ref_no}"}
             - if tender.users.include? current_user
-              = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true, class: "button unwatch-button", id: 'ga-tenders-unwatch'
+              = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true, class: "button unwatch-button ga-tenders", data: {gtm_category: '', gtm_action: 'unwatch', gtm_label: "#{tender.ref_no}"}
             - else
-              = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true, class: "button watch-button", id: 'ga-tenders-watch'
+              = link_to "Watch", watched_tenders_path(ref_no: tender.ref_no), method: 'post', remote: true, class: "button watch-button ga-tenders", data: {gtm_category: '', gtm_action: 'watch', gtm_label: "#{tender.ref_no}"}
         %td.medium-1
           %div
-            = link_to "More", tender_path(id: tender), remote: true, class: 'button more-button', id: 'ga-tenders-more'
+            = link_to "More", tender_path(tender), remote: true, class: "button more-button ga-tenders", data: {gtm_category: '', gtm_action: 'more', gtm_label: "#{tender.ref_no}"}
 - content_for :javascript do
   :javascript
     $(function(){
+      $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
+        $('html,body').addClass('loading');
+      });
       $('#select_all').change(function(){
         if (this.checked) {
           $("input[id^='select_single_']").prop('checked', true);

@@ -23,6 +23,8 @@ en:
   hello: "Hello world"
   admin:
     actions:
+      send_emailers_now:
+        menu: Send emailers to ALL user NOW
       send_emailer_now:
         menu: 'Send emailer to user now'
       send_test_mailer:

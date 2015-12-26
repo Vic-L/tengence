@@ -5,13 +5,18 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %title Tengence
     / Style Switcher Box delete for remove styleswitcher
-    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}
-    %link{:href => "http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,200", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "https://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "https://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,200", :rel => "stylesheet", :type => "text/css"}
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
-    = render 'layouts/ga_scripts'
+    
+    :javascript
+      dataLayer = [];
+      var GA_tender_id = null, GA_UID = null,
+        GA_access_level = null;
+    
     = render 'layouts/header'
     = yield
   
@@ -23,3 +28,4 @@
         $('html,body').removeClass('loading');
       });
     = yield :javascript
+    = render 'layouts/ga_scripts'

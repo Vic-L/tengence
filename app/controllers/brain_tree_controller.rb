@@ -27,6 +27,7 @@ class BrainTreeController < ApplicationController
       }
     )
     if result.success?
+      current.user.update(default_payment_method_token: result.payment_method.token)
       result = Braintree::Subscription.create(
         :payment_method_token => result.payment_method.token,
         :plan_id => "standard_plan",

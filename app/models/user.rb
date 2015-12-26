@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def trial?
+    (Date.today - User.last.created_at.to_date).to_i <= 30
+  end
+
   def braintree
     Braintree::Customer.find(self.braintree_customer_id)
   end

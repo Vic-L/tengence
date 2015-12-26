@@ -19,11 +19,14 @@
       .row
         .medium-8.columns.medium-centered
           - if current_user.braintree_subscription_id
-            
+
             Auto Recharge
             Change Settings
           - else
             = link_to 'Subscribe Now', subscribe_path, class: 'button buy-now'
+
+      - if current_user.trial?
+        = link_to "I want to check Tengence out first. Skip", root_path
           
         -# .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
         -#   %ul.pricing-table

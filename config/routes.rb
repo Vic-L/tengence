@@ -16,8 +16,10 @@ Rails.application.routes.draw do
   get 'refresh_cloudsearch', to: 'pages#refresh_cloudsearch'
 
   # braintree
-  resources :payment_methods, path: '/payment-methods'
-  get "/upgrade", to: 'brain_tree#upgrade'
+  # resources :payment_methods, path: '/payment-methods'
+  get "/billing", to: 'brain_tree#billing'
+  get "/subscribe", to: 'brain_tree#subscribe', as: 'subscribe'
+  post "/create_payment", to: 'brain_tree#create_payment'
 
   get '/current_tenders', to: 'current_tenders#index', as: :current_tenders
   get '/past_tenders', to: 'past_tenders#index', as: :past_tenders

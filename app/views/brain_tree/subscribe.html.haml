@@ -1,17 +1,16 @@
 #wrapper
   %section
-    - if @plan
-      .row
-        .small-12.column
-          = pre_payment_accouncement @plan
     .row
       .small-12.column
-        = form_tag payment_methods_path do
+        40 USD per month
+    .row
+      .small-12.column
+        = form_tag create_payment_path do
           = hidden_field_tag :plan, @plan
 
           #dropin
 
-          = submit_tag 'Confirm', class: 'btn push--ends'
+          = submit_tag 'Confirm', class: 'btn'
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"

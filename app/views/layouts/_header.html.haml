@@ -58,7 +58,7 @@
     .medium-12.column
       - if msg.is_a?(String)
         %div{:'data-alert' => '', class: "alert-box round #{name.to_s}"}
-          = content_tag :div, msg
+          = content_tag :div, msg.html_safe
           %a.close{href: "#", class: "close"} &times;
 .mask
   #loader.rotating

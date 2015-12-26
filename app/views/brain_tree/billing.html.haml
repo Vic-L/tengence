@@ -1,0 +1,48 @@
+#wrapper
+
+  %section#pricing-plans
+    .row
+      .medium-3.small-12.columns.animated.medium-centered{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3 Billing Overview
+
+    #pricing-tables
+      .row
+        .medium-4.columns
+
+          - if current_user.braintree_subscription_id
+            buy liao
+          - else
+            = days_left(current_user.created_at)
+            = link_to 'Subscribe Now', subscribe_path, class: 'button buy-now'
+        .medium-4.columns
+          - if current_user.braintree_subscription_id
+            Auto Recharge
+            Change Settings
+          - else
+            = link_to 'Subscribe Now', subscribe_path, class: 'button buy-now'
+          
+        -# .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+        -#   %ul.pricing-table
+        -#     %li.title Standard
+        -#     %li.price $40.00 / Mth
+        -#     %li.description An awesome description
+        -#     %li.bullet-item 1 Database
+        -#     %li.bullet-item 5GB Storage
+        -#     %li.bullet-item 20 Users
+        -#     %li.cta-button
+        -#       = link_to 'Buy Now', new_payment_method_path(plan: 'standard'), class: 'button buy-now'
+
+        -# .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
+        -#   %ul.pricing-table
+        -#     %li.title Elite
+        -#     %li.price $80.00 / Mth
+        -#     %li.description An awesome description
+        -#     %li.bullet-item 1 Database
+        -#     %li.bullet-item 5GB Storage
+        -#     %li.bullet-item 20 Users
+        -#     %li.cta-button
+        -#       = link_to 'Buy Now', new_payment_method_path(plan: 'standard'), class: 'button buy-now'
+
+        -# .medium-12.columns.text-center
+        -#   = link_to "I want to check Tengence out first. Skip", root_path

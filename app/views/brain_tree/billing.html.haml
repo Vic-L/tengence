@@ -12,7 +12,7 @@
 
           - if current_user.braintree_subscription_id
             Your next billing date is #{next_billing_date(current_user.braintree_subscription.next_billing_date)}.
-            You will be charged 40 USD on this card.
+            You will be charged 40 USD on this token #{@payment_method}
             -# TODO ADD default_payment_method_token to user column adn render card details
           - else
             = days_left(current_user.created_at)

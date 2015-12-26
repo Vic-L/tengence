@@ -15,6 +15,6 @@ module BrainTreeHelper
   end
 
   def next_billing_date date
-    "Your next billing date is #{Date.parse(date).strftime('%e %b %Y')}."
+    "#{Date.parse(date).strftime('%e %b %Y')}."
   end
 end

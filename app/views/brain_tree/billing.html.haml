@@ -11,22 +11,25 @@
         .medium-8.columns.medium-centered
 
           - if current_user.braintree_subscription_id
-            = next_billing_date(current_user.braintree_subscription.next_billing_date)
+            Your next billing date is #{next_billing_date(current_user.braintree_subscription.next_billing_date)}.
+            You will be charged 40 USD on this card.
+            -# TODO ADD default_payment_method_token to user column adn render card details
           - else
             = days_left(current_user.created_at)
-            = link_to 'Subscribe Now', subscribe_path, class: 'button buy-now'
+            = link_to 'Subscribe Now', subscribe_path, class: 'button'
 
       .row
         .medium-8.columns.medium-centered
           - if current_user.braintree_subscription_id
-
             Auto Recharge
-            Change Settings
+            = link_to "Change Payment Settings", edit_payment_path, class: 'button'
           - else
-            = link_to 'Subscribe Now', subscribe_path, class: 'button buy-now'
+            = link_to 'Subscribe Now', subscribe_path, class: 'button'
 
       - if current_user.trial?
-        = link_to "I want to check Tengence out first. Skip", root_path
+        .row
+          .medium-8.columns.medium-centered
+            = link_to "I want to check Tengence out first. Skip", root_path
           
         -# .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
         -#   %ul.pricing-table

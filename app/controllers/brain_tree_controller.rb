@@ -9,6 +9,13 @@ class BrainTreeController < ApplicationController
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
   end
 
+  def edit_payment
+    @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
+  end
+
+  def update_payment
+  end
+
   def create_payment
     # braintree will not duplicate payment method
     result = Braintree::PaymentMethod.create(

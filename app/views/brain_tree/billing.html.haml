@@ -2,21 +2,24 @@
 
   %section#pricing-plans
     .row
-      .medium-3.small-12.columns.animated.medium-centered{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+      .medium-6.small-12.columns.animated.medium-centered{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
           %h3 Billing Overview
 
     #pricing-tables
       .row
-        .medium-4.columns
+        .medium-8.columns.medium-centered
 
           - if current_user.braintree_subscription_id
-            buy liao
+            = next_billing_date(current_user.braintree_subscription.next_billing_date)
           - else
             = days_left(current_user.created_at)
             = link_to 'Subscribe Now', subscribe_path, class: 'button buy-now'
-        .medium-4.columns
+
+      .row
+        .medium-8.columns.medium-centered
           - if current_user.braintree_subscription_id
+            
             Auto Recharge
             Change Settings
           - else

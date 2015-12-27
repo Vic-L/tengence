@@ -27,7 +27,7 @@ class UpdateDefaultPaymentMethod
         
         NotifyViaSlack.call(content: "<@vic-l> ERROR UpdateDefaultPaymentMethod Braintree::PaymentMethod.update\r\n#{result.errors.map(&:message).join("\r\n")}")
 
-        response = "flash[:alert] = 'An error occurred. Our developers are notified and are currently working on it. Thank you for your patience.';"
+        response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
         response += "redirect_to :back"
         
       end

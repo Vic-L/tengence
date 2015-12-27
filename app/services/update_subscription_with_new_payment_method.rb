@@ -21,14 +21,14 @@ class UpdateSubscriptionWithNewPaymentMethod
 
         NotifyViaSlack.call(content: "<@vic-l> ERROR UpdateSubscriptionWithNewPaymentMethod Braintree::Subscription.update\r\n#{result.errors.map(&:message).join("\r\n")}")
 
-        response = "flash[:alert] = 'An error occurred. Our developers are notified and are currently working on it. Thank you for your patience.';"
+        response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
         response += "redirect_to :back"
       
       end
     
     rescue => e
     
-      response = "flash[:alert] = 'An error occurred. Our developers are notified and are currently working on it. Thank you for your patience.';"
+      response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
       response += "redirect_to :back"
 
       NotifyViaSlack.call(content: "<@vic-l> RESCUE UpdateSubscriptionWithNewPaymentMethod\r\n#{e.message.to_s}\r\n#{e.backtrace.join("\r\n")}")

@@ -1,5 +1,4 @@
 class CurrentTendersController < ApplicationController
-  before_action :authenticate_user!
   before_action :deny_write_only_access
 
   def index

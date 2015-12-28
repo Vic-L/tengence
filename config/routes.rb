@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { 
     sessions: "users/sessions",
     registrations: "users/registrations",
+    confirmations: "users/confirmations",
     passwords:  "users/passwords" }
   devise_scope :user do
     get "users/check_email_taken"=> 'users/registrations#check_email_taken',

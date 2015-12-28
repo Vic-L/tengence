@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
     state :write_only
   end
 
+  scope :confirmed, -> {where.not(confirmed_at: nil)}
+
   before_create :hash_email
 
   def self.email_available?(email)

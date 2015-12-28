@@ -27,7 +27,7 @@ module RailsAdmin
               NotifyViaSlack.call(content: "Give me a break its the weekend!")
               redirect_to '/admin', flash: {alert: "Give me a break its the weekend!"}
             else
-              User.read_only.each do |user|
+              User.read_only.confirmed.each do |user|
                 begin
                   NotifyViaSlack.call(content: "#{user.email} has no keywords") and next if user.keywords.blank?
                   results_ref_nos = []

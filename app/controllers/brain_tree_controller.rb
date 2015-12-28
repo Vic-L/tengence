@@ -3,7 +3,9 @@ class BrainTreeController < ApplicationController
   before_action :deny_subscribed_user, only: [:subscribe]
 
   def billing
-    @payment_method = current_user.braintree_subscription.payment_method_token
+    if current_user.braintree_subscription_id
+      @payment_method = current_user.braintree_subscription.payment_method_token
+    end
   end
 
   def subscribe

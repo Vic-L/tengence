@@ -10,18 +10,16 @@
       .row
         .medium-8.columns.medium-centered
 
-          - if current_user.braintree_subscription_id
+          - if @payment_method
             Your next billing date is #{next_billing_date(current_user.braintree_subscription.next_billing_date)}.
             You will be charged 40 USD on this token #{@payment_method}
             -# TODO ADD default_payment_method_token to user column adn render card details
           - else
             = days_left(current_user.created_at)
-            = link_to 'Subscribe Now', subscribe_path, class: 'button'
 
       .row
         .medium-8.columns.medium-centered
           - if current_user.braintree_subscription_id
-            Auto Recharge
             = link_to "Change Payment Settings", edit_payment_path, class: 'button'
           - else
             = link_to 'Subscribe Now', subscribe_path, class: 'button'

@@ -1,6 +1,11 @@
 module BrainTreeHelper
   def days_left time
-    "<p><span id='days-left'>#{distance_of_time_in_words(Time.now - time)}</span> left</p>".html_safe
+    exhausted_days = Time.now - time
+    if exhausted_days > 30.days
+      "0 days"
+    else
+      "<span id='days-left'>#{distance_of_time_in_words(30.days - exhausted_days)}</span>".html_safe
+    end
   end
 
   def pre_payment_accouncement plan

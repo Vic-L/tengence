@@ -7,7 +7,7 @@
       .small-12.column
         = form_tag create_payment_path do
           #dropin
-          = submit_tag 'Confirm', class: 'btn'
+          = submit_tag 'Confirm', class: 'button'
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"

@@ -33,6 +33,10 @@ class BrainTreeController < ApplicationController
     eval(resp)
   end
 
+  def unsubscribe
+
+  end
+
   private
     def deny_subscribed_user
       redirect_to :billing if !current_user.braintree_subscription_id.blank?

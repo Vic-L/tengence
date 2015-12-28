@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def trial?
-    (Date.today - User.last.created_at.to_date).to_i <= 30
+    self.braintree_subscription_id.blank? && (Date.today - self.created_at.to_date).to_i <= 30
   end
 
   def default_payment_method

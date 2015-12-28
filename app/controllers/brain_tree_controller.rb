@@ -33,6 +33,6 @@ class BrainTreeController < ApplicationController
 
   private
     def deny_subscribed_user
-      redirect_to :billing if current_user.braintree_subscription_id
+      redirect_to :billing if !current_user.braintree_subscription_id.blank?
     end
 end

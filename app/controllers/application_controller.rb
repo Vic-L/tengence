@@ -31,4 +31,11 @@ class ApplicationController < ActionController::Base
         super # Use the default one
       end
     end
+
+    def deny_unconfirmed_users
+      if user_signed_in? && !current_user.confirmed?
+        flash[:warning] = "Please confirm your account first."
+        redirect_to new_user_confirmation_path
+      end
+    end
 end

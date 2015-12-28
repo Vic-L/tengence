@@ -1,0 +1,16 @@
+#wrapper
+  %section
+    .row
+      .small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3 Resend confirmation instructions
+    .row
+      = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+        .small-6.column.small-centered
+          = devise_error_messages!
+        .small-6.column.small-centered
+          = f.email_field :email, required: true, autofocus: true, placeholder: 'Email'
+        .small-6.column.small-centered.text-center
+          %button#submit{:type => "submit"} Resend confirmation instructions
+        .small-6.column.small-centered
+          = render "users/shared/links"

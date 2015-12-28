@@ -1,4 +1,5 @@
 class PastPostedTendersController < ApplicationController
+  before_action :authenticate_user!
   before_action :deny_read_only_access
 
   def index

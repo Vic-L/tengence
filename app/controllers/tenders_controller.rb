@@ -1,5 +1,6 @@
 class TendersController < ApplicationController
   before_action :store_location
+  before_action :authenticate_user!
   before_action :deny_read_only_access, except: [:show]
 
   def new

@@ -27,16 +27,20 @@ class Users::SessionsController < Devise::SessionsController
     #   render js: "window.location.href='#{root_path}'"
     # end
 
-    def after_sign_in_path_for(resource_or_scope)
-      stored_location_for(:users) || (current_user.write_only? ? post_a_tender_path : root_path)
-      # if resource_or_scope.braintree_customer_id
+    def after_sign_in_path_for resource
+      current_user.write_only? ? post_a_tender_path : root_path
+      # if resource.braintree_customer_id
       #   root_path
       # else
       #   upgrade_path
       # end
     end
 
-    def after_sign_out_path_for(resource_or_scope)
+    def after_inactive_sign_in_path_for resource
+      new_user_confirmation_path(resource)
+    end
+
+    def after_sign_out_path_for resource
       root_path
     end
 end

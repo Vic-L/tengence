@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   before_validation :create_braintree_customer, on: :create
   before_destroy :delete_braintree_customer
   before_create :hash_email
+  
+  scope :confirmed, -> {where.not(confirmed_at: nil)}
 
   def self.email_available?(email)
     User.find_by_email(email).blank?

@@ -2,6 +2,7 @@ class TendersController < ApplicationController
   before_action :store_location
   before_action :authenticate_user!
   before_action :deny_read_only_access, except: [:show]
+  before_action :deny_unconfirmed_users
 
   def new
     @tender = Tender.new(ref_no: "InHouse-#{Time.now.to_formatted_s(:number)}", published_date: Date.today, buyer_company_name: current_user.company_name, postee_id: current_user.id)

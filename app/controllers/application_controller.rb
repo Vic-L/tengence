@@ -31,4 +31,8 @@ class ApplicationController < ActionController::Base
         super # Use the default one
       end
     end
+
+    def deny_unconfirmed_users
+      redirect_to new_user_confirmation_path if user_signed_in? && current_user.confirmed?
+    end
 end

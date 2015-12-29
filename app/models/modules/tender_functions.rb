@@ -18,4 +18,11 @@ module TenderFunctions
   def is_gebiz?
     !!(external_link =~ /gebiz.gov/)
   end
+
+  def self.included(base)
+    base.class_eval do
+      scope :gebiz, -> {where("external_link like '%gebiz.gov%'")}
+      scope :non_gebiz, -> {where.not("external_link like '%gebiz.gov%'")}
+    end
+  end
 end

@@ -164,7 +164,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                     <br>
                                     <br>
 
-                                    <% if @non_gebiz_tenders.size != 0 %>
+                                    <% unless @non_gebiz_tenders.blank? %>
                                       <table width="600" border="0" cellpadding="0" cellspacing="0" align="left" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
                                         <tr>
                                           <td valign="middle" width="100%" style="text-align: left; font-size: 16px;">
@@ -206,7 +206,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                     <br>
                                     <br>
 
-                                    <% if @gebiz_tenders.size != 0 %>
+                                    <% unless @gebiz_tenders.blank? %>
                                       <table width="600" border="0" cellpadding="0" cellspacing="0" align="left" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
                                         <tr>
                                           <td valign="middle" width="100%" style="text-align: left; font-size: 16px;">
@@ -243,9 +243,9 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                           <% end %>
                                         </tbody>
                                       </table>
-
                                     <% end %>
 
+                                    <br>
                                     <br>
 
                                   </td>

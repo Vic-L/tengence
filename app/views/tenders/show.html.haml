@@ -59,7 +59,7 @@
               %br
               Step 2) Click this <a href='#{@tender.external_link}' class='external-link ga-tenders' target='_blank' id='ga-tender-gebiz-link' data-gtm-category='' data-gtm-action='outbound link' data-gtm-label="#{@tender.ref_no}">link</a> to view this tender on Gebiz.
             - else
-              = link_to @tender.external_link, @tender.external_link, target: '_blank',class: 'ga-tenders', data: {gtm_category: '', gtm_action: 'outbound link', gtm_label: tender.ref_no}
+              = link_to @tender.external_link, @tender.external_link, target: '_blank',class: 'ga-tenders', data: {gtm_category: '', gtm_action: 'outbound link', gtm_label: @tender.ref_no}
       
       - unless @tender.documents.blank?
         

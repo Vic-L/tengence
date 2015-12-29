@@ -17,6 +17,11 @@
         .small-6.column.small-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
           %a.show-password Show Password
+        %br
+        .small-6.column.small-centered
+          = label_tag 'remember_me' do
+            = f.check_box :remember_me
+            %span Keep me logged in
           %br
           %br
         .small-6.columns.small-centered.text-center

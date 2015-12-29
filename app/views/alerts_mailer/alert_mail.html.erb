@@ -182,7 +182,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <% @tenders.each_with_index do |tender, index| %>
+                                          <% @non_gebiz_tenders.each_with_index do |tender, index| %>
                                             <% if index.even? %>
                                               <tr>
                                                 <td width="350" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.description %></td>

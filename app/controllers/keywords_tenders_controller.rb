@@ -21,7 +21,9 @@ class KeywordsTendersController < ApplicationController
       @results_count = tenders.size
 
       # atom feed variable
-      @latest_updated_datetime = tenders.maximum("current_tenders.updated_at")
+      # if request.format.symbol == :atom
+      #   @latest_updated_datetime = tenders.maximum(:published_date)
+      # end
     end
   end
 

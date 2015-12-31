@@ -1,4 +1,5 @@
 json.array! @tenders do |tender|
+  json.ref_no tender.ref_no
   json.closing_datetime tender.closing_datetime
   json.published_date tender.published_date
   json.description tender.description

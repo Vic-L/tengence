@@ -8,13 +8,13 @@ var GenericTenderRow = React.createClass({
     };
     return (
       <tr>
-        <td className='medium-5'>{this.props.description}</td>
-        <td className='medium-1'>{this.props.publishedDate}</td>
-        <td className='medium-1'>{this.props.closingDate}</td>
-        <td className='medium-1'>{this.props.closingTime}</td>
-        <td className='medium-2'>{this.props.buyerCompanyName}</td>
-        <td className='medium-1'>{watchlistButton}</td>
-        <td className='medium-1'><MoreButton showPath={this.props.showPath} refNo={this.props.refNo}/></td>
+        <td>{this.props.description}</td>
+        <td>{this.props.publishedDate}</td>
+        <td>{this.props.closingDate}</td>
+        <td>{this.props.closingTime}</td>
+        <td>{this.props.buyerCompanyName}</td>
+        <td>{watchlistButton}</td>
+        <td><MoreButton showPath={this.props.showPath} refNo={this.props.refNo}/></td>
       </tr>
     );
   }

@@ -6,7 +6,11 @@ require Rails.root.join('lib', 'rails_admin', 'send_emailers_now.rb')
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendEmailerNow)
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendTestMailer)
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::ToggleAccessLevel)
-RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::SendEmailersNow)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::OneDayAgo)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::TwoDayAgo)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::ThreeDayAgo)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::FourDayAgo)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::FiveDayAgo)
 
 RailsAdmin.config do |config|
 
@@ -28,7 +32,11 @@ RailsAdmin.config do |config|
 
   config.actions do
     dashboard                     # mandatory
-    send_emailers_now
+    one_day_ago
+    two_day_ago
+    three_day_ago
+    four_day_ago
+    five_day_ago
     index                         # mandatory
     new do
       except ['CurrentTender','CurrentPostedTender', 'PastTender','PastPostedTender']

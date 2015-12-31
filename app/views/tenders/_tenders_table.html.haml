@@ -1,17 +1,6 @@
 .row
   .small-12.column
-    %table#results-table{role: 'grid'}
-      %thead
-        %th.medium-5 Description
-        %th.medium-1 Published Date
-        %th.medium-1 Closing Date
-        %th.medium-1 Closing Time
-        %th.medium-2 Buyer Entity
-        %th.medium-1 Watchlist
-        %th.medium-1 Details
-      %tbody
-        - tenders.each do |tender|
-          = react_component 'GenericTenderRow', {refNo: tender.ref_no, description: tender.description, publishedDate: "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}", closingDate: "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}", closingTime: tender.closing_datetime.strftime('%H:%M %p'), buyerCompanyName: tender.buyer_company_name, watched: tender.users.include?(current_user), showPath: tender_path(tender), watchPath: watched_tenders_path(id: tender.ref_no), unwatchPath: watched_tender_path(id: tender.ref_no)}, {tag: 'tr'}
+    = react_component 'GenericTendersTable', {tenders: tenders}
 
 - content_for :javascript do
   :javascript

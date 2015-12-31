@@ -48,8 +48,8 @@ module EmailerActions
                   
                   NotifyViaSlack.call(content: "#{user.email} has no tenders matching his/her keywords") and next if current_tenders_ref_nos.blank?
 
-                  AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_now
-                  InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size).deliver_now
+                  AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size,  @page_name.to_i).deliver_now
+                  InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size, @page_name.to_i).deliver_now
 
                   current_tenders_ref_nos.each do |ref_no|
                     WatchedTender.create(tender_id: ref_no, user_id: user.id)

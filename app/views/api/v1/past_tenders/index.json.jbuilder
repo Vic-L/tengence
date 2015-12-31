@@ -1,4 +1,11 @@
 json.results_count @results_count
+json.pagination do
+  json.path request.path
+  json.current_page @tenders.current_page
+  json.total_pages @tenders.total_pages
+  json.limit_value @tenders.limit_value
+  json.last_page @tenders.last_page?
+end
 json.tenders do
   json.array! @tenders do |tender|
     json.ref_no tender.ref_no

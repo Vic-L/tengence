@@ -42,8 +42,9 @@
                   %button.back-button{type: "button"}
                     = fa_icon('mail-reply')
 
-  %section#tender-results
-    = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
+  = react_component 'GenericTendersResults', {url: api_v1_past_tenders_path}
+  -# %section#tender-results
+  -#   = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
     -# - if @results_count == 0
     -#   .row
     -#     .small-12.column.text-center

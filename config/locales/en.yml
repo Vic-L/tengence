@@ -23,8 +23,21 @@ en:
   hello: "Hello world"
   admin:
     actions:
-      send_emailers_now:
-        menu: Send emailers to ALL user NOW
+      one_day_ago:
+        menu: Send emailers from 1 day ago
+        title: '1'
+      two_day_ago:
+        menu: Send emailers from 2 day ago
+        title: '2'
+      three_day_ago:
+        menu: Send emailers from 3 day ago
+        title: '3'
+      four_day_ago:
+        menu: Send emailers from 4 day ago
+        title: '4'
+      five_day_ago:
+        menu: Send emailers from 5 day ago
+        title: '5'
       send_emailer_now:
         menu: 'Send emailer to user now'
       send_test_mailer:

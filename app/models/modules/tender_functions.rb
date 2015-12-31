@@ -25,4 +25,8 @@ module TenderFunctions
       scope :non_gebiz, -> {where.not("external_link like '%gebiz.gov%'")}
     end
   end
+
+  def watched? user_id
+    self.users.pluck(:id).include?(user_id)
+  end
 end

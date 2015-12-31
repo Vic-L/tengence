@@ -1,6 +1,6 @@
 .row
   .small-12.column
-    = react_component 'GenericTendersTable', {tenders: tenders}
+    = react_component 'GenericTendersTable', {url: api_v1_past_tenders_path}
 
 - content_for :javascript do
   :javascript

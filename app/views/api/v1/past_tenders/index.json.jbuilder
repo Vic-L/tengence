@@ -9,5 +9,6 @@ json.array! @tenders do |tender|
   json.buyer_company_name tender.buyer_company_name
   json.watch_path watched_tenders_path(id: tender.ref_no)
   json.unwatch_path watched_tender_path(id: tender.ref_no)
+  json.show_path tender_path(id: tender.ref_no)
   json.watched tender.watched?(current_user.id)
 end

@@ -32,8 +32,8 @@ class WatchedTendersController < ApplicationController
   end
 
   def create
-    @watched_tender = WatchedTender.create(user_id: current_user.id, tender_id: params[:ref_no])
-    @tender_ref_no = params[:ref_no]
+    @watched_tender = WatchedTender.create(user_id: current_user.id, tender_id: params[:id])
+    @tender_ref_no = params[:id]
     respond_to do |format|
       format.js
     end

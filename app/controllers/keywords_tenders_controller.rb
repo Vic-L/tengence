@@ -19,6 +19,11 @@ class KeywordsTendersController < ApplicationController
       tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
       @tenders = tenders.page(params[:page]).per(50)
       @results_count = tenders.size
+
+      # atom feed variable
+      # if request.format.symbol == :atom
+      #   @latest_updated_datetime = tenders.maximum(:published_date)
+      # end
     end
   end
 

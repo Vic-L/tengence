@@ -164,36 +164,88 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                     <br>
                                     <br>
 
-                                    <table width="600" class="full" cellspacing="0" bgcolor="#f1f1f1" style="background-color: rgb(241, 241, 241);border: 1px solid black;">
-                                      <thead>
+                                    <% unless @non_gebiz_tenders.blank? %>
+                                      <table width="600" border="0" cellpadding="0" cellspacing="0" align="left" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
                                         <tr>
-                                          <th width="350" style='padding: 5px; border: 1px solid black;'>Description</th>
-                                          <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
-                                          <th width="100" style='padding: 5px; border: 1px solid black;'>Closing Date</th>
-                                          <th width="50" style='padding: 5px; border: 1px solid black;'>Action</th>
+                                          <td valign="middle" width="100%" style="text-align: left; font-size: 16px;">
+                                          Non-Gebiz Tenders
+                                          </td>
                                         </tr>
-                                      </thead>
-                                      <tbody>
-                                        <% @tenders.each_with_index do |tender, index| %>
-                                          <% if index.even? %>
-                                            <tr>
-                                              <td width="350" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                              <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
-                                              <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
-                                              <td width="50" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
-                                            </tr>
-                                          <% else %>
-                                            <tr>
-                                              <td width="350" style='padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                              <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
-                                              <td width="100" style='padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
-                                              <td width="50" style='padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
-                                            </tr>
+                                      </table>
+                                      <table width="600" class="full" cellspacing="0" bgcolor="#f1f1f1" style="background-color: rgb(241, 241, 241);border: 1px solid black;">
+                                        <thead>
+                                          <tr>
+                                            <th width="350" style='padding: 5px; border: 1px solid black;'>Description</th>
+                                            <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <th width="100" style='padding: 5px; border: 1px solid black;'>Closing Date</th>
+                                            <th width="50" style='padding: 5px; border: 1px solid black;'>Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <% @non_gebiz_tenders.each_with_index do |tender, index| %>
+                                            <% if index.even? %>
+                                              <tr>
+                                                <td width="350" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.description %></td>
+                                                <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
+                                                <td width="50" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
+                                              </tr>
+                                            <% else %>
+                                              <tr>
+                                                <td width="350" style='padding: 5px; border: 1px solid black;'><%= tender.description %></td>
+                                                <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <td width="100" style='padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
+                                                <td width="50" style='padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
+                                              </tr>
+                                            <% end %>
                                           <% end %>
-                                        <% end %>
-                                      </tbody>
-                                    </table>
-                                    
+                                        </tbody>
+                                      </table>
+                                    <% end %>
+
+                                    <br>
+                                    <br>
+
+                                    <% unless @gebiz_tenders.blank? %>
+                                      <table width="600" border="0" cellpadding="0" cellspacing="0" align="left" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
+                                        <tr>
+                                          <td valign="middle" width="100%" style="text-align: left; font-size: 16px;">
+                                          Gebiz Tenders
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <table width="600" class="full" cellspacing="0" bgcolor="#f1f1f1" style="background-color: rgb(241, 241, 241);border: 1px solid black;">
+                                        <thead>
+                                          <tr>
+                                            <th width="350" style='padding: 5px; border: 1px solid black;'>Description</th>
+                                            <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <th width="100" style='padding: 5px; border: 1px solid black;'>Closing Date</th>
+                                            <th width="50" style='padding: 5px; border: 1px solid black;'>Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <% @gebiz_tenders.each_with_index do |tender, index| %>
+                                            <% if index.even? %>
+                                              <tr>
+                                                <td width="350" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.description %></td>
+                                                <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
+                                                <td width="50" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
+                                              </tr>
+                                            <% else %>
+                                              <tr>
+                                                <td width="350" style='padding: 5px; border: 1px solid black;'><%= tender.description %></td>
+                                                <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <td width="100" style='padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
+                                                <td width="50" style='padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no), target: "_blank" %></td>
+                                              </tr>
+                                            <% end %>
+                                          <% end %>
+                                        </tbody>
+                                      </table>
+                                    <% end %>
+
+                                    <br>
                                     <br>
 
                                   </td>

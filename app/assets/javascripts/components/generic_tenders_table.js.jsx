@@ -11,7 +11,7 @@ var GenericTendersTable = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({tenders: data});
+        this.setState({tenders: data.tenders});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());

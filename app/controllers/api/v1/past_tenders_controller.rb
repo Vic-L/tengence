@@ -17,7 +17,6 @@ module Api
           @results_count = PastTender.count
           @tenders = PastTender.includes(:users).page(params[:page]).per(50)
         end
-        respond_with @tenders
       end
     end
   end

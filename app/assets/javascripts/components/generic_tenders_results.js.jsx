@@ -22,7 +22,10 @@ var GenericTendersResults = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      }.bind(this),
+      complete: function(xhr, status){
+        $('html,body').removeClass('loading');
+      }
     });
   },
   render: function() {
@@ -30,7 +33,7 @@ var GenericTendersResults = React.createClass({
       <section id='tender-results'>
         <div className='row'>
           <div className='small-12 column'>
-            <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count}/>
+            <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders}/>
             <table id='results-table' role='grid'>
               <GenericTendersTableHeader />
               <GenericTendersTableBody tenders={this.state.tenders}/>

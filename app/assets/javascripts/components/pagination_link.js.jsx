@@ -1,6 +1,6 @@
 var PaginationLink = React.createClass({
   handleClick: function(e){
-    document.body.classList.add('loading');
+    this.props.showLoading();
     e.preventDefault();
     this.props.getTenders(e.target.href);
   },

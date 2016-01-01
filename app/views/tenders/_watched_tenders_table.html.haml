@@ -41,7 +41,7 @@
   :javascript
     $(function(){
       $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
-        $('html,body').addClass('loading');
+        document.body.classList.add('loading');
       });
       $('#select_all').change(function(){
         if (this.checked) {

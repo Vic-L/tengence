@@ -28,17 +28,20 @@ var GenericTendersResults = React.createClass({
       }
     });
   },
+  showLoading: function(){
+    document.body.classList.add('loading');
+  },
   render: function() {
     return (
       <section id='tender-results'>
         <div className='row'>
           <div className='small-12 column'>
-            <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders}/>
+            <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading}/>
             <table id='results-table' role='grid'>
               <GenericTendersTableHeader />
-              <GenericTendersTableBody tenders={this.state.tenders}/>
+              <GenericTendersTableBody tenders={this.state.tenders} showLoading={this.showLoading}/>
             </table>
-            <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count}/>
+            <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading}/>
           </div>
         </div>
       </section>

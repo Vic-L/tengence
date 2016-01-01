@@ -3,7 +3,7 @@ var UnwatchButton = React.createClass({
     var id = "watch-tender-" + this.props.refNo;
     return (
       <div id={id}>
-        <a href={this.props.unwatchPath} data-remote='true' data-method='delete' className='button unwatch-button ga-tenders' data-gtm-category='' data-gtm-action='unwatch' data-gtm-label={this.props.refNo}>Unwatch</a>
+        <a href={this.props.unwatchPath} data-remote='true' data-method='delete' className='button unwatch-button ga-tenders' data-gtm-category='' data-gtm-action='unwatch' data-gtm-label={this.props.refNo} onClick={this.props.showLoading}>Unwatch</a>
       </div>
     );
   }

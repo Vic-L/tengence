@@ -25,7 +25,7 @@
     :javascript
       $(document).foundation();
       $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
-        $('html,body').removeClass('loading');
+        document.body.classList.remove('loading');
       });
     = yield :javascript
     = render 'layouts/ga_scripts'

@@ -3,7 +3,7 @@ var WatchButton = React.createClass({
     var id = "watch-tender-" + this.props.refNo;
     return (
       <div id={id}>
-        <a href={this.props.watchPath} data-remote='true' data-method='post' className='button watch-button ga-tenders' data-gtm-category='' data-gtm-action='watch' data-gtm-label={this.props.refNo}>Watch</a>
+        <a href={this.props.watchPath} data-remote='true' data-method='post' className='button watch-button ga-tenders' data-gtm-category='' data-gtm-action='watch' data-gtm-label={this.props.refNo} onClick={this.props.showLoading}>Watch</a>
       </div>
     );
   }

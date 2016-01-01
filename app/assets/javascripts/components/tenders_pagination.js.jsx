@@ -21,23 +21,23 @@ var TendersPagination = React.createClass({
     var range = this.setPagesRange(this.props.pagination.current_page, this.props.pagination.total_pages);
     var links = [];
     if (this.props.pagination.current_page !== 1) {
-      links.push(<PaginationLink getTenders={this.props.getTenders} path={this.props.pagination.path} page='1'>« First</PaginationLink>);
-      links.push(<PaginationLink getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.current_page - 1).toString()}>‹ Prev</PaginationLink>);
+      links.push(<PaginationLink showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page='1'>« First</PaginationLink>);
+      links.push(<PaginationLink showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.current_page - 1).toString()}>‹ Prev</PaginationLink>);
     }
     if (range[0] !== 1) {
-      links.push(<PaginationLink >…</PaginationLink>); 
+      links.push(<PaginationLink showLoading={this.props.showLoading} >…</PaginationLink>); 
     }
     for (var i=0;i<range.length;i++) {
       var current = null;
       if (range[i] === this.props.pagination.current_page) current = true;
-      links.push(<PaginationLink currentPage={current} getTenders={this.props.getTenders} path={this.props.pagination.path} page={range[i].toString()}>{range[i]}</PaginationLink>);
+      links.push(<PaginationLink showLoading={this.props.showLoading} currentPage={current} getTenders={this.props.getTenders} path={this.props.pagination.path} page={range[i].toString()}>{range[i]}</PaginationLink>);
     }
     if (range[range.length - 1] !== this.props.pagination.total_pages) {
-      links.push(<PaginationLink >…</PaginationLink>);
+      links.push(<PaginationLink showLoading={this.props.showLoading} >…</PaginationLink>);
     }
     if (!this.props.pagination.last_page) {
-      links.push(<PaginationLink getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.current_page + 1).toString()}>Next ›</PaginationLink>);
-      links.push(<PaginationLink getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.total_pages).toString()}>Last »</PaginationLink>);
+      links.push(<PaginationLink showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.current_page + 1).toString()}>Next ›</PaginationLink>);
+      links.push(<PaginationLink showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.total_pages).toString()}>Last »</PaginationLink>);
     }
     return (
       <div className='row'>

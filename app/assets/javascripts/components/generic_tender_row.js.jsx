@@ -2,9 +2,9 @@ var GenericTenderRow = React.createClass({
   render: function() {
     var watchlistButton;
     if (this.props.watched) {
-      watchlistButton = <UnwatchButton unwatchPath={this.props.unwatchPath} refNo={this.props.refNo} />;
+      watchlistButton = <UnwatchButton showLoading={this.props.showLoading} unwatchPath={this.props.unwatchPath} refNo={this.props.refNo} />;
     } else {
-      watchlistButton = <WatchButton watchPath={this.props.watchPath} refNo={this.props.refNo} />;
+      watchlistButton = <WatchButton showLoading={this.props.showLoading} watchPath={this.props.watchPath} refNo={this.props.refNo} />;
     };
     return (
       <tr>
@@ -14,7 +14,7 @@ var GenericTenderRow = React.createClass({
         <td>{this.props.closingTime}</td>
         <td>{this.props.buyerCompanyName}</td>
         <td>{watchlistButton}</td>
-        <td><MoreButton showPath={this.props.showPath} refNo={this.props.refNo}/></td>
+        <td><MoreButton showLoading={this.props.showLoading} showPath={this.props.showPath} refNo={this.props.refNo}/></td>
       </tr>
     );
   }

@@ -32,7 +32,7 @@ var GenericTendersResults = React.createClass({
   unwatchTender: function(ref_no) {
     this.showLoading();
     $.ajax({
-      url: '/api/v1/watched_tenders/' + ref_no,
+      url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no),
       dataType: 'json',
       method: 'DELETE',
       cache: false,
@@ -78,11 +78,34 @@ var GenericTendersResults = React.createClass({
           }
         }
         this.setState({tenders: tenders}, function(){
-          $("a.unwatch-button[data-gtm-label=" + ref_no + "]").notify(
+          $("a.unwatch-button[data-gtm-label='" + ref_no + "']").notify(
             "Successfully added to watchlist", "success", 
             { position: "top" }
           );
         });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(ref_no, status, err.toString());
+      }.bind(this),
+      complete: function(xhr, status){
+        document.body.classList.remove('loading');
+      }
+    });
+  },
+  showTender: function(ref_no) {
+    this.showLoading();
+    $.ajax({
+      url: '/api/v1/tenders/' + encodeURIComponent(ref_no),
+      dataType: 'json',
+      method: 'get',
+      cache: false,
+      success: function(tender) {
+        $('#view-more-modal').empty();
+        ReactDOM.render(
+          <ShowTender tender={tender}/>,
+          document.getElementById('view-more-modal')
+        );
+        $('#view-more-modal').foundation('reveal', 'open');
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(ref_no, status, err.toString());
@@ -103,7 +126,7 @@ var GenericTendersResults = React.createClass({
             <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading}/>
             <table id='results-table' role='grid'>
               <GenericTendersTableHeader />
-              <GenericTendersTableBody tenders={this.state.tenders} showLoading={this.showLoading} unwatchTender={this.unwatchTender} watchTender={this.watchTender}/>
+              <GenericTendersTableBody tenders={this.state.tenders} showLoading={this.showLoading} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender}/>
             </table>
             <TendersPagination pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading}/>
           </div>

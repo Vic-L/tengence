@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :current_tenders
       resources :past_tenders
       resources :watched_tenders
+      resources :tenders
     end
   end
 

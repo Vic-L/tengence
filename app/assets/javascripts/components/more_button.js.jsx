@@ -1,7 +1,11 @@
 var MoreButton = React.createClass({
+  handleClick: function(e) {
+    e.preventDefault();
+    this.props.showTender(this.props.refNo);
+  },
   render: function() {
     return (
-      <a href={this.props.showPath} data-remote='true' data-method='get' className='button more-button ga-tenders' data-gtm-category='' data-gtm-action='more' data-gtm-label={this.props.refNo} onClick={this.props.showLoading}>More</a>
+      <a className='button more-button ga-tenders' data-gtm-category='' data-gtm-action='more' data-gtm-label={this.props.refNo.replace('/','\\\/')} onClick={this.handleClick}>More</a>
     );
   }
 });

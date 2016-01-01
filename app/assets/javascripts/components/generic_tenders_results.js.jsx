@@ -44,7 +44,7 @@ var GenericTendersResults = React.createClass({
           }
         }
         this.setState({tenders: tenders}, function(){
-          $("a.watch-button[data-gtm-label=" + ref_no + "]").notify(
+          $("a.watch-button[data-gtm-label='" + ref_no + "']").notify(
             "Successfully removed from watchlist", "success", 
             { position: "top" }
           );

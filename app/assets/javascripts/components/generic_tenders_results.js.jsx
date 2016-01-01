@@ -6,8 +6,11 @@ var GenericTendersResults = React.createClass({
     return {tenders: [], pagination: {}, results_count: null};
   },
   componentDidMount: function() {
+    this.getTenders(this.props.url);
+  },
+  getTenders: function(url){
     $.ajax({
-      url: this.props.url,
+      url: url,
       dataType: 'json',
       cache: false,
       success: function(data) {

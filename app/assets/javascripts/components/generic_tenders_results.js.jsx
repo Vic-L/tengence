@@ -24,7 +24,7 @@ var GenericTendersResults = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this),
       complete: function(xhr, status){
-        $('html,body').removeClass('loading');
+        document.body.classList.remove('loading');
       }
     });
   },

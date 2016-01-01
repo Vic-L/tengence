@@ -19,6 +19,7 @@ var GenericTendersResults = React.createClass({
           tenders: data.tenders,
           results_count: data.results_count,
         });
+        history.pushState({ url: url }, '', url.replace('/api/v1',''));
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(url, status, err.toString());

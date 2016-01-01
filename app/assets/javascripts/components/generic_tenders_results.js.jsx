@@ -43,7 +43,12 @@ var GenericTendersResults = React.createClass({
             break;
           }
         }
-        this.setState({tenders: tenders});
+        this.setState({tenders: tenders}, function(){
+          $("a.watch-button[data-gtm-label=" + ref_no + "]").notify(
+            "Successfully removed from watchlist", "success", 
+            { position: "top" }
+          );
+        });
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(ref_no, status, err.toString());
@@ -71,7 +76,12 @@ var GenericTendersResults = React.createClass({
             break;
           }
         }
-        this.setState({tenders: tenders});
+        this.setState({tenders: tenders}, function(){
+          $("a.unwatch-button[data-gtm-label=" + ref_no + "]").notify(
+            "Successfully added to watchlist", "success", 
+            { position: "top" }
+          );
+        });
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(ref_no, status, err.toString());

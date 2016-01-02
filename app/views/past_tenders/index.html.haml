@@ -1,61 +1,23 @@
-#wrapper
-  - if params['query'].blank?
-    %section#hero
-      .row
-        .small-6.column.text-center
-          .counter.animated{"data-perc" => "#{CurrentTender.count}"}
-            .number-detail
-              %h2
-                .number
-                .text Current Tenders
-        .small-6.column.text-center
-          .counter.animated{"data-perc" => "46"}
-            .number-detail
-              %h2
-                .number
-                .text Tender Sources and counting
-  %section#description
+= react_component 'TendersListing', {search_path: '/past_tenders', url: api_v1_past_tenders_path(page: params[:page])}
+%section#search-field
+  = form_tag '/past_tenders', method: 'get' do
     .row
-      .small-12.column
-        These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.
-        %br
-        %br
-        We have included these tenders here for your reference!
-  %section#search-field
-    = form_tag '/past_tenders', method: 'get' do
-      .row
-        .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-          .title-section
-            %h3 Search
-        .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-          .row
-            .medium-8.column
-              .section-desc
-                = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
-            .medium-2.column
-              .section-desc
-                %button.search-submit-button{type: "submit"}
-                  = fa_icon('search')
-            .medium-2.column
-              .section-desc
-                = link_to past_tenders_path do
-                  %button.back-button{type: "button"}
-                    = fa_icon('mail-reply')
-
-  = react_component 'GenericTendersResults', {url: api_v1_past_tenders_path(page: params[:page])}
-  -# %section#tender-results
-  -#   = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
-    -# - if @results_count == 0
-    -#   .row
-    -#     .small-12.column.text-center
-    -#       %p There are no tenders available
-    -# - else
-    -#   .row
-    -#     .small-offset-6.small-6.column.text-right
-    -#       = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
-    -#   = render partial: 'tenders/tenders_table', locals: {tenders: @tenders}
-    -#   .row
-    -#     .small-offset-6.small-6.column.text-right
-    -#       = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3 Search
+      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+        .row
+          .medium-8.column
+            .section-desc
+              = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
+          .medium-2.column
+            .section-desc
+              %button.search-submit-button{type: "submit"}
+                = fa_icon('search')
+          .medium-2.column
+            .section-desc
+              = link_to past_tenders_path do
+                %button.back-button{type: "button"}
+                  = fa_icon('mail-reply')
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

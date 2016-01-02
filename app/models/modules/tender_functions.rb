@@ -26,7 +26,7 @@ module TenderFunctions
     end
   end
 
-  def watched? user_id
-    self.users.pluck(:id).include?(user_id)
+  def watched? tender_ids
+    tender_ids.include?(self.ref_no)
   end
 end

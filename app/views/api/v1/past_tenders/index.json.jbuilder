@@ -1,10 +1,10 @@
 json.results_count @results_count
 json.pagination do
   json.path request.path
-  json.current_page @tenders.current_page
-  json.total_pages @tenders.total_pages
-  json.limit_value @tenders.limit_value
-  json.last_page @tenders.last_page?
+  json.current_page @current_page
+  json.total_pages @total_pages
+  json.limit_value @limit_value
+  json.last_page @last_page
 end
 json.tenders do
   json.array! @tenders do |tender|
@@ -19,6 +19,6 @@ json.tenders do
     json.watch_path watched_tenders_path(id: tender.ref_no)
     json.unwatch_path watched_tender_path(id: tender.ref_no)
     json.show_path tender_path(id: tender.ref_no)
-    json.watched tender.watched?(current_user.id)
+    json.watched tender.watched?(@watched_tender_ids)
   end
 end

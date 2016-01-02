@@ -11,8 +11,8 @@ var ShowTender = React.createClass({
     });
     $('#ga-tender-inhouse-more').parent().remove();
   },
-  render: function() {
-    var leftRows = [], rightRows = [];
+  populateLeftColumn: function(){
+    var leftRows = [];
     if (!this.props.tender.in_house) {
       leftRows.push(<ShowTenderDetail header='Reference No' body={this.props.tender.ref_no} />)
       leftRows.push(<ShowTenderDetail header='Buyer Company Name' body={this.props.tender.buyer_company_name} />);
@@ -41,13 +41,16 @@ var ShowTender = React.createClass({
       }
       leftRows.push(<ShowTenderDetail header='Documents' body={documentRows} />);
     }
-
+    return leftRows;
+  },
+  populateRightColumn: function(){
+    var rightRows = [];
     if (!this.props.tender.in_house) {
       rightRows.push(<ShowTenderDetail header='Buyer Name' body={this.props.tender.buyer_name} />)
       rightRows.push(<ShowTenderDetail header='Buyer Contact Number' body={this.props.tender.buyer_contact_number} />);
       rightRows.push(<ShowTenderDetail header='Buyer Email' body={this.props.tender.buyer_email} />);
     } else {
-      hiddenRows = (
+      var hiddenRows = (
         <div id='in-house-tender-details'>
           <ShowTenderDetail header='Buyer Company Name' body={this.props.tender.buyer_company_name} />
           <ShowTenderDetail header='Buyer Name' body={this.props.tender.buyer_name} />
@@ -57,15 +60,18 @@ var ShowTender = React.createClass({
       );
       rightRows = <ShowTenderDetail header=<span>Click <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>here</a> to show details</span> body={hiddenRows} />
     }
+    return rightRows;
+  },
+  render: function() {
     return (
       <div>
         <a aria-label="Close" className="close-reveal-modal">&#215;</a>
         <div className='row'>
           <div className='small-8 column main'>
-            {leftRows}
+            {this.populateLeftColumn()}
           </div>
           <div className='small-4 column'>
-            {rightRows}
+            {this.populateRightColumn()}
           </div>
         </div>
       </div>

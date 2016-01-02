@@ -17,27 +17,28 @@ var TendersPagination = React.createClass({
     return range;
   },
   render: function() {
-    if (Object.keys(this.props.pagination).length === 0) return (<div></div>);
-    var range = this.setPagesRange(this.props.pagination.current_page, this.props.pagination.total_pages);
+    var {pagination, ...others} = this.props; 
+    if (Object.keys(pagination).length === 0) return (<div></div>);
+    var range = this.setPagesRange(pagination.current_page, pagination.total_pages);
     var links = [];
-    if (this.props.pagination.current_page !== 1) {
-      links.push(<PaginationLink key='first_page' showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page='1'>« First</PaginationLink>);
-      links.push(<PaginationLink key={'prev_of_' + this.props.pagination.current_page} showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.current_page - 1).toString()}>‹ Prev</PaginationLink>);
+    if (pagination.current_page !== 1) {
+      links.push(<PaginationLink key='first_page' {...others} path={pagination.path} page='1'>« First</PaginationLink>);
+      links.push(<PaginationLink key={'prev_of_' + pagination.current_page} {...others} path={pagination.path} page={(pagination.current_page - 1).toString()}>‹ Prev</PaginationLink>);
     }
     if (range[0] !== 1) {
       links.push(<PaginationLink key='front_ellipsis' showLoading={this.props.showLoading} >…</PaginationLink>); 
     }
     for (var i=0;i<range.length;i++) {
       var current = null;
-      if (range[i] === this.props.pagination.current_page) current = true;
-      links.push(<PaginationLink key={current ? 'current_page_' + range[i] : 'page_' + range[i]} showLoading={this.props.showLoading} currentPage={current} getTenders={this.props.getTenders} path={this.props.pagination.path} page={range[i].toString()}>{range[i]}</PaginationLink>);
+      if (range[i] === pagination.current_page) current = true;
+      links.push(<PaginationLink key={current ? 'current_page_' + range[i] : 'page_' + range[i]} showLoading={this.props.showLoading} currentPage={current} getTenders={this.props.getTenders} path={pagination.path} page={range[i].toString()}>{range[i]}</PaginationLink>);
     }
-    if (range[range.length - 1] !== this.props.pagination.total_pages) {
+    if (range[range.length - 1] !== pagination.total_pages) {
       links.push(<PaginationLink key='back_ellipsis' showLoading={this.props.showLoading} >…</PaginationLink>);
     }
-    if (!this.props.pagination.last_page) {
-      links.push(<PaginationLink key={'next_of_' + this.props.pagination.current_page} showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.current_page + 1).toString()}>Next ›</PaginationLink>);
-      links.push(<PaginationLink key='last_page' showLoading={this.props.showLoading} getTenders={this.props.getTenders} path={this.props.pagination.path} page={(this.props.pagination.total_pages).toString()}>Last »</PaginationLink>);
+    if (!pagination.last_page) {
+      links.push(<PaginationLink key={'next_of_' + pagination.current_page} {...others} path={pagination.path} page={(pagination.current_page + 1).toString()}>Next ›</PaginationLink>);
+      links.push(<PaginationLink key='last_page' {...others} path={pagination.path} page={(pagination.total_pages).toString()}>Last »</PaginationLink>);
     }
     return (
       <div className='row'>

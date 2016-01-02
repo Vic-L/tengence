@@ -2,9 +2,9 @@ var GenericTenderRow = React.createClass({
   render: function() {
     var watchlistButton;
     if (this.props.watched) {
-      watchlistButton = <UnwatchButton showLoading={this.props.showLoading} unwatchPath={this.props.unwatchPath} refNo={this.props.refNo} unwatchTender={this.props.unwatchTender}/>;
+      watchlistButton = <UnwatchButton {...this.props} />;
     } else {
-      watchlistButton = <WatchButton showLoading={this.props.showLoading} watchPath={this.props.watchPath} refNo={this.props.refNo} watchTender={this.props.watchTender}/>;
+      watchlistButton = <WatchButton {...this.props} />;
     };
     return (
       <tr>

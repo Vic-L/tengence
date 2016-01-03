@@ -2,7 +2,7 @@ var PaginationLink = React.createClass({
   handleClick: function(e){
     this.props.showLoading();
     e.preventDefault();
-    this.props.getTenders(e.target.href);
+    this.props.getTenders(e.target.href, document.getElementById('query-field').value);
   },
   render: function(){
     if (this.props.path != null){

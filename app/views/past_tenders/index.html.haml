@@ -1,23 +1,3 @@
-= react_component 'TendersListing', {search_path: '/past_tenders', url: api_v1_past_tenders_path(page: params[:page])}
-%section#search-field
-  = form_tag '/past_tenders', method: 'get' do
-    .row
-      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-        .title-section
-          %h3 Search
-      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-        .row
-          .medium-8.column
-            .section-desc
-              = text_field_tag 'query', params[:query], placeholder: "Search for a keyword", id: "query-field"
-          .medium-2.column
-            .section-desc
-              %button.search-submit-button{type: "submit"}
-                = fa_icon('search')
-          .medium-2.column
-            .section-desc
-              = link_to past_tenders_path do
-                %button.back-button{type: "button"}
-                  = fa_icon('mail-reply')
+= react_component 'TendersListing', {url: api_v1_past_tenders_path(page: params[:page])}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

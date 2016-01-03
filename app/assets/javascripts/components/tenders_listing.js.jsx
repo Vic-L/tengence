@@ -6,11 +6,15 @@ var TendersListing = React.createClass({
     return {tenders: [], pagination: {}, results_count: null};
   },
   componentDidMount: function() {
-    this.getTenders(this.props.url);
+    this.getTenders(this.props.url, null);
   },
-  getTenders: function(url){
+  getTenders: function(url, query){
     $.ajax({
       url: url,
+      data: {
+        query: query
+      },
+      method: 'GET',
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -115,6 +119,27 @@ var TendersListing = React.createClass({
       }
     });
   },
+  searchTenders: function(url) {
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({
+          pagination: data.pagination,
+          tenders: data.tenders,
+          results_count: data.results_count,
+        });
+        history.pushState({ url: url }, '', url.replace('/api/v1',''));
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(url, status, err.toString());
+      }.bind(this),
+      complete: function(xhr, status){
+        document.body.classList.remove('loading');
+      }
+    });
+  },
   showLoading: function(){
     document.body.classList.add('loading');
   },
@@ -123,6 +148,7 @@ var TendersListing = React.createClass({
     return (
       <div id='wrapper'>
         <TendersDescription descriptionText={descriptionText} />
+        <TendersSearch getTenders={this.getTenders} url={this.props.url} showLoading={this.showLoading}/>
         <GenericTendersResults url={this.props.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
       </div>
     );

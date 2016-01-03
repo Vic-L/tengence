@@ -11,9 +11,8 @@ module Api
           end
           tenders = PastTender.where(ref_no: results_ref_nos)
           @tenders = tenders.page(params[:page]).per(50)
-          @results_count = @tenders.count
+          @results_count = tenders.count
         else
-          params[:page] = 0 if params['query'] == ''
           @results_count = PastTender.count
           @tenders = PastTender.page(params[:page]).per(50)
         end

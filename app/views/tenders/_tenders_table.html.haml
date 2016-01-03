@@ -1,0 +1,41 @@
+.row
+  .small-12.column
+    %table#results-table{role: 'grid'}
+      %thead
+        %th.medium-5 Description
+        %th.medium-1 Published Date
+        %th.medium-1 Closing Date
+        %th.medium-1 Closing Time
+        %th.medium-2 Buyer Entity
+        %th.medium-1 Watchlist
+        %th.medium-1 Details
+      %tbody
+        - tenders.each do |tender|
+          %tr
+            %td.medium-5
+              = simple_format tender.description, {}, wrapper_tag: 'div', sanitize: false
+            %td.medium-1
+              = "#{tender.published_date.day.ordinalize} #{tender.published_date.strftime('%b %Y')}"
+            %td.medium-1
+              = "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}"
+            %td.medium-1
+              = tender.closing_datetime.strftime('%H:%M %p')
+            %td.medium-2
+              = tender.buyer_company_name
+            %td.medium-1
+              %div{id: "watch-tender-#{tender.ref_no}"}
+                - if tender.users.include? current_user
+                  = link_to "Unwatch", watched_tender_path(id: tender.ref_no), method: 'delete', remote: true, class: "button unwatch-button ga-tenders", data: {gtm_category: '', gtm_action: 'unwatch', gtm_label: "#{tender.ref_no}"}
+                - else
+                  = link_to "Watch", watched_tenders_path(id: tender.ref_no), method: 'post', remote: true, class: "button watch-button ga-tenders", data: {gtm_category: '', gtm_action: 'watch', gtm_label: "#{tender.ref_no}"}
+            %td.medium-1
+              %div
+                = link_to "More", tender_path(tender), remote: true, class: "button more-button ga-tenders", data: {gtm_category: '', gtm_action: 'more', gtm_label: "#{tender.ref_no}"}
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+      $(document).on('click', '.watch-button, .unwatch-button, .more-button', function(){
+        $('html,body').addClass('loading');
+      });
+    });

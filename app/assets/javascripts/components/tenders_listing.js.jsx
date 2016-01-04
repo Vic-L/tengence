@@ -3,10 +3,10 @@ var TendersListing = React.createClass({
   //   tenders: React.PropTypes.array
   // },
   getInitialState: function() {
-    return {tenders: [], pagination: {}, results_count: null};
+    return {tenders: [], pagination: {}, results_count: null, url: this.props.url};
   },
   componentDidMount: function() {
-    this.getTenders(this.props.url, null);
+    this.getTenders(this.state.url, null);
   },
   getTenders: function(url, query){
     this.showLoading();
@@ -23,6 +23,7 @@ var TendersListing = React.createClass({
           pagination: data.pagination,
           tenders: data.tenders,
           results_count: data.results_count,
+          url: url
         });
         // history.pushState({ url: url }, '', url.replace('/api/v1',''));
       }.bind(this),
@@ -120,27 +121,6 @@ var TendersListing = React.createClass({
       }.bind(this)
     });
   },
-  searchTenders: function(url) {
-    $.ajax({
-      url: url,
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({
-          pagination: data.pagination,
-          tenders: data.tenders,
-          results_count: data.results_count,
-        });
-        history.pushState({ url: url }, '', url.replace('/api/v1',''));
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(url, status, err.toString());
-      }.bind(this),
-      complete: function(xhr, status){
-        this.stopLoading();
-      }.bind(this)
-    });
-  },
   showLoading: function(){
     $('section#tender-results').addClass('blur');
     document.body.classList.add('loading');
@@ -179,8 +159,8 @@ var TendersListing = React.createClass({
         {tenderCount}
         <TendersDescription descriptionText={this.getDescriptionText()} />
         {tenderTabs}
-        <TendersSearch getTenders={this.getTenders} url={this.props.url}/>
-        <GenericTendersResults url={this.props.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
+        <TendersSearch getTenders={this.getTenders} url={this.state.url}/>
+        <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 var TendersSearch = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
-    this.props.getTenders(this.props.url.split('?')[0], document.getElementById('query-field').value);
+    this.props.getTenders(this.props.url, document.getElementById('query-field').value);
   },
   render: function(){
     return (

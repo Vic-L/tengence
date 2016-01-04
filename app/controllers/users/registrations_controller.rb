@@ -7,6 +7,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def new_vendors
+    build_resource({})
+    set_minimum_password_length
+    yield resource if block_given?
+    self.resource.access_level = "write_only"
+    respond_with self.resource, template: "/users/registrations/new.html.haml"
+  end
+
   # POST /resource
   # def create
   #   super

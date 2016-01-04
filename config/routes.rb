@@ -15,8 +15,9 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations",
     passwords:  "users/passwords" }
   devise_scope :user do
-    get "users/check_email_taken"=> 'users/registrations#check_email_taken',
-      :as => :check_email_taken
+    get "users/check_email_taken"=> 'users/registrations#check_email_taken', :as => :check_email_taken
+    get "user-organizations/register"=> 'users/registrations#new_vendors', as: :new_vendor_registration
+    get "register" => "users/registrations#new"
   end
 
   # static pages

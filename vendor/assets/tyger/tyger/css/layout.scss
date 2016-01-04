@@ -218,6 +218,10 @@ header {
 	h1.logo a:hover {
     color: #ff4444
 	}
+
+	.menu-toggle-button, .menu-toggle-button.active {
+		color: black
+	}
 }
 
 header.shrink {
@@ -234,6 +238,9 @@ header.shrink {
 	h1.logo a:hover,
 	h1.logo a:link:hover, {
 		color: #ff4444;
+	}
+	.menu-toggle-button, .menu-toggle-button.active {
+		color: white
 	}
 }
 
@@ -1559,9 +1566,13 @@ Media Query
 	h1.logo a:link, h1.logo a:visited{
 		bottom:-7px;
 	}
-
+	header {
+		ul.menu-list li a {
+			color: white;
+		}
+	}
 	section{
-		padding:40px 0px;
+		padding:84px 0px;
 	}
 	.title-section{
 		margin-bottom:-15px;

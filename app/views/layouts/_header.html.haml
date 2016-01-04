@@ -48,8 +48,9 @@
             = link_to "Login", new_user_session_path
           %li
             = link_to "Terms of Services", terms_of_service_path
-          %li
-            %a{"data-scroll" => "", :href => "#how-it-works"} How It Works
+          - if request.path == root_path
+            %li
+              %a{"data-scroll" => "", :href => "#how-it-works"} How It Works
           %li
             %a{"data-scroll" => "", :href => "#contacts"} Contacts
 

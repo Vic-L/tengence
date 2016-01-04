@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  namespace :api, defaults: {format: 'json'} do
+    # scope module: :v1, constraints: ApiConstraints.new(version: 1) do
+    namespace :v1 do
+      resources :current_tenders
+      resources :past_tenders
+      resources :watched_tenders
+      resources :tenders
+    end
+  end
+
   devise_for :users, controllers: { 
     sessions: "users/sessions",
     registrations: "users/registrations",

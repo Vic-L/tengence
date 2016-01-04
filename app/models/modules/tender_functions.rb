@@ -25,4 +25,8 @@ module TenderFunctions
       scope :non_gebiz, -> {where.not("external_link like '%gebiz.gov%'")}
     end
   end
+
+  def watched? tender_ids
+    tender_ids.include?(self.ref_no)
+  end
 end

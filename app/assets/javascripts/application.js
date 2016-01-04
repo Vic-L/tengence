@@ -22,4 +22,9 @@
 //= require jquery.validate.additional-methods.min
 //= require notify.min
 //= require foundation-datepicker.min
+//= require strftime
+//= require filesize.min
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .

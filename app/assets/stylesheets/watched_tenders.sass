@@ -1,23 +1,6 @@
 .watched_tenders
-  #wrapper
-    padding-top: 80px
   &.index
     #wrapper
-      section#hero
-        padding-bottom: 0
-        .counter
-          .number-detail
-            h2
-              font-size: 150px
-              .number
-                height: 100px
-                font-size: 150px
-              .text
-                font-size: 20px
-      section#description
-        padding-top: 60px
-        padding-bottom: 0
-        font-size: 18px
       ul.tabs
         margin-top: 30px
         li.tab-title
@@ -79,55 +62,3 @@
             background: #ff4444
             &:hover
               background: #d60303
-        section.tender-results
-          padding-top: 20px
-          form
-            textarea#keywords
-              margin-bottom: 0
-            button#submit
-              margin-bottom: 16px
-          .button
-            margin-bottom: 0
-            width: 100%
-            &.unwatch-button
-              background: #ff4444
-              &:hover
-                background: #d60303
-            &.watch-button
-              background: #44cc9b
-              &:hover
-                background: darken(#44cc9b,20%)
-            &.more-button
-              background: #238aae
-              &:hover
-                background: darken(#238aae,20%)
-          nav.pagination
-            display: inline
-          span.total-count
-            font-weight: bold
-            font-size: 16px
-          table.results-table
-            thead
-              th
-                border: 1px solid #d9d9d9
-              #select_all
-                margin-bottom: 0
-              #destroy-all-button
-                font-size: 18px
-                margin-left: 5px
-            tbody
-              td
-                padding: 5px
-                text-align: center
-                border: 1px solid #d9d9d9
-              input[id^='select_single_']
-                margin-bottom: 0
-    #view-more-modal
-      .main
-        border-right: 1px solid #b2b2b2
-      .header
-        font-weight: bold
-      .external-link
-        text-decoration: underline
-        font-size: 22px
-        font-weight: bold

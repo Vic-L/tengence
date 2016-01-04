@@ -157,6 +157,8 @@ var TendersListing = React.createClass({
             return <p>These are the current live Tenders available in Singapore! We have taken the painstaking effort of collating all the Tenders into a common platform, so that you do not have to.<br/><br/>What are you waiting for! Start searching for Tenders that suits your business profile by entering in a Keyword at the search box.</p>;
           case 'past_tenders':
             return <p>These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.<br/><br/>We have included these tenders here for your reference!</p>;
+          case 'watched_tenders':
+            return <p>Did you know that you can add Tenders to your watch list? The watchlist is your personalized list of Tenders that you are interested in!<br/><br/>Easily add or remove Tenders by clicking the "Watch" or "Unwatch" button.<br/><br/>PS: All Tenders sent to you via the daily email notification are automatically added to your watchlist.</p>
           default:
             return "";
         }
@@ -164,14 +166,18 @@ var TendersListing = React.createClass({
     };
   },
   render: function(){
-    var tenderCount = null;
+    var tenderCount = null, tenderTabs;
     if (this.props.current_tenders_count != null) {
       tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
+    }
+    if (window.location.href.indexOf('watched_tenders') !== -1) {
+      tenderTabs = <TenderTabs getTenders={this.getTenders} showLoading={this.showLoading}/>
     }
     return (
       <div id='wrapper'>
         {tenderCount}
         <TendersDescription descriptionText={this.getDescriptionText()} />
+        {tenderTabs}
         <TendersSearch getTenders={this.getTenders} url={this.props.url} showLoading={this.showLoading}/>
         <GenericTendersResults url={this.props.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
       </div>

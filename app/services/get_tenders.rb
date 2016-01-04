@@ -5,6 +5,7 @@ class GetTenders
   attribute :params, Hash
   attribute :table, String
   attribute :user, User
+  attribute :source, String
 
   def call
     begin
@@ -13,12 +14,21 @@ class GetTenders
         results_ref_nos = results.hits.hit.map do |result|
           result.fields["ref_no"][0]
         end
+        
+        results_ref_nos = results_ref_nos & user.watched_tenders.pluck(:tender_id) if only_watched_tenders?
+
         eval("@tenders = #{table}.where(ref_no: results_ref_nos)")
         @results_count = @tenders.count
         @tenders = @tenders.page(params['page']).per(50)
       else
-        eval("@results_count = #{table}.count")
-        eval("@tenders = #{table}.page(params['page']).per(50)")
+        if only_watched_tenders?
+          eval("@tenders = #{table}.where(ref_no: user.watched_tenders.pluck(:tender_id))")
+          @results_count = @tenders.count
+          @tenders = @tenders.page(params['page']).per(50)
+        else
+          eval("@tenders = #{table}.page(params['page']).per(50)")
+          eval("@results_count = #{table}.count")
+        end
       end
       
       @current_page = @tenders.current_page
@@ -32,5 +42,11 @@ class GetTenders
     rescue => e
       NotifyViaSlack.call(content: "<@vic-l> Error GetTenders.rb\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     end
+
   end
+
+  private
+    def only_watched_tenders?
+      !source.blank? && source == 'watched_tenders'
+    end
 end

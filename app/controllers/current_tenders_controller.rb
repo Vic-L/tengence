@@ -4,6 +4,7 @@ class CurrentTendersController < ApplicationController
   before_action :deny_unconfirmed_users
 
   def index
+    @current_tenders_count = CurrentTender.count
     unless params['query'].blank?
       results = AwsManager.search(keyword: params['query'])
       results_ref_nos = results.hits.hit.map do |result|

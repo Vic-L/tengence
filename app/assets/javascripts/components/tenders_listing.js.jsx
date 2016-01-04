@@ -148,6 +148,8 @@ var TendersListing = React.createClass({
     for (var i=0;i<list.length;i++) {
       if (window.location.href.indexOf(list[i]) !== -1) {
         switch(list[i]) {
+          case 'current_tenders':
+            return <p>These are the current live Tenders available in Singapore! We have taken the painstaking effort of collating all the Tenders into a common platform, so that you do not have to.<br/><br/>What are you waiting for! Start searching for Tenders that suits your business profile by entering in a Keyword at the search box.</p>;
           case 'past_tenders':
             return <p>These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.<br/><br/>We have included these tenders here for your reference!</p>;
           default:
@@ -157,8 +159,13 @@ var TendersListing = React.createClass({
     };
   },
   render: function(){
+    var tenderCount = null;
+    if (this.props.current_tenders_count != null) {
+      tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
+    }
     return (
       <div id='wrapper'>
+        {tenderCount}
         <TendersDescription descriptionText={this.getDescriptionText()} />
         <TendersSearch getTenders={this.getTenders} url={this.props.url} showLoading={this.showLoading}/>
         <GenericTendersResults url={this.props.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />

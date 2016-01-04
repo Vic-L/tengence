@@ -38,4 +38,15 @@ class ApplicationController < ActionController::Base
         redirect_to new_user_confirmation_path
       end
     end
+
+    def deny_confirmed_users
+      if user_signed_in? && current_user.confirmed?
+        flash[:success] = "Your account has been confirmed."
+        if current_user.read_only?
+          redirect_to current_tenders_path
+        elsif current_user.write_only?
+          redirect_to post_a_tender_path
+        end
+      end
+    end
 end

@@ -1,10 +1,8 @@
 var TenderTabs = React.createClass({ 
   getPastWatchedTenders: function() {
-    this.props.showLoading();
     this.props.getTenders('/api/v1/watched_tenders?table=PastTender')
   },
   getCurrentWatchedTenders: function() {
-    this.props.showLoading();
     this.props.getTenders('/api/v1/watched_tenders?table=CurrentTender')
   },
   render: function(){

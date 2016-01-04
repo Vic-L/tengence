@@ -9,6 +9,7 @@ var TendersListing = React.createClass({
     this.getTenders(this.props.url, null);
   },
   getTenders: function(url, query){
+    this.showLoading();
     $.ajax({
       url: url,
       data: {
@@ -171,15 +172,15 @@ var TendersListing = React.createClass({
       tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
     }
     if (window.location.href.indexOf('watched_tenders') !== -1) {
-      tenderTabs = <TenderTabs getTenders={this.getTenders} showLoading={this.showLoading}/>
+      tenderTabs = <TenderTabs getTenders={this.getTenders}/>
     }
     return (
       <div id='wrapper'>
         {tenderCount}
         <TendersDescription descriptionText={this.getDescriptionText()} />
         {tenderTabs}
-        <TendersSearch getTenders={this.getTenders} url={this.props.url} showLoading={this.showLoading}/>
-        <GenericTendersResults url={this.props.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
+        <TendersSearch getTenders={this.getTenders} url={this.props.url}/>
+        <GenericTendersResults url={this.props.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
       </div>
     );
   }

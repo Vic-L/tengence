@@ -29,8 +29,8 @@ var TendersListing = React.createClass({
         console.error(url, status, err.toString());
       }.bind(this),
       complete: function(xhr, status){
-        document.body.classList.remove('loading');
-      }
+        this.stopLoading();
+      }.bind(this)
     });
   },
   unwatchTender: function(ref_no) {
@@ -59,8 +59,8 @@ var TendersListing = React.createClass({
         console.error(ref_no, status, err.toString());
       }.bind(this),
       complete: function(xhr, status){
-        document.body.classList.remove('loading');
-      }
+        this.stopLoading();
+      }.bind(this)
     });
   },
   watchTender: function(ref_no) {
@@ -92,8 +92,8 @@ var TendersListing = React.createClass({
         console.error(ref_no, status, err.toString());
       }.bind(this),
       complete: function(xhr, status){
-        document.body.classList.remove('loading');
-      }
+        this.stopLoading();
+      }.bind(this)
     });
   },
   showTender: function(ref_no) {
@@ -115,8 +115,8 @@ var TendersListing = React.createClass({
         console.error(ref_no, status, err.toString());
       }.bind(this),
       complete: function(xhr, status){
-        document.body.classList.remove('loading');
-      }
+        this.stopLoading();
+      }.bind(this)
     });
   },
   searchTenders: function(url) {
@@ -136,12 +136,17 @@ var TendersListing = React.createClass({
         console.error(url, status, err.toString());
       }.bind(this),
       complete: function(xhr, status){
-        document.body.classList.remove('loading');
-      }
+        this.stopLoading();
+      }.bind(this)
     });
   },
   showLoading: function(){
+    $('section#tender-results').addClass('blur');
     document.body.classList.add('loading');
+  },
+  stopLoading: function() {
+    $('section#tender-results').removeClass('blur');
+    document.body.classList.remove('loading');
   },
   getDescriptionText: function(){
     var list = ['current_tenders','past_tenders'];

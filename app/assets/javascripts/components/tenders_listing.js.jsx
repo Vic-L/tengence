@@ -143,11 +143,23 @@ var TendersListing = React.createClass({
   showLoading: function(){
     document.body.classList.add('loading');
   },
+  getDescriptionText: function(){
+    var list = ['current_tenders','past_tenders'];
+    for (var i=0;i<list.length;i++) {
+      if (window.location.href.indexOf(list[i]) !== -1) {
+        switch(list[i]) {
+          case 'past_tenders':
+            return <p>These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.<br/><br/>We have included these tenders here for your reference!</p>;
+          default:
+            return "";
+        }
+      }
+    };
+  },
   render: function(){
-    var descriptionText = <p>These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.<br/><br/>We have included these tenders here for your reference!</p>;
     return (
       <div id='wrapper'>
-        <TendersDescription descriptionText={descriptionText} />
+        <TendersDescription descriptionText={this.getDescriptionText()} />
         <TendersSearch getTenders={this.getTenders} url={this.props.url} showLoading={this.showLoading}/>
         <GenericTendersResults url={this.props.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} showLoading={this.showLoading} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
       </div>

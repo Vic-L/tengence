@@ -1,4 +1,8 @@
 var ShowTenderDetail = React.createClass({
+  rawMarkup: function() {
+    var rawMarkup = marked(this.props.body.toString(), {sanitize: false});
+    return { __html: this.props.body };
+  },
   render: function(){
     return (
       <div className='row'>
@@ -8,7 +12,7 @@ var ShowTenderDetail = React.createClass({
           </div>
         </div>
         <div className='small-12 column'>
-          {this.props.body}
+          <div dangerouslySetInnerHTML={this.rawMarkup()}></div>
         </div>
       </div>
     )

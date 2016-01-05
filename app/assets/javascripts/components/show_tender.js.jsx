@@ -25,7 +25,7 @@ var ShowTender = React.createClass({
     leftRows.push(<ShowTenderDetail header='Closing Date' body={closingDate} />);
     leftRows.push(<ShowTenderDetail header='Closing Time' body={closingTime} />);
     if (this.props.tender.in_house) {
-      leftRows.push(<ShowTenderDetail header='Full Description' body={this.props.tender.long_description} />);
+      leftRows.push(<ShowTenderDetail header='Full Description' body={this.props.tender.long_description.replace(/\n/g,'<br/>')} />);
       leftRows.push(<ShowTenderDetail header='Budget' body={this.props.tender.budget} />);
     } else {
       if (this.props.tender.gebiz) {

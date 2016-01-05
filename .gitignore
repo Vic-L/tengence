@@ -21,3 +21,4 @@ robots.txt
 sidekiq.yml
 config/thin/production.yml
 dump.rdb
+/public/assets

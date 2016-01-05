@@ -22,23 +22,23 @@ var TendersPagination = React.createClass({
     var range = this.setPagesRange(pagination.current_page, pagination.total_pages);
     var links = [];
     if (pagination.current_page !== 1) {
-      links.push(<PaginationLink key='first_page' {...others} path={pagination.path} page='1'>« First</PaginationLink>);
-      links.push(<PaginationLink key={'prev_of_' + pagination.current_page} {...others} path={pagination.path} page={(pagination.current_page - 1).toString()}>‹ Prev</PaginationLink>);
+      links.push(<PaginationLink key='first_page' {...others} path={this.props.url} page='1'>« First</PaginationLink>);
+      links.push(<PaginationLink key={'prev_of_' + pagination.current_page} {...others} path={this.props.url} page={(pagination.current_page - 1).toString()}>‹ Prev</PaginationLink>);
     }
-    if (range[0] !== 1) {
-      links.push(<PaginationLink key='front_ellipsis'  >…</PaginationLink>); 
+    if (range.length != 0 && range[0] !== 1) {
+      links.push(<PaginationLink key='front_ellipsis'>…</PaginationLink>); 
     }
     for (var i=0;i<range.length;i++) {
       var current = null;
       if (range[i] === pagination.current_page) current = true;
-      links.push(<PaginationLink key={current ? 'current_page_' + range[i] : 'page_' + range[i]}  currentPage={current} getTenders={this.props.getTenders} path={pagination.path} page={range[i].toString()}>{range[i]}</PaginationLink>);
+      links.push(<PaginationLink key={current ? 'current_page_' + range[i] : 'page_' + range[i]}  currentPage={current} getTenders={this.props.getTenders} path={this.props.url} page={range[i].toString()}>{range[i]}</PaginationLink>);
     }
-    if (range[range.length - 1] !== pagination.total_pages) {
-      links.push(<PaginationLink key='back_ellipsis'  >…</PaginationLink>);
+    if (range.length != 0 && range[range.length - 1] !== pagination.total_pages) {
+      links.push(<PaginationLink key='back_ellipsis'>…</PaginationLink>);
     }
     if (!pagination.last_page) {
-      links.push(<PaginationLink key={'next_of_' + pagination.current_page} {...others} path={pagination.path} page={(pagination.current_page + 1).toString()}>Next ›</PaginationLink>);
-      links.push(<PaginationLink key='last_page' {...others} path={pagination.path} page={(pagination.total_pages).toString()}>Last »</PaginationLink>);
+      links.push(<PaginationLink key={'next_of_' + pagination.current_page} {...others} path={this.props.url} page={(pagination.current_page + 1).toString()}>Next ›</PaginationLink>);
+      links.push(<PaginationLink key='last_page' {...others} path={this.props.url} page={(pagination.total_pages).toString()}>Last »</PaginationLink>);
     }
     return (
       <div className='row'>

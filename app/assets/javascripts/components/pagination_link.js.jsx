@@ -1,14 +1,20 @@
 var PaginationLink = React.createClass({
   handleClick: function(e){
     e.preventDefault();
-    this.props.getTenders(e.target.href, document.getElementById('query-field').value);
+    var link;
+    if (this.props.path.indexOf('?') === -1) {
+      link = this.props.path + '?page=' + this.props.page;
+    } else {
+      link = this.props.path + '&page=' + this.props.page;
+    }
+    this.props.getTenders(link, document.getElementById('query-field').value);
   },
   render: function(){
     if (this.props.path != null){
       if (this.props.currentPage != null) {
         return <span>{this.props.children}</span>
       } else {
-        return <a href={this.props.path + '?page=' + this.props.page} onClick={this.handleClick}>{this.props.children}</a>
+        return <a href='' onClick={this.handleClick}>{this.props.children}</a>
       }
     } else {
       return <span>{this.props.children}</span>

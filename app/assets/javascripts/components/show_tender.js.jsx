@@ -28,10 +28,15 @@ var ShowTender = React.createClass({
       leftRows.push(<ShowTenderDetail header='Full Description' body={this.props.tender.long_description.replace(/\n/g,'<br/>')} />);
       leftRows.push(<ShowTenderDetail header='Budget' body={this.props.tender.budget} />);
     } else {
+      var body = '';
       if (this.props.tender.gebiz) {
-        leftRows.push(<ShowTenderDetail header='Original Link' body=<div><span>Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' className='external-link ga-tenders' target='_blank' data-gtm-category='' data-gtm-action='gebiz step 1' data-gtm-label={this.props.tender.ref_no}>link</a> to open up an instance with GeBiz. You only have to do this once per session.</span><br/><span>Step 2) Click this <a href={this.props.tender.external_link} className='external-link ga-tenders' target='_blank' id='ga-tender-gebiz-link' data-gtm-category='' data-gtm-action='outbound link' data-gtm-label={this.props.tender.ref_no}>link</a> to view this tender on Gebiz.</span></div> />);
+        body = "Step 1) Click this <a href='https://www.gebiz.gov.sg/scripts/main.do?sourceLocation=openarea&select=tenderId' class='external-link ga-tenders' target='_blank' data-gtm-category='' data-gtm-action='gebiz step 1' data-gtm-label=" + this.props.tender.ref_no + ">link</a> to open up an instance with GeBiz. You only have to do this once per session.";
+        leftRows.push(<ShowTenderDetail header='Original Link' body={body} />);
+        body = "Step 2) Click this <a href=this.props.tender.external_link class='external-link ga-tenders' target='_blank' id='ga-tender-gebiz-link' data-gtm-category='' data-gtm-action='outbound link' data-gtm-label=" + this.props.tender.ref_no + ">link</a> to view this tender on Gebiz.";
+        leftRows.push(<ShowTenderDetail header='' body={body} />);
       } else {
-        leftRows.push(<ShowTenderDetail header='Original Link' body={<a target='_blank' className='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label={this.props.tender.ref_no}>{this.props.tender.external_link}</a>} />);
+        body = "<a target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label=" + this.props.tender.ref_no + ">" + this.props.tender.external_link + "</a>"
+        leftRows.push(<ShowTenderDetail header='Original Link' body={body} />);
       }
     }
     if (this.props.tender.documents[0] != null) {

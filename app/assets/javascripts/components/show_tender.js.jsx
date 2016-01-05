@@ -63,7 +63,18 @@ var ShowTender = React.createClass({
           <ShowTenderDetail header='Buyer Email' body={this.props.tender.buyer_email} />
         </div>
       );
-      rightRows = <ShowTenderDetail header=<span>Click <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>here</a> to show details</span> body={hiddenRows} />
+      rightRows = (
+        <div className='row'>
+          <div className='small-12 column'>
+            <div className='header'>
+              <span>Click <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>here</a> to show details</span>
+            </div>
+          </div>
+          <div className='small-12 column'>
+            {hiddenRows}
+          </div>
+        </div>
+      )
     }
     return rightRows;
   },

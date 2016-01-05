@@ -23,41 +23,32 @@
     .medium-12.columns
       #services-container.cbp-l-grid-gallery
         .cbp-item.service
-          %i.icon.tyger-design-pencil-rule-streamline
-          %h5 Web Design
-          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
-          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
-            %span Read More
+          = fa_icon('binoculars', class: 'icon')
+          %h5 Track
+          %p We Track Opportunities from >60 Sources in Singapore
         .cbp-item.service
-          %i.icon.tyger-chef-food-restaurant-streamline
-          %h5 Branding & Identity
-          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
-          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
-            %span Read More
+          = fa_icon('envelope', class: 'icon')
+          %h5 Alerts
+          %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
         .cbp-item.service
-          %i.icon.tyger-camera-streamline-video
-          %h5 Camera Streaming
-          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
-          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
-            %span Read More
-        .cbp-item.service{style: 'visibility: hidden'}
+          = fa_icon('eye', class: 'icon')
+          %h5 Watch
+          %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
         .cbp-item.service
-          %i.icon.tyger-chef-food-restaurant-streamline
-          %h5 Branding & Identity
-          %p The markup for our grid system is very simple and will pretty much work whatever way you want to build it.
-          %a.link-btn.cbp-singlePageInline{"data-hover" => "Read More"}
-            %span Read More
+          = fa_icon('globe', class: 'icon')
+          %h5 Never Lose Out
+          %p Be Updated and Never Miss Out Another Tender
 
 %section#sources-and-counting
   .row
     .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
       .title-section
-        %h3
-          %strong Our Tender Sources
+        %h3.sources-count
+          %strong 46
     .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
       .section-desc
         %h4
-          %strong 46 Sources & Counting
+          %strong Number of sources tracked (and counting)
         %p We are working on adding new tender sources daily so as to bring you more business leads.
 
 %section#contacts

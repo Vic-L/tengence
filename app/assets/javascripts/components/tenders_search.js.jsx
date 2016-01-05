@@ -16,7 +16,7 @@ var TendersSearch = React.createClass({
             </div>
             <div className="medium-9 columns animated fadeInUp visible" data-animate-delay="0" data-animate="fadeInUp">
               <div className="row">
-                <div className="medium-8 column">
+                <div className="medium-10 column">
                   <div className="section-desc">
                     <input type="text" name="query" id="query-field" placeholder="Search for a keyword" />
                   </div>
@@ -26,15 +26,6 @@ var TendersSearch = React.createClass({
                     <button className="search-submit-button" type="submit">
                       <i className="fa fa-search"></i>
                     </button>
-                  </div>
-                </div>
-                <div className="medium-2 column">
-                  <div className="section-desc">
-                    <a href="/past_tenders">
-                      <button className="back-button" type="button">
-                        <i className="fa fa-mail-reply"></i>
-                      </button>
-                    </a>
                   </div>
                 </div>
               </div>

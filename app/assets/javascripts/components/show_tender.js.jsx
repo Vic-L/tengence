@@ -14,10 +14,10 @@ var ShowTender = React.createClass({
   populateLeftColumn: function(){
     var leftRows = [];
     if (!this.props.tender.in_house) {
-      leftRows.push(<ShowTenderDetail header='Reference No' body={this.props.tender.ref_no} />)
+      leftRows.push(<ShowTenderDetail header='Reference No' body={this.props.tender.ref_no.replace('tengence-','-')} />)
       leftRows.push(<ShowTenderDetail header='Buyer Company Name' body={this.props.tender.buyer_company_name} />);
     }
-    leftRows.push(<ShowTenderDetail header='Description' body={this.props.tender.description.replace('tengence-','-')} />);
+    leftRows.push(<ShowTenderDetail header='Description' body={this.props.tender.description} />);
     var publishedDate = strftime('%d %b %Y', new Date(this.props.tender.published_date));
     var closingDate = strftime('%d %b %Y', new Date(this.props.tender.closing_datetime));
     var closingTime = strftime('%H:%M %p', new Date(this.props.tender.closing_datetime));

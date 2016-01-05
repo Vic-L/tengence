@@ -6,13 +6,25 @@ var WatchedTendersTableHeader = React.createClass({
       $("input[name^='select_single[]']").prop('checked', false);
     }
   },
+  handleClick: function(e){
+    e.preventDefault();
+    if (confirm('Delete all checked tenders from your watchlist. Are you sure?')) {
+      var selected = [];
+      $("input[name^='select_single[]']").each(function(){
+        if (this.checked) {
+          selected.push($(this).attr('value'));
+        }
+      });
+      this.props.massDestroyTenders(selected);
+    }
+  },
   render: function() {
     return (
       <thead>
         <tr>
           <th className="medium-1">
             <input id="select_all" name="select_all" type="checkbox" value="1" onClick={this.handleCheck} />
-            <a id="destroy-all-button">
+            <a id="destroy-all-button" href='' onClick={this.handleClick}>
               <i className="fa fa-trash icon"></i>
             </a>
           </th>

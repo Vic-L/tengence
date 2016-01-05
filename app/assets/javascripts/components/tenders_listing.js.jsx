@@ -129,6 +129,16 @@ var TendersListing = React.createClass({
       }.bind(this)
     });
   },
+  massDestroyTenders: function(tender_ids){
+    this.showLoading();
+    $.ajax({
+      url: "/mass_destroy",
+      method: 'POST',
+      data: {
+        ids: tender_ids
+      }
+    });
+  },
   showLoading: function(){
     $('section#tender-results').addClass('blur');
     document.body.classList.add('loading');
@@ -161,7 +171,7 @@ var TendersListing = React.createClass({
     }
     if (window.location.href.indexOf('watched_tenders') !== -1) {
       tenderTabs = <TenderTabs getTenders={this.getTenders}/>;
-      tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />;
+      tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} massDestroyTenders={this.massDestroyTenders} />;
     } else {
       tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />;
     }

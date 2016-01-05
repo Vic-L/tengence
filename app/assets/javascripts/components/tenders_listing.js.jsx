@@ -155,12 +155,15 @@ var TendersListing = React.createClass({
     };
   },
   render: function(){
-    var tenderCount = null, tenderTabs;
+    var tenderCount = null, tenderTabs, tenderResults;
     if (this.props.current_tenders_count != null) {
       tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
     }
     if (window.location.href.indexOf('watched_tenders') !== -1) {
-      tenderTabs = <TenderTabs getTenders={this.getTenders}/>
+      tenderTabs = <TenderTabs getTenders={this.getTenders}/>;
+      tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />;
+    } else {
+      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />;
     }
     return (
       <div id='wrapper'>
@@ -168,7 +171,7 @@ var TendersListing = React.createClass({
         <TendersDescription descriptionText={this.getDescriptionText()} />
         {tenderTabs}
         <TendersSearch getTenders={this.getTenders} url={this.state.url}/>
-        <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />
+        {tenderResults}
       </div>
     );
   }

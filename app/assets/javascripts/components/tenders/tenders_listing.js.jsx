@@ -157,9 +157,6 @@ var TendersListing = React.createClass({
         this.notifyError(window.location.href,'massDestroyTenders', err.toString());
         alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
         window.location.reload();
-      }.bind(this),
-      complete: function(xhr, status){
-        this.stopLoading();
       }.bind(this)
     });
   },

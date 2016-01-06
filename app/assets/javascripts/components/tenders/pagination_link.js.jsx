@@ -8,7 +8,12 @@ var PaginationLink = React.createClass({
     } else {
       link = this.props.path + '&page=' + this.props.page;
     }
-    this.props.getTenders(link, document.getElementById('query-field').value);
+    var searchField = document.getElementById('query-field');
+    if (searchField != null) {
+      this.props.getTenders(link, document.getElementById('query-field').value);
+    } else {
+      this.props.getTenders(link);
+    }
   },
   render: function(){
     if (this.props.path != null){

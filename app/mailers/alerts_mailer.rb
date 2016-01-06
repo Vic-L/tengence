@@ -25,7 +25,8 @@ class AlertsMailer < ApplicationMailer
         @date = "From #{(Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).strftime('%A %d-%m-%y')}"
       end
     end
-    mail(to: @user.email, subject: "Tengence Alerts #{@date}")
+    @subject = "Tengence Alerts #{@date}"
+    mail(to: @user.email, subject: @subject)
       # , :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
   end
 end

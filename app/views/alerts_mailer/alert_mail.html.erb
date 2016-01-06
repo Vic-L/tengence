@@ -287,6 +287,9 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
 </table><!-- Wrapper 5 -->
 
 <%= render partial: 'layouts/emails/footer_wave' %>
+<% unless @subject.inclucde?("TA") %>
+  <img src="https://www.google-analytics.com/collect?v=1&t=event&ec=email&ea=open&tid=UA-70909252-1&cid=alert_email_<%= Date.today %>&dt=<%= @subject %>&dh=www.tengence.com.sg&dp=%2Falert_email_<%= Date.today %>_<%= @user.hashed_email%>"/>
+<% end %>
 
 </div>
 <style type="text/css">

@@ -23,7 +23,8 @@ class InternalMailer < ApplicationMailer
         @date = "From #{(Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).strftime('%A %d-%m-%y')}"
       end
     end
-    mail(to: 'tengencesingapore@gmail.com', subject: "TA #{@date} for #{@user.email}", cc: 'vljc17@gmail.com', template_path: 'alerts_mailer', template_name: 'alert_mail')
+    @subject = "TA #{@date} for #{@user.email}"
+    mail(to: 'tengencesingapore@gmail.com', subject: @subject, cc: 'vljc17@gmail.com', template_path: 'alerts_mailer', template_name: 'alert_mail')
       # , :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
   end
 end

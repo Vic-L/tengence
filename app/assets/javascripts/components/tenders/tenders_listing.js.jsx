@@ -146,6 +146,7 @@ var TendersListing = React.createClass({
         ids: tender_ids
       },
       success: function(){
+        $('#select_all').prop('checked', false);
         this.getTenders(this.state.url.split('page')[0], document.getElementById('query-field').value);
       }.bind(this),
       error: function(xhr, status, err) {

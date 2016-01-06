@@ -1,6 +1,7 @@
 var PaginationLink = React.createClass({
   handleClick: function(e){
     e.preventDefault();
+    $('#select_all').prop('checked', false);
     var link;
     if (this.props.path.indexOf('?') === -1) {
       link = this.props.path + '?page=' + this.props.page;

@@ -28,7 +28,8 @@ var TendersListing = React.createClass({
         // history.pushState({ url: url }, '', url.replace('/api/v1',''));
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(url, status, err.toString());
+        this.notifyError(window.location.href,'getTenders', err.toString());
+        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
       }.bind(this),
       complete: function(xhr, status){
         this.stopLoading();
@@ -41,7 +42,6 @@ var TendersListing = React.createClass({
       url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no),
       dataType: 'json',
       method: 'DELETE',
-      cache: false,
       success: function(ref_no) {
         var tenders = this.state.tenders;
         for (var i = 0; i < tenders.length; i++) {
@@ -62,7 +62,8 @@ var TendersListing = React.createClass({
         });
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(ref_no, status, err.toString());
+        this.notifyError(window.location.href,'unwatchTender', err.toString());
+        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
       }.bind(this),
       complete: function(xhr, status){
         this.stopLoading();
@@ -78,7 +79,6 @@ var TendersListing = React.createClass({
       },
       dataType: 'json',
       method: 'POST',
-      cache: false,
       success: function(ref_no) {
         var tenders = this.state.tenders;
         for (var i = 0; i < tenders.length; i++) {
@@ -99,7 +99,8 @@ var TendersListing = React.createClass({
         });
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(ref_no, status, err.toString());
+        this.notifyError(window.location.href,'watchTender', err.toString());
+        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
       }.bind(this),
       complete: function(xhr, status){
         this.stopLoading();
@@ -122,7 +123,8 @@ var TendersListing = React.createClass({
         $('#view-more-modal').foundation('reveal', 'open');
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(ref_no, status, err.toString());
+        this.notifyError(window.location.href,'showTender', err.toString());
+        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
       }.bind(this),
       complete: function(xhr, status){
         this.stopLoading();
@@ -141,7 +143,8 @@ var TendersListing = React.createClass({
         this.getTenders(this.state.url.split('page')[0], document.getElementById('query-field').value);
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(tender_ids, status, err.toString());
+        this.notifyError(window.location.href,'massDestroyTenders', err.toString());
+        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
         window.location.reload();
       }.bind(this),
       complete: function(xhr, status){
@@ -156,6 +159,18 @@ var TendersListing = React.createClass({
   stopLoading: function() {
     $('section#tender-results').removeClass('blur');
     document.body.classList.remove('loading');
+  },
+  notifyError: function(url, method, error){
+    $.ajax({
+      url: "/api/v1/notify_error",
+      method: 'GET',
+      cache: false,
+      data: {
+        url: url,
+        method: method,
+        error: error
+      }
+    });
   },
   getDescriptionText: function(){
     var list = ['current_tenders','past_tenders'];

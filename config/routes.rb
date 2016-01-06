@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         end
       end
       resources :tenders
+      get 'notify_error', to: 'pages#notify_error'
     end
   end
 

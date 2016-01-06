@@ -7,6 +7,7 @@ module Api
         content = ["url: " + params[:url]]
         content << ["method: " + params[:method]]
         content << ["error: " + params[:error]]
+        content << ["user: " + current_user.email]
         NotifyViaSlack.call(content: "<@vic-l> ERROR\r\n#{content.join("\r\n")}")
       end
     end

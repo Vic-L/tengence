@@ -54,13 +54,8 @@ var TendersListing = React.createClass({
             break;
           }
         }
-        var newTenderCount = +$('.total-count').first().text();
-        if (this.isWatchedTendersPage()) {
-          newTenderCount -= 1 ;
-        }
         this.setState({
           tenders: tenders,
-          results_count: newTenderCount.toString()
         }, function(){
           $("a.watch-button[data-gtm-label='" + ref_no + "']").notify(
             "Successfully removed from watchlist", "success", 
@@ -94,13 +89,8 @@ var TendersListing = React.createClass({
             break;
           }
         }
-        var newTenderCount = +$('.total-count').first().text();
-        if (this.isWatchedTendersPage()) {
-          newTenderCount += 1 ;
-        }
         this.setState({
           tenders: tenders,
-          results_count: newTenderCount.toString()
         }, function(){
           $("a.unwatch-button[data-gtm-label='" + ref_no + "']").notify(
             "Successfully added to watchlist", "success", 

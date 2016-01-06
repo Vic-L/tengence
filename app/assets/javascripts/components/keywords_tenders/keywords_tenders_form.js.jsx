@@ -8,7 +8,7 @@ var KeywordsTendersForm = React.createClass({
     var notice;
     if (this.props.keywords != null){
       if (this.props.keywords.trim().length === 0) {
-        notice = <p className='text-center'>You have no keywords. Start adding up to 20 keywords and get emails everyday on new tenders related to your set of keywords.</p>;
+        notice = <p className='text-center no-keywords-notice'>You have no keywords. Start adding up to 20 keywords and get emails everyday on new tenders related to your set of keywords.</p>;
       } else if (this.props.keywords.split(',').length > 20) {
         notice = <p className='text-center'>Too many keywords. Only 20 keywords are allowed.</p>;
       } else {

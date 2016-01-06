@@ -106,14 +106,14 @@ end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer
   def account_update
-    default_params.permit(:first_name, :last_name, :email, :company_name, :password, :password_confirmation)
+    default_params.permit(:first_name, :last_name, :email, :company_name, :password, :password_confirmation, :access_level)
   end
 
   def sign_up
-    default_params.permit(:first_name, :last_name, :email, :company_name, :password, :password_confirmation)
+    default_params.permit(:first_name, :last_name, :email, :company_name, :password, :password_confirmation, :access_level)
   end
   
   def sign_in
-    default_params.permit(:email, :password, :remember_me)
+    default_params.permit(:email, :password, :remember_me, :access_level)
   end
 end

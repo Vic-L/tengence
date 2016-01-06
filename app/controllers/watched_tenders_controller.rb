@@ -4,31 +4,32 @@ class WatchedTendersController < ApplicationController
   before_action :deny_unconfirmed_users
 
   def index
-    unless params['query'].blank?
-      @type = params['type']
-      results = AwsManager.search(keyword: params['query'])
-      results_ref_nos = results.hits.hit.map do |result|
-        result.fields["ref_no"][0]
-      end
+    @current_tenders_count = CurrentTender.count
+    # unless params['query'].blank?
+    #   @type = params['type']
+    #   results = AwsManager.search(keyword: params['query'])
+    #   results_ref_nos = results.hits.hit.map do |result|
+    #     result.fields["ref_no"][0]
+    #   end
       
-      results_ref_nos = results_ref_nos & current_user.watched_tenders.pluck(:tender_id)
+    #   results_ref_nos = results_ref_nos & current_user.watched_tenders.pluck(:tender_id)
       
-      current_tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
-      @current_tenders = current_tenders.page(params[:page]).per(50)
-      @current_tenders_count = current_tenders.size
+    #   current_tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
+    #   @current_tenders = current_tenders.page(params[:page]).per(50)
+    #   @current_tenders_count = current_tenders.size
       
-      past_tenders = PastTender.includes(:users).where(ref_no: results_ref_nos)
-      @past_tenders = past_tenders.page(params[:page]).per(50)
-      @past_tenders_count = past_tenders.size
-    else
-      current_tenders = CurrentTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
-      @current_tenders = current_tenders.page(params[:page]).per(50)
-      @current_tenders_count = current_tenders.size
+    #   past_tenders = PastTender.includes(:users).where(ref_no: results_ref_nos)
+    #   @past_tenders = past_tenders.page(params[:page]).per(50)
+    #   @past_tenders_count = past_tenders.size
+    # else
+    #   current_tenders = CurrentTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+    #   @current_tenders = current_tenders.page(params[:page]).per(50)
+    #   @current_tenders_count = current_tenders.size
       
-      past_tenders = PastTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
-      @past_tenders = past_tenders.page(params[:page]).per(50)
-      @past_tenders_count = past_tenders.size
-    end
+    #   past_tenders = PastTender.includes(:users).where(ref_no: current_user.watched_tenders.pluck(&:ref_no))
+    #   @past_tenders = past_tenders.page(params[:page]).per(50)
+    #   @past_tenders_count = past_tenders.size
+    # end
   end
 
   def create

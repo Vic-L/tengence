@@ -132,7 +132,7 @@ h1.logo a:link, h1.logo a:visited   {
 
 .icon-big {
 	font-size: 50px;
-	color: #ff4444;
+	color: #386ec4;
 }
 
 .subtitle, .subtitle.white, .subtitle-detail.white, .subtitle-detail {
@@ -160,7 +160,7 @@ h1.logo a:link, h1.logo a:visited   {
 }
 
 .color {
-	color: #ff4444;
+	color: #386ec4;
 }
 
 .white {
@@ -207,7 +207,7 @@ Navigation
 =============================================== */
 header {
 	li.active a{
-		color:#ff4444;
+		color:#386ec4;
 	}
 
 	.menu-list a{
@@ -216,7 +216,11 @@ header {
 	}
 
 	h1.logo a:hover {
-    color: #ff4444
+    color: #386ec4
+	}
+
+	.menu-toggle-button, .menu-toggle-button.active {
+		color: black
 	}
 }
 
@@ -225,7 +229,7 @@ header.shrink {
 		color:#fff;
 	}
 	ul.menu-list>li>a:hover {
-		color:#ff4444
+		color:#386ec4
 	}
 	h1.logo a:link,
 	h1.logo a:visited {
@@ -233,7 +237,10 @@ header.shrink {
 	}
 	h1.logo a:hover,
 	h1.logo a:link:hover, {
-		color: #ff4444;
+		color: #386ec4;
+	}
+	.menu-toggle-button, .menu-toggle-button.active {
+		color: white
 	}
 }
 
@@ -284,7 +291,7 @@ Main Slider
 }
 
 a.slider-link:link, a.slider-link:visited {
-	background: #ff4444;
+	background: #386ec4;
 	color: #fff;
 	padding: 5px;
 	border-radius: 1px;
@@ -335,7 +342,7 @@ a.slider-link:hover {
 .bg3 {
 	// background: image-url('tyger/img/slider/placeholder3.jpg');
 	// background: image-url('home_bg.jpg');
-	background: grey;
+	background: #386ec4;
 	background-position: center;
 }
 
@@ -380,7 +387,7 @@ Title section
 }
 
 .title-section h3 {
-	color: #ff4444;
+	color: #386ec4;
 	font-family: "Montserrat", serif;
 	border-right: 1px solid #eceaea;
 	/*text-transform:uppercase;*/
@@ -441,7 +448,7 @@ Counter
 }
 
 .number {
-	color: #ff4444;
+	color: #386ec4;
 	font-weight: 900;
 	font-size: 1.6rem;
 	line-height: 2.2rem;
@@ -794,7 +801,7 @@ a.link-btn.nm{
 }
 
 a.link-btn span {
-	background: none repeat scroll 0 0 #ff4444;
+	background: none repeat scroll 0 0 #386ec4;
 	color: white;
 	display: block;
 	padding: 5px 10px;
@@ -1102,7 +1109,7 @@ Accordions
 }
 .accordion .accordion-navigation.active > a, .accordion li.active > a {
 	background: none !important;
-	color: #ff4444;
+	color: #386ec4;
 }
 .accordion .accordion-navigation > a, .accordion li > a {
 	font-size: 1rem;
@@ -1206,7 +1213,7 @@ ul.service-tab li a h5 {
 }
 
 ul.service-tab li.active a h5, ul.service-tab li.active a i {
-	color: #ff4444;
+	color: #386ec4;
 }
 
 .tabs-content {
@@ -1559,9 +1566,13 @@ Media Query
 	h1.logo a:link, h1.logo a:visited{
 		bottom:-7px;
 	}
-
+	header {
+		ul.menu-list li a {
+			color: white;
+		}
+	}
 	section{
-		padding:40px 0px;
+		padding:84px 0px;
 	}
 	.title-section{
 		margin-bottom:-15px;

@@ -4,31 +4,44 @@
       background: transparent
       &.shrink
         background-color: #212121
+        h1.logo a:hover
+          color: #386ec4
+        ul.menu-list
+          li a:hover,
+          li.active a,
+          li.active a:hover
+            color: #386ec4
       h1.logo a
         color: white
         &:hover
-          color: #ff4444
+          color: black
       ul.menu-list
         li a
           color: white
         li a:hover,
         li.active a,
         li.active a:hover
-          color: #ff4444 !important
+          color: black
+      .menu-toggle-button, .menu-toggle-button.active
+        color: white
+    .icon
+      margin-bottom: 16px
+      color: #386ec4
     .alert-box
       position: absolute
       top: 84px
       z-index: 2
       left: 0
       right: 0
-    .sign-up-link:hover
-      color: #d60303 !important
     #contacts
       .title-section
         margin-bottom: 0
       #message
         margin-top: 0
         padding-top: 0
+    .sources-count
+      color: #386ec4
+      font-size: 100px
   &.post_a_tender
     section
       .button

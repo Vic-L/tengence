@@ -3,11 +3,14 @@
 .past_posted_tenders,
 .current_posted_tenders,
 .keywords_tenders,
+.watched_tenders,
 .tenders
   #wrapper
     padding-top: 80px
   &.index
     #wrapper
+      button#submit
+        margin-bottom: 16px
       section#hero
         padding-bottom: 0
         .counter
@@ -36,21 +39,18 @@
           margin-bottom: 0
           padding
         button.search-submit-button
-          background: #ff4444
+          background: #386ec4
           &:hover
-            background: #d60303
+            background: darken(#386ec4,20%)
       section#tender-results
         padding-top: 20px
-        form
-          button#submit
-            margin-bottom: 16px
         .button
           margin-bottom: 0
           width: 100%
           &.unwatch-button
             background: #ff4444
             &:hover
-              background: #d60303
+              background: darken(#ff4444,20%)
           &.watch-button
             background: #44cc9b
             &:hover
@@ -66,10 +66,16 @@
         span.total-count
           font-weight: bold
           font-size: 16px
+          margin-left: 5px
         table#results-table
           thead
             th
               border: 1px solid #d9d9d9
+              #select_all
+                margin-bottom: 0
+              #destroy-all-button
+                margin-left: 5px
+                font-size: 20px
           tbody
             td
               padding: 5px
@@ -140,3 +146,8 @@
     textarea#tender_long_description
       line-height: 1.5
       height: 400px
+
+.keywords_tenders
+  &.index
+    p.no-keywords-notice
+      color: #ff4444

@@ -4,8 +4,19 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :current_tenders
       resources :past_tenders
-      resources :watched_tenders
+      resources :watched_tenders do
+        collection do
+          post 'mass_destroy', to: 'watched_tenders#mass_destroy'
+        end
+      end
+      resources :keywords_tenders
       resources :tenders
+      get 'notify_error', to: 'pages#notify_error'
+      resources :users do
+        collection do
+          post 'keywords', to: 'users/keywords#update'
+        end
+      end
     end
   end
 
@@ -15,8 +26,9 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations",
     passwords:  "users/passwords" }
   devise_scope :user do
-    get "users/check_email_taken"=> 'users/registrations#check_email_taken',
-      :as => :check_email_taken
+    get "users/check_email_taken"=> 'users/registrations#check_email_taken', :as => :check_email_taken
+    get "organizations/register"=> 'users/registrations#new_vendors', as: :new_vendor_registration
+    get "register" => "users/registrations#new"
   end
 
   # static pages

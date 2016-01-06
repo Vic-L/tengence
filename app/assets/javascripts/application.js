@@ -24,6 +24,7 @@
 //= require foundation-datepicker.min
 //= require strftime
 //= require filesize.min
+//= require marked.min
 //= require react
 //= require react_ujs
 //= require components

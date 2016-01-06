@@ -433,10 +433,10 @@ jQuery(document).ready(function($){
 		scrollByPage: false,
 		mediaQueries: [{
 			width: 1100,
-			cols: 3
+			cols: 2
 		}, {
 			width: 800,
-			cols: 3
+			cols: 2
 		}, {
 			width: 500,
 			cols: 2
@@ -668,8 +668,7 @@ $(window).resize(function() {
 /* ==============================================
   Counter
 =============================================== */  
-jQuery(function() {
-
+$(window).load(function() {
 	$(".counter").appear(function(){
 		$(this).each(function(){
 			dataperc = $(this).attr("data-perc"),

@@ -27,5 +27,9 @@
       $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
         document.body.classList.remove('loading');
       });
+      /* trigger foundation() after window load for react and foundation to work...TODO better way? */
+      $(window).load(function(){
+        $(document).foundation();
+      });
     = yield :javascript
     = render 'layouts/ga_scripts'

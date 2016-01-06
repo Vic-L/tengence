@@ -9,8 +9,14 @@ Rails.application.routes.draw do
           post 'mass_destroy', to: 'watched_tenders#mass_destroy'
         end
       end
+      resources :keywords_tenders
       resources :tenders
       get 'notify_error', to: 'pages#notify_error'
+      resources :users do
+        collection do
+          post 'keywords', to: 'users/keywords#update'
+        end
+      end
     end
   end
 

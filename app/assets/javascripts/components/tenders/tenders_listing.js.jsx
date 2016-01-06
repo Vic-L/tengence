@@ -50,7 +50,10 @@ var TendersListing = React.createClass({
             break;
           }
         }
-        var newTenderCount = +$('.total-count').first().text() - 1;
+        var newTenderCount = +$('.total-count').first().text();
+        if (this.isWatchedTendersPage()) {
+          newTenderCount -= 1 ;
+        }
         this.setState({
           tenders: tenders,
           results_count: newTenderCount.toString()
@@ -87,7 +90,10 @@ var TendersListing = React.createClass({
             break;
           }
         }
-        var newTenderCount = +$('.total-count').first().text() + 1;
+        var newTenderCount = +$('.total-count').first().text();
+        if (this.isWatchedTendersPage()) {
+          newTenderCount += 1 ;
+        }
         this.setState({
           tenders: tenders,
           results_count: newTenderCount.toString()
@@ -171,6 +177,13 @@ var TendersListing = React.createClass({
         error: error
       }
     });
+  },
+  isWatchedTendersPage: function(){
+    if (window.location.href.indexOf('watched_tenders') === -1){
+      return false;
+    } else {
+      return true;
+    }
   },
   getDescriptionText: function(){
     var list = ['current_tenders','past_tenders'];

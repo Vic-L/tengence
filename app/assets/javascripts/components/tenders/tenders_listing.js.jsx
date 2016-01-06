@@ -132,11 +132,21 @@ var TendersListing = React.createClass({
   massDestroyTenders: function(tender_ids){
     this.showLoading();
     $.ajax({
-      url: "/mass_destroy",
+      url: "/api/v1/watched_tenders/mass_destroy",
       method: 'POST',
       data: {
         ids: tender_ids
-      }
+      },
+      success: function(){
+        this.getTenders(this.state.url.split('page')[0], document.getElementById('query-field').value);
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(tender_ids, status, err.toString());
+        window.location.reload();
+      }.bind(this),
+      complete: function(xhr, status){
+        this.stopLoading();
+      }.bind(this)
     });
   },
   showLoading: function(){

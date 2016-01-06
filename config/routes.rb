@@ -4,7 +4,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :current_tenders
       resources :past_tenders
-      resources :watched_tenders
+      resources :watched_tenders do
+        collection do
+          post 'mass_destroy', to: 'watched_tenders#mass_destroy'
+        end
+      end
       resources :tenders
     end
   end

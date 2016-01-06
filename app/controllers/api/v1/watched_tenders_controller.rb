@@ -22,6 +22,11 @@ module Api
         DestroyWatchedTenderWorker.perform_async(current_user.id,params[:id])
         render json: params[:id].to_json
       end
+
+      def mass_destroy
+        current_user.watched_tenders.where(tender_id: params[:ids]).destroy_all
+        render json: params[:ids].to_json
+      end
     end
   end
 end

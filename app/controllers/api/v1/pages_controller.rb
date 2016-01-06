@@ -9,6 +9,7 @@ module Api
         content << ["error: " + params[:error]]
         content << ["user: " + current_user.email]
         NotifyViaSlack.call(content: "<@vic-l> ERROR\r\n#{content.join("\r\n")}")
+        render :json => { :success => true }
       end
     end
   end

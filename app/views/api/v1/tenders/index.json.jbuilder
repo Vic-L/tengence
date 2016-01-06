@@ -17,9 +17,6 @@ json.tenders do
     json.budget tender.budget
     json.buyer_email tender.buyer_email
     json.buyer_company_name tender.buyer_company_name
-    json.watch_path watched_tenders_path(id: tender.ref_no)
-    json.unwatch_path watched_tender_path(id: tender.ref_no)
-    json.show_path tender_path(id: tender.ref_no)
     json.watched tender.watched?(@watched_tender_ids)
   end
 end

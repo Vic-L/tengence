@@ -9,9 +9,6 @@ json.buyer_email @tender.buyer_email
 json.buyer_company_name @tender.buyer_company_name
 json.buyer_name @tender.buyer_name
 json.buyer_contact_number @tender.buyer_contact_number
-json.watch_path watched_tenders_path(id: @tender.ref_no)
-json.unwatch_path watched_tender_path(id: @tender.ref_no)
-json.show_path tender_path(id: @tender.ref_no)
 json.in_house @tender.in_house?
 json.gebiz @tender.is_gebiz?
 json.external_link @tender.external_link

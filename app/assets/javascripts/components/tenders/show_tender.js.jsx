@@ -35,7 +35,7 @@ var ShowTender = React.createClass({
         body = "Step 2) Click this <a href='" + this.props.tender.external_link + "'class='external-link ga-tenders' target='_blank' id='ga-tender-gebiz-link' data-gtm-category='' data-gtm-action='outbound link' data-gtm-label='" + this.props.tender.ref_no + "'>link</a> to view this tender on Gebiz.";
         leftRows.push(<ShowTenderDetail header='' body={body} />);
       } else {
-        body = "<a href='" + this.props.tender.ref_no + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>"
+        body = "<a href='" + this.props.tender.external_link + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>"
         leftRows.push(<ShowTenderDetail header='Original Link' body={body} />);
       }
     }

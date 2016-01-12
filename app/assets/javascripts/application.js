@@ -27,5 +27,6 @@
 //= require marked.min
 //= require react
 //= require react_ujs
+//= require react_functions
 //= require components
 //= require_tree .

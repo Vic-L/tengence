@@ -8,11 +8,8 @@ var TendersListing = React.createClass({
   componentDidMount: function() {
     this.getTenders(this.state.url, null);
   },
-  getKeywordsTenders: function(){
-
-  },
   getTenders: function(url, query, keywords){
-    this.showLoading();
+    Tengence.ReactFunctions.showLoading();
     $.ajax({
       url: url,
       data: {
@@ -36,12 +33,12 @@ var TendersListing = React.createClass({
         alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
       }.bind(this),
       complete: function(xhr, status){
-        this.stopLoading();
+        Tengence.ReactFunctions.stopLoading();
       }.bind(this)
     });
   },
   unwatchTender: function(ref_no) {
-    this.showLoading();
+    Tengence.ReactFunctions.showLoading();
     $.ajax({
       url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no),
       dataType: 'json',
@@ -68,12 +65,12 @@ var TendersListing = React.createClass({
         alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
       }.bind(this),
       complete: function(xhr, status){
-        this.stopLoading();
+        Tengence.ReactFunctions.stopLoading();
       }.bind(this)
     });
   },
   watchTender: function(ref_no) {
-    this.showLoading();
+    Tengence.ReactFunctions.showLoading();
     $.ajax({
       url: '/api/v1/watched_tenders',
       data: {
@@ -103,36 +100,12 @@ var TendersListing = React.createClass({
         alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
       }.bind(this),
       complete: function(xhr, status){
-        this.stopLoading();
-      }.bind(this)
-    });
-  },
-  showTender: function(ref_no) {
-    this.showLoading();
-    $.ajax({
-      url: '/api/v1/tenders/' + encodeURIComponent(ref_no),
-      dataType: 'json',
-      method: 'get',
-      cache: false,
-      success: function(tender) {
-        $('#view-more-modal').empty();
-        ReactDOM.render(
-          <ShowTender tender={tender}/>,
-          document.getElementById('view-more-modal')
-        );
-        $('#view-more-modal').foundation('reveal', 'open');
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.notifyError(window.location.href,'showTender', err.toString());
-        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
-      }.bind(this),
-      complete: function(xhr, status){
-        this.stopLoading();
+        Tengence.ReactFunctions.stopLoading();
       }.bind(this)
     });
   },
   massDestroyTenders: function(tender_ids){
-    this.showLoading();
+    Tengence.ReactFunctions.showLoading();
     $.ajax({
       url: "/api/v1/watched_tenders/mass_destroy",
       method: 'POST',
@@ -149,14 +122,6 @@ var TendersListing = React.createClass({
         window.location.reload();
       }.bind(this)
     });
-  },
-  showLoading: function(){
-    $('section#tender-results').addClass('blur');
-    document.body.classList.add('loading');
-  },
-  stopLoading: function() {
-    $('section#tender-results').removeClass('blur');
-    document.body.classList.remove('loading');
   },
   notifyError: function(url, method, error){
     $.ajax({
@@ -204,7 +169,7 @@ var TendersListing = React.createClass({
     };
   },
   updateKeywords: function(keywords){
-    this.showLoading();
+    Tengence.ReactFunctions.showLoading();
     $.ajax({
       url: '/api/v1/users/keywords',
       dataType: 'json',
@@ -218,7 +183,7 @@ var TendersListing = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         alert(xhr.responseText);
-        this.stopLoading();
+        Tengence.ReactFunctions.stopLoading();
       }.bind(this),
     });
   },
@@ -230,13 +195,13 @@ var TendersListing = React.createClass({
     if (this.isWatchedTendersPage()){
       tenderTabs = <TenderTabs getTenders={this.getTenders}/>;
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} massDestroyTenders={this.massDestroyTenders} />;
+      tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} massDestroyTenders={this.massDestroyTenders} />;
     } else if (this.isKeywordsTendersPage()) {
       tenderKeywords = <KeywordsTendersForm updateKeywords={this.updateKeywords} getTenders={this.getTenders} keywords={this.state.keywords}/>;
-      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />;
+      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} />;
     } else {
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} showTender={this.showTender} />;
+      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} />;
     }
     return (
       <div id='wrapper'>

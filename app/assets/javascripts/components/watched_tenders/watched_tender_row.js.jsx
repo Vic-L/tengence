@@ -16,7 +16,7 @@ var WatchedTenderRow = React.createClass({
         <td>{this.props.closingTime}</td>
         <td>{this.props.buyerCompanyName}</td>
         <td>{watchlistButton}</td>
-        <td><MoreButton showTender={this.props.showTender} showPath={this.props.showPath} refNo={this.props.refNo}/></td>
+        <td><MoreButton refNo={this.props.refNo}/></td>
       </tr>
     );
   }

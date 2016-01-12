@@ -1,6 +1,3 @@
-window.Tengence ||= {}
-Tengence.ReactFunctions ||= {}
-
 Tengence.ReactFunctions.showLoading = ->
   $('section#tender-results').addClass('blur')
   document.body.classList.add('loading')

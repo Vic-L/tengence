@@ -11,12 +11,6 @@ var TendersListing = React.createClass({
   getTenders: function(url, query, keywords){
     Tengence.ReactFunctions.getTenders(this, url, query, keywords);
   },
-  unwatchTender: function(ref_no) {
-    Tengence.ReactFunctions.unwatchTender(this,ref_no);
-  },
-  watchTender: function(ref_no) {
-    Tengence.ReactFunctions.watchTender(this,ref_no);
-  },
   massDestroyTenders: function(tender_ids){
     Tengence.ReactFunctions.massDestroyTenders(this,tender_ids);
   },
@@ -76,13 +70,13 @@ var TendersListing = React.createClass({
     if (this.isWatchedTendersPage()){
       tenderTabs = <TenderTabs getTenders={this.getTenders}/>;
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} massDestroyTenders={this.massDestroyTenders} />;
+      tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
     } else if (this.isKeywordsTendersPage()) {
       tenderKeywords = <KeywordsTendersForm updateKeywords={this.updateKeywords} getTenders={this.getTenders} keywords={this.state.keywords}/>;
-      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} />;
+      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     } else {
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} unwatchTender={this.unwatchTender} watchTender={this.watchTender} />;
+      tenderResults = <GenericTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     }
     return (
       <div id='wrapper'>

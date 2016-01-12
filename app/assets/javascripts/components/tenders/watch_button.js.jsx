@@ -1,7 +1,7 @@
 var WatchButton = React.createClass({
   handleClick: function(e) {
     e.preventDefault();
-    this.props.watchTender(this.props.refNo);
+    Tengence.ReactFunctions.watchTender(this.props.parentComponent,this.props.refNo);
   },
   render: function() {
     $("a.unwatch-button[data-gtm-label='" + this.props.refNo + "']").siblings('.notifyjs-wrapper').remove();

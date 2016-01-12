@@ -6,7 +6,7 @@ Tengence.ReactFunctions.stopLoading = ->
   $('section#tender-results').removeClass('blur')
   document.body.classList.remove('loading')
 
-Tengence.ReactFunctions.getTenders = (reactParent, url, query, keywords) ->
+Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: url
@@ -17,7 +17,7 @@ Tengence.ReactFunctions.getTenders = (reactParent, url, query, keywords) ->
     dataType: 'json',
     cache: false,
     success: (data) ->
-      reactParent.setState(
+      parentComponent.setState(
         {pagination: data.pagination
         ,tenders: data.tenders
         ,results_count: data.results_count
@@ -52,7 +52,7 @@ Tengence.ReactFunctions.showTender = (ref_no) ->
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.watchTender = (reactParent,ref_no) ->
+Tengence.ReactFunctions.watchTender = (parentComponent,ref_no) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/watched_tenders'
@@ -61,12 +61,12 @@ Tengence.ReactFunctions.watchTender = (reactParent,ref_no) ->
     dataType: 'json'
     method: 'POST'
     success: (ref_no) ->
-      tenders = reactParent.state.tenders
+      tenders = parentComponent.state.tenders
       for tender in tenders
         if tender.ref_no is ref_no
           tender.watched = true
           break
-      reactParent.setState {tenders: tenders}, ->
+      parentComponent.setState {tenders: tenders}, ->
         $("a.unwatch-button[data-gtm-label='" + ref_no + "']").notify "Successfully added to watchlist", "success", { position: "top" }
         return
       return
@@ -78,19 +78,19 @@ Tengence.ReactFunctions.watchTender = (reactParent,ref_no) ->
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.unwatchTender = (reactParent,ref_no) -> 
+Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) -> 
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no)
     dataType: 'json'
     method: 'DELETE'
     success: (ref_no) ->
-      tenders = reactParent.state.tenders
+      tenders = parentComponent.state.tenders
       for tender in tenders
         if tender.ref_no is ref_no
           tender.watched = false
           break
-      reactParent.setState(
+      parentComponent.setState(
         {tenders: tenders}
         , ->
           $("a.watch-button[data-gtm-label='" + ref_no + "']").notify(
@@ -108,7 +108,7 @@ Tengence.ReactFunctions.unwatchTender = (reactParent,ref_no) ->
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.updateKeywords = (reactParent,keywords) ->
+Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/users/keywords'
@@ -117,9 +117,9 @@ Tengence.ReactFunctions.updateKeywords = (reactParent,keywords) ->
     data:
       {keywords: keywords}
     success: ->
-      reactParent.setState({keywords: keywords})
+      parentComponent.setState({keywords: keywords})
       Tengence.ReactFunctions.getTenders(
-        reactParent
+        parentComponent
         ,'/api/v1/keywords_tenders'
         ,'stub_query'
         keywords)
@@ -129,7 +129,7 @@ Tengence.ReactFunctions.updateKeywords = (reactParent,keywords) ->
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.massDestroyTenders = (reactParent, tender_ids) ->
+Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: "/api/v1/watched_tenders/mass_destroy"
@@ -139,8 +139,8 @@ Tengence.ReactFunctions.massDestroyTenders = (reactParent, tender_ids) ->
     success: ->
       $('#select_all').prop('checked', false)
       Tengence.ReactFunctions.getTenders(
-        reactParent
-        , reactParent.state.url.split('page')[0]
+        parentComponent
+        , parentComponent.state.url.split('page')[0]
         , document.getElementById('query-field').value)
     error: (xhr, status, err) ->
       # this.notifyError(window.location.href,'massDestroyTenders', err.toString())

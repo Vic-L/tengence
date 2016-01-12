@@ -28,3 +28,60 @@ Tengence.ReactFunctions.showTender = (ref_no) ->
     complete: (xhr, status) ->
       Tengence.ReactFunctions.stopLoading()
       return
+
+Tengence.ReactFunctions.watchTender = (reactParent,ref_no) ->
+  Tengence.ReactFunctions.showLoading()
+  $.ajax
+    url: '/api/v1/watched_tenders'
+    data:
+      id: ref_no
+    dataType: 'json'
+    method: 'POST'
+    success: (ref_no) ->
+      tenders = reactParent.state.tenders
+      for tender in tenders
+        if tender.ref_no is ref_no
+          tender.watched = true
+          break
+      reactParent.setState {tenders: tenders}, ->
+        $("a.unwatch-button[data-gtm-label='" + ref_no + "']").notify "Successfully added to watchlist", "success", { position: "top" }
+        return
+      return
+    error: (xhr, status, err) ->
+      # this.notifyError(window.location.href,'watchTender', err.toString())
+      alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
+      return
+    complete: (xhr, status) ->
+      Tengence.ReactFunctions.stopLoading()
+      return
+
+Tengence.ReactFunctions.unwatchTender = (reactParent,ref_no) -> 
+  Tengence.ReactFunctions.showLoading();
+  $.ajax
+    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no)
+    dataType: 'json'
+    method: 'DELETE'
+    success: (ref_no) ->
+      tenders = reactParent.state.tenders
+      for tender in tenders
+        if tender.ref_no is ref_no
+          tender.watched = false
+          break
+      reactParent.setState(\
+        {tenders: tenders}
+        , ->
+          $("a.watch-button[data-gtm-label='" + ref_no + "']").notify(
+            "Successfully removed from watchlist"
+            , "success"
+            , { position: "top" }
+          )
+          return
+      )
+      return
+    error: (xhr, status, err) ->
+      # this.notifyError(window.location.href,'unwatchTender', err.toString());
+      alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
+      return
+    complete: (xhr, status) ->
+      Tengence.ReactFunctions.stopLoading()
+      return

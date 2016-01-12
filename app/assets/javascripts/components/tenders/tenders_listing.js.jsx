@@ -38,71 +38,10 @@ var TendersListing = React.createClass({
     });
   },
   unwatchTender: function(ref_no) {
-    Tengence.ReactFunctions.showLoading();
-    $.ajax({
-      url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no),
-      dataType: 'json',
-      method: 'DELETE',
-      success: function(ref_no) {
-        var tenders = this.state.tenders;
-        for (var i = 0; i < tenders.length; i++) {
-          if (tenders[i].ref_no === ref_no) {
-            tenders[i].watched = false;
-            break;
-          }
-        }
-        this.setState({
-          tenders: tenders,
-        }, function(){
-          $("a.watch-button[data-gtm-label='" + ref_no + "']").notify(
-            "Successfully removed from watchlist", "success", 
-            { position: "top" }
-          );
-        });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.notifyError(window.location.href,'unwatchTender', err.toString());
-        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
-      }.bind(this),
-      complete: function(xhr, status){
-        Tengence.ReactFunctions.stopLoading();
-      }.bind(this)
-    });
+    Tengence.ReactFunctions.unwatchTender(this,ref_no);
   },
   watchTender: function(ref_no) {
-    Tengence.ReactFunctions.showLoading();
-    $.ajax({
-      url: '/api/v1/watched_tenders',
-      data: {
-        id: ref_no
-      },
-      dataType: 'json',
-      method: 'POST',
-      success: function(ref_no) {
-        var tenders = this.state.tenders;
-        for (var i = 0; i < tenders.length; i++) {
-          if (tenders[i].ref_no === ref_no) {
-            tenders[i].watched = true;
-            break;
-          }
-        }
-        this.setState({
-          tenders: tenders,
-        }, function(){
-          $("a.unwatch-button[data-gtm-label='" + ref_no + "']").notify(
-            "Successfully added to watchlist", "success", 
-            { position: "top" }
-          );
-        });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.notifyError(window.location.href,'watchTender', err.toString());
-        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
-      }.bind(this),
-      complete: function(xhr, status){
-        Tengence.ReactFunctions.stopLoading();
-      }.bind(this)
-    });
+    Tengence.ReactFunctions.watchTender(this,ref_no);
   },
   massDestroyTenders: function(tender_ids){
     Tengence.ReactFunctions.showLoading();

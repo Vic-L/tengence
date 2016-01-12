@@ -22,10 +22,10 @@ Tengence.ReactFunctions.getTenders = (reactParent, url, query, keywords) ->
         ,tenders: data.tenders
         ,results_count: data.results_count
         ,url: url})
-      # history.pushState({ url: url }, '', url.replace('/api/v1',''));
+      # history.pushState({ url: url }, '', url.replace('/api/v1',''))
       return
     error: (xhr, status, err) ->
-      # this.notifyError(window.location.href,'getTenders', err.toString());
+      # this.notifyError(window.location.href,'getTenders', err.toString())
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
@@ -45,7 +45,7 @@ Tengence.ReactFunctions.showTender = (ref_no) ->
       $('#view-more-modal').foundation('reveal', 'open')
       return
     error: (xhr, status, err) -> 
-      # this.notifyError(window.location.href,'showTender', err.toString());
+      # this.notifyError(window.location.href,'showTender', err.toString())
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
@@ -79,7 +79,7 @@ Tengence.ReactFunctions.watchTender = (reactParent,ref_no) ->
       return
 
 Tengence.ReactFunctions.unwatchTender = (reactParent,ref_no) -> 
-  Tengence.ReactFunctions.showLoading();
+  Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no)
     dataType: 'json'
@@ -101,9 +101,30 @@ Tengence.ReactFunctions.unwatchTender = (reactParent,ref_no) ->
       )
       return
     error: (xhr, status, err) ->
-      # this.notifyError(window.location.href,'unwatchTender', err.toString());
+      # this.notifyError(window.location.href,'unwatchTender', err.toString())
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
+      Tengence.ReactFunctions.stopLoading()
+      return
+
+Tengence.ReactFunctions.updateKeywords = (reactParent,keywords) ->
+  Tengence.ReactFunctions.showLoading()
+  $.ajax
+    url: '/api/v1/users/keywords'
+    dataType: 'json'
+    method: "POST"
+    data:
+      {keywords: keywords}
+    success: ->
+      reactParent.setState({keywords: keywords})
+      Tengence.ReactFunctions.getTenders(
+        reactParent,
+        '/api/v1/keywords_tenders',
+        'stub_query',
+        keywords)
+      return
+    error: (xhr, status, err) ->
+      alert(xhr.responseText)
       Tengence.ReactFunctions.stopLoading()
       return

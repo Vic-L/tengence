@@ -82,23 +82,7 @@ var TendersListing = React.createClass({
     };
   },
   updateKeywords: function(keywords){
-    Tengence.ReactFunctions.showLoading();
-    $.ajax({
-      url: '/api/v1/users/keywords',
-      dataType: 'json',
-      method: "POST",
-      data: {
-        keywords: keywords
-      },
-      success: function() {
-        this.setState({keywords: keywords});
-        this.getTenders('/api/v1/keywords_tenders', 'stub_query', keywords);
-      }.bind(this),
-      error: function(xhr, status, err) {
-        alert(xhr.responseText);
-        Tengence.ReactFunctions.stopLoading();
-      }.bind(this),
-    });
+    Tengence.ReactFunctions.updateKeywords(this,keywords);
   },
   render: function(){
     var tenderCount, tenderTabs, tenderResults, tenderKeywords, tenderSearchForm;

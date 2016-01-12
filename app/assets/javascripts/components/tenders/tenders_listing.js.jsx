@@ -14,18 +14,6 @@ var TendersListing = React.createClass({
   massDestroyTenders: function(tender_ids){
     Tengence.ReactFunctions.massDestroyTenders(this,tender_ids);
   },
-  notifyError: function(url, method, error){
-    $.ajax({
-      url: "/api/v1/notify_error",
-      method: 'GET',
-      cache: false,
-      data: {
-        url: url,
-        method: method,
-        error: error
-      }
-    });
-  },
   isWatchedTendersPage: function(){
     if (window.location.href.indexOf('watched_tenders') === -1){
       return false;

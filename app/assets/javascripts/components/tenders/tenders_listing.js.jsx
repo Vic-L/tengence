@@ -18,23 +18,7 @@ var TendersListing = React.createClass({
     Tengence.ReactFunctions.watchTender(this,ref_no);
   },
   massDestroyTenders: function(tender_ids){
-    Tengence.ReactFunctions.showLoading();
-    $.ajax({
-      url: "/api/v1/watched_tenders/mass_destroy",
-      method: 'POST',
-      data: {
-        ids: tender_ids
-      },
-      success: function(){
-        $('#select_all').prop('checked', false);
-        this.getTenders(this.state.url.split('page')[0], document.getElementById('query-field').value);
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.notifyError(window.location.href,'massDestroyTenders', err.toString());
-        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused. The page will now refresh.");
-        window.location.reload();
-      }.bind(this)
-    });
+    Tengence.ReactFunctions.massDestroyTenders(this,tender_ids);
   },
   notifyError: function(url, method, error){
     $.ajax({

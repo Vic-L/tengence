@@ -119,12 +119,30 @@ Tengence.ReactFunctions.updateKeywords = (reactParent,keywords) ->
     success: ->
       reactParent.setState({keywords: keywords})
       Tengence.ReactFunctions.getTenders(
-        reactParent,
-        '/api/v1/keywords_tenders',
-        'stub_query',
+        reactParent
+        ,'/api/v1/keywords_tenders'
+        ,'stub_query'
         keywords)
       return
     error: (xhr, status, err) ->
       alert(xhr.responseText)
       Tengence.ReactFunctions.stopLoading()
       return
+
+Tengence.ReactFunctions.massDestroyTenders = (reactParent, tender_ids) ->
+  Tengence.ReactFunctions.showLoading()
+  $.ajax
+    url: "/api/v1/watched_tenders/mass_destroy"
+    method: 'POST'
+    data: 
+      {ids: tender_ids}
+    success: ->
+      $('#select_all').prop('checked', false)
+      Tengence.ReactFunctions.getTenders(
+        reactParent
+        , reactParent.state.url.split('page')[0]
+        , document.getElementById('query-field').value)
+    error: (xhr, status, err) ->
+      # this.notifyError(window.location.href,'massDestroyTenders', err.toString())
+      alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused. The page will now refresh.")
+      window.location.reload()

@@ -9,33 +9,7 @@ var TendersListing = React.createClass({
     this.getTenders(this.state.url, null);
   },
   getTenders: function(url, query, keywords){
-    Tengence.ReactFunctions.showLoading();
-    $.ajax({
-      url: url,
-      data: {
-        query: query,
-        keywords: keywords
-      },
-      method: 'GET',
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({
-          pagination: data.pagination,
-          tenders: data.tenders,
-          results_count: data.results_count,
-          url: url
-        });
-        // history.pushState({ url: url }, '', url.replace('/api/v1',''));
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.notifyError(window.location.href,'getTenders', err.toString());
-        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
-      }.bind(this),
-      complete: function(xhr, status){
-        Tengence.ReactFunctions.stopLoading();
-      }.bind(this)
-    });
+    Tengence.ReactFunctions.getTenders(this, url, query, keywords);
   },
   unwatchTender: function(ref_no) {
     Tengence.ReactFunctions.unwatchTender(this,ref_no);

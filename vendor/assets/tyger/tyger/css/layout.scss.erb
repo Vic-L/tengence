@@ -79,7 +79,7 @@ section {
 
 section.dark {
 	background: image-url('tyger/img/black_lozenge.png') #212121;
-	padding: 50px 0px;
+	// padding: 50px 0px;
 	position:relative;
 	z-index:10;
 }
@@ -318,6 +318,7 @@ a.slider-link:hover {
 	background-repeat: no-repeat !important;
 	background-size: cover !important;
 	padding: 0;
+	position: relative;
 }
 
 .overlay {
@@ -332,22 +333,29 @@ a.slider-link:hover {
 }
 
 .bg1 {
-	background: image-url('tyger/img/slider/placeholder1.jpg');
+	background-image: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/home/bg1.jpeg");
 }
 
 .bg2 {
-	background: image-url('tyger/img/slider/placeholder2.jpg');
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/home/bg2.jpg");
 }
 
 .bg3 {
-	// background: image-url('tyger/img/slider/placeholder3.jpg');
-	// background: image-url('home_bg.jpg');
-	background: #386ec4;
-	background-position: center;
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/home/bg3.jpg");
+}
+
+
+.bg4 {
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/home/bg4.jpg");
+}
+
+.bg5 {
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/home/bg5.jpg");
 }
 
 .testimonial {
-	background: image-url('tyger/img/slider/placeholder_parallax.jpg') rgba(0,0,0,0);
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/home/bg1.jpeg") rgba(0,0,0,0);
+	background-size: cover !important;
 }
 #main-slider .owl-theme .owl-controls{
 	margin-top: 10px;
@@ -570,7 +578,7 @@ div.service .cbp-item-wrapper {
 	overflow: hidden;
 	position: relative;
 	width:100%;
-	border: 1px solid #eceaea;
+	// border: 1px solid #eceaea;
 	text-align: center;
 	padding: 10px 40px;
 	color:#fff;
@@ -600,7 +608,7 @@ div.service .cbp-item-wrapper {
 	position: relative;
 	bottom: -10px;
 	color: #212121;
-	font-size: 42px;
+	font-size: 70px;
 }
 
 .service h5 {

@@ -227,54 +227,54 @@ jQuery(document).ready(function($){
 		intro.css('opacity', (1 - current_top/intro_height*1.2));
 	});
 
-	// $("#slider").owlCarousel({
-	// 	transitionStyle: "fade",
-	// 	slideSpeed: 350,
-	// 	singleItem: true,
-	// 	autoHeight: true,
-	// 	pagination: true,
-	// 	autoPlay: 5000,
-	// 	navigation: false,
-	// 	afterMove: function(){
-	// 		$('[data-caption-animate]').each(function(){
-	// 			var $toAnimateElement = $(this);
-	// 			var toAnimateDelay = $(this).attr('data-caption-delay');
-	// 			var toAnimateDelayTime = 0;
-	// 			if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 750; } else { toAnimateDelayTime = 750; }
-	// 			if( !$toAnimateElement.hasClass('animated') ) {
-	// 				$toAnimateElement.addClass('not-animated');
-	// 				var elementAnimation = $toAnimateElement.attr('data-caption-animate');
-	// 				setTimeout(function() {
-	// 					$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
-	// 				}, toAnimateDelayTime);
-	// 			}
-	// 		});
-	// 	}, 
+	$("#slider").owlCarousel({
+		transitionStyle: "fade",
+		slideSpeed: 350,
+		singleItem: true,
+		autoHeight: true,
+		pagination: true,
+		autoPlay: 5000,
+		navigation: false,
+		afterMove: function(){
+			$('[data-caption-animate]').each(function(){
+				var $toAnimateElement = $(this);
+				var toAnimateDelay = $(this).attr('data-caption-delay');
+				var toAnimateDelayTime = 0;
+				if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 750; } else { toAnimateDelayTime = 750; }
+				if( !$toAnimateElement.hasClass('animated') ) {
+					$toAnimateElement.addClass('not-animated');
+					var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+					setTimeout(function() {
+						$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
+					}, toAnimateDelayTime);
+				}
+			});
+		}, 
 
-	// 	beforeMove: function(){
-	// 		$('[data-caption-animate]').each(function(){
-	// 			var $toAnimateElement = $(this);
-	// 			var elementAnimation = $toAnimateElement.attr('data-caption-animate');
-	// 			$toAnimateElement.removeClass('animated').removeClass(elementAnimation).addClass('not-animated');
-	// 		});
-	// 	},
+		beforeMove: function(){
+			$('[data-caption-animate]').each(function(){
+				var $toAnimateElement = $(this);
+				var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+				$toAnimateElement.removeClass('animated').removeClass(elementAnimation).addClass('not-animated');
+			});
+		},
 
-	// 	afterAction: function(){
-	// 		$('[data-caption-animate]').each(function(){
-	// 			var $toAnimateElement = $(this);
-	// 			var toAnimateDelay = $(this).attr('data-caption-delay');
-	// 			var toAnimateDelayTime = 0;
-	// 			if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 300; } else { toAnimateDelayTime = 300; }
-	// 			if( !$toAnimateElement.hasClass('animated') ) {
-	// 				$toAnimateElement.addClass('not-animated');
-	// 				var elementAnimation = $toAnimateElement.attr('data-caption-animate');
-	// 				setTimeout(function() {
-	// 					$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
-	// 				}, toAnimateDelayTime);
-	// 			}
-	// 		});
-	// 	}
-	// });
+		afterAction: function(){
+			$('[data-caption-animate]').each(function(){
+				var $toAnimateElement = $(this);
+				var toAnimateDelay = $(this).attr('data-caption-delay');
+				var toAnimateDelayTime = 0;
+				if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 300; } else { toAnimateDelayTime = 300; }
+				if( !$toAnimateElement.hasClass('animated') ) {
+					$toAnimateElement.addClass('not-animated');
+					var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+					setTimeout(function() {
+						$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
+					}, toAnimateDelayTime);
+				}
+			});
+		}
+	});
 
 
 

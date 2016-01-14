@@ -1,6 +1,7 @@
 %section#main-slider
   #slider
-    .slider-cont.parallax-background.bg3
+    .slider-cont.parallax-background.bg1
+      .bg-overlay
       .slider-caption.slider-caption-center
         %h2{"data-caption-animate" => "fadeInUp"}
           -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
@@ -8,6 +9,42 @@
           -# %span.color= link_to "Login", new_user_session_path
           %span We Track Tenders
         %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} To bring you business opportunities
+    .slider-cont.parallax-background.bg2
+      .bg-overlay
+      .slider-caption.slider-caption-center
+        %h2{"data-caption-animate" => "fadeInUp"}
+          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
+          -# or
+          -# %span.color= link_to "Login", new_user_session_path
+          %span Get Email Alerts
+        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Receive email alerts for potential business leads
+    .slider-cont.parallax-background.bg3
+      .bg-overlay
+      .slider-caption.slider-caption-center
+        %h2{"data-caption-animate" => "fadeInUp"}
+          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
+          -# or
+          -# %span.color= link_to "Login", new_user_session_path
+          %span Exclusive Tenders
+        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders Tracked and Counting
+    .slider-cont.parallax-background.bg4
+      .bg-overlay
+      .slider-caption.slider-caption-center
+        %h2{"data-caption-animate" => "fadeInUp"}
+          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
+          -# or
+          -# %span.color= link_to "Login", new_user_session_path
+          %span 62
+        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders Sources Tracked and Counting
+    .slider-cont.parallax-background.bg5
+      .bg-overlay
+      .slider-caption.slider-caption-center
+        %h2{"data-caption-animate" => "fadeInUp"}
+          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
+          -# or
+          -# %span.color= link_to "Login", new_user_session_path
+          %span Stay Informed
+        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Never missed any more tenders
 
 %section#how-it-works
   .row
@@ -22,24 +59,46 @@
   .row
     .medium-12.columns
       #services-container.cbp-l-grid-gallery
-        .cbp-item.service
-          = fa_icon('binoculars', class: 'icon')
-          %h5 Track
-          %p We Track Opportunities from >60 Sources in Singapore
-        .cbp-item.service
-          = fa_icon('envelope', class: 'icon')
-          %h5 Alerts
-          %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
-        .cbp-item.service
-          = fa_icon('eye', class: 'icon')
-          %h5 Watch
-          %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
-        .cbp-item.service
-          = fa_icon('globe', class: 'icon')
-          %h5 Never Lose Out
-          %p Be Updated and Never Miss Out Another Tender
+        %a.cbp-item.service{href: '#contacts'}
+          .animated{data: {animate_delay: '0', animate: 'fadeInLeft'}}
+            = fa_icon('binoculars', class: 'icon')
+            %h3 Track
+            %p We Track Opportunities from >60 Sources in Singapore
+        %a.cbp-item.service{href: '#contacts'}
+          .animated{data: {animate_delay: '0', animate: 'fadeInRight'}}
+            = fa_icon('envelope', class: 'icon')
+            %h3 Alerts
+            %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
+        %a.cbp-item.service{href: '#contacts'}
+          .animated{data: {animate_delay: '0', animate: 'fadeInLeft'}}
+            = fa_icon('eye', class: 'icon')
+            %h3 Watch
+            %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
+        %a.cbp-item.service{href: '#contacts'}
+          .animated{data: {animate_delay: '0', animate: 'fadeInRight'}}
+            = fa_icon('globe', class: 'icon')
+            %h3 Never Lose Out
+            %p Be Updated and Never Miss Out Another Tender
 
-%section#sources-and-counting
+%section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
+  .bg-overlay
+  .row
+    .medium-6.columns.medium-centered.text-center
+      #testimonial-slider
+        .subtitle.white
+          %h2.white 5 Stars
+          %p Tengence really helped me save time and resources.
+          %cite Isaac Asimov
+        .subtitle.white
+          %h2.white Very Worth It
+          %p My business has grown ever since we joined Tengence.
+          %cite H.P. Lovecraft
+        .subtitle.white
+          %h2.white Smoke something out here
+          %p Responsive functionality that can be adapted to any screen size.
+          %cite Norman Bates
+
+%section#sources-and-counting.dark
   .row
     .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
       .title-section
@@ -48,8 +107,8 @@
     .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
       .section-desc
         %h4
-          %strong Number of sources tracked (and counting)
-        %p We are working on adding new tender sources daily so as to bring you more business leads.
+          %strong.white Number of sources tracked (and counting)
+        %p.white We are working on adding new tender sources daily so as to bring you more business leads.
 
 %section#contacts
   .row
@@ -225,23 +284,6 @@
 -#           .number-detail
 -#             .number
 -#             %h3 Projects Finished
--#   %section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
--#     .overlay
--#     .row
--#       .medium-6.columns.medium-centered.text-center
--#         #testimonial-slider
--#           .subtitle.white
--#             %h2.white Beautifully, Flexible
--#             %p Looks beautiful & ultra-sharp on Retina Screen Displays.
--#             %cite Isaac Asimov
--#           .subtitle.white
--#             %h2.white Ready for Customizations
--#             %p Powerful Layout with easy grid to customize
--#             %cite H.P. Lovecraft
--#           .subtitle.white
--#             %h2.white Based on Foundation 5
--#             %p Responsive functionality that can be adapted to any screen size.
--#             %cite Norman Bates
 -#   %section.dark
 -#     .subtitle.white
 -#       %h2.white

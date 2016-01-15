@@ -42,7 +42,7 @@ var ShowTender = React.createClass({
     if (this.props.tender.documents[0] != null) {
       var documentRows = [];
       for (var i=0;i<this.props.tender.documents.length;i++) {
-        documentRows.push(<a href={this.props.tender.documents[i].url}>{this.props.tender.documents[i].original_filename + ' (' + filesize(this.props.tender.documents[i].upload_size) + ')'}</a>);
+        documentRows.push(<a target='_blank' href={this.props.tender.documents[i].url}>{this.props.tender.documents[i].original_filename + ' (' + filesize(this.props.tender.documents[i].upload_size) + ')'}</a>);
       }
       leftRows.push(<div className='row'>
         <div className='small-12 column'>

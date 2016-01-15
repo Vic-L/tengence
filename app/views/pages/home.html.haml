@@ -64,17 +64,17 @@
             = fa_icon('binoculars', class: 'icon')
             %h3 Track
             %p We Track Opportunities from >60 Sources in Singapore
-        %a.cbp-item.service{href: '#contacts'}
+        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
           .animated{data: {animate_delay: '0', animate: 'fadeInRight'}}
             = fa_icon('envelope', class: 'icon')
             %h3 Alerts
             %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
-        %a.cbp-item.service{href: '#contacts'}
+        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
           .animated{data: {animate_delay: '0', animate: 'fadeInLeft'}}
             = fa_icon('eye', class: 'icon')
             %h3 Watch
             %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
-        %a.cbp-item.service{href: '#contacts'}
+        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
           .animated{data: {animate_delay: '0', animate: 'fadeInRight'}}
             = fa_icon('globe', class: 'icon')
             %h3 Never Lose Out
@@ -83,7 +83,7 @@
 %section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
   .bg-overlay
   .row
-    .medium-6.columns.medium-centered.text-center
+    .medium-8.columns.medium-centered.text-center
       #testimonial-slider
         .subtitle.white
           %h2.white 5 Stars
@@ -111,14 +111,14 @@
         %p We are working on adding new tender sources daily so as to bring you more business leads.
   .row
     .small-12.columns
-      %p.recommendation Have a tender source that is not on the list that you would like us to track? <a href='#contacts'>Let us know</a>!
+      %p.recommendation Have a tender source that is not on the list that you would like us to track? <a onClick="Tengence.HomePage.scrollTo('contacts')">Let us know</a>!
   .row
     .small-12.columns
       %ul.accordion#tender-sources-accordion{"data-accordion" => "TenderSources"}
         %li.accordion-navigation.active
           %a{:href => "#tender-sources-list"}
-            %span#hide-all Hide All
-            %span#show-all Show All
+            %span#hide-all Hide All Tender Sources
+            %span#show-all Show All Tender Sources
           #tender-sources-list.content.active
             %ul
               %li https://www.gebiz.gov.sg
@@ -183,7 +183,9 @@
   .row
     .small-12.columns
       %br
-      %p.recommendation Have a tender source that is not on the list that you would like us to track? <a href='#contacts'>Let us know</a>!
+      %p.recommendation Have a tender source that is not on the list that you would like us to track? <a onClick="Tengence.HomePage.scrollTo('contacts')">Let us know</a>!
+
+= react_component 'Demo', {url: api_v1_current_tenders_path}
 
 %section#contacts
   .row
@@ -194,7 +196,7 @@
     .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
       .section-desc
         %h4
-          %strong Find out how you can join our platform!
+          %strong Talk to us. We are all ears.
   .row
     #message
     = form_tag '/contact_us_email', remote: true, id: 'contactform' do
@@ -206,6 +208,11 @@
         = text_area_tag "comments", nil, placeholder: "Message"
       .small-12.columns.text-center
         %button#submit{:type => "submit"} SEND
+
+#view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
+#register-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
+  = render partial: 'pages/register'
+
 -# #wrapper
 -#   %section#about
 -#     .row

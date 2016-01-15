@@ -1,9 +1,9 @@
 Tengence.ReactFunctions.showLoading = ->
-  $('section#tender-results').addClass('blur')
+  $('#tender-results').addClass('blur')
   document.body.classList.add('loading')
 
 Tengence.ReactFunctions.stopLoading = ->
-  $('section#tender-results').removeClass('blur')
+  $('#tender-results').removeClass('blur')
   document.body.classList.remove('loading')
 
 Tengence.ReactFunctions.notifyError = (url, method, error) ->

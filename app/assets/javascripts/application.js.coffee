@@ -33,3 +33,4 @@
 
 window.Tengence ||= {}
 Tengence.ReactFunctions ||= {}
+Tengence.HomePage ||= {}

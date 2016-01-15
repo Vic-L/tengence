@@ -42,7 +42,7 @@ var TendersPagination = React.createClass({
     }
     return (
       <div className='row'>
-        <div className='small-12 column text-right'>
+        <div className='small-12 column text-right tender-pagination'>
           <nav className="pagination">
             {links}
           </nav>| Total Tenders:

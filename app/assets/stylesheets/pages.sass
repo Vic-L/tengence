@@ -73,6 +73,25 @@
     section#sources-and-counting
       .title-section
         margin-bottom: 0
+      p.recommendation
+        font-style: italic
+      #tender-sources-accordion
+        &>.accordion-navigation
+          &.active
+            span#hide-all
+              display: block
+            span#show-all
+              display: none
+          &:not(.active)
+            a
+              color: black
+              &:hover
+                color: #386ec4
+            span#hide-all
+              display: none
+            span#show-all
+              display: block
+
     section#contacts
       .title-section
         margin-bottom: 0

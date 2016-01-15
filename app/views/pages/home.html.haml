@@ -59,7 +59,7 @@
   .row
     .medium-12.columns
       #services-container.cbp-l-grid-gallery
-        %a.cbp-item.service{href: '#contacts'}
+        %a.cbp-item.service{href: '#sources-and-counting'}
           .animated{data: {animate_delay: '0', animate: 'fadeInLeft'}}
             = fa_icon('binoculars', class: 'icon')
             %h3 Track
@@ -98,7 +98,7 @@
           %p Responsive functionality that can be adapted to any screen size.
           %cite Norman Bates
 
-%section#sources-and-counting.dark
+%section#sources-and-counting
   .row
     .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
       .title-section
@@ -107,8 +107,83 @@
     .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
       .section-desc
         %h4
-          %strong.white Number of sources tracked (and counting)
-        %p.white We are working on adding new tender sources daily so as to bring you more business leads.
+          %strong Number of sources tracked (and counting)
+        %p We are working on adding new tender sources daily so as to bring you more business leads.
+  .row
+    .small-12.columns
+      %p.recommendation Have a tender source that is not on the list that you would like us to track? <a href='#contacts'>Let us know</a>!
+  .row
+    .small-12.columns
+      %ul.accordion#tender-sources-accordion{"data-accordion" => "TenderSources"}
+        %li.accordion-navigation.active
+          %a{:href => "#tender-sources-list"}
+            %span#hide-all Hide All
+            %span#show-all Show All
+          #tender-sources-list.content.active
+            %ul
+              %li https://www.gebiz.gov.sg
+              %li https://hcisingapore.gov.in/pages.php?id=6
+              %li http://www.singaporepools.com.sg/en/tnq/Pages/quotations.aspx
+              %li http://www.singaporepools.com.sg/en/tnq/Pages/tendernotice.aspx
+              %li https://www.sats.com.sg/Tenders/Pages/Tenders.aspx
+              %li https://sg.sesami.net/nhg/businessOpportunities.jsp
+              %li https://sg.sesami.net/cag/businessOpportunities.jsp#
+              %li https://sg.sesami.net/sp/businessOpportunities.jsp
+              %li https://sg.sesami.net/ste/gtprfqlist.jsp?frmPg=Login.jsp&docType=Tender
+              %li https://sg.sesami.net/sia/gtprfqlist.jsp?frmPg=GlobalTradingPostLDAP.jsp
+              %li https://www.sac.gov.sg/announcements/tenders
+              %li http://www.turfclub.com.sg/Corporate/Pages/ITQ.aspx
+              %li http://www.turfclub.com.sg/Corporate/Pages/TenderNotices.aspx
+              %li http://www.sutd.edu.sg/procurement.aspx
+              %li http://www.mohh.com.sg/tenders.html
+              %li https://www.sota.edu.sg/procurement
+              %li http://www.singaporecancersociety.org.sg/SCSTenders.aspx
+              %li https://mybusiness.singtel.com/trading-board
+              %li http://www.ahtc.sg/tender-advertisements/
+              %li http://www.emservices.com.sg/em/tenders-advertisements.aspx
+              %li http://www.btptc.org.sg/Tender/Tender.htm
+              %li http://www.smrt.com.sg/Doing-Business-with-Us/Procurement/Tender-Notice
+              %li http://www.redcross.org.sg/articles/tender
+              %li http://www.mptc.org.sg/index.php/webtender/tender_advertisement/1
+              %li https://www.uwcsea.edu.sg/purchasing
+              %li http://www.tuaspower.com.sg/tender-notice/index.aspx
+              %li https://www.singaporepsa.com/port-users/tender-notices/14-port-services
+              %li https://srm.singaporepower.com.sg/irj/portal/anonymous
+              %li http://www.mediacorp.sg/corporate-en/tendernotices
+              %li http://www.nkfs.org/about-nkf/tender/invitation-to-tender/
+              %li http://www.nkfs.org/about-nkf/tender/invitation-to-quote/
+              %li https://www.sgnic.sg/tenderarchive
+              %li https://service.ariba.com/Discovery.aw/128481036/aw?awh=r&awssk=AFztUy.2&awrdt=1#b0
+              %li https://www.nhcs.com.sg/aboutnhc/tendersrfp/Pages/ITQ.aspx
+              %li https://www.nhcs.com.sg/ABOUTNHC/TENDERSRFP/Pages/Tender.aspx
+              %li http://www.sas.edu.sg/page.cfm?p=1228
+              %li http://isca.org.sg/procurement/
+              %li https://www.nationalgallery.sg/about/about-the-gallery/business-opportunities/current-tender-notices
+              %li https://www.singaporeartmuseum.sg/about/tender_quotes.html
+              %li http://www.sportsschool.edu.sg/GeneralPageDetails.aspx?id=100
+              %li https://www.theartshouse.sg/about-us/business-opportunities/
+              %li http://www.ntfgh.com.sg/JurongHealth/Procurement/Tenders.aspx
+              %li http://www.ntfgh.com.sg/JurongHealth/Procurement/ITQs.aspx
+              %li http://www.spd.org.sg/rfp
+              %li http://dramacentre.com/business-opportunities.html
+              %li http://info.singtel.com/about-us/tenders
+              %li http://gpo.nhg.singhealth.com.sg/tender/gpo/pub/Users/GRFP.asp?Inst_name=MM&Status=Guser
+              %li http://singapore.usembassy.gov/contracting_opportunities.html
+              %li https://www.ihis.com.sg/tenderandrfp/Pages/tenders-and-rfp.aspx
+              %li http://www.philippine-embassy.org.sg/invitation-to-bid-2/
+              %li http://home.ezlink.com.sg/rfp
+              %li http://iits.smu.edu.sg/tender
+              %li https://www.ggspl.com/tenders/
+              %li http://www.senokoenergy.com/tender-notices
+              %li http://www.psamarine.com/tenders.htm
+              %li http://www.singaporecruise.com.sg/index.php/business/tender-notices/
+              %li http://www.apec.org/Projects/Tenders-and-RFPs.aspx
+              %li http://www.renci.org.sg/noticestenders/
+              %li http://app.cias.com.sg/tender.asp
+  .row
+    .small-12.columns
+      %br
+      %p.recommendation Have a tender source that is not on the list that you would like us to track? <a href='#contacts'>Let us know</a>!
 
 %section#contacts
   .row

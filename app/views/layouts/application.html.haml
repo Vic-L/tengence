@@ -9,6 +9,7 @@
     %link{:href => "https://fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed:700,400", :rel => "stylesheet", :type => "text/css"}
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
+    %script{:src => "https://www.google.com/recaptcha/api.js"}
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
     

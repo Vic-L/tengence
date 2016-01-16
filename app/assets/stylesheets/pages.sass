@@ -78,14 +78,6 @@
         position: relative
         .bg-overlay
           display: none
-          .ghost-block
-            height: 100%
-            &:before
-              content: ''
-              display: inline-block
-              height: 100%
-              vertical-align: middle
-              // margin-right: -0.25em /* Adjusts for spacing */
           .fa-search-plus
             margin: auto
             display: inline-block
@@ -96,6 +88,18 @@
           cursor: pointer
           .bg-overlay
             display: block
+      .g-recaptcha
+        margin-bottom: 16px
+        div
+          margin: auto
+      #demo-email-form
+        display: inline-block
+        vertical-align: middle
+        fieldset
+          border: 0
+      #email-demo-submitted-button
+        display: none
+        background-color: #44cc9b
 
     section#sources-and-counting
       .title-section

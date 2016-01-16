@@ -51,6 +51,7 @@ html,body {
 
 .ghost-block {
   height: 100%;
+  white-space: nowrap;
   &:before {
     content: '';
     display: inline-block;

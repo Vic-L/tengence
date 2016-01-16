@@ -188,6 +188,10 @@
         = form_tag api_v1_demo_email_path, id:'demo-email-form', remote: true do
           %fieldset
             = email_field_tag 'demo_email'
+            = check_box_tag 'agree', '1', false
+            %span#agree-notice By requesting this demo email, you agree to sign up for Tengence's newsletter.
+            %br
+            %br
             .text-center
               .g-recaptcha{"data-sitekey" => "6LfSgRUTAAAAAC9gv7LrOBb9Fr50HCPqlqUSCz1_"}
             = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button', type: 'submit', data: {disable_with: 'Processing'}  
@@ -260,12 +264,18 @@
         'demo_email': {
           required: true,
           email: true
+        },
+        'agree': {
+          required: true
         }
       },
       messages: {
         'demo_email': {
           required: 'Please enter your email',
           email: 'Please enter a valid email'
+        },
+        'agree': {
+          required: "Please acknowledge this checkbox"
         }
       }
     })

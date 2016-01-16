@@ -59,6 +59,8 @@
         padding: 15px
         .cbp-item-wrapper
           margin: 30px 0
+          p
+            margin: 0
         .icon
           margin-bottom: 40px
           color: #386ec4
@@ -71,31 +73,67 @@
           p
             color: white
 
-    section#demo
-      .tender-pagination
-        color: white
+    section#email
+      #sample-email-container
+        position: relative
+        .bg-overlay
+          display: none
+          .ghost-block
+            height: 100%
+            &:before
+              content: ''
+              display: inline-block
+              height: 100%
+              vertical-align: middle
+              // margin-right: -0.25em /* Adjusts for spacing */
+          .fa-search-plus
+            margin: auto
+            display: inline-block
+            vertical-align: middle
+            font-size: 50px
+            color: white
+        &:hover
+          cursor: pointer
+          .bg-overlay
+            display: block
 
     section#sources-and-counting
       .title-section
         margin-bottom: 0
       p.recommendation
         font-style: italic
-      #tender-sources-accordion
-        &>.accordion-navigation
-          &.active
-            span#hide-all
-              display: block
-            span#show-all
-              display: none
-          &:not(.active)
-            a
-              color: black
-              &:hover
-                color: #386ec4
-            span#hide-all
-              display: none
-            span#show-all
-              display: block
+      .remainder-tender-source,
+      #show-all,
+      #hide-all
+        display: none
+        &.active
+          display: inline-block
+      #show-all,
+      #hide-all
+        margin: 16px auto
+
+      ul
+        margin: 0
+        list-style-type: none
+        border: solid 1px #eceaea
+        padding: 0 16px
+
+      // #tender-sources-accordion
+      //   &>.accordion-navigation
+      //     &.active
+      //       span#hide-all
+      //         display: block
+      //       span#show-all
+      //         display: none
+      //     &:not(.active)
+      //       a
+      //         color: black
+      //         &:hover
+      //           color: #386ec4
+      //       span#hide-all
+      //         display: none
+      //       span#show-all
+      //         display: block
 
     section#contacts
       .title-section

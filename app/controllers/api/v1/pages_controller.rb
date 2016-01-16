@@ -11,6 +11,12 @@ module Api
         NotifyViaSlack.call(content: "<@vic-l> ERROR\r\n#{content.join("\r\n")}")
         render :json => { :success => true }
       end
+
+      def demo_email
+        NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{params[:demo_email]} requested demo email")
+        AlertsMailer.demo_email(params[:demo_email]).deliver_later
+        render js: "alert('A demo email has been sent to #{params[:demo_email]}')"
+      end
     end
   end
 end

@@ -29,4 +29,14 @@ class AlertsMailer < ApplicationMailer
     mail(to: @user.email, subject: @subject)
       # , :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
   end
+
+  def demo_email email
+    ref_nos_array = CurrentTender.gebiz.first.ref_no, CurrentTender.non_gebiz.first.ref_no
+    tenders = Tender.where(ref_no: ref_nos_array)
+    @gebiz_tenders = tenders.gebiz
+    @non_gebiz_tenders = tenders.non_gebiz
+    @email = email
+    @subject = "[Tengence] Demo Email"
+    mail(to: @email, subject: @subject)
+  end
 end

@@ -15,9 +15,9 @@ class GetDemoTenders
 
         eval("@tenders = #{table}.where(ref_no: results_ref_nos)")
         @results_count = @tenders.count
-        @tenders = @tenders.page(params['page']).per(50)
+        @tenders = @tenders.page(params['page']).per(10)
       else
-        eval("@tenders = #{table}.page(params['page']).per(50)")
+        eval("@tenders = #{table}.page(params['page']).per(10)")
         eval("@results_count = #{table}.count")
       end
 

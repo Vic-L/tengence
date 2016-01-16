@@ -10,12 +10,12 @@ var Demo = React.createClass({
   },
   render: function(){
     return (
-      <section id='demo' className='dark'>
+      <section id='demo'>
         <div className="row">
-          <div className="subtitle white">
-            <h2 className="white">Demo<span className="color">.</span></h2>
-            <p className="white">Get a feel for what Tengence has to offer.</p>
-            <p className="white">Search for currently open tenders in our database based on keywords relevant to your business</p>
+          <div className="subtitle">
+            <h2>Demo<span className="color">.</span></h2>
+            <p>Get a feel for what Tengence has to offer.</p>
+            <p>Search for currently open tenders in our database based on keywords relevant to your business.</p>
           </div>
         </div>
         <TendersSearch getTenders={this.getTenders} url={this.state.url}/>

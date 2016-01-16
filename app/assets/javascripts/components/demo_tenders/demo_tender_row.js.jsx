@@ -4,7 +4,7 @@ var DemoTenderRow = React.createClass({
   },
   render: function() {
     var moreButton;
-    if (this.props.index === 0 || this.props.index%12 === 0) {
+    if (this.props.index === 0) {
       moreButton = <MoreButton refNo={this.props.refNo}/>
     } else {
       moreButton = <a className='button more-button' onClick={this.handleClick} disabled>More</a>;

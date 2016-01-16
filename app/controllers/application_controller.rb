@@ -49,4 +49,11 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+
+    def check_user_keywords
+      if user_signed_in? && current_user.keywords.blank?
+        flash[:info] = "Get started with Tengence by filling in keywords related to your business."
+        redirect_to keywords_tenders_path
+      end
+    end
 end

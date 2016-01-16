@@ -80,25 +80,7 @@
             %h3 Never Lose Out
             %p Be Updated and Never Miss Out Another Tender
 
-%section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
-  .bg-overlay
-  .row
-    .medium-8.columns.medium-centered.text-center
-      #testimonial-slider
-        .subtitle.white
-          %h2.white 5 Stars
-          %p Tengence really helped me save time and resources.
-          %cite Isaac Asimov
-        .subtitle.white
-          %h2.white Very Worth It
-          %p My business has grown ever since we joined Tengence.
-          %cite H.P. Lovecraft
-        .subtitle.white
-          %h2.white Smoke something out here
-          %p Responsive functionality that can be adapted to any screen size.
-          %cite Norman Bates
-
-%section#sources-and-counting
+%section#sources-and-counting.dark
   .row
     .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
       .title-section
@@ -106,13 +88,13 @@
           %strong 62
     .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
       .section-desc
-        %h4
+        %h4.white
           %strong Number of sources tracked (and counting)
-        %p We are working on adding new tender sources daily so as to bring you more business leads.
+        %p.white We are working on adding new tender sources daily so as to bring you more business leads.
   .row
     .small-12.columns
-      %h4 List of Tender Sources
-      %ul
+      %h4.white List of Tender Sources
+      %ul.white
         %li https://www.gebiz.gov.sg
         %li https://hcisingapore.gov.in/pages.php?id=6
         %li http://www.singaporepools.com.sg/en/tnq/Pages/quotations.aspx
@@ -177,7 +159,10 @@
         #hide-all.button Hide Full List
   .row
     .small-12.columns
-      %p.recommendation Have a tender source that is not on the list that you would like us to track? <a onClick="Tengence.HomePage.scrollTo('contacts')">Let us know</a>!
+      %p.white.recommendation Have a tender source that is not on the list that you would like us to track? <a onClick="Tengence.HomePage.scrollTo('contacts')">Let us know</a>!
+
+= react_component 'Demo', {url: api_v1_current_tenders_path}
+
 
 %section#email.dark
   .row
@@ -201,7 +186,23 @@
         = email_field_tag 'demo_email'
         %button.button{type: 'submit'} Send Me a Demo Email
 
-= react_component 'Demo', {url: api_v1_current_tenders_path}
+%section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
+  .bg-overlay
+  .row
+    .medium-8.columns.medium-centered.text-center
+      #testimonial-slider
+        .subtitle.white
+          %h2.white 5 Stars
+          %p Tengence really helped me save time and resources.
+          %cite Isaac Asimov
+        .subtitle.white
+          %h2.white Very Worth It
+          %p My business has grown ever since we joined Tengence.
+          %cite H.P. Lovecraft
+        .subtitle.white
+          %h2.white Smoke something out here
+          %p Responsive functionality that can be adapted to any screen size.
+          %cite Norman Bates
 
 %section#contacts
   .row

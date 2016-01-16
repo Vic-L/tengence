@@ -3,12 +3,12 @@ var DemoTendersResults = React.createClass({
     return (
       <div className='row' id='tender-results'>
         <div className='small-12 column'>
-          <TendersPagination {...this.props} />
+          <DemoTendersPagination {...this.props} />
           <table id='results-table' role='grid'>
             <GenericTendersTableHeader />
             <DemoTendersTableBody {...this.props} />
           </table>
-          <TendersPagination {...this.props} />
+          <DemoTendersPagination {...this.props} />
         </div>
       </div>
     );

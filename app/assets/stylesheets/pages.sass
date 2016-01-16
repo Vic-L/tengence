@@ -49,6 +49,7 @@
       z-index: 2
       left: 0
       right: 0
+
     section#how-it-works
       p
         font-size: 1.2rem
@@ -97,6 +98,9 @@
         vertical-align: middle
         fieldset
           border: 0
+          input:not(:hover):not(:focus),
+          input:hover:not(:focus)
+            color: white
       #email-demo-submitted-button
         display: none
         background-color: #44cc9b
@@ -104,6 +108,9 @@
     section#sources-and-counting
       .title-section
         margin-bottom: 0
+        .sources-count
+          color: #386ec4
+          font-size: 100px
       p.recommendation
         font-style: italic
       .remainder-tender-source,
@@ -122,32 +129,19 @@
         border: solid 1px #eceaea
         padding: 0 16px
 
-      // #tender-sources-accordion
-      //   &>.accordion-navigation
-      //     &.active
-      //       span#hide-all
-      //         display: block
-      //       span#show-all
-      //         display: none
-      //     &:not(.active)
-      //       a
-      //         color: black
-      //         &:hover
-      //           color: #386ec4
-      //       span#hide-all
-      //         display: none
-      //       span#show-all
-      //         display: block
-
     section#contacts
       .title-section
         margin-bottom: 0
       #message
         margin-top: 0
         padding-top: 0
-    .sources-count
-      color: #386ec4
-      font-size: 100px
+    
+    #register-modal
+      #notice
+        color: #ff4444
+      .register-now-button
+        font-size: 30px
+
   &.post_a_tender
     section
       .button

@@ -26,8 +26,8 @@ var DemoTendersPagination = React.createClass({
     var range = this.setPagesRange(pagination.current_page, pagination.total_pages);
     var links = [];
     if (pagination.current_page !== 1) {
-      links.push(<a href='' onClick={this.handleClick}>« First</a>);
-      links.push(<a href='' onClick={this.handleClick}>‹ Prev</a>);
+      links.push(<a href='' className='ga-static-pages' data-gtm-category='' data-gtm-action='pagination first' data-gtm-label='demo' onClick={this.handleClick}>« First</a>);
+      links.push(<a href='' className='ga-static-pages' data-gtm-category='' data-gtm-action='pagination prev' data-gtm-label='demo' onClick={this.handleClick}>‹ Prev</a>);
     }
     if (range.length != 0 && range[0] !== 1) {
       links.push(<span>…</span>); 
@@ -37,15 +37,15 @@ var DemoTendersPagination = React.createClass({
       if (i === 0) {
         links.push(<span>{range[i]}</span>);
       } else {
-        links.push(<a href='' className={current ? 'current_page_' + range[i] : 'page_' + range[i]} onClick={this.handleClick}>{range[i]}</a>);
+        links.push(<a href='' data-gtm-category='' data-gtm-action={'pagination ' + range[i]} data-gtm-label='demo' className={current ? 'current_page_' + range[i] : 'page_' + range[i] + ' ga-static-pages'} onClick={this.handleClick}>{range[i]}</a>);
       }
     }
     if (range.length != 0 && range[range.length - 1] !== pagination.total_pages) {
       links.push(<span>…</span>);
     }
     if (!pagination.last_page) {
-      links.push(<a href='' onClick={this.handleClick}>Next ›</a>);
-      links.push(<a href='' onClick={this.handleClick}>Last »</a>);
+      links.push(<a href='' className='ga-static-pages' data-gtm-category='' data-gtm-action='pagination next' data-gtm-label='demo' onClick={this.handleClick}>Next ›</a>);
+      links.push(<a href='' className='ga-static-pages' data-gtm-category='' data-gtm-action='pagination last' data-gtm-label='demo' onClick={this.handleClick}>Last »</a>);
     }
     return (
       <div className='row'>

@@ -61,22 +61,22 @@
   .row
     .medium-12.columns
       #services-container.cbp-l-grid-gallery
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')"}
+        %a.cbp-item.service.ga-static-pages{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')", data: {gtm_category: '', gtm_action: 'track', gtm_label: "how-it-works"}}
           .animated{data: {animate_delay: '0', animate: 'fadeInLeft'}}
             = fa_icon('binoculars', class: 'icon')
             %h3 Track
             %p We Track Opportunities from >60 Sources in Singapore
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
+        %a.cbp-item.service.ga-static-pages{onClick: "Tengence.HomePage.scrollTo('contacts')", data: {gtm_category: '', gtm_action: 'alerts', gtm_label: "how-it-works"}}
           .animated{data: {animate_delay: '0', animate: 'fadeInRight'}}
             = fa_icon('envelope', class: 'icon')
             %h3 Alerts
             %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
+        %a.cbp-item.service.ga-static-pages{onClick: "Tengence.HomePage.scrollTo('demo')", data: {gtm_category: '', gtm_action: 'watch', gtm_label: "how-it-works"}}
           .animated{data: {animate_delay: '0', animate: 'fadeInLeft'}}
             = fa_icon('eye', class: 'icon')
             %h3 Watch
             %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
+        %a.cbp-item.service.ga-static-pages{onClick: "Tengence.HomePage.scrollTo('demo')", data: {gtm_category: '', gtm_action: 'never lose out', gtm_label: "how-it-works"}}
           .animated{data: {animate_delay: '0', animate: 'fadeInRight'}}
             = fa_icon('globe', class: 'icon')
             %h3 Never Lose Out
@@ -157,14 +157,13 @@
         %li.remainder-tender-source http://www.renci.org.sg/noticestenders/
         %li.remainder-tender-source http://app.cias.com.sg/tender.asp
       .text-center
-        #show-all.button.active Show Full List
-        #hide-all.button Hide Full List
+        #show-all.button.active.ga-static-pages{data: {gtm_category: '', gtm_action: 'show full list', gtm_label: "sources-and-counting"}} Show Full List
+        #hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}} Hide Full List
   .row
     .small-12.columns
-      %p.white.recommendation Have a tender source that is not on the list that you would like us to track? <a onClick="Tengence.HomePage.scrollTo('contacts')">Let us know</a>!
+      %p.white.recommendation Have a tender source that is not on the list that you would like us to track? <a onClick="Tengence.HomePage.scrollTo('contacts')" data-gtm-category='' data-gtm-action='let us know' data-gtm-label='sources-and-counting'>Let us know</a>!
 
 = react_component 'Demo', {url: api_v1_current_tenders_path}
-
 
 %section#email.dark
   .row
@@ -177,7 +176,7 @@
   .row{"data-equalizer" => ''}
     .medium-6.columns.animated.text-center{"data-animate" => "fadeInLeft", "data-animate-delay" => "0", 'data-equalizer-watch' => ''}
       %h5.white Sample email
-      #sample-email-container
+      #sample-email-container{data: {gtm_category: '', gtm_action: 'sample email image', gtm_label: "email"}}
         .bg-overlay
           .ghost-block
             = fa_icon('search-plus')

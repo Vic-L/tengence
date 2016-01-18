@@ -410,7 +410,6 @@ DEPENDENCIES
   factory_girl_rails
   faker (~> 1.5.0)
   fakeredis
-  font-awesome-rails (~> 4.4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
   kaminari (~> 0.16.3)

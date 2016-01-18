@@ -245,6 +245,7 @@
 
 - content_for :javascript do
   :javascript
+    Tengence.HomePage.initHeader();
     $('#sample-email-container').click(function(){
       $('#sample-email-modal').foundation('reveal', 'open');
     });

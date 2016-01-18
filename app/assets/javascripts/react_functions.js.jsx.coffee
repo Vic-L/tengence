@@ -35,7 +35,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
       # history.pushState({ url: url }, '', url.replace('/api/v1',''))
       return
     error: (xhr, status, err) ->
-      Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', err.toString())
+      Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
@@ -55,7 +55,7 @@ Tengence.ReactFunctions.showTender = (ref_no) ->
       $('#view-more-modal').foundation('reveal', 'open')
       return
     error: (xhr, status, err) -> 
-      Tengence.ReactFunctions.notifyError(window.location.href,'showTender', err.toString())
+      Tengence.ReactFunctions.notifyError(window.location.href,'showTender', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
@@ -81,7 +81,7 @@ Tengence.ReactFunctions.watchTender = (parentComponent,ref_no) ->
         return
       return
     error: (xhr, status, err) ->
-      Tengence.ReactFunctions.notifyError(window.location.href,'watchTender', err.toString())
+      Tengence.ReactFunctions.notifyError(window.location.href,'watchTender', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
@@ -111,7 +111,7 @@ Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) ->
       )
       return
     error: (xhr, status, err) ->
-      Tengence.ReactFunctions.notifyError(window.location.href,'unwatchTender', err.toString())
+      Tengence.ReactFunctions.notifyError(window.location.href,'unwatchTender', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
@@ -135,7 +135,7 @@ Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
         keywords)
       return
     error: (xhr, status, err) ->
-      alert(xhr.responseText)
+      alert(xhr.statusText)
       Tengence.ReactFunctions.stopLoading()
       return
 
@@ -153,6 +153,6 @@ Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids) ->
         , parentComponent.state.url.split('page')[0]
         , document.getElementById('query-field').value)
     error: (xhr, status, err) ->
-      Tengence.ReactFunctions.notifyError(window.location.href,'massDestroyTenders', err.toString())
+      Tengence.ReactFunctions.notifyError(window.location.href,'massDestroyTenders', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused. The page will now refresh.")
       window.location.reload()

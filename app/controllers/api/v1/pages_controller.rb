@@ -1,8 +1,7 @@
 module Api
   module V1
-    ### NOTE only api controller not inheriting from ApiController
-    class PagesController < ApplicationController
-      respond_to :json
+    class PagesController < ApiController
+      skip_before_action :deny_non_logged_in_user
 
       def notify_error
         content = ["url: " + params[:url]]

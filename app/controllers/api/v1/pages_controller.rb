@@ -1,5 +1,6 @@
 module Api
   module V1
+    ### NOTE only api controller not inheriting from ApiController
     class PagesController < ApplicationController
       respond_to :json
 
@@ -13,15 +14,6 @@ module Api
       end
 
       def demo_email
-        # url = URI.parse("https://www.google.com/recaptcha/api/siteverify")
-        # data = {secret: "#{ENV['RECAPTCHA_SECRET']}", response: params['g-recaptcha-response']}
-
-        # http = Net::HTTP.new(url.host, url.port)
-        # http.use_ssl = true
-        # req = Net::HTTP::Post.new(url.path, {'Content-Type' =>'application/json'})
-        # req.body = data.to_json
-        # resp = http.request(req)
-
         if params['g-recaptcha-response'].blank?
           render js: "alert('Please complete the captcha')"
         else
@@ -29,13 +21,11 @@ module Api
           AlertsMailer.demo_email(params[:demo_email]).deliver_later
           render js: "$('#email-demo-submitted-button').slideDown();$('#demo-email-form fieldset').slideUp();"
         end
+      end
 
-        # if JSON.parse(resp.body)['success']
-        #   AlertsMailer.demo_email(params[:demo_email]).deliver_later
-        #   render js: "alert('A demo email has been sent to #{params[:demo_email]}')"
-        # else
-        #   render js: "alert('Your email is invalid.')"
-        # end
+      def demo_tenders
+        @tenders, @current_page, @total_pages, @limit_value, @last_page, @watched_tender_ids, @results_count = GetDemoTenders.call(params: params, table: "CurrentTender")
+        respond_with @tenders, template: "/api/v1/tenders/index.json.jbuilder"
       end
     end
   end

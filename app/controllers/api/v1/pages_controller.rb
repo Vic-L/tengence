@@ -7,7 +7,8 @@ module Api
         content = ["url: " + params[:url]]
         content << ["method: " + params[:method]]
         content << ["error: " + params[:error]]
-        content << ["user: " + current_user.email]
+        content << ["user: " + current_user.try(:email)]
+        content << ["user agent: " + request.user_agent]
         NotifyViaSlack.call(content: "<@vic-l> ERROR\r\n#{content.join("\r\n")}")
         render :json => { :success => true }
       end

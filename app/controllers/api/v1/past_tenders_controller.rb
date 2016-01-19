@@ -1,8 +1,6 @@
 module Api
   module V1
-    class PastTendersController < ApplicationController
-      respond_to :json
-
+    class PastTendersController < ApiController
       def index
         @tenders, @current_page, @total_pages, @limit_value, @last_page, @watched_tender_ids, @results_count = GetTenders.call(params: params, table: "PastTender", user: current_user)
 

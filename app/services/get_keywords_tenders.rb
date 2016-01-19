@@ -9,7 +9,7 @@ class GetKeywordsTenders
   def call
     begin
       results_ref_nos = []
-      user.keywords.split(",").each do |keyword|
+      (user.keywords || '').split(",").each do |keyword|
         # get tenders for each keyword belonging to a user
         results = AwsManager.search(keyword: keyword)
         results_ref_nos << results.hits.hit.map do |result|

@@ -4,11 +4,11 @@
       %h1.logo
         - if current_user
           - if current_user.read_only?
-            = link_to 'Tengence', current_tenders_path, title: ''
+            = link_to 'Tengence', current_tenders_path, class: 'ga-tenders', data: {gtm_category:'', gtm_action: 'logo', gtm_label: 'header'}
           - elsif current_user.write_only?
-            = link_to 'Tengence', current_posted_tenders_path, title: ''
+            = link_to 'Tengence', current_posted_tenders_path, class: 'ga-tenders', data: {gtm_category:'', gtm_action: 'logo', gtm_label: 'header'}
         - else
-          = link_to 'Tengence', root_path, title: ''
+          = link_to 'Tengence', root_path, class: 'ga-static-pages', data: {gtm_category:'', gtm_action: 'logo', gtm_label: 'header'}
     .small-6.columns.show-for-small-only.text-right
       .menu-toggle-button{"data-menu-id" => "navigation"}
         %i.icon.tyger-navicon
@@ -28,10 +28,6 @@
               = link_to "Account", edit_user_registration_path
             %li
               = link_to "Logout", destroy_user_session_path, method: :delete
-            -# %li
-            -#   %a{"data-scroll" => "", :href => "#works"} Portfolio
-            -# %li
-            -#   %a{"data-scroll" => "", :href => "#contacts"} Contacts
           - elsif current_user.write_only?
             %li
               = link_to "Post Tender", new_tender_path
@@ -44,15 +40,28 @@
             %li
               = link_to "Logout", destroy_user_session_path, method: :delete
         - else
-          %li
-            = link_to "Login", new_user_session_path
-          %li
-            = link_to "Terms of Services", terms_of_service_path
           - if request.path == root_path
             %li
-              %a{"data-scroll" => "", :href => "#how-it-works"} How It Works
-          %li
-            %a{"data-scroll" => "", :href => "#contacts"} Contacts
+              %a.ga-static-pages{href: "#how-it-works", data: {gtm_category:'', gtm_action: 'how it works', gtm_label: 'header', scroll: ""}} How It Works
+            %li
+              %a.ga-static-pages{href: "#sources-and-counting", data: {gtm_category:'', gtm_action: 'sources', gtm_label: 'header', scroll: ""}} Sources
+            %li
+              %a.ga-static-pages{href: "#demo", data: {gtm_category:'', gtm_action: 'demo', gtm_label: 'header', scroll: ""}} Demo
+            %li
+              %a.ga-static-pages{href: "#email", data: {gtm_category:'', gtm_action: 'emails', gtm_label: 'header', scroll: ""}} Emails
+            %li
+              %a.ga-static-pages{href: "#contacts", data: {gtm_category:'', gtm_action: 'contacts', gtm_label: 'header', scroll: ""}} Contacts
+            %li
+              = link_to "Login", new_user_session_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'login', gtm_label: 'header'}
+            %li
+              = link_to "Sign Up", new_user_registration_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'sign up', gtm_label: 'header'}
+          - else
+            %li
+              = link_to "Login", new_user_session_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'login', gtm_label: 'header'}
+            %li
+              = link_to "Sign Up", new_user_registration_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'sign up', gtm_label: 'header'}
+            %li
+              = link_to "Terms of Services", terms_of_service_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'terms of services', gtm_label: 'header'}
 
 - flash.each do |name, msg|
   .row.flash-row

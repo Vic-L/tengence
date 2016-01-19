@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       resources :keywords_tenders
       resources :tenders
       get 'notify_error', to: 'pages#notify_error'
+      post 'demo_email', to: 'pages#demo_email'
+      get 'demo_tenders', to: 'pages#demo_tenders'
       resources :users do
         collection do
           post 'keywords', to: 'users/keywords#update'

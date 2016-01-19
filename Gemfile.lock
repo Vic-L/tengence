@@ -205,6 +205,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    metamagic (3.1.7)
+      rails (>= 3.0.0)
     method_source (0.8.2)
     mime-types (2.6.2)
     mimemagic (0.3.0)
@@ -408,11 +410,11 @@ DEPENDENCIES
   factory_girl_rails
   faker (~> 1.5.0)
   fakeredis
-  font-awesome-rails (~> 4.4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
   kaminari (~> 0.16.3)
   letter_opener
+  metamagic (~> 3.1.7)
   mysql2 (~> 0.3.20)
   non-stupid-digest-assets (~> 1.0.5)
   paperclip!

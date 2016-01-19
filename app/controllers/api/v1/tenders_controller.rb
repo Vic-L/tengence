@@ -1,7 +1,7 @@
 module Api
   module V1
-    class TendersController < ApplicationController
-      respond_to :json
+    class TendersController < ApiController
+      skip_before_action :deny_non_logged_in_user
 
       def show
         @tender = Tender.find_by(ref_no: params[:id])

@@ -45,7 +45,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
 Tengence.ReactFunctions.showTender = (ref_no) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
-    url: '/api/v1/tenders/' + encodeURIComponent(ref_no)
+    url: '/api/v1/tenders/' + encodeURIComponent(ref_no).replace('.','&2E')
     dataType: 'json'
     method: 'get'
     cache: false
@@ -91,7 +91,7 @@ Tengence.ReactFunctions.watchTender = (parentComponent,ref_no) ->
 Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) -> 
   Tengence.ReactFunctions.showLoading()
   $.ajax
-    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no)
+    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no).replace('.','&2E')
     dataType: 'json'
     method: 'DELETE'
     success: (ref_no) ->

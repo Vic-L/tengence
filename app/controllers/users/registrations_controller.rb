@@ -19,9 +19,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    NotifyViaSlack.call(channel: 'ida-hackathon', content: sign_up_params.map{|k,v| "#{k}: #{v}"}.join("\r\n"))
+    super
+  end
 
   # GET /resource/edit
   # def edit

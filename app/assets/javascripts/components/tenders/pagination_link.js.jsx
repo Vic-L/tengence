@@ -2,17 +2,14 @@ var PaginationLink = React.createClass({
   handleClick: function(e){
     e.preventDefault();
     $('#select_all').prop('checked', false);
-    var link;
-    if (this.props.path.indexOf('?') === -1) {
-      link = this.props.path + '?page=' + this.props.page;
-    } else {
-      link = this.props.path + '&page=' + this.props.page;
-    }
+    var link = new URI(this.props.path);
+    if (link.hasQuery('page')) link.removeQuery('page');
+    link.addQuery('page',this.props.page);
     var searchField = document.getElementById('query-field');
-    if (searchField != null) {
-      this.props.getTenders(link, document.getElementById('query-field').value);
+    if (searchField != null && searchField.value != '') {
+      this.props.getTenders(link.toString(), searchField.value);
     } else {
-      this.props.getTenders(link);
+      this.props.getTenders(link.toString());
     }
   },
   render: function(){

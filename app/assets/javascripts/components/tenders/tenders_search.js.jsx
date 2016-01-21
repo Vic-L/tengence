@@ -1,7 +1,14 @@
 var TendersSearch = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
-    this.props.getTenders(this.props.url.split('?page')[0], document.getElementById('query-field').value);
+    var url = new URI(this.props.url);
+    url = url.removeQuery('page');
+    var searchField = document.getElementById('query-field');
+    if (searchField != null && searchField.value != '') {
+      this.props.getTenders(url.removeQuery('query'), searchField.value);
+    } else {
+      this.props.getTenders(url.removeQuery('query'));
+    }
   },
   render: function(){
     return (

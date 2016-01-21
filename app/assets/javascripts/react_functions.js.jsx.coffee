@@ -16,7 +16,12 @@ Tengence.ReactFunctions.notifyError = (url, method, error) ->
       ,method: method
       ,error: error}
 
+Tengence.ReactFunctions.trackQuery = (url) ->
+  console.log url
+  return
+
 Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
+  # Tengence.ReactFunctions.trackQuery(query)
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: url
@@ -27,12 +32,18 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
     dataType: 'json',
     cache: false,
     success: (data) ->
+      finalUrl = new URI(url)
+      finalUrl = finalUrl.removeQuery('query').removeQuery('keywords')
+      if query?
+        finalUrl.addQuery('query', query)
+      if keywords?
+        finalUrl.addQuery('keywords', query)
+      Tengence.ReactFunctions.trackQuery(finalUrl.toString().replace('/api/v1',''))
       parentComponent.setState(
         {pagination: data.pagination
         ,tenders: data.tenders
         ,results_count: data.results_count
-        ,url: url})
-      # history.pushState({ url: url }, '', url.replace('/api/v1',''))
+        ,url: finalUrl.toString()})
       return
     error: (xhr, status, err) ->
       Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText)

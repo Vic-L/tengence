@@ -1,11 +1,21 @@
 var TenderTabs = React.createClass({ 
   getPastWatchedTenders: function() {
     $('#select_all').prop('checked', false);
-    this.props.getTenders('/api/v1/watched_tenders?table=PastTender', document.getElementById('query-field').value);
+    var searchField = document.getElementById('query-field');
+    if (searchField != null && searchField.value != '') {
+      this.props.getTenders('/api/v1/watched_tenders?table=PastTender', searchField.value);
+    } else {
+      this.props.getTenders('/api/v1/watched_tenders?table=PastTender');
+    }
   },
   getCurrentWatchedTenders: function() {
     $('#select_all').prop('checked', false);
-    this.props.getTenders('/api/v1/watched_tenders?table=CurrentTender', document.getElementById('query-field').value);
+    var searchField = document.getElementById('query-field');
+    if (searchField != null && searchField.value != '') {
+      this.props.getTenders('/api/v1/watched_tenders?table=CurrentTender', searchField.value);
+    } else {
+      this.props.getTenders('/api/v1/watched_tenders?table=CurrentTender');
+    }
   },
   render: function(){
     return (

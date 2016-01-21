@@ -1,6 +1,6 @@
 class PostTenderPage
   include Capybara::DSL
-
+  
   def visit_page
     visit '/tenders/new'
     self

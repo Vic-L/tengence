@@ -751,7 +751,7 @@ $('#contactform').submit(function(){
 
 		$.post(action, {
 			name: $('#name').val(),
-			email: $('#email').val(),
+			email: $('#contact_email').val(),
 			comments: $('#comments').val()
 		},function(data){
 			document.getElementById('message').innerHTML = data;

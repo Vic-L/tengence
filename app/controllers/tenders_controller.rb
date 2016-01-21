@@ -54,7 +54,6 @@ class TendersController < ApplicationController
         :buyer_name,
         :buyer_email,
         :buyer_contact_number,
-        :budget,
         :closing_datetime,
         :postee_id,
         :description,

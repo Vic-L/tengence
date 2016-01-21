@@ -14,7 +14,6 @@ json.tenders do
     json.published_date tender.published_date
     json.description tender.description
     json.long_description tender.long_description
-    json.budget tender.budget
     json.buyer_email tender.buyer_email
     json.buyer_company_name tender.buyer_company_name
     json.watched tender.watched?(@watched_tender_ids)

@@ -17,7 +17,7 @@ feature "post tender", js: true do
       expect(page).to have_content("Name of person of contact is required")
       expect(page).to have_content("Email of person of contact is required")
       expect(page).to have_content("Contact number of the person of contact is required")
-      expect(page).to have_content("Budget range required")
+      expect(page).not_to have_content("Budget range required")
       expect(page).to have_content("Closing date time required")
       expect(page).to have_content("Tender description is required")
     end

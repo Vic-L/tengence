@@ -26,7 +26,6 @@ var ShowTender = React.createClass({
     leftRows.push(<ShowTenderDetail header='Closing Time' body={closingTime} />);
     if (this.props.tender.in_house) {
       leftRows.push(<ShowTenderDetail header='Full Description' body={this.props.tender.long_description.replace(/\n/g,'<br/>')} />);
-      leftRows.push(<ShowTenderDetail header='Budget' body={this.props.tender.budget} />);
     } else {
       var body = '';
       body = "<a href='" + this.props.tender.external_link + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>"

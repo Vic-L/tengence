@@ -28,11 +28,6 @@ class TendersPage
   end
 
   # write only
-  def visit_post_a_tender_page
-    visit '/post-a-tender'
-    self
-  end
-
   def visit_new_tender_page
     visit '/tenders/new'
     self

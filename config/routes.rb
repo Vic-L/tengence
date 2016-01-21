@@ -36,7 +36,6 @@ Rails.application.routes.draw do
   # static pages
   root 'pages#home'
   post 'contact_us_email', to: 'pages#contact_us_email'
-  get 'post-a-tender', to: 'pages#post_a_tender'
   get 'terms-of-service', to: 'pages#terms_of_service'
   get 'refresh_cloudsearch', to: 'pages#refresh_cloudsearch'
 

@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     def deny_write_only_access
       if user_signed_in? && current_user.write_only?
         flash[:alert] = "You are not authorized to view this page."
-        redirect_to post_a_tender_path
+        redirect_to current_posted_tenders_path
       end
     end
 
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
         if current_user.read_only?
           redirect_to current_tenders_path
         elsif current_user.write_only?
-          redirect_to post_a_tender_path
+          redirect_to current_posted_tenders_path
         end
       end
     end

@@ -18,9 +18,9 @@ var ShowTender = React.createClass({
       leftRows.push(<ShowTenderDetail header='Buyer Company Name' body={this.props.tender.buyer_company_name} />);
     }
     leftRows.push(<ShowTenderDetail header='Description' body={this.props.tender.description} />);
-    var publishedDate = strftime('%d %b %Y', new Date(this.props.tender.published_date));
-    var closingDate = strftime('%d %b %Y', new Date(this.props.tender.closing_datetime));
-    var closingTime = strftime('%H:%M %p', new Date(this.props.tender.closing_datetime));
+    var publishedDate = strftime.timezone('+0000')('%d %b %Y', new Date(this.props.tender.published_date));
+    var closingDate = strftime.timezone('+0000')('%d %b %Y', new Date(this.props.tender.closing_datetime));
+    var closingTime = strftime.timezone('+0000')('%H:%M %p', new Date(this.props.tender.closing_datetime));
     leftRows.push(<ShowTenderDetail header='Published Date' body={publishedDate} />);
     leftRows.push(<ShowTenderDetail header='Closing Date' body={closingDate} />);
     leftRows.push(<ShowTenderDetail header='Closing Time' body={closingTime} />);

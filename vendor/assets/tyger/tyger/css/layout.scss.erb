@@ -56,7 +56,7 @@ Preload
 }
 
 #loader {
-	background: image-url('tyger/img/ajax-loader.gif') center center no-repeat;
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/img/ajax-loader.gif") center center no-repeat;
 	height: 20px;
 	width: 20px;
 	left: 50%;
@@ -78,7 +78,7 @@ section {
 }
 
 section.dark {
-	background: /*image-url('tyger/img/black_lozenge.png') */#212121;
+	background: /*url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/img/black_lozenge.png") */#212121;
 	// padding: 50px 0px;
 	position:relative;
 	z-index:10;
@@ -322,7 +322,7 @@ a.slider-link:hover {
 }
 
 .overlay {
-	background-image: image-url("tyger/img/overlay-pattern.png") !important;
+	background-image: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/img/overlay-pattern.png") !important;
 	background-repeat: repeat;
 	height: 100%;
 	left: 0;
@@ -547,7 +547,7 @@ Parallax
 }
 
 .para1 {
-	background: image-url('tyger/img/para1.jpg');
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/img/para1.jpg");
 	/*padding-bottom:0px;*/
 }
 
@@ -1296,14 +1296,14 @@ section#blog {
 }
 
 .blog-header_detail {
-	background: image-url('tyger/img/blog/placeholder_big.jpg') no-repeat center center;
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/img/blog/placeholder_big.jpg") no-repeat center center;
 	min-height: 500px;
 	padding-top: 300px;
 	position:relative;
 }
 
 .blog-header {
-	background: image-url('tyger/img/blog/placeholder_big.jpg') no-repeat center center;
+	background: url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/img/blog/placeholder_big.jpg") no-repeat center center;
 	min-height: 500px;
 	padding-top: 300px;
 	position:relative;

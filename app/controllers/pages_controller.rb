@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!
   before_action :authenticate_current_user, only: [:home]
 
   def home

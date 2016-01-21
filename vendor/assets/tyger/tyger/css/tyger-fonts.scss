@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "tyger";
-  src:url("tyger.eot");
-  src:url("tyger.eot?#iefix") format("embedded-opentype"),
-    url("tyger.woff") format("woff"),
-    url("tyger.ttf") format("truetype"),
-    url("tyger.svg#tyger") format("svg");
+  src:url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/fonts/tyger.eot");
+  src:url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/fonts/tyger.eot?#iefix") format("embedded-opentype"),
+    url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/fonts/tyger.woff") format("woff"),
+    url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/fonts/tyger.ttf") format("truetype"),
+    url("https://<%= ENV['AWS_S3_HOST_NAME'] %>/<%= ENV['AWS_S3_BUCKET'] %>/static_assets/tyger/fonts/tyger.svg#tyger") format("svg");
   font-weight: normal;
   font-style: normal;
 

@@ -6,6 +6,16 @@ class TendersPage
     self
   end
 
+  def visit_terms_of_service_page
+    visit '/terms-of-service'
+    self
+  end
+
+  def visit_account_page
+    visit '/users/edit'
+    self
+  end
+
   # read only
   def visit_current_tenders_page
     visit '/current_tenders'

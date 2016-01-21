@@ -16,6 +16,16 @@ feature "access pages by write_only users" do
       expect(tenders_page.current_path).to eq current_posted_tenders_path
     end
 
+    scenario 'terms-of-service' do
+      tenders_page.visit_terms_of_service_page
+      expect(tenders_page.current_path).to eq terms_of_service_path
+    end
+
+    scenario 'account_page' do
+      tenders_page.visit_account_page
+      expect(tenders_page.current_path).to eq edit_user_registration_path
+    end
+
     scenario 'current_tenders' do
       tenders_page.visit_current_tenders_page
       expect(tenders_page.current_path).to eq current_posted_tenders_path
@@ -67,6 +77,16 @@ feature "access pages by write_only users" do
       tenders_page.visit_home_page
       expect(tenders_page.current_path).to eq current_posted_tenders_path
       expect(tenders_page).not_to have_content 'You are not authorized to view this page.'
+    end
+
+    scenario 'terms-of-service' do
+      tenders_page.visit_terms_of_service_page
+      expect(tenders_page.current_path).to eq terms_of_service_path
+    end
+
+    scenario 'account_page' do
+      tenders_page.visit_account_page
+      expect(tenders_page.current_path).to eq edit_user_registration_path
     end
 
     scenario 'current_tenders' do

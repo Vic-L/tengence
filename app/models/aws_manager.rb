@@ -20,7 +20,7 @@ class AwsManager
         return e.message
       end
     else
-      puts "Upload documents to AWSCloudSearch"
+      puts "Upload documents to AWSCloudSearch - #{Rails.env}"
       return "success"
     end
   end

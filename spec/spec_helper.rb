@@ -46,12 +46,15 @@ RSpec.configure do |config|
 
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
-  config.mock_with :rspec do |mocks|
-    # Prevents you from mocking or stubbing a method that does not exist on
-    # a real object. This is generally recommended, and will default to
-    # `true` in RSpec 4.
-    mocks.verify_partial_doubles = true
-  end
+  # config.mock_with :rspec do |mocks|
+  #   # Prevents you from mocking or stubbing a method that does not exist on
+  #   # a real object. This is generally recommended, and will default to
+  #   # `true` in RSpec 4.
+  #   mocks.verify_partial_doubles = true
+  # end
+
+  # undo database cleaner config; prevent running examples in a transaction
+  config.use_transactional_fixtures = false
 
   # devise
   config.include Warden::Test::Helpers
@@ -68,6 +71,7 @@ RSpec.configure do |config|
   # Database cleaner so devise and js dont board the failbus
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :truncation
   end
   config.before(:each) do
     DatabaseCleaner.start
@@ -83,8 +87,6 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
-  Sidekiq::Testing.inline!
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
@@ -136,3 +138,6 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+Sidekiq::Testing.inline!
+Capybara.wait_on_first_by_default = true

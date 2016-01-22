@@ -38,6 +38,7 @@ p 'create current tenders'
       buyer_name: Faker::Name.name,
       buyer_email: Faker::Internet.email,
       description: Faker::Lorem.sentences(5).join(" "),
+      long_description: Faker::Lorem.sentences(10).join("\r\n"),
       published_date: Faker::Date.between(7.days.ago, Date.today),
       closing_datetime: Faker::Time.between(DateTime.now + 7.days, DateTime.now + 14.days)
     )

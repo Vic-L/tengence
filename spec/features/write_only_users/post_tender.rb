@@ -23,4 +23,15 @@ feature "post tender", js: true, type: :feature do
       expect(page).to have_content("Tender description is required")
     end
   end
+
+  feature "successful" do
+    scenario "without documents" do
+      wait_for_page_load
+      post_tender_page.fill_up_form
+      post_tender_page.press_create_tender_button
+
+      expect(page).to have_content("Tender Created Successfully!")
+      expect(page.current_path).to eq current_posted_tenders_path
+    end
+  end
 end

@@ -5,6 +5,7 @@ var TendersSearch = React.createClass({
     url = url.removeQuery('page');
     var searchField = document.getElementById('query-field');
     if (searchField != null && searchField.value != '') {
+      Tengence.ReactFunctions.trackQuery(searchField.value);
       this.props.getTenders(url.removeQuery('query'), searchField.value);
     } else {
       this.props.getTenders(url.removeQuery('query'));

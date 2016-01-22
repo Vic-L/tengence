@@ -16,10 +16,12 @@ Tengence.ReactFunctions.notifyError = (url, method, error) ->
       ,method: method
       ,error: error}
 
-Tengence.ReactFunctions.trackQuery = (url) ->
-  if ga?
-    ga('send', 'pageview', url);
-    console.log url
+Tengence.ReactFunctions.trackQuery = (query) ->
+  if dataLayer?
+    dataLayer.push
+      'event': 'virtualPageview'
+      'searchQuery': query
+    console.log(query)
   return
 
 Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
@@ -40,7 +42,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
         finalUrl.addQuery('query', query)
       if keywords?
         finalUrl.addQuery('keywords', query)
-      Tengence.ReactFunctions.trackQuery(finalUrl.toString().replace('/api/v1',''))
+
       parentComponent.setState(
         {pagination: data.pagination
         ,tenders: data.tenders

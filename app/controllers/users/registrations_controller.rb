@@ -20,7 +20,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    NotifyViaSlack.call(channel: 'ida-hackathon', content: sign_up_params.map{|k,v| "#{k}: #{v}"}.join("\r\n"))
+    content_hash = sign_up_params
+    content_hash.delete('password')
+    NotifyViaSlack.call(channel: 'ida-hackathon', content: content_hash.map{|k,v| "#{k}: #{v}"}.join("\r\n"))
     super
   end
 

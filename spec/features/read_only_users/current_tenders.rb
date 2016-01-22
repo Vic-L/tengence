@@ -12,14 +12,12 @@ feature 'current_tenders', js: true do
   end
   
   scenario 'should work' do
-    using_wait_time 10 do
-      expect(first('span.total-count').text).to eq '102'
+    expect(current_tenders_page.find_css('span.total-count').first.all_text).to eq '102'
 
-      first_description = first('tbody td').text
+    first_description = current_tenders_page.find_css('tbody td').first.all_text
 
-      first('nav.pagination a:last-child').click
-      second_description = first('tbody td').text
-      expect(second_description).not_to eq first_description
-    end
+    current_tenders_page.find_css('nav.pagination a').last.click
+    second_description = current_tenders_page.find_css('tbody td').first.all_text
+    expect(second_description).not_to eq first_description
   end
 end

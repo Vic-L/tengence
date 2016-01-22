@@ -12,7 +12,7 @@ var ShowTenderDetail = React.createClass({
           </div>
         </div>
         <div className='small-12 column'>
-          <div dangerouslySetInnerHTML={this.rawMarkup()}></div>
+          <div className={this.props.extraClass} dangerouslySetInnerHTML={this.rawMarkup()}></div>
         </div>
       </div>
     )

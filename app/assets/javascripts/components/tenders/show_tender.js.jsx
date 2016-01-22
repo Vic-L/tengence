@@ -29,7 +29,7 @@ var ShowTender = React.createClass({
     } else {
       var body = '';
       body = "<a href='" + this.props.tender.external_link + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>"
-      leftRows.push(<ShowTenderDetail header='Original Link' body={body} />);
+      leftRows.push(<ShowTenderDetail header='Original Link' body={body} extraClass='external-link'/>);
     }
     if (this.props.tender.documents[0] != null) {
       var documentRows = [];
@@ -85,10 +85,10 @@ var ShowTender = React.createClass({
       <div>
         <a aria-label="Close" className="close-reveal-modal">&#215;</a>
         <div className='row'>
-          <div className='small-8 column main'>
+          <div className='medium-8 column main'>
             {this.populateLeftColumn()}
           </div>
-          <div className='small-4 column'>
+          <div className='medium-4 column'>
             {this.populateRightColumn()}
           </div>
         </div>

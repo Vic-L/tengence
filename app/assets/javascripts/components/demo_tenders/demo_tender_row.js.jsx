@@ -12,11 +12,11 @@ var DemoTenderRow = React.createClass({
     return (
       <tr>
         <td>{this.props.description}</td>
-        <td>{this.props.publishedDate}</td>
+        <td className='hide-for-small'>{this.props.publishedDate}</td>
         <td>{this.props.closingDate}</td>
-        <td>{this.props.closingTime}</td>
+        <td className='hide-for-small'>{this.props.closingTime}</td>
         <td>{this.props.buyerCompanyName}</td>
-        <td><a className='button watch-button' onClick={this.handleClick}>Watch</a></td>
+        <td className='hide-for-small'><a className='button watch-button' onClick={this.handleClick}>Watch</a></td>
         <td>{moreButton}</td>
       </tr>
     );

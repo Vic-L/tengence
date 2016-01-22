@@ -17,7 +17,9 @@ Tengence.ReactFunctions.notifyError = (url, method, error) ->
       ,error: error}
 
 Tengence.ReactFunctions.trackQuery = (url) ->
-  console.log url
+  if ga?
+    ga('send', 'pageview', url);
+    console.log url
   return
 
 Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->

@@ -19,9 +19,8 @@ Tengence.ReactFunctions.notifyError = (url, method, error) ->
 Tengence.ReactFunctions.trackQuery = (query) ->
   if dataLayer?
     dataLayer.push
-      'event': 'virtualPageview'
+      'event': 'searchQuery'
       'searchQuery': query
-    console.log(query)
   return
 
 Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->

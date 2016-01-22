@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'current_tenders', js: true do
+feature 'current_tenders', js: true, type: :feature do
   let(:current_tenders_page) { CurrentTendersPage.new }
   let(:read_only_user) {create(:user, :read_only)}
 
@@ -13,11 +13,11 @@ feature 'current_tenders', js: true do
   
   scenario 'should work' do
     expect(current_tenders_page.find_css('span.total-count').first.all_text).to eq '102'
-
     first_description = current_tenders_page.find_css('tbody td').first.all_text
-
     current_tenders_page.find_css('nav.pagination a').last.click
+    wait_for_ajax
     second_description = current_tenders_page.find_css('tbody td').first.all_text
+    
     expect(second_description).not_to eq first_description
   end
 end

@@ -62,6 +62,9 @@ RSpec.configure do |config|
     Warden.test_mode!
   end
 
+  # custom module to handle ajax
+  config.include WaitForAjax, type: :feature
+
   # FactoryGirl Helpers
   config.include FactoryGirl::Syntax::Methods
 

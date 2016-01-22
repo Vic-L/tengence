@@ -23,6 +23,7 @@ module TenderFunctions
     base.class_eval do
       scope :gebiz, -> {where("external_link like '%gebiz.gov%'")}
       scope :non_gebiz, -> {where.not("external_link like '%gebiz.gov%'")}
+      scope :non_inhouse, -> {where.not("ref_no like '%InHouse-%'")}
     end
   end
 

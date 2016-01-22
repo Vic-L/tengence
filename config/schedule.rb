@@ -27,3 +27,7 @@ end
 # every :day, :at => local('7am'), :tz => 'Asia/Singapore' do
 #   rake "emailer:schedule_send_keywords_tenders_emails"
 # end
+
+every :day, :at => local('7am'), :tz => 'Asia/Singapore' do
+  rake "maintenance:cleanup_past_tenders"
+end

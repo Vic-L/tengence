@@ -53,3 +53,15 @@ namespace :deploy do
   end
 
 end
+
+namespace :maintenance do
+  task :cleanup_past_tenders do
+    on roles(:app) do
+      within release_path do
+        with :rails_env => fetch(:rails_env) do
+          execute :rake, "maintenance:cleanup_past_tenders"
+        end
+      end
+    end
+  end
+end

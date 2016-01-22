@@ -7,7 +7,10 @@ class PostTenderPage
   end
 
   def press_create_tender_button
-    binding.pry
-    find('#submit').click
+    find_css('#submit').first.click
+  end
+
+  def find_css selector
+    page.driver.find_css selector
   end
 end

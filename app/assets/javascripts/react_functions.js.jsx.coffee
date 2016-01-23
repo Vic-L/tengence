@@ -24,8 +24,9 @@ Tengence.ReactFunctions.trackQuery = (query) ->
   return
 
 Tengence.ReactFunctions.pushState = (url) ->
-  state = {url: url}
-  history.pushState(state,'',url)
+  if (url.indexOf('demo_tenders') < 0)
+    state = {url: url}
+    history.pushState(state,'',url)
 
 Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
   Tengence.ReactFunctions.showLoading()

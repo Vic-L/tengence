@@ -12,6 +12,8 @@ var TendersSearch = React.createClass({
     }
   },
   render: function(){
+    var uri = new URI(this.props.url), query;
+    if (uri.hasQuery('query')) query = URI.parseQuery(uri.query()).query;
     return (
       <section id="search-field">
         <form onSubmit={this.handleSubmit}>
@@ -26,7 +28,7 @@ var TendersSearch = React.createClass({
               <div className="row">
                 <div className="small-9 medium-10 column">
                   <div className="section-desc">
-                    <input type="text" name="query" id="query-field" placeholder="Search for a keyword" />
+                    <input type="text" name="query" id="query-field" placeholder="Search for a keyword" defaultValue={query}/>
                   </div>
                 </div>
                 <div className="small-3 medium-2 column">

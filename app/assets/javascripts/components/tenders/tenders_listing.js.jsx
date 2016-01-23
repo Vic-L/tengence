@@ -6,10 +6,21 @@ var TendersListing = React.createClass({
     return {tenders: [], pagination: {}, results_count: null, url: this.props.url, keywords: this.props.keywords};
   },
   componentDidMount: function() {
-    this.getTenders(this.state.url, null);
+    this.getTenders(this.state.url);
   },
   getTenders: function(url, query, keywords){
-    Tengence.ReactFunctions.getTenders(this, url, query, keywords);
+    // console.log(url);
+    // console.log(query);
+    // console.log(keywords);
+    var uri = new URI(url);
+    var params = URI.parseQuery(uri.query());
+    var path = new URI(uri.path());
+    if (uri.hasQuery('page')) path.addQuery('page',params.page);
+    if (uri.hasQuery('table')) path.addQuery('table',params.table);
+    var finalQuery,finalKeywords;
+    params.query != null ? finalQuery = params.query : finalQuery = query;
+    params.keywords != null ? finalKeywords = params.keywords : finalKeywords = keywords;
+    Tengence.ReactFunctions.getTenders(this, path.toString(), finalQuery, finalKeywords);
   },
   massDestroyTenders: function(tender_ids){
     Tengence.ReactFunctions.massDestroyTenders(this,tender_ids);
@@ -56,7 +67,7 @@ var TendersListing = React.createClass({
       tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
     }
     if (this.isWatchedTendersPage()){
-      tenderTabs = <TenderTabs getTenders={this.getTenders}/>;
+      tenderTabs = <TenderTabs getTenders={this.getTenders} url={this.state.url} />;
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
       tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
     } else if (this.isKeywordsTendersPage()) {

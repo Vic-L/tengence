@@ -23,8 +23,11 @@ Tengence.ReactFunctions.trackQuery = (query) ->
       'searchQuery': query
   return
 
+Tengence.ReactFunctions.pushState = (url) ->
+  state = {url: url}
+  history.pushState(state,'',url)
+
 Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
-  # Tengence.ReactFunctions.trackQuery(query)
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: url
@@ -40,7 +43,9 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
       if query?
         finalUrl.addQuery('query', query)
       if keywords?
-        finalUrl.addQuery('keywords', query)
+        finalUrl.addQuery('keywords', keywords)
+
+      Tengence.ReactFunctions.pushState(finalUrl.toString().replace('/api/v1',''))
 
       parentComponent.setState(
         {pagination: data.pagination

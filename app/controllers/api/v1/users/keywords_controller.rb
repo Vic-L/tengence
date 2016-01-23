@@ -10,9 +10,11 @@ module Api
             if current_user.save
               render :json => { :success => true }
             else
+              NotifyViaSlack.call(content: "<@vic-l> ERROR updating keywords by #{current_user.email}\r\n#{current_user.errors.full_messages.to_sentence}")
               render json: current_user.errors.full_messages.to_sentence, status: 500
             end
           else
+            NotifyViaSlack.call(content: "<@vic-l> ERROR updating keywords by #{current_user.email}\r\n#{current_user.errors.full_messages.to_sentence}")
             render json: current_user.errors.full_messages.to_sentence, status: 400
           end
         rescue => e

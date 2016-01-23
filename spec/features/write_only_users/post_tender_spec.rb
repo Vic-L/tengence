@@ -24,13 +24,14 @@ feature "post tender", js: true, type: :feature do
     end
   end
 
-  feature "successful" do
+  feature "successfully" do
     scenario "without documents" do
       wait_for_page_load
       post_tender_page.fill_up_form
       post_tender_page.press_create_tender_button
 
       expect(page).to have_content("Tender Created Successfully!")
+      expect(Tender.first.ref_no).to have_content "InHouse-" # this should be model test
       expect(page.current_path).to eq current_posted_tenders_path
     end
   end

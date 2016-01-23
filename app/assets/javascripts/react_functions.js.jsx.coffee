@@ -150,8 +150,8 @@ Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
       parentComponent.setState({keywords: keywords})
       Tengence.ReactFunctions.getTenders(
         parentComponent
-        ,'/api/v1/keywords_tenders'
-        ,'stub_query'
+        '/api/v1/keywords_tenders'
+        null
         keywords)
       return
     error: (xhr, status, err) ->

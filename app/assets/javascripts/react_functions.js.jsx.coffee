@@ -155,7 +155,7 @@ Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
         keywords)
       return
     error: (xhr, status, err) ->
-      alert(xhr.statusText)
+      alert(xhr.responseText)
       Tengence.ReactFunctions.stopLoading()
       return
 

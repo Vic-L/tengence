@@ -13,7 +13,7 @@ module Api
               render json: current_user.errors.full_messages.to_sentence, status: 500
             end
           else
-            render json: current_user.errors.full_messages.to_sentence, status: 500
+            render json: current_user.errors.full_messages.to_sentence, status: 400
           end
         rescue => e
           NotifyViaSlack.call(content: "<@vic-l> ERROR api/v1/users/keywords_controller.rb\r\n#{e.message}\r\n#{e.backtrace.to_s}")

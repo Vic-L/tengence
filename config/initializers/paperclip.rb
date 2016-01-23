@@ -25,7 +25,7 @@ Paperclip::Attachment.default_options.merge!(
 
 if Rails.env.test?
   Paperclip::Attachment.default_options.merge!(
-    :path => "/tmp/paperclip/:uploadable_name/:uploadable_id/:class/:style_:basename_:hash.:extension",
+    :path => "#{Rails.root}/spec/paperclip/test_files/:uploadable_name/:uploadable_id/:class/:style_:basename_:hash.:extension",
     :storage => :filesystem,
     :use_timestamp => false,
   )

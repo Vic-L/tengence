@@ -17,6 +17,7 @@ class TendersController < ApplicationController
       redirect_to current_posted_tenders_path
     else
       flash[:alert] = @tender.errors.full_messages.to_sentence
+      NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> Error uploading tender by #{current_user.email}\r\n#{@tender.errors.full_messages.to_sentence}")
       redirect_to new_tender_path
     end
   end

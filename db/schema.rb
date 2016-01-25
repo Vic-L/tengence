@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151226081841) do
 ActiveRecord::Schema.define(version: 20151228055634) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
@@ -120,6 +119,31 @@ ActiveRecord::Schema.define(version: 20151228055634) do
 
   add_index "tenders", ["ref_no"], name: "index_tenders_on_ref_no", unique: true, using: :btree
 
+  create_table "tenders_backup_20160119", id: false, force: :cascade do |t|
+    t.string   "ref_no",               limit: 255
+    t.string   "buyer_company_name",   limit: 255
+    t.string   "buyer_name",           limit: 255
+    t.string   "buyer_contact_number", limit: 255
+    t.string   "buyer_email",          limit: 255
+    t.text     "description",          limit: 65535
+    t.date     "published_date"
+    t.datetime "closing_datetime"
+    t.string   "external_link",        limit: 2083
+    t.string   "status",               limit: 255,   default: "open"
+    t.string   "category",             limit: 255
+    t.text     "remarks",              limit: 65535
+    t.string   "budget",               limit: 255
+    t.integer  "postee_id",            limit: 4
+    t.text     "long_description",     limit: 65535
+  end
+
+  add_index "tenders_backup_20160119", ["ref_no"], name: "index_tenders_on_ref_no", unique: true, using: :btree
+
+  create_table "tenders_searchBackup", id: false, force: :cascade do |t|
+    t.string "ref_no",      limit: 255
+    t.text   "description", limit: 65535
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                        limit: 255,   default: "",     null: false
     t.string   "encrypted_password",           limit: 255,   default: "",     null: false
@@ -142,12 +166,12 @@ ActiveRecord::Schema.define(version: 20151228055634) do
     t.datetime "updated_at",                                                  null: false
     t.string   "access_level",                 limit: 255,                    null: false
     t.string   "hashed_email",                 limit: 255
-    t.string   "braintree_subscription_id",    limit: 255
-    t.string   "default_payment_method_token", limit: 255
     t.string   "confirmation_token",           limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",            limit: 255
+    t.string   "braintree_subscription_id",    limit: 255
+    t.string   "default_payment_method_token", limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

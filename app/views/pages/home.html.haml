@@ -183,7 +183,7 @@
         .bg-overlay
           .ghost-block.ga-static-pages{data: {gtm_category: '', gtm_action: 'sample email image', gtm_label: "email"}}
             %i.fa.fa-search-plus.ga-static-pages{data: {gtm_category: '', gtm_action: 'sample email icon', gtm_label: "email"}}
-        = image_tag "https://#{ENV['AWS_S3_HOST_NAME']}/#{ENV['AWS_S3_BUCKET']}/static_assets/home/sample_email.jpg", alt: '', id: 'sample-email'
+        = image_tag "home/sample_email.jpg", alt: '', id: 'sample-email'
     .medium-6.columns.animated.text-center{"data-animate" => "fadeInRight", "data-animate-delay" => "0", 'data-equalizer-watch' => ''}
       %h5.white Request a sample email from us
       .ghost-block
@@ -242,7 +242,7 @@
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
 #sample-email-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
   %a.close-reveal-modal{:'aria-label' => "Close"} &#215;
-  = image_tag "https://#{ENV['AWS_S3_HOST_NAME']}/#{ENV['AWS_S3_BUCKET']}/static_assets/home/sample_email.jpg", alt: ''
+  = image_tag "home/sample_email.jpg", alt: ''
 #register-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
   = render partial: 'pages/register'
 

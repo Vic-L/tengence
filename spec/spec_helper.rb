@@ -10,6 +10,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migrator.migrate(File.join(Rails.root, 'db/migrate'))
+# RAILS_ENV=test rake db:drop db:create db:migrate
 
 # set max time
 Capybara.default_max_wait_time = 10

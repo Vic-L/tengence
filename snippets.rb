@@ -22,3 +22,14 @@ Tender.all.each do |tender|
   }
 end; nil
 AwsManager.upload_document array.to_json
+
+# things to run before implementing braintree
+User.all.each do |user|
+  result = Braintree::Customer.create(
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    company: user.company_name
+  )
+  user.update(braintree_customer_id: result.customer.id)
+end

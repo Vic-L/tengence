@@ -6,6 +6,11 @@ FactoryGirl.define do
     password "password"
     confirmed_at Time.now - 2.days
     keywords 'stub'
+
+    after :build do |user|
+      user.class.skip_callback :validation, :before, :create_braintree_customer
+      user.class.skip_callback :destroy, :before, :delete_braintree_customer
+    end
   end
 
   trait :read_only do

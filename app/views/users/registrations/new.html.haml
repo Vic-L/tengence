@@ -1,3 +1,6 @@
+- content_for :head do
+  %link{:href => register_url, :rel => "canonical"}
+  
 #wrapper
   %section
     .row
@@ -34,29 +37,6 @@
         .small-12.medium-6.columns.small-centered.shared-links
           = render "users/shared/links"
 
-  -# %footer
-  -#   .row
-  -#     .medium-12.text-center.columns
-  -#       %h1.logo
-  -#         %a{:href => "index.html", :title => ""} Tyger
-  -#       .medium-4.columns.medium-centered
-  -#         %ul.medium-block-grid-5.small-block-grid-5.social-links
-  -#           %li
-  -#             %a{:href => "#", :title => ""}
-  -#               %i.icon.tyger-skype
-  -#           %li
-  -#             %a{:href => "#", :title => ""}
-  -#               %i.icon.tyger-twitter
-  -#           %li
-  -#             %a{:href => "#", :title => ""}
-  -#               %i.icon.tyger-facebook
-  -#           %li
-  -#             %a{:href => "#", :title => ""}
-  -#               %i.icon.tyger-google-plus
-  -#           %li
-  -#             %a{:href => "#", :title => ""}
-  -#               %i.icon.tyger-pinterest
-  -#       %p.white 2014 © Mordorthemes. All rights reserved.
 - content_for :javascript do
   :javascript
     $(function(){

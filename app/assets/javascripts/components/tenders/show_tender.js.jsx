@@ -18,19 +18,18 @@ var ShowTender = React.createClass({
       leftRows.push(<ShowTenderDetail header='Buyer Company Name' body={this.props.tender.buyer_company_name} />);
     }
     leftRows.push(<ShowTenderDetail header='Description' body={this.props.tender.description} />);
-    var publishedDate = strftime('%d %b %Y', new Date(this.props.tender.published_date));
-    var closingDate = strftime('%d %b %Y', new Date(this.props.tender.closing_datetime));
-    var closingTime = strftime('%H:%M %p', new Date(this.props.tender.closing_datetime));
+    var publishedDate = strftime.timezone('+0000')('%d %b %Y', new Date(this.props.tender.published_date));
+    var closingDate = strftime.timezone('+0000')('%d %b %Y', new Date(this.props.tender.closing_datetime));
+    var closingTime = strftime.timezone('+0000')('%H:%M %p', new Date(this.props.tender.closing_datetime));
     leftRows.push(<ShowTenderDetail header='Published Date' body={publishedDate} />);
     leftRows.push(<ShowTenderDetail header='Closing Date' body={closingDate} />);
     leftRows.push(<ShowTenderDetail header='Closing Time' body={closingTime} />);
     if (this.props.tender.in_house) {
       leftRows.push(<ShowTenderDetail header='Full Description' body={this.props.tender.long_description.replace(/\n/g,'<br/>')} />);
-      leftRows.push(<ShowTenderDetail header='Budget' body={this.props.tender.budget} />);
     } else {
       var body = '';
       body = "<a href='" + this.props.tender.external_link + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>"
-      leftRows.push(<ShowTenderDetail header='Original Link' body={body} />);
+      leftRows.push(<ShowTenderDetail header='Original Link' body={body} extraClass='external-link'/>);
     }
     if (this.props.tender.documents[0] != null) {
       var documentRows = [];
@@ -86,10 +85,10 @@ var ShowTender = React.createClass({
       <div>
         <a aria-label="Close" className="close-reveal-modal">&#215;</a>
         <div className='row'>
-          <div className='small-8 column main'>
+          <div className='medium-8 column main'>
             {this.populateLeftColumn()}
           </div>
-          <div className='small-4 column'>
+          <div className='medium-4 column'>
             {this.populateRightColumn()}
           </div>
         </div>

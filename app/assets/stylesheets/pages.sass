@@ -133,6 +133,8 @@
         list-style-type: none
         border: solid 1px #eceaea
         padding: 0 16px
+        li
+          overflow-wrap: break-word
 
     section#contacts
       .title-section
@@ -142,14 +144,8 @@
         padding-top: 0
     
     #register-modal
+      z-index: 10001 // 1 higher header
       #notice
         color: #ff4444
       .register-now-button
         font-size: 30px
-
-  &.post_a_tender
-    section
-      .button
-        font-size: 50px
-        font-family: 'Roboto'
-        font-weight: bold

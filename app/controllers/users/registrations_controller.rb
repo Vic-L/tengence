@@ -19,9 +19,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    content_hash = sign_up_params
+    content_hash.delete('password')
+    NotifyViaSlack.call(channel: 'ida-hackathon', content: content_hash.map{|k,v| "#{k}: #{v}"}.join("\r\n"))
+    super
+  end
 
   # GET /resource/edit
   # def edit

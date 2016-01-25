@@ -6,10 +6,21 @@ var TendersListing = React.createClass({
     return {tenders: [], pagination: {}, results_count: null, url: this.props.url, keywords: this.props.keywords};
   },
   componentDidMount: function() {
-    this.getTenders(this.state.url, null);
+    this.getTenders(this.state.url);
   },
   getTenders: function(url, query, keywords){
-    Tengence.ReactFunctions.getTenders(this, url, query, keywords);
+    // console.log(url);
+    // console.log(query);
+    // console.log(keywords);
+    var uri = new URI(url);
+    var params = URI.parseQuery(uri.query());
+    var path = new URI(uri.path());
+    if (uri.hasQuery('page')) path.addQuery('page',params.page);
+    if (uri.hasQuery('table')) path.addQuery('table',params.table);
+    var finalQuery,finalKeywords;
+    params.query != null ? finalQuery = params.query : finalQuery = query;
+    params.keywords != null ? finalKeywords = params.keywords : finalKeywords = keywords;
+    Tengence.ReactFunctions.getTenders(this, path.toString(), finalQuery, finalKeywords);
   },
   massDestroyTenders: function(tender_ids){
     Tengence.ReactFunctions.massDestroyTenders(this,tender_ids);
@@ -36,9 +47,9 @@ var TendersListing = React.createClass({
           case 'current_tenders':
             return <p>These are the current live Tenders available in Singapore! We have taken the painstaking effort of collating all the Tenders into a common platform, so that you do not have to.<br/><br/>What are you waiting for! Start searching for Tenders that suits your business profile by entering in a Keyword at the search box.</p>;
           case 'past_tenders':
-            return <p>These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.<br/><br/>We have included these tenders here for your reference!</p>;
+            return <p>These are tenders that have been closed, awarded and/or cancelled. You can no longer apply for these tenders.<br/><br/>We have included these tenders here for your reference!<br/><br/>NOTE: Past tenders with closing date more than 1 month ago will be archived and will not be displayed.</p>;
           case 'watched_tenders':
-            return <p>Did you know that you can add Tenders to your watch list? The watchlist is your personalized list of Tenders that you are interested in!<br/><br/>Easily add or remove Tenders by clicking the "Watch" or "Unwatch" button.<br/><br/>PS: All Tenders sent to you via the daily email notification are automatically added to your watchlist.</p>
+            return <p>Did you know that you can add Tenders to your watch list? The watchlist is your personalized list of Tenders that you are interested in!<br/><br/>Easily add or remove Tenders by clicking the "Watch" or "Unwatch" button.<br/><br/>PS: All Tenders sent to you via the daily email notification are automatically added to your watchlist.<br/><br/>NOTE: Past tenders with closing date more than 1 month ago will automatically be unwatched from your watchlist.</p>
           case 'keywords_tenders':
             return <p>Setup your account by inserting some keywords for us to track so that we can send you the daily email notification. All keywords must be separated by a Comma (Keyword 1, Keyword 2). You have up to 20 keywords free!<br/><br/>Come to this section to quickly filter all the Current Tenders to your desired Keywords! Add them quickly to your watchlist if necessary.</p>
           default:
@@ -56,7 +67,7 @@ var TendersListing = React.createClass({
       tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
     }
     if (this.isWatchedTendersPage()){
-      tenderTabs = <TenderTabs getTenders={this.getTenders}/>;
+      tenderTabs = <TenderTabs getTenders={this.getTenders} url={this.state.url} />;
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
       tenderResults = <WatchedTendersResults url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
     } else if (this.isKeywordsTendersPage()) {

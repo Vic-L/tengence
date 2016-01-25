@@ -25,21 +25,10 @@
           = f.text_field :buyer_name
         .small-12.columns.small-centered
           <strong>Buyer Email(s)</strong> (separate multiple emails with commas)
-          = f.text_field :buyer_email
+          = f.email_field :buyer_email
         .small-12.columns.small-centered
           <strong>Buyer Contact Number</strong> (may not be your phone number)
           = f.text_field :buyer_contact_number
-        .small-12.columns.small-centered
-          <strong>Budget</strong>
-          #budget-error
-          = f.radio_button(:budget, "<$1000")
-          = label_tag(:budget, "<$1000")
-          = f.radio_button(:budget, "$1000 - $4999")
-          = label_tag(:budget, "$1000 - $4999")
-          = f.radio_button(:budget, "$5000 - $9999")
-          = label_tag(:budget, "$5000 - $9999")
-          = f.radio_button(:budget, "> $10000")
-          = label_tag(:budget, "> $10000")
         .small-12.columns.small-centered
           <strong>Closing Date Time</strong>
           = f.datetime_field :closing_datetime, value: f.object.closing_datetime.strftime("%Y-%m-%d %H:%M"), placeholder: "Closing date & time"
@@ -87,16 +76,14 @@
           required: true
         },
         "tender[buyer_email]": {
-          required: true
+          required: true,
+          email: true
         },
         "tender[buyer_contact_number]": {
           required: true,
           digits: true,
           minlength: 8,
           maxlength: 8
-        },
-        "tender[budget]": {
-          required: true
         },
         "tender[closing_datetime]": {
           required: true
@@ -109,9 +96,7 @@
         }
       },
       errorPlacement: function(error, element) {
-        if (element.attr("name") == "tender[budget]") {
-          error.appendTo("#budget-error");
-        } else if (element.attr("name") == "tender[long_description]") {
+        if (element.attr("name") == "tender[long_description]") {
           error.appendTo("#description-error");
         } else {
           error.insertAfter(element);
@@ -119,13 +104,11 @@
       },
       messages: {
         "tender[buyer_email]": {
-          required: "Email of person of contact is required."
+          required: "Email of person of contact is required.",
+          email: "Please enter a valid email."
         },
         "tender[buyer_name]": {
           required: "Name of person of contact is required."
-        },
-        "tender[budget]": {
-          required: "Budget range required"
         },
         "tender[closing_datetime]": {
           required: "Closing date time required"

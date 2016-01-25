@@ -20,7 +20,10 @@ module EmailerActions
       end
 
       register_instance_option :controller do
-          proc do
+        proc do
+          if params['_pjax']
+            render nothing: true
+          else
             if (Time.now.in_time_zone('Asia/Singapore').to_date.saturday? || Time.now.in_time_zone('Asia/Singapore').to_date.sunday?)
               NotifyViaSlack.call(content: "Give me a break its the weekend!")
               redirect_to '/admin', flash: {alert: "Give me a break its the weekend!"}
@@ -63,6 +66,7 @@ module EmailerActions
             end
           end
         end
+      end
     end
   end
 end

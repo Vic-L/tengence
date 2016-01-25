@@ -52,6 +52,6 @@
 -#         .small-offset-6.small-6.column.text-right
 -#           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
 
-= react_component 'TendersListing', {url: api_v1_keywords_tenders_path(page: params[:page]), current_tenders_count: @current_tenders_count, keywords: @keywords}
+= react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, keywords: @keywords}
         
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

@@ -16,6 +16,18 @@ Tengence.ReactFunctions.notifyError = (url, method, error) ->
       ,method: method
       ,error: error}
 
+Tengence.ReactFunctions.trackQuery = (query) ->
+  if dataLayer?
+    dataLayer.push
+      'event': 'searchQuery'
+      'searchQuery': query
+  return
+
+Tengence.ReactFunctions.pushState = (url) ->
+  if (url.indexOf('demo_tenders') < 0)
+    state = {url: url}
+    history.pushState(state,'',url)
+
 Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
@@ -27,12 +39,20 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
     dataType: 'json',
     cache: false,
     success: (data) ->
+      finalUrl = new URI(url)
+      finalUrl = finalUrl.removeQuery('query').removeQuery('keywords')
+      if query?
+        finalUrl.addQuery('query', query)
+      if keywords?
+        finalUrl.addQuery('keywords', keywords)
+
+      Tengence.ReactFunctions.pushState(finalUrl.toString().replace('/api/v1',''))
+
       parentComponent.setState(
         {pagination: data.pagination
         ,tenders: data.tenders
         ,results_count: data.results_count
-        ,url: url})
-      # history.pushState({ url: url }, '', url.replace('/api/v1',''))
+        ,url: finalUrl.toString()})
       return
     error: (xhr, status, err) ->
       Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText)
@@ -45,7 +65,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
 Tengence.ReactFunctions.showTender = (ref_no) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
-    url: '/api/v1/tenders/' + encodeURIComponent(ref_no)
+    url: '/api/v1/tenders/' + encodeURIComponent(ref_no).replace('.','&2E')
     dataType: 'json'
     method: 'get'
     cache: false
@@ -91,7 +111,7 @@ Tengence.ReactFunctions.watchTender = (parentComponent,ref_no) ->
 Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) -> 
   Tengence.ReactFunctions.showLoading()
   $.ajax
-    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no)
+    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no).replace('.','&2E')
     dataType: 'json'
     method: 'DELETE'
     success: (ref_no) ->
@@ -130,12 +150,12 @@ Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
       parentComponent.setState({keywords: keywords})
       Tengence.ReactFunctions.getTenders(
         parentComponent
-        ,'/api/v1/keywords_tenders'
-        ,'stub_query'
+        '/api/v1/keywords_tenders'
+        null
         keywords)
       return
     error: (xhr, status, err) ->
-      alert(xhr.statusText)
+      alert(xhr.responseText)
       Tengence.ReactFunctions.stopLoading()
       return
 

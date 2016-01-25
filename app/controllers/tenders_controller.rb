@@ -3,7 +3,6 @@ class TendersController < ApplicationController
   before_action :authenticate_user!
   before_action :deny_read_only_access, except: [:show]
   before_action :deny_unconfirmed_users
-  before_action :check_user_keywords
 
   def new
     @tender = Tender.new(ref_no: "InHouse-#{Time.now.to_formatted_s(:number)}", published_date: Date.today, buyer_company_name: current_user.company_name, postee_id: current_user.id)
@@ -18,6 +17,7 @@ class TendersController < ApplicationController
       redirect_to current_posted_tenders_path
     else
       flash[:alert] = @tender.errors.full_messages.to_sentence
+      NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> Error uploading tender by #{current_user.email}\r\n#{@tender.errors.full_messages.to_sentence}")
       redirect_to new_tender_path
     end
   end
@@ -55,7 +55,6 @@ class TendersController < ApplicationController
         :buyer_name,
         :buyer_email,
         :buyer_contact_number,
-        :budget,
         :closing_datetime,
         :postee_id,
         :description,

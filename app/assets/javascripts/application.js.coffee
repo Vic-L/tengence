@@ -26,6 +26,7 @@
 #= require strftime
 #= require filesize.min
 #= require marked.min
+#= require uri.min
 #= require react
 #= require react_ujs
 #= require components

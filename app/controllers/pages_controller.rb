@@ -1,12 +1,7 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, only: [:post_a_tender]
   before_action :authenticate_current_user, only: [:home]
-  before_action :deny_read_only_access, only: [:post_a_tender]
 
   def home
-  end
-
-  def post_a_tender
   end
 
   def terms_of_service

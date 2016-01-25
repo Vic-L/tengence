@@ -86,6 +86,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     Sidekiq::Worker.clear_all
     ActionMailer::Base.deliveries.clear
+    Sidekiq::Worker.clear_all
   end
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
@@ -150,5 +151,5 @@ RSpec.configure do |config|
 =end
 end
 
-Sidekiq::Testing.inline!
 Capybara.wait_on_first_by_default = true
+Sidekiq::Testing.fake!  # by default it is fake

@@ -195,8 +195,10 @@
             %span#agree-notice By requesting this demo email, you agree to sign up for Tengence's newsletter.
             %br
             %br
-            .text-center
-              .g-recaptcha{"data-sitekey" => "6LfSgRUTAAAAAC9gv7LrOBb9Fr50HCPqlqUSCz1_"}
+            -# TODO fix this dirty fix for recapthca in tests
+            - unless Rails.env.test?
+              .text-center
+                .g-recaptcha{"data-sitekey" => "6LfSgRUTAAAAAC9gv7LrOBb9Fr50HCPqlqUSCz1_"}
             = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button', type: 'submit', data: {disable_with: 'Processing'}  
           .button#email-demo-submitted-button{disabled: ''} Demo Email Sent Successfully
 
@@ -284,4 +286,6 @@
       }
     });
 
-  %script{:async => "", :defer => "", :src => "https://www.google.com/recaptcha/api.js"}
+  -# TODO fix this dirty fix for recapthca in tests
+  - unless Rails.env.test?
+    %script{:async => "", :defer => "", :src => "https://www.google.com/recaptcha/api.js"}

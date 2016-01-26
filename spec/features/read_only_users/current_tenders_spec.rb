@@ -37,8 +37,8 @@ feature 'current_tenders', js: true, type: :feature do
   scenario 'should sort correctly' do
     expect(current_tenders_page.find_css('select.sort').first.value).to eq 'newest'
     expect(current_tenders_page.find_css('select.sort').last.value).to eq 'newest'
-    first_published_date = current_tenders_page.get_first_published_date
-    last_published_date = current_tenders_page.get_last_published_date
+    first_published_date = current_tenders_page.get_first_published_date.to_date
+    last_published_date = current_tenders_page.get_last_published_date.to_date
     expect(first_published_date > last_published_date).to eq true
 
     current_tenders_page.sort_by_expiring
@@ -47,8 +47,8 @@ feature 'current_tenders', js: true, type: :feature do
     expect(current_tenders_page.find_css('select.sort').first.value).to eq 'expiring'
     expect(current_tenders_page.find_css('select.sort').last.value).to eq 'expiring'
 
-    first_closing_datetime = (current_tenders_page.find_css('tbody tr td')[2].all_text + current_tenders_page.find_css('tbody tr td')[3].all_text).to_datetime
-    last_closing_datetime = (current_tenders_page.find_css('tbody tr:last-child td')[2].all_text + current_tenders_page.find_css('tbody tr:last-child td')[3].all_text).to_datetime
+    first_closing_datetime = current_tenders_page.get_first_closing_date_time.to_datetime
+    last_closing_datetime = current_tenders_page.get_last_closing_date_time.to_datetime
     expect(first_closing_datetime < last_closing_datetime).to eq true
 
     current_tenders_page.sort_by_newest
@@ -57,13 +57,27 @@ feature 'current_tenders', js: true, type: :feature do
     expect(current_tenders_page.find_css('select.sort').first.value).to eq 'newest'
     expect(current_tenders_page.find_css('select.sort').last.value).to eq 'newest'
 
-    expect(current_tenders_page.get_first_published_date).to eq first_published_date
-    expect(current_tenders_page.get_last_published_date).to eq last_published_date
+    expect(current_tenders_page.get_first_published_date.to_date).to eq first_published_date
+    expect(current_tenders_page.get_last_published_date.to_date).to eq last_published_date
   end
 
   scenario 'should show correct details for corresponding more button clicked' do
+    expect(page).not_to have_selector('#view-more-modal')
+
+    tender = current_tenders_page.get_first_tender_details
+    current_tenders_page.click_first_more_button
+    wait_for_ajax
+
+    expect(page).to have_selector('#view-more-modal')
+    expect(current_tenders_page.get_view_more_modal_content).to have_content tender['closing_date']
+    expect(current_tenders_page.get_view_more_modal_content).to have_content tender['closing_time']
+    expect(current_tenders_page.get_view_more_modal_content).to have_content tender['description']
+    expect(current_tenders_page.get_view_more_modal_content).to have_content tender['published_date']
   end
 
-  scenario 'should show time' do
-  end
+  # scenario 'should show time without any time zone conversion' do
+  #   tender = current_tenders_page.get_first_tender_details
+  #   binding.pry
+  #   expect(Tender.where(description: tender['description']).first.closing_datetime.strftime('%H:%M %p')).to eq tender['closing_time']
+  # end
 end

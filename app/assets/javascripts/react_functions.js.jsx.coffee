@@ -2,6 +2,19 @@ Tengence.ReactFunctions.showLoading = ->
   $('#tender-results').addClass('blur')
   document.body.classList.add('loading')
 
+Tengence.ReactFunctions.dissectUrl = (url) ->
+  uri = new URI(url);
+  params = URI.parseQuery(uri.query());
+  path = new URI(uri.path());
+  return {
+    path: path.toString()
+    page: params.page
+    table: params.table
+    query: params.query
+    keywords: params.keywords
+    sortOrder: params['sort']
+  }
+
 Tengence.ReactFunctions.stopLoading = ->
   $('#tender-results').removeClass('blur')
   document.body.classList.remove('loading')
@@ -29,7 +42,7 @@ Tengence.ReactFunctions.pushState = (url) ->
     state = {url: url}
     history.pushState(state,'',url)
 
-Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords, sort) ->
+Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, keywords, sort) ->
   Tengence.ReactFunctions.showLoading()
   # console.log url
   # console.log query
@@ -39,6 +52,8 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords, sor
     url: url
     data: 
       {query: query
+      table: table
+      page: page
       keywords: keywords
       sort: sort}
     method: 'GET',
@@ -46,12 +61,20 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords, sor
     cache: false,
     success: (data) ->
       finalUrl = new URI(url)
-      finalUrl = finalUrl.removeQuery('query').removeQuery('keywords').removeQuery('sort')
+      if page?
+        finalUrl.removeQuery('page')
+        finalUrl.addQuery('page', page)
+      if table?
+        finalUrl.removeQuery('table')
+        finalUrl.addQuery('table', table)
       if query?
+        finalUrl.removeQuery('query')
         finalUrl.addQuery('query', query)
       if keywords?
+        finalUrl.removeQuery('keywords')
         finalUrl.addQuery('keywords', keywords)
       if sort?
+        finalUrl.removeQuery('sort')
         finalUrl.addQuery('sort', sort)
 
       Tengence.ReactFunctions.pushState(finalUrl.toString().replace('/api/v1',''))

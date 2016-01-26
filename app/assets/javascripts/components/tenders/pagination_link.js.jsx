@@ -2,19 +2,11 @@ var PaginationLink = React.createClass({
   handleClick: function(e){
     e.preventDefault();
     $('#select_all').prop('checked', false);
-    var link = new URI(this.props.path);
-    link.removeQuery('page');
-    link.addQuery('page',this.props.page);
-    var searchField = document.getElementById('query-field');
-    var sort = $('.sort')[0];
-    if (searchField != null && searchField.value != '') {
-      this.props.getTenders(link.toString(), searchField.value, null, sort.value);
-    } else {
-      this.props.getTenders(link.toString(), null, null, sort.value);
-    }
+    var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
+    this.props.getTenders(urlFragments.path, this.props.page, urlFragments.table, urlFragments.query, urlFragments.keywords, urlFragments.sortOrder);
   },
   render: function(){
-    if (this.props.path != null){
+    if (this.props.url != null){
       if (this.props.currentPage != null) {
         return <span>{this.props.children}</span>
       } else {

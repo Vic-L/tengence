@@ -8,7 +8,7 @@ var TendersListing = React.createClass({
   componentDidMount: function() {
     this.getTenders(this.state.url);
   },
-  getTenders: function(url, query, keywords, sort){
+  getTenders: function(url, page, table, query, keywords, sort){
     // console.log(url);
     // console.log(query);
     // console.log(keywords);
@@ -18,14 +18,16 @@ var TendersListing = React.createClass({
     var path = new URI(uri.path());
     if (uri.hasQuery('page')) path.addQuery('page',params.page);
     if (uri.hasQuery('table')) path.addQuery('table',params.table);
-    var finalQuery,finalKeywords, finalSort;
+    var finalTable,finalPage,finalQuery,finalKeywords,finalSort;
+    params.page != null ? finalPage = params.page : finalPage = page;
+    params.table != null ? finalTable = params.table : finalTable = table;
     params.query != null ? finalQuery = params.query : finalQuery = query;
     params.keywords != null ? finalKeywords = params.keywords : finalKeywords = keywords;
     params.sort != null ? finalSort = params.sort : finalSort = sort;
     // console.log(finalQuery);
     // console.log(finalKeywords);
     // console.log(finalSort);
-    Tengence.ReactFunctions.getTenders(this, path.toString(), finalQuery, finalKeywords, finalSort);
+    Tengence.ReactFunctions.getTenders(this, path.toString(), finalTable, finalPage, finalQuery, finalKeywords, finalSort);
   },
   massDestroyTenders: function(tender_ids){
     Tengence.ReactFunctions.massDestroyTenders(this,tender_ids);

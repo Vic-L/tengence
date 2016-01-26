@@ -1,6 +1,8 @@
 namespace :maintenance do
   task :cleanup_past_tenders => :environment do
-    ref_nos = Tender.non_inhouse.where("closing_datetime < ?", Time.now.beginning_of_day - 1.month).pluck(:ref_no)
+    t = Time.now.in_time_zone('Singapore').beginning_of_day
+    t = t.utc + t.utc_offset()
+    ref_nos = Tender.non_inhouse.where("closing_datetime < ?", t - 1.month).pluck(:ref_no)
     if ref_nos.blank?
       NotifyViaSlack.call(content: "No ancient tenders on AWSCloudSearch")
     else

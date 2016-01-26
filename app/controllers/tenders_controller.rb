@@ -5,7 +5,7 @@ class TendersController < ApplicationController
   before_action :deny_unconfirmed_users
 
   def new
-    @tender = Tender.new(ref_no: "InHouse-#{Time.now.to_formatted_s(:number)}", published_date: Date.today, buyer_company_name: current_user.company_name, postee_id: current_user.id)
+    @tender = Tender.new(ref_no: "InHouse-#{Time.now.in_time_zone('Asia/Singapore').to_formatted_s(:number)}", published_date: Time.now.in_time_zone('Singapore').to_date, buyer_company_name: current_user.company_name, postee_id: current_user.id)
     @tender.documents.build
   end
 

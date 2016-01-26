@@ -26,9 +26,12 @@ module Tengence
     # set sidekiq as queue adapter for active job
     config.active_job.queue_adapter = :sidekiq
 
-    # set default timezone as Singapore
-    config.time_zone = 'Singapore'
-    config.active_record.default_timezone = :local
+    # NOTE!!! Timing in database is in UTC, but meant to read as SGT
+    # set default config.time_zone as UTC, which is the default
+    # config.time_zone = 
+    # NOTE: use UTC (Time.current) to make queries when comparing to tender.closing_datetime
+    # config.active_record.default_timezone = :utc
+    # prevent conversion of time zone, although all alr UTC
     config.active_record.time_zone_aware_attributes = false
 
     config.autoload_paths += Dir["#{config.root}/lib/**/"]

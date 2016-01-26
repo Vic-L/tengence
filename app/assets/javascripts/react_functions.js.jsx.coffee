@@ -170,7 +170,7 @@ Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) ->
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
+Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords,urlFragments) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/users/keywords'
@@ -183,8 +183,11 @@ Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
       Tengence.ReactFunctions.getTenders(
         parentComponent
         '/api/v1/keywords_tenders'
+        urlFragments.table
         null
-        keywords)
+        urlFragments.query
+        keywords
+        urlFragments.sortOrder)
       return
     error: (xhr, status, err) ->
       alert(xhr.responseText)

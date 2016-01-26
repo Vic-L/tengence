@@ -1,8 +1,9 @@
 var KeywordsTendersForm = React.createClass({
   handleClick: function(e){
     e.preventDefault();
+    var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
     var keywords = document.getElementById('keywords').value;
-    this.props.updateKeywords(keywords);
+    this.props.updateKeywords(keywords, urlFragments);
   },
   render: function() {
     var notice;

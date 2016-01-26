@@ -67,8 +67,8 @@ var TendersListing = React.createClass({
       }
     };
   },
-  updateKeywords: function(keywords){
-    Tengence.ReactFunctions.updateKeywords(this,keywords);
+  updateKeywords: function(keywords,urlFragments){
+    Tengence.ReactFunctions.updateKeywords(this,keywords, urlFragments);
   },
   render: function(){
     var tenderCount, tenderTabs, tenderResults, tenderKeywords, tenderSearchForm;
@@ -80,7 +80,7 @@ var TendersListing = React.createClass({
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
       tenderResults = <WatchedTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
     } else if (this.isKeywordsTendersPage()) {
-      tenderKeywords = <KeywordsTendersForm updateKeywords={this.updateKeywords} getTenders={this.getTenders} keywords={this.state.keywords}/>;
+      tenderKeywords = <KeywordsTendersForm url={this.state.url} updateKeywords={this.updateKeywords} getTenders={this.getTenders} keywords={this.state.keywords}/>;
       tenderResults = <GenericTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     } else {
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;

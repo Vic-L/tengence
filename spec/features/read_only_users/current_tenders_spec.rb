@@ -75,9 +75,8 @@ feature 'current_tenders', js: true, type: :feature do
     expect(current_tenders_page.get_view_more_modal_content).to have_content tender['published_date']
   end
 
-  # scenario 'should show time without any time zone conversion' do
-  #   tender = current_tenders_page.get_first_tender_details
-  #   binding.pry
-  #   expect(Tender.where(description: tender['description']).first.closing_datetime.strftime('%H:%M %p')).to eq tender['closing_time']
-  # end
+  scenario 'should show time without any time zone conversion' do
+    tender = current_tenders_page.get_first_tender_details
+    expect(Tender.where(description: tender['description']).first.closing_datetime.strftime('%H:%M %p')).to eq tender['closing_time']
+  end
 end

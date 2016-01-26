@@ -16,8 +16,6 @@ var TendersListing = React.createClass({
     var uri = new URI(url);
     var params = URI.parseQuery(uri.query());
     var path = new URI(uri.path());
-    if (uri.hasQuery('page')) path.addQuery('page',params.page);
-    if (uri.hasQuery('table')) path.addQuery('table',params.table);
     var finalTable,finalPage,finalQuery,finalKeywords,finalSort;
     params.page != null ? finalPage = params.page : finalPage = page;
     params.table != null ? finalTable = params.table : finalTable = table;

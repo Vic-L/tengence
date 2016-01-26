@@ -13,11 +13,11 @@ class GetDemoTenders
           result.fields["ref_no"][0]
         end
 
-        eval("@tenders = #{table}.where(ref_no: results_ref_nos)")
+        eval("@tenders = #{table}.where(ref_no: results_ref_nos).order(published_date: :desc)")
         @results_count = @tenders.count
         @tenders = @tenders.page(params['page']).per(10)
       else
-        eval("@tenders = #{table}.page(params['page']).per(10)")
+        eval("@tenders = #{table}.order(published_date: :desc).page(params['page']).per(10)")
         eval("@results_count = #{table}.count")
       end
 

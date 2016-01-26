@@ -5,8 +5,8 @@ var Demo = React.createClass({
   componentDidMount: function() {
     this.getTenders(this.state.url, null);
   },
-  getTenders: function(url, query, keywords){
-    Tengence.ReactFunctions.getTenders(this, url, query, keywords);
+  getTenders: function(url, page, table, query, keywords, sort){
+    Tengence.ReactFunctions.getTenders(this, url, page, table, query, keywords, sort);
   },
   render: function(){
     return (

@@ -9,6 +9,7 @@ class GetTenders
 
   def call
     begin
+      set_sort_order
       unless params['query'].blank?
         results = AwsManager.search(keyword: params['query'])
         results_ref_nos = results.hits.hit.map do |result|
@@ -17,16 +18,16 @@ class GetTenders
         
         results_ref_nos = results_ref_nos & user.watched_tenders.pluck(:tender_id) if only_watched_tenders?
 
-        eval("@tenders = #{table}.where(ref_no: results_ref_nos)")
+        eval("@tenders = #{table}.where(ref_no: results_ref_nos).#{@sort}")
         @results_count = @tenders.count
         @tenders = @tenders.page(params['page']).per(50)
       else
         if only_watched_tenders?
-          eval("@tenders = #{table}.where(ref_no: user.watched_tenders.pluck(:tender_id))")
+          eval("@tenders = #{table}.where(ref_no: user.watched_tenders.pluck(:tender_id)).#{@sort}")
           @results_count = @tenders.count
           @tenders = @tenders.page(params['page']).per(50)
         else
-          eval("@tenders = #{table}.page(params['page']).per(50)")
+          eval("@tenders = #{table}.#{@sort}.page(params['page']).per(50)")
           eval("@results_count = #{table}.count")
         end
       end
@@ -48,5 +49,16 @@ class GetTenders
   private
     def only_watched_tenders?
       !source.blank? && source == 'watched_tenders'
+    end
+
+    def set_sort_order
+      case params['sort']
+      when 'newest'
+        @sort = "order(published_date: :desc)"
+      when 'expiring'
+        @sort = "order(closing_datetime: :asc)"
+      else
+        @sort = "order(published_date: :desc)"
+      end
     end
 end

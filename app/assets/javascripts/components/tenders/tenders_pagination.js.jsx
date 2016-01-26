@@ -16,6 +16,17 @@ var TendersPagination = React.createClass({
     }
     return range;
   },
+  handleChange: function(e){
+    var link = new URI(this.props.url);
+    // link.removeQuery('page');
+    link.removeQuery('sort');
+    var searchField = document.getElementById('query-field');
+    if (searchField != null && searchField.value != '') {
+      this.props.getTenders(link.toString(), searchField.value, null, e.target.value);
+    } else {
+      this.props.getTenders(link.toString(), null, null, e.target.value);
+    }
+  },
   render: function() {
     var {pagination, ...others} = this.props; 
     if (Object.keys(pagination).length === 0) return (<div></div>);
@@ -42,7 +53,10 @@ var TendersPagination = React.createClass({
     }
     return (
       <div className='row'>
-        <div className='small-12 column text-right tender-pagination'>
+        <div className='small-3 column'>
+          Sort By:<select className='sort' onChange={this.handleChange} value={this.props.sort}><option value="newest">Newest</option><option value="expiring">Expiring</option></select>
+        </div>
+        <div className='small-9 column text-right tender-pagination'>
           <nav className="pagination">
             {links}
           </nav>| Total Tenders:

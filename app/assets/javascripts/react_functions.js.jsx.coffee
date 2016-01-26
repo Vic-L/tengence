@@ -24,35 +24,44 @@ Tengence.ReactFunctions.trackQuery = (query) ->
   return
 
 Tengence.ReactFunctions.pushState = (url) ->
+  # console.log url
   if (url.indexOf('demo_tenders') < 0)
     state = {url: url}
     history.pushState(state,'',url)
 
-Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
+Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords, sort) ->
   Tengence.ReactFunctions.showLoading()
+  # console.log url
+  # console.log query
+  # console.log keywords
+  # console.log sort
   $.ajax
     url: url
     data: 
       {query: query
-      , keywords: keywords}
+      keywords: keywords
+      sort: sort}
     method: 'GET',
     dataType: 'json',
     cache: false,
     success: (data) ->
       finalUrl = new URI(url)
-      finalUrl = finalUrl.removeQuery('query').removeQuery('keywords')
+      finalUrl = finalUrl.removeQuery('query').removeQuery('keywords').removeQuery('sort')
       if query?
         finalUrl.addQuery('query', query)
       if keywords?
         finalUrl.addQuery('keywords', keywords)
+      if sort?
+        finalUrl.addQuery('sort', sort)
 
       Tengence.ReactFunctions.pushState(finalUrl.toString().replace('/api/v1',''))
 
-      parentComponent.setState(
-        {pagination: data.pagination
-        ,tenders: data.tenders
-        ,results_count: data.results_count
-        ,url: finalUrl.toString()})
+      parentComponent.setState({
+        pagination: data.pagination
+        tenders: data.tenders
+        results_count: data.results_count
+        url: finalUrl.toString()
+        sort: sort})
       return
     error: (xhr, status, err) ->
       Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText)

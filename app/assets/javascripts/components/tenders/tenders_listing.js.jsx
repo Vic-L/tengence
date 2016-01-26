@@ -30,7 +30,9 @@ var TendersListing = React.createClass({
     Tengence.ReactFunctions.getTenders(this, path.toString(), finalTable, finalPage, finalQuery, finalKeywords, finalSort);
   },
   massDestroyTenders: function(tender_ids){
-    Tengence.ReactFunctions.massDestroyTenders(this,tender_ids);
+    var url = new URI(this.state.url);
+    url.removeQuery('page');
+    Tengence.ReactFunctions.massDestroyTenders(this,tender_ids, url.toString());
   },
   isWatchedTendersPage: function(){
     if (window.location.href.indexOf('watched_tenders') === -1){

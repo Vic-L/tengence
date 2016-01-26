@@ -191,7 +191,7 @@ Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids) ->
+Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids, url) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: "/api/v1/watched_tenders/mass_destroy"
@@ -202,8 +202,7 @@ Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids) ->
       $('#select_all').prop('checked', false)
       Tengence.ReactFunctions.getTenders(
         parentComponent
-        , parentComponent.state.url.split('page')[0]
-        , document.getElementById('query-field').value)
+        url)
     error: (xhr, status, err) ->
       Tengence.ReactFunctions.notifyError(window.location.href,'massDestroyTenders', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused. The page will now refresh.")

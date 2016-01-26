@@ -1,21 +1,13 @@
 var TenderTabs = React.createClass({ 
   getPastWatchedTenders: function() {
     $('#select_all').prop('checked', false);
-    var searchField = document.getElementById('query-field');
-    if (searchField != null && searchField.value != '') {
-      this.props.getTenders('/api/v1/watched_tenders', null, 'PastTender', searchField.value);
-    } else {
-      this.props.getTenders('/api/v1/watched_tenders', null, 'PastTender');
-    }
+    var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
+    this.props.getTenders(urlFragments.path, urlFragments.page, 'PastTender', urlFragments.query, urlFragments.keywords, urlFragments.sortOrder);
   },
   getCurrentWatchedTenders: function() {
     $('#select_all').prop('checked', false);
-    var searchField = document.getElementById('query-field');
-    if (searchField != null && searchField.value != '') {
-      this.props.getTenders('/api/v1/watched_tenders', null, 'CurrentTender', searchField.value);
-    } else {
-      this.props.getTenders('/api/v1/watched_tenders', null, 'CurrentTender');
-    }
+    var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
+    this.props.getTenders(urlFragments.path, urlFragments.page, 'CurrentTender', urlFragments.query, urlFragments.keywords, urlFragments.sortOrder);
   },
   getTabClasses: function(url){
     var currentTable, pastTable;

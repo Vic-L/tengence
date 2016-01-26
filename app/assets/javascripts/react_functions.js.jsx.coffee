@@ -36,6 +36,13 @@ Tengence.ReactFunctions.trackQuery = (query) ->
       'searchQuery': query
   return
 
+Tengence.ReactFunctions.trackSort = (sortOrder) ->
+  if dataLayer?
+    dataLayer.push
+      'event': 'sortOrder'
+      'sortOrder': sortOrder
+  return
+
 Tengence.ReactFunctions.pushState = (url) ->
   # console.log url
   if (url.indexOf('demo_tenders') < 0)

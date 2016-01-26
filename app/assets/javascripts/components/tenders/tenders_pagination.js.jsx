@@ -17,6 +17,7 @@ var TendersPagination = React.createClass({
     return range;
   },
   handleChange: function(e){
+    Tengence.ReactFunctions.trackSort(e.target.value);
     var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
     this.props.getTenders(urlFragments.path, urlFragments.page, urlFragments.table, urlFragments.query, urlFragments.keywords, e.target.value);
   },

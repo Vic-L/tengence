@@ -17,6 +17,7 @@ var DemoTendersPagination = React.createClass({
     return range;
   },
   handleChange: function(e){
+    Tengence.ReactFunctions.trackSort(e.target.value);
     e.preventDefault();
     Tengence.HomePage.promptRegistration();
   },

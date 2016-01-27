@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature Api::V1::CurrentTendersController, type: :controller do
-  let!(:read_only_user) {create(:user, :read_only)}
-  let!(:write_only_user) {create(:user, :write_only)}
+  let(:read_only_user) {create(:user, :read_only)}
+  let(:write_only_user) {create(:user, :write_only)}
 
   feature "GET index" do
 

@@ -113,8 +113,19 @@ feature Api::V1::WatchedTendersController, type: :controller do
         }
         expect(response.body).to eq tender.ref_no.to_json
         expect(response.status).to eq 200
+      end
+
+      scenario "should destroy watched tenders asynchronously" do
+        WatchedTender.create!(tender_id: tender.ref_no, user_id: read_only_user.id) and Sidekiq::Worker.clear_all
+        expect(WatchedTender.count).to eq 1
+        expect(DestroyWatchedTenderWorker.jobs.size).to eq 0
+        delete :destroy, {
+          format: :json,
+          id: tender.ref_no
+        }
         expect(DestroyWatchedTenderWorker.jobs.size).to eq 1
         expect{DestroyWatchedTenderWorker.drain}.to change{DestroyWatchedTenderWorker.jobs.size}.by(-1)
+        expect(WatchedTender.count).to eq 0
       end
     end
 
@@ -151,7 +162,17 @@ feature Api::V1::WatchedTendersController, type: :controller do
       before :each do
         sign_in read_only_user
       end
+
       scenario 'should not be denied access' do
+        delete :mass_destroy, {
+          format: :json,
+          ids: Tender.pluck(:ref_no)
+        }
+        expect(response.content_type).to eq "application/json"
+        expect(response.status).to eq 200
+      end
+      
+      scenario 'should destroy all tenders' do
         tender2 = create(:tender)
         WatchedTender.create!(tender_id: tender.ref_no, user_id: read_only_user.id) and Sidekiq::Worker.clear_all
         WatchedTender.create!(tender_id: tender2.ref_no, user_id: read_only_user.id) and Sidekiq::Worker.clear_all
@@ -161,7 +182,6 @@ feature Api::V1::WatchedTendersController, type: :controller do
           ids: Tender.pluck(:ref_no)
         }
         expect(response.body).to eq Tender.pluck(:ref_no).to_json
-        expect(response.status).to eq 200
       end
     end
 

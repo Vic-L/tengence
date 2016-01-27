@@ -57,15 +57,22 @@ feature Api::V1::PagesController, type: :controller do
 
     feature "non logged in user" do
       scenario 'should not be denied access' do
+        post :demo_email, {
+          format: :json,
+          demo_email: Faker::Internet.email
+        }
+        expect(response.content_type).to eq "text/javascript"
+        expect(response.body).to eq "$('#email-demo-submitted-button').slideDown();$('#demo-email-form fieldset').slideUp();"
+        expect(response.status).to eq 200
+      end
+
+      scenario 'should send demo email asynchronously' do
         expect(Sidekiq::Worker.jobs.size).to eq 0
         post :demo_email, {
           format: :json,
           demo_email: Faker::Internet.email
         }
         expect(Sidekiq::Worker.jobs.size).to eq 1
-        expect(response.content_type).to eq "text/javascript"
-        expect(response.body).to eq "$('#email-demo-submitted-button').slideDown();$('#demo-email-form fieldset').slideUp();"
-        expect(response.status).to eq 200
       end
     end
 

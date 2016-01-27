@@ -34,6 +34,7 @@ feature Api::V1::CurrentTendersController, type: :controller do
         get :index, format: :json
         expect(response.status).to eq 403
         expect(response.body).to eq({error: "Access Denied"}.to_json)
+        expect(response.content_type).to eq "application/json"
       end
     end
 

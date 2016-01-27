@@ -32,4 +32,33 @@ feature "home_page", type: :feature, js: true do
       expect(page).not_to have_content 'Please acknowledge this checkbox'
     end
   end
+
+  feature 'contacts' do
+    scenario 'invalid fields' do
+      home_page.submit_contacts_form
+      expect(page).to have_content 'Please fill up all fields.'
+    end
+
+    scenario 'invalid email' do
+      home_page.fill_up_contacts_form
+      fill_in 'contact_email', with: Faker::Lorem.word
+      # TODO validate base on html5 validation of email field
+      expect(Sidekiq::Worker.jobs.size).to eq 0
+      home_page.submit_contacts_form
+      expect(Sidekiq::Worker.jobs.size).to eq 0
+    end
+
+    scenario 'valid fields' do
+      expect(Sidekiq::Worker.jobs.size).to eq 0
+      home_page.fill_up_contacts_form
+      home_page.submit_contacts_form
+      wait_for_ajax
+
+      expect(Sidekiq::Worker.jobs.size).to eq 1
+      expect(page).not_to have_content 'Please fill up all fields.'
+      expect(page).to have_content 'Email Sent Successfully.'
+      expect(page).to have_content 'your message has been submitted to us.'
+      expect(page).to have_content 'The Tengence team will contact you shortly.'
+    end
+  end
 end

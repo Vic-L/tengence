@@ -7,6 +7,7 @@ class HomePage
     self
   end
 
+  # demo
   def submit_demo_email_request
     execute_script("$('.email-demo-submit-button')[0].scrollIntoView(false);")
     execute_script("$('.email-demo-submit-button').click();")
@@ -16,5 +17,17 @@ class HomePage
     execute_script("$('#agree')[0].scrollIntoView(false);")
     fill_in 'demo_email', with: Faker::Internet.email
     check 'agree'
+  end
+
+  # contacts
+  def fill_up_contacts_form
+    fill_in 'name', with: Faker::Name.name
+    fill_in 'contact_email', with: Faker::Internet.email
+    fill_in 'comments', with: Faker::Lorem.sentences(5).join(" ")
+  end
+
+  def submit_contacts_form
+    execute_script("$('#submit')[0].scrollIntoView(false);")
+    execute_script("$('#submit').click();")
   end
 end

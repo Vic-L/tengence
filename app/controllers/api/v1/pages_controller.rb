@@ -1,13 +1,15 @@
 module Api
   module V1
     class PagesController < ApiController
-      skip_before_action :deny_non_logged_in_user
+      skip_before_action :api_deny_non_logged_in_user
+      before_action :api_deny_write_only_user, except: [:notify_error]
+      before_action :api_deny_read_only_user, except: [:notify_error]
 
       def notify_error
         content = ["url: " + params[:url]]
         content << ["method: " + params[:method]]
         content << ["error: " + params[:error]]
-        content << ["user: " + current_user.try(:email)]
+        content << ["user: " + (current_user.try(:email) || 'non_logged_in user')]
         content << ["user agent: " + request.user_agent]
         NotifyViaSlack.call(content: "<@vic-l> ERROR\r\n#{content.join("\r\n")}")
         render :json => { :success => true }

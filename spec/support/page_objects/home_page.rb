@@ -11,6 +11,7 @@ class HomePage
   def reveal_all_sources
     execute_script("$('#show-all')[0].scrollIntoView(false);")
     execute_script("$('#show-all').click();")
+    sleep 1
   end
 
   # demo

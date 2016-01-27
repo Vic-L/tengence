@@ -7,6 +7,12 @@ class HomePage
     self
   end
 
+  # sources and counting
+  def reveal_all_sources
+    execute_script("$('#show-all')[0].scrollIntoView(false);")
+    execute_script("$('#show-all').click();")
+  end
+
   # demo
   def submit_demo_email_request
     execute_script("$('.email-demo-submit-button')[0].scrollIntoView(false);")

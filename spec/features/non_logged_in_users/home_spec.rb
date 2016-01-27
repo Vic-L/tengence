@@ -10,6 +10,15 @@ feature "home_page", type: :feature, js: true do
     wait_for_page_load
   end
 
+  feature 'sources and counting' do
+    scenario 'list of sources should expand on click' do
+      initial_height = page.evaluate_script("$('ul')[0].clientHeight")
+      home_page.reveal_all_sources
+      new_height = page.evaluate_script("$('ul')[0].clientHeight")
+      expect(new_height > initial_height).to eq true
+    end
+  end
+
   feature 'demo email' do
     scenario 'invalid fields' do
       home_page.submit_demo_email_request

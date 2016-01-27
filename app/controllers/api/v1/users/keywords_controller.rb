@@ -1,7 +1,7 @@
 module Api
   module V1
-    class Users::KeywordsController < ApplicationController
-      respond_to :json
+    class Users::KeywordsController < ApiController
+      before_action :api_deny_write_only_user
 
       def update
         begin

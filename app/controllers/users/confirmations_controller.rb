@@ -1,5 +1,5 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
-  before_action :deny_confirmed_users
+  before_action :deny_confirmed_users, only: [:new, :create]
   # GET /resource/confirmation/new
   # def new
   #   super

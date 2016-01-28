@@ -12,9 +12,9 @@ feature "home_page", type: :feature, js: true do
 
   feature 'sources and counting' do
     scenario 'list of sources should expand on click' do
-      initial_height = page.evaluate_script("$('ul')[0].clientHeight")
+      initial_height = page.evaluate_script("$('ul')[1].clientHeight")
       home_page.reveal_all_sources
-      new_height = page.evaluate_script("$('ul')[0].clientHeight")
+      new_height = page.evaluate_script("$('ul')[1].clientHeight")
       expect(new_height > initial_height).to eq true
     end
   end

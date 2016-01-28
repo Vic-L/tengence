@@ -418,7 +418,7 @@ feature "access pages by write_only users" do
   end
 
   let(:write_only_pending_reconfirmation_user) {create(:user, :write_only, :unconfirmed)}
-  let(:write_only_pending_reconfirmation_user_without_keywords) {create(:user, :write_only, :without_keywords, :unconfirmed)}
+  let(:write_only_pending_reconfirmation_user_without_keywords) {create(:user, :write_only, :without_keywords, :pending_reconfirmation)}
 
   feature 'pending_reconfirmation' do
     feature 'with keywords' do

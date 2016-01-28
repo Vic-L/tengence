@@ -424,7 +424,7 @@ feature "access pages by read_only users" do
   end
 
   let(:read_only_pending_reconfirmation_user) {create(:user, :read_only, :unconfirmed)}
-  let(:read_only_pending_reconfirmation_user_without_keywords) {create(:user, :read_only, :without_keywords, :unconfirmed, :pending_reconfirmation)}
+  let(:read_only_pending_reconfirmation_user_without_keywords) {create(:user, :read_only, :without_keywords, :pending_reconfirmation)}
 
   feature 'pending_reconfirmation' do
     feature 'with keywords' do

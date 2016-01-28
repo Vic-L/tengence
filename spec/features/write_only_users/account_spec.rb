@@ -65,14 +65,15 @@ feature 'account', type: :feature, js: :true do
 
   feature 'on successful update' do
     scenario 'should successfully update attributes (not email or passwords)' do
-      expect(User.first.first_name + User.first.last_name).not_to eq 'monkeyluffy'
+      expect(user.name).not_to eq 'monkey luffy'
 
       fill_in 'user_first_name', with: 'monkey'
       fill_in 'user_last_name', with: 'luffy'
       devise_page.submit_form
+      wait_for_page_load
 
       expect(page).to have_content 'Your account has been updated successfully.'
-      expect(User.first.first_name + User.first.last_name).to eq 'monkeyluffy'
+      expect(user.reload.name).to eq 'monkey luffy'
     end
 
     scenario 'should not update email right away' do

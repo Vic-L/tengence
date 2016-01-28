@@ -1,5 +1,0 @@
-<% if @tender.errors.empty? %>
-  window.location.reload();
-<% else %>
-  alert("<%= @tender.errors.full_messages.to_sentence %>");
-<% end %>

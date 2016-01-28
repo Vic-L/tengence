@@ -1,18 +1,2 @@
-= react_component 'TendersListing', {url: '/api/v1' + request.fullpath}
--# #wrapper
--#   %section#tender-results
--#     - if @results_count == 0
--#       .row
--#         .small-12.column.text-center
--#           %p There are no tenders available
--#     - else
--#       .row
--#         .small-offset-6.small-6.column.text-right
--#           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
--#       = render partial: 'tenders/posted_tenders_table', locals: {tenders: @tenders,type: 'past'}
--#       .row
--#         .small-offset-6.small-6.column.text-right
--#           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
-
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
 #edit-tender-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

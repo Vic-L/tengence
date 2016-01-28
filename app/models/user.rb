@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def fully_confirmed?
+    confirmed? && !pending_reconfirmation?
+  end
+
   rails_admin do
     list do
       field :email

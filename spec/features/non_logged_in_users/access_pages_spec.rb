@@ -65,4 +65,33 @@ feature "access pages by non_logged_in users" do
     expect(tenders_page.current_path).to eq new_user_session_path
     expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
   end
+
+  let(:devise_page) { DevisePage.new }
+  
+  scenario 'login' do
+    devise_page.visit_login_page
+    expect(devise_page.current_path).to eq new_user_session_path
+  end
+
+  scenario 'user sign_up/register page' do
+    devise_page.visit_user_sign_up_page
+    expect(devise_page.current_path).to eq new_user_registration_path
+    devise_page.visit_register_page
+    expect(devise_page.current_path).to eq register_path
+  end
+
+  scenario 'vendor register page' do
+    devise_page.visit_vendor_registration_page
+    expect(devise_page.current_path).to eq new_vendor_registration_path
+  end
+
+  scenario 'user edit page' do
+    devise_page.visit_edit_page
+    expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+  scenario 'user confirmation page' do
+    devise_page.visit_user_confirmation_page
+    expect(devise_page.current_path).to eq new_user_confirmation_path
+  end
 end

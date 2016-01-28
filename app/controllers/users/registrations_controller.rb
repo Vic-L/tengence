@@ -34,10 +34,30 @@ before_action :deny_write_only_access, only: [:new_vendors]
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
+    resource_updated = update_resource(resource, account_update_params)
+    yield resource if block_given?
+    if resource_updated
+      if is_flashing_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+          :update_needs_confirmation : :updated
+        set_flash_message :notice, flash_key
+      end
+      sign_in resource_name, resource, bypass: true
+      respond_with resource, location: after_update_path_for(resource)
+    else
+      if is_flashing_format?
+        flash[:alert] = resource.errors.full_messages.join('. ')
+      end
+      clean_up_passwords resource
+      redirect_to edit_user_registration_path
+    end
+  end
+
+  # DELETE /resource
   # DELETE /resource
   # def destroy
   #   super
@@ -70,6 +90,11 @@ before_action :deny_write_only_access, only: [:new_vendors]
     end
 
     def after_update_path_for(resource)
+      edit_user_registration_path
+    end
+
+    def after_failed_update_path_for(resource)
+      binding.pry
       edit_user_registration_path
     end
 

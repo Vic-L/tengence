@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_many :current_posted_tenders, foreign_key: "postee_id"
   has_many :past_posted_tenders, foreign_key: "postee_id"
   validates_with KeywordsValidator
+  validates_presence_of :first_name, :last_name # , :email -> email already validated by devise
 
   include AASM
   aasm column: :access_level do

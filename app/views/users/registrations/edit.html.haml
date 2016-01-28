@@ -1,12 +1,10 @@
 #wrapper
-  / start contacts section
   %section#contacts
     .row
       .medium-6.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
           %h3 Update Account
     .row
-      / start contact form
       #message
       = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| 
         .medium-6.columns.medium-centered
@@ -24,6 +22,67 @@
         .medium-6.columns.medium-centered
           = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation (leave blank if you don't want to change it)"
         .medium-12.columns.text-center
-          %button#submit{:name => "email", :type => "submit"} UPDATE
-      / end contact form
-  / end contacts section
+          %button#submit{:type => "submit"} UPDATE
+
+- content_for :javascript do
+  :javascript
+    $('form.edit_user').validate({
+      rules: {
+        'user[first_name]': {
+          required: true
+        },
+        'user[last_name]': {
+          required: true
+        },
+        'user[email]': {
+          required: true,
+          email: true
+        },
+        'user[password]': {
+          required: {
+            depends: function(){
+              return ($("input[name='user[password_confirmation]']").val() !== '' || $("input[name='user[password]']").val() !== '');
+            }
+          },
+          minlength: {
+            param: 8,
+            depends: function(){
+              return $("input[name='user[password]']").val() !== '';
+            }
+          }
+        },
+        'user[password_confirmation]': {
+          required: {
+            depends: function(){
+              return ($("input[name='user[password_confirmation]']").val() !== '' || $("input[name='user[password]']").val() !== '');
+            }
+          },
+          equalTo: {
+            param: $("input[name='user[password]']").val(),
+            depends: function(){
+              return $("input[name='user[password]']").val() !== '';
+            }
+          }
+        }
+      },
+      messages: {
+        'user[first_name]': {
+          required: 'Please enter your first name.'
+        },
+        'user[last_name]': {
+          required: 'Please enter your last name.'
+        },
+        'user[email]': {
+          required: 'Please enter your email.',
+          email: 'Please enter a valid email.'
+        },
+        'user[password]': {
+          required: "A password is required. Leave 'password confirmation' field blank if you dont intend to change your password.",
+          minlength: 'Your password should be at least 8 characters.'
+        },
+        'user[password_confirmation]': {
+          required: "A password confirmation is required. Leave 'password' field blank if you dont intend to change your password.",
+          equalTo: "Your passwords don't match."
+        }
+      }
+    })

@@ -1,21 +1,22 @@
-#wrapper
-  %section#post-tender
-    .row
-      .small-12.column.text-center
-        = link_to 'Post a Buying Requirement', new_tender_path, class: 'button', id: 'post-a-tender-button'
-  %section#tender-results
-    - if @results_count == 0
-      .row
-        .small-12.column.text-center
-          %p You have not posted any tenders
-    - else
-      .row
-        .small-offset-6.small-6.column.text-right
-          = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
-      = render partial: 'tenders/posted_tenders_table', locals: {tenders: @tenders,type: 'current'}
-      .row
-        .small-offset-6.small-6.column.text-right
-          = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+= react_component 'TendersListing', {url: '/api/v1' + request.fullpath}
+-# #wrapper
+-#   %section#post-tender
+-#     .row
+-#       .small-12.column.text-center
+-#         = link_to 'Post a Buying Requirement', new_tender_path, class: 'button', id: 'post-a-tender-button'
+-#   %section#tender-results
+-#     - if @results_count == 0
+-#       .row
+-#         .small-12.column.text-center
+-#           %p You have not posted any tenders
+-#     - else
+-#       .row
+-#         .small-offset-6.small-6.column.text-right
+-#           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
+-#       = render partial: 'tenders/posted_tenders_table', locals: {tenders: @tenders,type: 'current'}
+-#       .row
+-#         .small-offset-6.small-6.column.text-right
+-#           = render partial: 'tenders/total_count', locals: {results_count: @results_count, tenders: @tenders}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
 #edit-tender-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

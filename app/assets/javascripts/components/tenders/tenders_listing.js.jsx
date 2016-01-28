@@ -46,6 +46,13 @@ var TendersListing = React.createClass({
       return true;
     }
   },
+  isPostedTendersPage: function(){
+    if (window.location.href.indexOf('posted_tenders') === -1){
+      return false;
+    } else {
+      return true;
+    }
+  },
   getDescriptionText: function(){
     var list = ['current_tenders','past_tenders','watched_tenders','keywords_tenders'];
     for (var i=0;i<list.length;i++) {
@@ -69,7 +76,7 @@ var TendersListing = React.createClass({
     Tengence.ReactFunctions.updateKeywords(this,keywords, urlFragments);
   },
   render: function(){
-    var tenderCount, tenderTabs, tenderResults, tenderKeywords, tenderSearchForm;
+    var tenderCount, tenderTabs, tenderResults, tenderKeywords, tenderSearchForm, tenderHeader;
     if (this.props.current_tenders_count != null) {
       tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
     }
@@ -80,6 +87,15 @@ var TendersListing = React.createClass({
     } else if (this.isKeywordsTendersPage()) {
       tenderKeywords = <KeywordsTendersForm url={this.state.url} updateKeywords={this.updateKeywords} getTenders={this.getTenders} keywords={this.state.keywords}/>;
       tenderResults = <GenericTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
+    } else if (this.isPostedTendersPage()) {
+      tenderHeader = (<section id="post-tender">
+          <div className="row">
+            <div className="small-12 column text-center">
+              <a className="button" id="post-a-tender-button" href="/tenders/new">Post a Buying Requirement</a>
+            </div>
+          </div>
+        </section>)
+      tenderResults = <PostedTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     } else {
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
       tenderResults = <GenericTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
@@ -90,6 +106,7 @@ var TendersListing = React.createClass({
         <TendersDescription descriptionText={this.getDescriptionText()} />
         {tenderKeywords}
         {tenderTabs}
+        {tenderHeader}
         {tenderSearchForm}
         {tenderResults}
       </div>

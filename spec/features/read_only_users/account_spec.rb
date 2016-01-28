@@ -104,6 +104,19 @@ feature 'account', type: :feature, js: :true do
       devise_page.visit_edit_page
       expect(page).not_to have_content 'Currently waiting confirmation for: one@piece.com'
     end
+
+    # TODO chaeck if its ok to check for this in feature test
+    scenario 'should not change hashed_email when reconfirmed' do
+      hashed_email = user.hashed_email
+      fill_in 'user_email', with: 'one@piece.com'
+      devise_page.submit_form
+      wait_for_page_load
+      last_email = ActionMailer::Base.deliveries.last
+      ctoken = last_email.body.match(/confirmation_token=[^"]+/)
+      visit "/users/confirmation?#{ctoken}"
+      wait_for_page_load
+      expect(user.hashed_email).to eq hashed_email
+    end
   end
 
 end

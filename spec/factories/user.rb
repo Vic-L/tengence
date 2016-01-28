@@ -23,4 +23,8 @@ FactoryGirl.define do
   trait :without_keywords do
     keywords nil
   end
+
+  trait :pending_reconfirmation do
+    unconfirmed_email {Faker::Internet.email}
+  end
 end

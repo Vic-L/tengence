@@ -11,12 +11,12 @@
           = f.text_field :first_name, placeholder: "First Name"
         .medium-6.columns.medium-centered
           = f.text_field :last_name, placeholder: "Last Name"
-        .medium-6.columns.medium-centered
-          = f.email_field :email, placeholder: "Email"
+        
         .medium-6.columns.medium-centered
           - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-            %div
+            %label.error
               Currently waiting confirmation for: #{ resource.unconfirmed_email}
+          = f.email_field :email, placeholder: "Email"
         .medium-6.columns.medium-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (leave blank if you don't want to change it)"
         .medium-6.columns.medium-centered

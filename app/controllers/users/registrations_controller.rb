@@ -93,11 +93,6 @@ before_action :deny_write_only_access, only: [:new_vendors]
       edit_user_registration_path
     end
 
-    def after_failed_update_path_for(resource)
-      binding.pry
-      edit_user_registration_path
-    end
-
     # If you have extra params to permit, append them to the sanitizer.
     # def configure_sign_up_params
     #   devise_parameter_sanitizer.for(:sign_up) << :attribute

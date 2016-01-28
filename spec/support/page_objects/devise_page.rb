@@ -31,4 +31,26 @@ class DevisePage
     self
   end
 
+  def submit_form
+    execute_script("$('#submit').click()")
+  end
+
+  def click_logout
+    execute_script("$('#navigation li:last-child a').click()")
+  end
+
+  def fill_up_registration_form
+    fill_in 'user_first_name', with: Faker::Name.first_name
+    fill_in 'user_last_name', with: Faker::Name.last_name
+    fill_in 'user_email', with: Faker::Internet.email
+    fill_in 'user_company_name', with: Faker::Company.name
+    fill_in 'user_password', with: Faker::Internet.password(8)
+    check('eula')
+  end
+
+  def fill_up_login_form email, password
+    fill_in 'user_email', with: email
+    fill_in 'user_password', with: password
+  end
+
 end

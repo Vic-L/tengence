@@ -10,7 +10,7 @@ feature "registration as read_only users", js: true, type: :feature do
   end
 
   feature 'validations' do
-
+    
     scenario 'with nothing filled in' do
       registration_page.submit_form
       expect(page).to have_content 'Your first name is required.'

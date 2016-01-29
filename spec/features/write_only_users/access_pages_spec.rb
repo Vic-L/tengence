@@ -5,6 +5,7 @@ feature "access pages by write_only users" do
   let(:devise_page) { DevisePage.new }
   let(:write_only_user) {create(:user, :write_only)}
   let(:write_only_user_without_keywords) {create(:user, :write_only, :without_keywords)}
+  let(:tender) {create(:tender)}
 
   feature 'confirmed' do
 
@@ -62,6 +63,12 @@ feature "access pages by write_only users" do
       scenario 'new_tender' do
         tenders_page.visit_new_tender_page
         expect(tenders_page.current_path).to eq new_tender_path
+      end
+
+      scenario 'show_tender' do
+        tenders_page.visit_show_tender_page tender.ref_no
+        expect(tenders_page.current_path).to eq current_posted_tenders_path
+        expect(tenders_page).to have_content 'You are not authorized to view this page.'
       end
 
       scenario 'current_posted_tenders' do
@@ -162,6 +169,12 @@ feature "access pages by write_only users" do
       scenario 'new_tender' do
         tenders_page.visit_new_tender_page
         expect(tenders_page.current_path).to eq new_tender_path
+      end
+
+      scenario 'show_tender' do
+        tenders_page.visit_show_tender_page tender.ref_no
+        expect(tenders_page.current_path).to eq current_posted_tenders_path
+        expect(tenders_page).to have_content 'You are not authorized to view this page.'
       end
 
       scenario 'current_posted_tenders' do
@@ -269,6 +282,12 @@ feature "access pages by write_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      scenario 'show_tender' do
+        tenders_page.visit_show_tender_page tender.ref_no
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
       scenario 'current_posted_tenders' do
         tenders_page.visit_current_posted_tenders_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
@@ -367,6 +386,12 @@ feature "access pages by write_only users" do
 
       scenario 'new_tender' do
         tenders_page.visit_new_tender_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      scenario 'show_tender' do
+        tenders_page.visit_show_tender_page tender.ref_no
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end

@@ -57,4 +57,9 @@ class TendersPage
     visit '/past_posted_tenders'
     self
   end
+
+  def visit_show_tender_page id
+    visit '/tenders/' + id
+    self
+  end
 end

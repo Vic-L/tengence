@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature "access pages by non_logged_in users" do
   let(:tenders_page) { TendersPage.new }
+  let(:tender) {create(:tender)}
 
   scenario 'home_page' do
     tenders_page.visit_home_page
@@ -50,6 +51,13 @@ feature "access pages by non_logged_in users" do
 
   scenario 'new_tender' do
     tenders_page.visit_new_tender_page
+    expect(tenders_page.current_path).to eq new_user_session_path
+    expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+
+  scenario 'show_tender' do
+    tenders_page.visit_show_tender_page tender.ref_no
     expect(tenders_page.current_path).to eq new_user_session_path
     expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
   end

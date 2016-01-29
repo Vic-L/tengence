@@ -20,3 +20,28 @@
           %button#submit{:type => "submit"} Change my password
         .small-6.columns.small-centered.shared-links
           = render "users/shared/links"
+
+- content_for :javascript do
+  :javascript
+    $('form#new_user').validate({
+      rules: {
+        'user[password]': {
+          required: true,
+          minlength: 8
+        },
+        'user[password_confirmation]': {
+          required: true,
+          equalTo: $("input[name='user[password]']").val()
+        }
+      },
+      messages: {
+        'user[password]': {
+          required: "A password is required.",
+          minlength: 'Your password should be at least 8 characters.'
+        },
+        'user[password_confirmation]': {
+          required: "A password confirmation is required.",
+          equalTo: "Your passwords don't match."
+        }
+      }
+    });

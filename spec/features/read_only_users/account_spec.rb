@@ -91,6 +91,7 @@ feature 'account', type: :feature, js: :true do
       fill_in 'user_email', with: 'one@piece.com'
       devise_page.submit_form
       wait_for_page_load
+      expect(page).to have_content 'You will receive an email with instructions for how to confirm your email address in a few minutes.'
       expect(ActionMailer::Base.deliveries.count).to eq 1
     end
 

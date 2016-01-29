@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     passwords:  "users/passwords" }
   devise_scope :user do
     get "users/check_email_taken"=> 'users/registrations#check_email_taken', :as => :check_email_taken
+    get "users/check_email_present"=> 'users/registrations#check_email_present', :as => :check_email_present
     get "organizations/register"=> 'users/registrations#new_vendors', as: :new_vendor_registration
     get "register" => "users/registrations#new"
   end

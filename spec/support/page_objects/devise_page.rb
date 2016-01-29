@@ -1,5 +1,6 @@
 class DevisePage
   include Capybara::DSL
+  include TendersPageFunctions
 
   def visit_login_page
     visit '/users/sign_in'

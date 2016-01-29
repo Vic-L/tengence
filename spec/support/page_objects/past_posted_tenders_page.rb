@@ -1,14 +1,15 @@
-class CurrentPostedTendersPage
+class PastPostedTendersPage
   include Capybara::DSL
   include TendersPageFunctions
 
   def visit_page
-    visit '/current_posted_tenders'
+    visit '/past_posted_tenders'
     self
   end
 
   def seed_data user_id
-    102.times do
+    # create 1 current tender
+    1.times do
       Tender.create(
         ref_no: 'InHouse-' + (Time.now.to_f*1000).to_i.to_s,
         buyer_company_name: Faker::Company.name,
@@ -23,8 +24,7 @@ class CurrentPostedTendersPage
       )
     end
 
-    # create 1 past tender
-    1.times do
+    102.times do
       Tender.create(
         ref_no: 'InHouse-' + (Time.now.to_f*1000).to_i.to_s,
         buyer_company_name: Faker::Company.name,

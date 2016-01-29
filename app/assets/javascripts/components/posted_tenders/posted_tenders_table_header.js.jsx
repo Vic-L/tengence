@@ -7,7 +7,7 @@ var PostedTendersTableHeader = React.createClass({
           <th className='medium-1 hide-for-small'>Published Date</th>
           <th className='medium-2'>Closing Date</th>
           <th className='medium-1 hide-for-small'>Closing Time</th>
-          <th className='medium-1 hide-for-small'>Watchlist</th>
+          <th className='medium-1 hide-for-small'>Edit</th>
           <th className='medium-1'>Details</th>
         </tr>
       </thead>

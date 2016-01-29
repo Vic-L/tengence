@@ -83,4 +83,9 @@ feature 'current_posted_tenders', js: true, type: :feature do
     expect(Tender.where(description: tender['description']).first.closing_datetime.strftime('%H:%M %p')).to eq tender['closing_time']
   end
 
+  scenario 'should not have link to edit tenders' do
+    expect(current_posted_tenders_page.find_css('tbody tr td')[4].all_text).to eq 'Edit'
+    expect(current_posted_tenders_page.find_css('tbody tr td')[4].all_text).not_to eq 'Expired'
+  end
+
 end

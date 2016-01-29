@@ -1,14 +1,13 @@
 var TendersSearch = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
-    var url = new URI(this.props.url);
-    url = url.removeQuery('page');
+    var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
     var searchField = document.getElementById('query-field');
     if (searchField != null && searchField.value != '') {
       Tengence.ReactFunctions.trackQuery(searchField.value);
-      this.props.getTenders(url.removeQuery('query'), searchField.value);
+      this.props.getTenders(urlFragments.path, null, urlFragments.table, searchField.value, urlFragments.keywords, urlFragments.sortOrder);
     } else {
-      this.props.getTenders(url.removeQuery('query'));
+      this.props.getTenders(urlFragments.path, null, urlFragments.table, null, urlFragments.keywords, urlFragments.sortOrder);
     }
   },
   render: function(){

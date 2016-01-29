@@ -32,4 +32,9 @@ User.all.each do |user|
     company: user.company_name
   )
   user.update(braintree_customer_id: result.customer.id)
+
+#benchmarks
+Benchmark.bm do |bm|
+  bm.report{Tender.where('closing_datetime >= NOW() AND status = "open"').count}
+  bm.report{CurrentTender.count}
 end

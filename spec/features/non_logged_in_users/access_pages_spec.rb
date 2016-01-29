@@ -2,6 +2,8 @@ require 'spec_helper'
 
 feature "access pages by non_logged_in users" do
   let(:tenders_page) { TendersPage.new }
+  let(:tender) {create(:tender)}
+  let(:past_tender) {create(:tender, :past)}
 
   scenario 'home_page' do
     tenders_page.visit_home_page
@@ -54,6 +56,28 @@ feature "access pages by non_logged_in users" do
     expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
   end
 
+
+  scenario 'show_tender' do
+    tenders_page.visit_show_tender_page tender.ref_no
+    expect(tenders_page.current_path).to eq new_user_session_path
+    expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+  feature 'edit_tender' do
+    scenario 'edit current tender' do
+      tenders_page.visit_edit_tender_page tender.ref_no
+      expect(tenders_page.current_path).to eq new_user_session_path
+      expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+    end
+
+    scenario 'edit past tender' do
+      tenders_page.visit_edit_tender_page past_tender.ref_no
+      expect(tenders_page.current_path).to eq new_user_session_path
+      expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+    end
+
+  end
+
   scenario 'current_posted_tenders' do
     tenders_page.visit_current_posted_tenders_page
     expect(tenders_page.current_path).to eq new_user_session_path
@@ -64,5 +88,34 @@ feature "access pages by non_logged_in users" do
     tenders_page.visit_past_posted_tenders_page
     expect(tenders_page.current_path).to eq new_user_session_path
     expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+  let(:devise_page) { DevisePage.new }
+  
+  scenario 'login' do
+    devise_page.visit_login_page
+    expect(devise_page.current_path).to eq new_user_session_path
+  end
+
+  scenario 'user sign_up/register page' do
+    devise_page.visit_user_sign_up_page
+    expect(devise_page.current_path).to eq new_user_registration_path
+    devise_page.visit_register_page
+    expect(devise_page.current_path).to eq register_path
+  end
+
+  scenario 'vendor register page' do
+    devise_page.visit_vendor_registration_page
+    expect(devise_page.current_path).to eq new_vendor_registration_path
+  end
+
+  scenario 'user edit page' do
+    devise_page.visit_edit_page
+    expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+  scenario 'user confirmation page' do
+    devise_page.visit_user_confirmation_page
+    expect(devise_page.current_path).to eq new_user_confirmation_path
   end
 end

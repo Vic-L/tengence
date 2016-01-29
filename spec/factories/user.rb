@@ -4,7 +4,7 @@ FactoryGirl.define do
     last_name {Faker::Name.last_name}
     email {Faker::Internet.email}
     password "password"
-    confirmed_at Time.now - 2.days
+    confirmed_at Time.current - 2.days
     keywords 'stub'
 
     after :build do |user|
@@ -27,5 +27,9 @@ FactoryGirl.define do
 
   trait :without_keywords do
     keywords nil
+  end
+
+  trait :pending_reconfirmation do
+    unconfirmed_email {Faker::Internet.email}
   end
 end

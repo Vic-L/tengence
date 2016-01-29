@@ -16,6 +16,11 @@ var DemoTendersPagination = React.createClass({
     }
     return range;
   },
+  handleChange: function(e){
+    Tengence.ReactFunctions.trackSort(e.target.value);
+    e.preventDefault();
+    Tengence.HomePage.promptRegistration();
+  },
   handleClick: function(e){
     e.preventDefault();
     Tengence.HomePage.promptRegistration();
@@ -49,7 +54,10 @@ var DemoTendersPagination = React.createClass({
     }
     return (
       <div className='row'>
-        <div className='small-12 column text-right tender-pagination'>
+        <div className='small-6 medium-3 column'>
+          Sort By:<select className='sort' onChange={this.handleChange} value='newest'><option value="newest">Newest</option><option value="expiring">Expiring</option></select>
+        </div>
+        <div className='small-6 medium-9 column text-right tender-pagination'>
           <nav className="pagination">
             {links}
           </nav>| Total Tenders:

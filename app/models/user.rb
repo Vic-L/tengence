@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :current_posted_tenders, foreign_key: "postee_id"
   has_many :past_posted_tenders, foreign_key: "postee_id"
   validates_with KeywordsValidator
+  validates_presence_of :first_name, :last_name # , :email -> email already validated by devise
 
   include AASM
   aasm column: :access_level do
@@ -38,6 +39,9 @@ class User < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+  def fully_confirmed?
+    confirmed? && !pending_reconfirmation?
   end
 
   def trial?
@@ -83,7 +87,6 @@ class User < ActiveRecord::Base
     else
       NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> Braintree Error during delete #{self.name} (#{self.email}) - #{self.braintree_customer_id}:\r\n#{result.errors}")
     end
-  end
 
   rails_admin do
     list do

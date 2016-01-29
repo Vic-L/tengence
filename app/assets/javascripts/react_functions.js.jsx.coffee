@@ -2,6 +2,19 @@ Tengence.ReactFunctions.showLoading = ->
   $('#tender-results').addClass('blur')
   document.body.classList.add('loading')
 
+Tengence.ReactFunctions.dissectUrl = (url) ->
+  uri = new URI(url);
+  params = URI.parseQuery(uri.query());
+  path = new URI(uri.path());
+  return {
+    path: path.toString()
+    page: params.page
+    table: params.table
+    query: params.query
+    keywords: params.keywords
+    sortOrder: params['sort']
+  }
+
 Tengence.ReactFunctions.stopLoading = ->
   $('#tender-results').removeClass('blur')
   document.body.classList.remove('loading')
@@ -23,36 +36,62 @@ Tengence.ReactFunctions.trackQuery = (query) ->
       'searchQuery': query
   return
 
+Tengence.ReactFunctions.trackSort = (sortOrder) ->
+  if dataLayer?
+    dataLayer.push
+      'event': 'sortOrder'
+      'sortOrder': sortOrder
+  return
+
 Tengence.ReactFunctions.pushState = (url) ->
+  # console.log url
   if (url.indexOf('demo_tenders') < 0)
     state = {url: url}
     history.pushState(state,'',url)
 
-Tengence.ReactFunctions.getTenders = (parentComponent, url, query, keywords) ->
+Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, keywords, sort) ->
   Tengence.ReactFunctions.showLoading()
+  # console.log url
+  # console.log query
+  # console.log keywords
+  # console.log sort
   $.ajax
     url: url
     data: 
       {query: query
-      , keywords: keywords}
+      table: table
+      page: page
+      keywords: keywords
+      sort: sort}
     method: 'GET',
     dataType: 'json',
     cache: false,
     success: (data) ->
       finalUrl = new URI(url)
-      finalUrl = finalUrl.removeQuery('query').removeQuery('keywords')
+      if page?
+        finalUrl.removeQuery('page')
+        finalUrl.addQuery('page', page)
+      if table?
+        finalUrl.removeQuery('table')
+        finalUrl.addQuery('table', table)
       if query?
+        finalUrl.removeQuery('query')
         finalUrl.addQuery('query', query)
       if keywords?
+        finalUrl.removeQuery('keywords')
         finalUrl.addQuery('keywords', keywords)
+      if sort?
+        finalUrl.removeQuery('sort')
+        finalUrl.addQuery('sort', sort)
 
       Tengence.ReactFunctions.pushState(finalUrl.toString().replace('/api/v1',''))
 
-      parentComponent.setState(
-        {pagination: data.pagination
-        ,tenders: data.tenders
-        ,results_count: data.results_count
-        ,url: finalUrl.toString()})
+      parentComponent.setState({
+        pagination: data.pagination
+        tenders: data.tenders
+        results_count: data.results_count
+        url: finalUrl.toString()
+        sort: sort})
       return
     error: (xhr, status, err) ->
       Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText)
@@ -138,7 +177,7 @@ Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) ->
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
+Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords,urlFragments) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/users/keywords'
@@ -151,15 +190,18 @@ Tengence.ReactFunctions.updateKeywords = (parentComponent,keywords) ->
       Tengence.ReactFunctions.getTenders(
         parentComponent
         '/api/v1/keywords_tenders'
+        urlFragments.table
         null
-        keywords)
+        urlFragments.query
+        keywords
+        urlFragments.sortOrder)
       return
     error: (xhr, status, err) ->
       alert(xhr.responseText)
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids) ->
+Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids, url) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: "/api/v1/watched_tenders/mass_destroy"
@@ -170,8 +212,7 @@ Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids) ->
       $('#select_all').prop('checked', false)
       Tengence.ReactFunctions.getTenders(
         parentComponent
-        , parentComponent.state.url.split('page')[0]
-        , document.getElementById('query-field').value)
+        url)
     error: (xhr, status, err) ->
       Tengence.ReactFunctions.notifyError(window.location.href,'massDestroyTenders', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused. The page will now refresh.")

@@ -1,5 +1,6 @@
 class TendersPage
   include Capybara::DSL
+  include TendersPageFunctions
 
   def visit_home_page
     visit '/'
@@ -55,6 +56,16 @@ class TendersPage
 
   def visit_past_posted_tenders_page
     visit '/past_posted_tenders'
+    self
+  end
+
+  def visit_show_tender_page id
+    visit '/tenders/' + id
+    self
+  end
+
+  def visit_edit_tender_page id
+    visit '/tenders/' + id + '/edit'
     self
   end
 end

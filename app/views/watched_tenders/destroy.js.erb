@@ -1,8 +1,0 @@
-// alert("#watch-tender-<%= @tender_ref_no %>");
-$("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").empty();
-$("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").append("<%= j link_to 'Watch', watched_tenders_path(id: @tender_ref_no), method: 'post', remote: true, class: 'button watch-button ga-tenders-watch', data: {gtm_category: '', gtm_action: 'watch', gtm_label: @tender_ref_no} %>");
-$("#watch-tender-<%= @tender_ref_no.gsub('/','\\\\\\/') %>").notify(
-  "Successfully removed from watchlist", "success", 
-  { position: "top", autoHideDelay: 3000}
-);
-$('html,body').removeClass('loading');

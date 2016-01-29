@@ -7,6 +7,7 @@ class GetKeywordsTenders
   attribute :params, Hash
 
   def call
+    set_sort_order
     begin
       results_ref_nos = []
       (user.keywords || '').split(",").each do |keyword|
@@ -17,7 +18,8 @@ class GetKeywordsTenders
         end
       end
       results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
-      @tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
+
+      eval("@tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos).#{@sort}")
       @results_count = @tenders.size
       @tenders = @tenders.page(params['page']).per(50)
 
@@ -38,5 +40,16 @@ class GetKeywordsTenders
   private
     def only_watched_tenders?
       !source.blank? && source == 'watched_tenders'
+    end
+
+    def set_sort_order
+      case params['sort']
+      when 'newest'
+        @sort = "order(published_date: :desc)"
+      when 'expiring'
+        @sort = "order(closing_datetime: :asc)"
+      else
+        @sort = "order(published_date: :desc)"
+      end
     end
 end

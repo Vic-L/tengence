@@ -72,29 +72,3 @@
           %a.close{href: "#", class: "close"} &times;
 .mask
   #loader.rotating
-
-- content_for :javascript do
-  :javascript
-    $(function(){
-      $('#sign-out').click(function(){
-        $.ajax({
-          url: "#{destroy_user_session_path}",
-          method: 'DELETE'
-        });
-      });
-      $('#account-settings').click(function(){
-        window.location.href = "#{edit_user_registration_path}";
-      });
-      $('#my-keywords').click(function(){
-        window.location.href = "#{keywords_user_path}";
-      });
-      $('#sign-up').click(function(){
-        window.location.href = "#{new_user_registration_path}";
-      });
-      $('#tos').click(function(){
-        window.location.href = "#{terms_of_service_path}";
-      });
-      $('#login').click(function(){
-        window.location.href = "#{new_user_session_path}";
-      });
-    });

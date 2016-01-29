@@ -19,6 +19,8 @@ Rails.application.routes.draw do
           post 'keywords', to: 'users/keywords#update'
         end
       end
+      resources :current_posted_tenders
+      resources :past_posted_tenders
     end
   end
 

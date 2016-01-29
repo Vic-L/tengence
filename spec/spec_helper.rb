@@ -3,6 +3,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
+require_relative 'support/modules/tenders_page_functions'
 
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -10,6 +11,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migrator.migrate(File.join(Rails.root, 'db/migrate'))
+# RAILS_ENV=test rake db:drop db:create db:migrate
 
 # set max time
 Capybara.default_max_wait_time = 10
@@ -85,6 +87,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     Sidekiq::Worker.clear_all
     ActionMailer::Base.deliveries.clear
+    Sidekiq::Worker.clear_all
   end
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
@@ -149,5 +152,5 @@ RSpec.configure do |config|
 =end
 end
 
-Sidekiq::Testing.inline!
 Capybara.wait_on_first_by_default = true
+Sidekiq::Testing.fake!  # by default it is fake

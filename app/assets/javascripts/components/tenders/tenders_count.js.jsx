@@ -14,7 +14,7 @@ var TendersCount = React.createClass({
             </div>
           </div>
           <div className="small-12 medium-6 column text-center">
-            <div className="counter animated" data-perc="46">
+            <div className="counter animated" data-perc="62">
               <div className="number-detail">
                 <h2>
                   <div className="number"></div>

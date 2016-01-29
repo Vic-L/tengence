@@ -10,6 +10,11 @@ feature "access pages by non_logged_in users" do
     expect(tenders_page.current_path).to eq root_path
   end
 
+  scenario 'passwords' do
+    tenders_page.visit_new_password_page
+    expect(tenders_page.current_path).to eq new_user_password_path
+  end
+
   scenario 'resend_confirmation_page' do
     tenders_page.visit_resend_confirmation_page
     expect(tenders_page.current_path).to eq new_user_confirmation_path

@@ -22,6 +22,12 @@ feature "access pages by read_only users" do
         expect(tenders_page).not_to have_content 'You are not authorized to view this page.'
       end
 
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq current_tenders_path
+        expect(tenders_page).to have_content 'You are already signed in.'
+      end
+
       scenario 'resend_confirmation_page' do
         tenders_page.visit_resend_confirmation_page
         expect(tenders_page.current_path).to eq current_tenders_path
@@ -135,6 +141,12 @@ feature "access pages by read_only users" do
         tenders_page.visit_home_page
         expect(tenders_page.current_path).to eq keywords_tenders_path
         expect(tenders_page).not_to have_content 'You are not authorized to view this page.'
+        expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
+      end
+
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq keywords_tenders_path
         expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
       end
 
@@ -269,6 +281,12 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
       scenario 'resend_confirmation_page' do
         tenders_page.visit_resend_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
@@ -389,6 +407,12 @@ feature "access pages by read_only users" do
 
       scenario 'home_page' do
         tenders_page.visit_home_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
@@ -523,6 +547,12 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
       scenario 'resend_confirmation_page' do
         tenders_page.visit_resend_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
@@ -643,6 +673,12 @@ feature "access pages by read_only users" do
 
       scenario 'home_page' do
         tenders_page.visit_home_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end

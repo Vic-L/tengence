@@ -25,7 +25,7 @@ FactoryGirl.define do
 
     trait :past do
       published_date {Faker::Date.between(14.days.ago, Time.now.in_time_zone('Singapore').to_date - 7.days)}
-      closing_datetime {Faker::Time.between(Time.current - 6.days, Time.current + 1.days)}
+      closing_datetime {Faker::Time.between(Time.current - 6.days, Time.current - 1.days)}
     end
 
     factory :gebiz_tender, traits: [:gebiz]

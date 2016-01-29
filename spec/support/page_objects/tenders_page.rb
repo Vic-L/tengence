@@ -7,6 +7,11 @@ class TendersPage
     self
   end
 
+  def visit_new_password_page
+    visit 'users/password/new'
+    self
+  end
+
   def visit_terms_of_service_page
     visit '/terms-of-service'
     self

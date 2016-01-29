@@ -24,6 +24,12 @@ feature "access pages by write_only users" do
         expect(tenders_page.current_path).to eq current_posted_tenders_path
       end
 
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq current_posted_tenders_path
+        expect(tenders_page).to have_content 'You are already signed in.'
+      end
+
       scenario 'resend_confirmation_page' do
         tenders_page.visit_resend_confirmation_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
@@ -169,6 +175,12 @@ feature "access pages by write_only users" do
         tenders_page.visit_home_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
         expect(tenders_page).not_to have_content 'You are not authorized to view this page.'
+      end
+
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq current_posted_tenders_path
+        expect(tenders_page).to have_content 'You are already signed in.'
       end
 
       scenario 'resend_confirmation_page' do
@@ -324,6 +336,12 @@ feature "access pages by write_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
       scenario 'resend_confirmation_page' do
         tenders_page.visit_resend_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
@@ -474,6 +492,12 @@ feature "access pages by write_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
       scenario 'resend_confirmation_page' do
         tenders_page.visit_resend_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
@@ -618,6 +642,7 @@ feature "access pages by write_only users" do
   let(:write_only_pending_reconfirmation_user_without_keywords) {create(:user, :write_only, :without_keywords, :pending_reconfirmation)}
 
   feature 'pending_reconfirmation' do
+
     feature 'with keywords' do
 
       before :each do
@@ -626,6 +651,12 @@ feature "access pages by write_only users" do
 
       scenario 'home_page' do
         tenders_page.visit_home_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
@@ -776,6 +807,12 @@ feature "access pages by write_only users" do
 
       scenario 'home_page' do
         tenders_page.visit_home_page
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      scenario 'passwords' do
+        tenders_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end

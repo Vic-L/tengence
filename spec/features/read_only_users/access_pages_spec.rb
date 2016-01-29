@@ -6,6 +6,7 @@ feature "access pages by read_only users" do
   let(:read_only_user) {create(:user, :read_only)}
   let(:read_only_user_without_keywords) {create(:user, :read_only, :without_keywords)}
   let(:tender) {create(:tender)}
+  let(:past_tender) {create(:tender, :past)}
 
   feature 'confirmed' do
 
@@ -65,6 +66,18 @@ feature "access pages by read_only users" do
       scenario 'show_tender' do
         tenders_page.visit_show_tender_page tender.ref_no
         expect(tenders_page.current_path).to eq tender_path(id: tender.ref_no)
+      end
+
+      scenario 'edit current tender' do
+        tenders_page.visit_edit_tender_page tender.ref_no
+        expect(tenders_page.current_path).to eq current_tenders_path
+        expect(tenders_page).to have_content 'You are not authorized to view this page.'
+      end
+
+      scenario 'edit past tender' do
+        tenders_page.visit_edit_tender_page past_tender.ref_no
+        expect(tenders_page.current_path).to eq current_tenders_path
+        expect(tenders_page).to have_content 'You are not authorized to view this page.'
       end
 
       scenario 'current_posted_tenders' do
@@ -174,6 +187,22 @@ feature "access pages by read_only users" do
       scenario 'show_tender' do
         tenders_page.visit_show_tender_page tender.ref_no
         expect(tenders_page.current_path).to eq tender_path(id: tender.ref_no)
+      end
+
+      feature 'edit_tender' do
+
+        scenario 'edit current tender' do
+          tenders_page.visit_edit_tender_page tender.ref_no
+          expect(tenders_page.current_path).to eq keywords_tenders_path
+          expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
+        end
+
+        scenario 'edit past tender' do
+          tenders_page.visit_edit_tender_page past_tender.ref_no
+          expect(tenders_page.current_path).to eq keywords_tenders_path
+          expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
+        end
+
       end
 
       scenario 'current_posted_tenders' do
@@ -292,6 +321,22 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      feature 'edit_tender' do
+
+        scenario 'edit current tender' do
+          tenders_page.visit_edit_tender_page tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
+        scenario 'edit past tender' do
+          tenders_page.visit_edit_tender_page past_tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
+      end
+
       scenario 'current_posted_tenders' do
         tenders_page.visit_current_posted_tenders_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
@@ -398,6 +443,22 @@ feature "access pages by read_only users" do
         tenders_page.visit_show_tender_page tender.ref_no
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      feature 'edit_tender' do
+
+        scenario 'edit current tender' do
+          tenders_page.visit_edit_tender_page tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
+        scenario 'edit past tender' do
+          tenders_page.visit_edit_tender_page past_tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
       end
 
       scenario 'current_posted_tenders' do
@@ -508,6 +569,28 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      scenario 'show_tender' do
+        tenders_page.visit_show_tender_page tender.ref_no
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      feature 'edit_tender' do
+
+        scenario 'edit current tender' do
+          tenders_page.visit_edit_tender_page tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
+        scenario 'edit past tender' do
+          tenders_page.visit_edit_tender_page past_tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
+      end
+
       scenario 'current_posted_tenders' do
         tenders_page.visit_current_posted_tenders_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
@@ -608,6 +691,28 @@ feature "access pages by read_only users" do
         tenders_page.visit_new_tender_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      scenario 'show_tender' do
+        tenders_page.visit_show_tender_page tender.ref_no
+        expect(tenders_page.current_path).to eq new_user_confirmation_path
+        expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      feature 'edit_tender' do
+
+        scenario 'edit current tender' do
+          tenders_page.visit_edit_tender_page tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
+        scenario 'edit past tender' do
+          tenders_page.visit_edit_tender_page past_tender.ref_no
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          expect(tenders_page).to have_content 'Please confirm your account first.'
+        end
+
       end
 
       scenario 'current_posted_tenders' do

@@ -3,7 +3,7 @@ FactoryGirl.define do
     ref_no {Faker::Company.ein}
     buyer_company_name {Faker::Company.name}
     buyer_name {Faker::Name.name}
-    buyer_contact_number {Faker::PhoneNumber.phone_number}
+    buyer_contact_number '67757981' # {Faker::PhoneNumber.phone_number}
     buyer_email {Faker::Internet.email}
     description {Faker::Lorem.sentences(5).join(" ")}
     published_date {Faker::Date.between(2.days.ago, Time.now.in_time_zone('Singapore').to_date)}
@@ -19,11 +19,12 @@ FactoryGirl.define do
 
     trait :inhouse do
       external_link 'InHouse'
+      long_description {Faker::Lorem.sentences(10).join("\r\n")}
     end
 
-    trait :current do
-      published_date {Faker::Date.between(2.days.ago, Time.now.in_time_zone('Singapore').to_date)}
-      closing_datetime {Faker::Time.between(Time.current, Time.current + 1.month)}
+    trait :past do
+      published_date {Faker::Date.between(14.days.ago, Time.now.in_time_zone('Singapore').to_date - 7.days)}
+      closing_datetime {Faker::Time.between(Time.current - 6.days, Time.current + 1.days)}
     end
 
     factory :gebiz_tender, traits: [:gebiz]

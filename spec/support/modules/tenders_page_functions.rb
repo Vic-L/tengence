@@ -19,9 +19,15 @@ module TendersPageFunctions
     (find_css('tbody tr td')[2].all_text + " " + find_css('tbody tr td')[3].all_text)
   end
 
-  def click_first_more_button
-    execute_script("$('.more-button')[0].scrollIntoView(false);")
-    find_css('.more-button').first.click
+  def click selector, counter=0
+    if counter.zero?
+      eval("execute_script(\"$('#{selector}')[0].scrollIntoView(false);\")")
+      eval("execute_script(\"$('#{selector}')[0].click();\")")
+    else
+      eval("execute_script(\"$('#{selector}').slice(#{counter},#{counter+1})[0].scrollIntoView(false);\")")
+      eval("execute_script(\"$('#{selector}').slice(#{counter},#{counter+1})[0].click();\")")
+    end
+    # find_css(selector).first.click
   end
 
   def get_last_closing_date_time

@@ -18,6 +18,7 @@ FactoryGirl.define do
     end
 
     trait :inhouse do
+      ref_no {'InHouse-' + (Faker::Time.between(Time.current - 1.hours, Time.current).to_f*1000).to_i.to_s}
       external_link 'InHouse'
       long_description {Faker::Lorem.sentences(10).join("\r\n")}
     end

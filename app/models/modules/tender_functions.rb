@@ -1,4 +1,8 @@
 module TenderFunctions
+  def past?
+    closing_datetime < Time.current
+  end
+
   def in_house?
     !!(ref_no =~ /^InHouse-/)
   end

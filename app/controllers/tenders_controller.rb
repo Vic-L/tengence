@@ -4,6 +4,8 @@ class TendersController < ApplicationController
   before_action :deny_read_only_access, except: [:show]
   before_action :deny_write_only_access, only: [:show]
   before_action :deny_unconfirmed_users
+  before_action :check_inhouse_tender, only: [:edit, :update]
+  before_action :check_own_tender, only: [:edit, :update]
 
   def new
     @tender = Tender.new(ref_no: "InHouse-#{Time.now.in_time_zone('Asia/Singapore').to_formatted_s(:number)}", published_date: Time.now.in_time_zone('Singapore').to_date, buyer_company_name: current_user.company_name, postee_id: current_user.id)
@@ -28,11 +30,13 @@ class TendersController < ApplicationController
   end
 
   def edit
-    @tender = Tender.find(params[:id])
+    if @tender.past?
+      flash[:error] = 'The tender you want to edit is expired and cannot be edited.'
+      redirect_to current_posted_tenders_path
+    end
   end
 
   def update
-    @tender = Tender.find(tender_params[:ref_no])
     if @tender.update(tender_params)
       flash[:success] = "Buying requirement successfully updated!"
     else
@@ -42,6 +46,26 @@ class TendersController < ApplicationController
   end
 
   private
+    def check_own_tender
+      # check_inhouse_tender already checked presence of postee_id
+      if current_user.id != @tender.postee_id
+        flash[:error] = 'This tender does not belong to you. You are not authorized to edit it.'
+        redirect_to current_posted_tenders_path
+      end
+    end
+
+    def check_inhouse_tender
+      if params[:id]
+        @tender = Tender.find(params[:id])
+      elsif tender_params[:ref_no]
+        @tender = Tender.find(tender_params[:ref_no])
+      end
+      if !@tender.in_house?
+        flash[:error] = 'This tender is not editable.'
+        redirect_to current_posted_tenders_path
+      end
+    end
+
     def store_location
       unless user_signed_in?
         store_location_for(:users, request.original_url)

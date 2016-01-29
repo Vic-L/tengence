@@ -31,6 +31,11 @@ class DevisePage
     self
   end
 
+  def visit_new_password_page
+    visit '/users/password/new'
+    self
+  end
+
   def submit_form
     execute_script("$('#submit').click()")
   end

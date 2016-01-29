@@ -25,7 +25,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'passwords' do
-        tenders_page.visit_new_password_page
+        devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
         expect(tenders_page).to have_content 'You are already signed in.'
       end
@@ -178,7 +178,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'passwords' do
-        tenders_page.visit_new_password_page
+        devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
         expect(tenders_page).to have_content 'You are already signed in.'
       end
@@ -337,7 +337,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'passwords' do
-        tenders_page.visit_new_password_page
+        devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
@@ -493,7 +493,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'passwords' do
-        tenders_page.visit_new_password_page
+        devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
@@ -656,7 +656,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'passwords' do
-        tenders_page.visit_new_password_page
+        devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
@@ -812,7 +812,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'passwords' do
-        tenders_page.visit_new_password_page
+        devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end

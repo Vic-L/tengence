@@ -1,7 +1,7 @@
 #wrapper
   %section
     .row
-      .medium-6.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+      .medium-8.small-12.columns.medium-centered.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
         .title-section
           %h3 Forgot Your Password
       -# .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
@@ -10,10 +10,27 @@
       -#     %p Despite recent advances in web type technology we’re still fairly limited when it comes to creative typography layouts, meaning image replacement techniques are still common.
     .row
       = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-        #message= devise_error_messages!
+        #message
         .small-6.column.small-centered
           = f.email_field :email, autofocus: true, placeholder: 'Email'
         .small-6.columns.small-centered.text-center
           %button#submit{:type => "submit"} Send me reset password instructions
         .small-6.columns.small-centered.shared-links
           = render "users/shared/links"
+
+- content_for :javascript do
+  :javascript
+    $('form#new_user').validate({
+      rules: {
+        'user[email]': {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        'user[email]': {
+          required: 'Please enter your email.',
+          email: 'Please enter a valid email.'
+        }
+      }
+    });

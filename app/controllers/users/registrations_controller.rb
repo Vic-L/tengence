@@ -79,6 +79,13 @@ before_action :deny_write_only_access, only: [:new_vendors]
     render json: rv.to_json
   end
 
+  def check_email_present
+    # the jquery validate plugin expects true for valid parameters
+    email_wrapper = params[:user]
+    rv = !User.email_available?(email_wrapper[:email])
+    render json: rv.to_json
+  end
+
   protected
     def update_resource(resource, params)
       if params['password'].blank?

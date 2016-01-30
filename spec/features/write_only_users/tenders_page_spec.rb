@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'edit tender', js: true, type: :feature do
   let(:tenders_page) { TendersPage.new }
   let(:write_only_user) {create(:user, :write_only)}
-  let(:tender) {create(:tender, :inhouse, postee_id: write_only_user)}
+  let(:tender) {create(:tender, :inhouse, postee_id: write_only_user.id)}
 
   feature 'current_tender' do
     before :each do
@@ -22,7 +22,7 @@ feature 'edit tender', js: true, type: :feature do
       page.execute_script("$('#tender_closing_datetime').val('')")
       fill_in 'tender_long_description', with: ''
 
-      tenders_page.click '#submit'
+      tenders_page.click_unique '#submit'
 
       expect(page).to have_content("A short description of your buying requirement is required")
       expect(page).to have_content("Name of person of contact is required")
@@ -43,7 +43,7 @@ feature 'edit tender', js: true, type: :feature do
       long_description = tender.long_description
 
       tenders_page.fill_up_tender_form
-      tenders_page.click '#submit'
+      tenders_page.click_unique '#submit'
 
       expect(page).to have_content 'Buying requirement successfully updated!'
       expect(tender.reload.description).not_to eq description

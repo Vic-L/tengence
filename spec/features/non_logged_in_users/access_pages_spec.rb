@@ -2,12 +2,18 @@ require 'spec_helper'
 
 feature "access pages by non_logged_in users" do
   let(:tenders_page) { TendersPage.new }
+  let(:devise_page) { DevisePage.new }
   let(:tender) {create(:tender)}
   let(:past_tender) {create(:tender, :past)}
 
   scenario 'home_page' do
     tenders_page.visit_home_page
     expect(tenders_page.current_path).to eq root_path
+  end
+
+  scenario 'passwords' do
+    devise_page.visit_new_password_page
+    expect(tenders_page.current_path).to eq new_user_password_path
   end
 
   scenario 'resend_confirmation_page' do
@@ -89,8 +95,6 @@ feature "access pages by non_logged_in users" do
     expect(tenders_page.current_path).to eq new_user_session_path
     expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
   end
-
-  let(:devise_page) { DevisePage.new }
   
   scenario 'login' do
     devise_page.visit_login_page

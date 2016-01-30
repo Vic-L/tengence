@@ -13,7 +13,7 @@ feature "post tender", js: true, type: :feature do
   feature 'validations' do
     scenario 'with nothing filled' do
       wait_for_page_load
-      post_tender_page.click '#submit'
+      post_tender_page.click_unique '#submit'
       expect(page).to have_content("A short description of your buying requirement is required")
       expect(page).to have_content("Name of person of contact is required")
       expect(page).to have_content("Email of person of contact is required")
@@ -31,7 +31,7 @@ feature "post tender", js: true, type: :feature do
     end
     
     scenario "without documents" do
-      post_tender_page.click '#submit'
+      post_tender_page.click_unique '#submit'
 
       expect(page).to have_content("Tender Created Successfully!")
       expect(Tender.first.ref_no).to have_content "InHouse-" # this should be model test
@@ -42,7 +42,7 @@ feature "post tender", js: true, type: :feature do
       upload_button_id = post_tender_page.find_css('fieldset').first.find_css("input[type='file']").first['id']
       file_path = "#{Rails.root}/Gemfile"
       post_tender_page.upload_file(upload_button_id, file_path)
-      post_tender_page.click '#submit'
+      post_tender_page.click_unique '#submit'
 
       expect(page).to have_content("Tender Created Successfully!")
       expect(Tender.first.ref_no).to have_content "InHouse-" # this should be model test
@@ -52,7 +52,7 @@ feature "post tender", js: true, type: :feature do
 
     scenario "with multiple documents" do
       post_tender_page.upload_2_files
-      post_tender_page.click '#submit'
+      post_tender_page.click_unique '#submit'
 
       expect(page).to have_content("Tender Created Successfully!")
       expect(Tender.first.ref_no).to have_content "InHouse-" # this should be model test
@@ -66,7 +66,7 @@ feature "post tender", js: true, type: :feature do
     scenario "with documents that are removed after inputting and blank" do
       post_tender_page.upload_2_files_then_remove_first
       post_tender_page.upload_blank_file
-      post_tender_page.click '#submit'
+      post_tender_page.click_unique '#submit'
 
       expect(page).to have_content("Tender Created Successfully!")
       expect(Tender.first.ref_no).to have_content "InHouse-" # this should be model test

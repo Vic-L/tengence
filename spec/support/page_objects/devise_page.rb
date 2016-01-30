@@ -1,5 +1,6 @@
 class DevisePage
   include Capybara::DSL
+  include TendersPageFunctions
 
   def visit_login_page
     visit '/users/sign_in'
@@ -31,8 +32,9 @@ class DevisePage
     self
   end
 
-  def submit_form
-    execute_script("$('#submit').click()")
+  def visit_new_password_page
+    visit '/users/password/new'
+    self
   end
 
   def click_logout

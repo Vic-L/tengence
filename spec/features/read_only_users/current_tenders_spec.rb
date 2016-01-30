@@ -22,11 +22,11 @@ feature 'current_tenders', js: true, type: :feature do
 
   scenario 'should paginate correctly' do
     descriptions = current_tenders_page.get_all_descriptions
-    current_tenders_page.click 'nav.pagination a', -2
+    current_tenders_page.click_common 'nav.pagination a', -2
     wait_for_ajax
     
     descriptions << current_tenders_page.get_all_descriptions
-    current_tenders_page.click 'nav.pagination a', -2
+    current_tenders_page.click_common 'nav.pagination a', -2
     wait_for_ajax
     
     descriptions << current_tenders_page.get_all_descriptions
@@ -65,7 +65,7 @@ feature 'current_tenders', js: true, type: :feature do
     expect(page).not_to have_selector('#view-more-modal')
 
     tender = current_tenders_page.get_first_tender_details
-    current_tenders_page.click '.more-button'
+    current_tenders_page.click_common '.more-button'
     wait_for_ajax
 
     expect(page).to have_selector('#view-more-modal')

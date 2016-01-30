@@ -84,7 +84,8 @@ RSpec.configure do |config|
   end
   config.before(:each) do
     DatabaseCleaner.start
-    DatabaseCleaner.strategy = :transaction
+    # DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation
     Sidekiq::Worker.clear_all
     ActionMailer::Base.deliveries.clear
     Sidekiq::Worker.clear_all

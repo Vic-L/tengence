@@ -14,9 +14,35 @@
         #message= devise_error_messages!
         .small-6.column.small-centered
           = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Password (minimum 8 characters)"
+        %br
         .small-6.column.small-centered
           = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation"
         .small-6.columns.small-centered.text-center
           %button#submit{:type => "submit"} Change my password
         .small-6.columns.small-centered.shared-links
           = render "users/shared/links"
+
+- content_for :javascript do
+  :javascript
+    $('form#new_user').validate({
+      rules: {
+        'user[password]': {
+          required: true,
+          minlength: 8
+        },
+        'user[password_confirmation]': {
+          required: true,
+          equalTo: '#user_password'
+        }
+      },
+      messages: {
+        'user[password]': {
+          required: "A password is required.",
+          minlength: 'Your password should be at least 8 characters.'
+        },
+        'user[password_confirmation]': {
+          required: "A password confirmation is required.",
+          equalTo: "Your passwords don't match."
+        }
+      }
+    });

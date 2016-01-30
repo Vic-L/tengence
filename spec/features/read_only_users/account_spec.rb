@@ -3,10 +3,12 @@ require 'spec_helper'
 feature 'account', type: :feature, js: :true do
   let(:devise_page) { DevisePage.new }
   let!(:user) { create(:user, :read_only) }
+  let!(:another_user) { create(:user, :read_only) }
 
   before :each do
     login_as(user, scope: :user)
     devise_page.visit_edit_page
+    page.driver.browser.manage.window.resize_to(1432, 782)
     wait_for_page_load
   end
 
@@ -16,7 +18,7 @@ feature 'account', type: :feature, js: :true do
       fill_in 'user_first_name', with: ''
       fill_in 'user_last_name', with: ''
       fill_in 'user_email', with: ''
-      devise_page.submit_form
+      devise_page.click_unique '#submit'
       expect(page).to have_content 'Please enter your first name.'
       expect(page).to have_content 'Please enter your last name.'
       expect(page).to have_content 'Please enter your email.'
@@ -28,37 +30,40 @@ feature 'account', type: :feature, js: :true do
 
     scenario 'with invalid email' do
       fill_in 'user_email', with: Faker::Lorem.word
-      devise_page.submit_form
+      devise_page.click_unique '#submit'
       expect(page).to have_content 'Please enter a valid email.'
     end
 
     scenario 'with short password' do
       fill_in 'user_password', with: Faker::Internet.password(4,7)
-      devise_page.submit_form
+      devise_page.click_unique '#submit'
       expect(page).to have_content 'Your password should be at least 8 characters.'
     end
 
     scenario 'when there is password but no confirmation password' do
       fill_in 'user_password', with: Faker::Internet.password(8)
-      devise_page.submit_form
+      devise_page.click_unique '#submit'
       expect(page).to have_content "A password confirmation is required. Leave 'password' field blank if you dont intend to change your password."
     end
 
     scenario 'when there is password confirmation but no password' do
       fill_in 'user_password_confirmation', with: Faker::Internet.password(8)
-      devise_page.submit_form
+      devise_page.click_unique '#submit'
       expect(page).to have_content "A password is required. Leave 'password confirmation' field blank if you dont intend to change your password."
     end
 
     scenario 'with mismatch password and password confirmation' do
       fill_in 'user_password', with: Faker::Internet.password(8)
       fill_in 'user_password_confirmation', with: Faker::Internet.password(8)
-      devise_page.submit_form
+      devise_page.click_unique '#submit'
       expect(page).to have_content "Your passwords don't match."
     end
 
     scenario 'should not allow non unique email' do
-      pending("this")
+      fill_in 'user_email', with: another_user.email
+      devise_page.click_unique '#submit'
+      wait_for_ajax
+      expect(page).to have_content 'This email is already registered with us.'
     end
 
   end
@@ -69,7 +74,7 @@ feature 'account', type: :feature, js: :true do
 
       fill_in 'user_first_name', with: 'monkey'
       fill_in 'user_last_name', with: 'luffy'
-      devise_page.submit_form
+      devise_page.click_unique '#submit'
       wait_for_page_load
 
       expect(page).to have_content 'Your account has been updated successfully.'
@@ -79,7 +84,9 @@ feature 'account', type: :feature, js: :true do
     scenario 'should not update email right away' do
       user_email = User.first.email
       fill_in 'user_email', with: 'one@piece.com'
-      devise_page.submit_form
+      wait_for_ajax
+      # ytf need to click twice haiz
+      devise_page.click_unique '#submit';devise_page.click_unique '#submit'
       expect(page).to have_content 'You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address.'
       expect(User.first.email).to eq user_email
       expect(User.first.email).not_to eq 'one@piece.com'
@@ -89,15 +96,19 @@ feature 'account', type: :feature, js: :true do
     scenario 'should send reconfirmation email on email update' do
       expect(ActionMailer::Base.deliveries.count).to eq 0
       fill_in 'user_email', with: 'one@piece.com'
-      devise_page.submit_form
+      wait_for_ajax
+      # ytf need to click twice haiz
+      devise_page.click_unique '#submit';devise_page.click_unique '#submit'
       wait_for_page_load
-      expect(page).to have_content 'You will receive an email with instructions for how to confirm your email address in a few minutes.'
+      expect(page).to have_content 'You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address.'
       expect(ActionMailer::Base.deliveries.count).to eq 1
     end
 
     scenario 'should change email when account is confirmed from sent email' do
       fill_in 'user_email', with: 'one@piece.com'
-      devise_page.submit_form
+      wait_for_ajax
+      # ytf need to click twice haiz
+      devise_page.click_unique '#submit';devise_page.click_unique '#submit'
       wait_for_page_load
       last_email = ActionMailer::Base.deliveries.last
       ctoken = last_email.body.match(/confirmation_token=[^"]+/)
@@ -111,7 +122,9 @@ feature 'account', type: :feature, js: :true do
     scenario 'should not change hashed_email when reconfirmed' do
       hashed_email = user.hashed_email
       fill_in 'user_email', with: 'one@piece.com'
-      devise_page.submit_form
+      wait_for_ajax
+      # ytf need to click twice haiz
+      devise_page.click_unique '#submit';devise_page.click_unique '#submit'
       wait_for_page_load
       last_email = ActionMailer::Base.deliveries.last
       ctoken = last_email.body.match(/confirmation_token=[^"]+/)

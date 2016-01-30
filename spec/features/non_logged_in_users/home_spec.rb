@@ -12,8 +12,10 @@ feature "home_page", type: :feature, js: true do
 
   feature 'sources and counting' do
     scenario 'list of sources should expand on click' do
+      sleep 1
+      home_page.scroll_into_view '#show-all'
       initial_height = page.evaluate_script("$('ul')[1].clientHeight")
-      home_page.reveal_all_sources
+      home_page.click_unique '#show-all'
       new_height = page.evaluate_script("$('ul')[1].clientHeight")
       expect(new_height > initial_height).to eq true
     end
@@ -21,7 +23,7 @@ feature "home_page", type: :feature, js: true do
 
   feature 'demo email' do
     scenario 'invalid fields' do
-      home_page.submit_demo_email_request
+      home_page.click_common '.email-demo-submit-button'
       expect(page).to have_content 'Please enter your email'
       expect(page).to have_content 'Please acknowledge this checkbox'
     end
@@ -29,14 +31,14 @@ feature "home_page", type: :feature, js: true do
     scenario 'valid fields' do
       expect(ActionMailer::Base.deliveries.count).to eq 0
       home_page.fill_up_demo_email_form
-      home_page.submit_demo_email_request
-      expect {home_page.submit_demo_email_request}.to change( Sidekiq::Worker.jobs, :size ).by(1)
+      home_page.click_common '.email-demo-submit-button'
+      expect {home_page.click_common '.email-demo-submit-button'}.to change( Sidekiq::Worker.jobs, :size ).by(1)
     end
 
     scenario 'invalid email' do
       home_page.fill_up_demo_email_form
       fill_in 'demo_email', with: Faker::Lorem.word
-      home_page.submit_demo_email_request
+      home_page.click_common '.email-demo-submit-button'
       expect(page).to have_content 'Please enter a valid email'
       expect(page).not_to have_content 'Please acknowledge this checkbox'
     end

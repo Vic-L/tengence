@@ -37,10 +37,6 @@ class DevisePage
     self
   end
 
-  def submit_form
-    execute_script("$('#submit').click()")
-  end
-
   def click_logout
     execute_script("$('#navigation li:last-child a').click()")
   end

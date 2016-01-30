@@ -1,5 +1,6 @@
 class HomePage
   include Capybara::DSL
+  include TendersPageFunctions
 
   def visit_page
     visit '/'
@@ -12,12 +13,6 @@ class HomePage
     execute_script("$('#show-all')[0].scrollIntoView(false);")
     execute_script("$('#show-all').click();")
     sleep 3
-  end
-
-  # demo
-  def submit_demo_email_request
-    execute_script("$('.email-demo-submit-button')[0].scrollIntoView(false);")
-    execute_script("$('.email-demo-submit-button').click();")
   end
 
   def fill_up_demo_email_form

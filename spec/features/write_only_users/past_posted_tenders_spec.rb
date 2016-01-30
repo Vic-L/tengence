@@ -14,7 +14,7 @@ feature 'past_posted_tenders', js: true, type: :feature do
   
   scenario 'should have link to post tender' do
     expect(past_posted_tenders_page.find_css('#post-a-tender-button').first.all_text).to eq 'Post a Buying Requirement'
-    past_posted_tenders_page.click '#post-a-tender-button'
+    past_posted_tenders_page.click_unique '#post-a-tender-button'
     expect(page.current_path).to eq new_tender_path
   end
 
@@ -25,11 +25,11 @@ feature 'past_posted_tenders', js: true, type: :feature do
 
   scenario 'should paginate correctly' do
     descriptions = past_posted_tenders_page.get_all_descriptions
-    past_posted_tenders_page.click 'nav.pagination a', -2
+    past_posted_tenders_page.click_common 'nav.pagination a', -2
     wait_for_ajax
     
     descriptions << past_posted_tenders_page.get_all_descriptions
-    past_posted_tenders_page.click 'nav.pagination a', -2
+    past_posted_tenders_page.click_common 'nav.pagination a', -2
     wait_for_ajax
     
     descriptions << past_posted_tenders_page.get_all_descriptions
@@ -68,7 +68,7 @@ feature 'past_posted_tenders', js: true, type: :feature do
     expect(page).not_to have_selector('#view-more-modal')
 
     tender = past_posted_tenders_page.get_first_tender_details
-    past_posted_tenders_page.click '.more-button'
+    past_posted_tenders_page.click_common '.more-button'
     wait_for_ajax
 
     expect(page).to have_selector('#view-more-modal')

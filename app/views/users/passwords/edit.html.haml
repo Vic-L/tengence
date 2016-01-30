@@ -14,6 +14,7 @@
         #message= devise_error_messages!
         .small-6.column.small-centered
           = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Password (minimum 8 characters)"
+        %br
         .small-6.column.small-centered
           = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation"
         .small-6.columns.small-centered.text-center
@@ -31,7 +32,7 @@
         },
         'user[password_confirmation]': {
           required: true,
-          equalTo: $("input[name='user[password]']").val()
+          equalTo: '#user_password'
         }
       },
       messages: {

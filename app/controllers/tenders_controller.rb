@@ -31,7 +31,7 @@ class TendersController < ApplicationController
 
   def edit
     if @tender.past?
-      flash[:error] = 'The tender you want to edit is expired and cannot be edited.'
+      flash[:alert] = 'The tender you want to edit is expired and cannot be edited.'
       redirect_to current_posted_tenders_path
     end
   end
@@ -49,7 +49,7 @@ class TendersController < ApplicationController
     def check_own_tender
       # check_inhouse_tender already checked presence of postee_id
       if current_user.id != @tender.postee_id
-        flash[:error] = 'This tender does not belong to you. You are not authorized to edit it.'
+        flash[:alert] = 'This tender does not belong to you. You are not authorized to edit it.'
         redirect_to current_posted_tenders_path
       end
     end
@@ -61,7 +61,7 @@ class TendersController < ApplicationController
         @tender = Tender.find(tender_params[:ref_no])
       end
       if !@tender.in_house?
-        flash[:error] = 'This tender is not editable.'
+        flash[:alert] = 'This tender is not editable.'
         redirect_to current_posted_tenders_path
       end
     end

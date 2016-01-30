@@ -1,5 +1,6 @@
 class RegistrationPage
   include Capybara::DSL
+  include TendersPageFunctions
 
   def visit_read_only_users_registration_page
     visit '/users/sign_up'
@@ -10,12 +11,6 @@ class RegistrationPage
   def visit_write_only_users_registration_page
     visit '/organizations/register'
     self
-  end
-
-  def submit_form
-    # click twice because sometime it fails wtf
-    find('#submit').click
-    find('#submit').click
   end
 
   def fill_up_form

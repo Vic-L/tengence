@@ -26,6 +26,7 @@
 
 - content_for :javascript do
   :javascript
+    var initialEmail = "#{resource.email}";
     $('form.edit_user').validate({
       rules: {
         'user[first_name]': {
@@ -36,7 +37,13 @@
         },
         'user[email]': {
           required: true,
-          email: true
+          email: true,
+          remote: {
+            param: '/users/check_email_taken',
+            depends: function(){
+              return ($("input[name='user[email]']").val().trim() !== initialEmail);
+            }
+          }
         },
         'user[password]': {
           required: {
@@ -74,7 +81,8 @@
         },
         'user[email]': {
           required: 'Please enter your email.',
-          email: 'Please enter a valid email.'
+          email: 'Please enter a valid email.',
+          remote: 'This email is already registered with us.'
         },
         'user[password]': {
           required: "A password is required. Leave 'password confirmation' field blank if you dont intend to change your password.",

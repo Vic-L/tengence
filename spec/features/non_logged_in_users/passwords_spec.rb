@@ -4,12 +4,12 @@ feature 'password', js: true, type: :feature do
   let(:devise_page) { DevisePage.new }
   let!(:user) { create(:user, :read_only) }
 
-  before :each do
-    devise_page.visit_new_password_page
-    wait_for_page_load
-  end
-
   feature 'new' do
+
+    before :each do
+      devise_page.visit_new_password_page
+      wait_for_page_load
+    end
 
     feature 'validations' do
 
@@ -63,6 +63,8 @@ feature 'password', js: true, type: :feature do
     feature 'validations' do
 
       before :each do
+        devise_page.visit_new_password_page
+        wait_for_page_load
         fill_in 'user_email', with: user.email
         wait_for_ajax
         devise_page.scroll_into_view '#submit'
@@ -103,7 +105,12 @@ feature 'password', js: true, type: :feature do
     end
 
     feature 'on successful submit' do
-      
+
+      before :each do
+        devise_page.visit_new_password_page
+        wait_for_page_load
+      end
+
       scenario 'should succesfully update password' do
         initial_password = user.encrypted_password
         fill_in 'user_email', with: user.email
@@ -128,6 +135,19 @@ feature 'password', js: true, type: :feature do
 
     end
 
+    feature 'on submit of invalid token' do
+      
+      scenario 'should redirect to new password path' do
+        devise_page.visit_edit_password_page 'invalid_token'
+        wait_for_page_load
+        fill_in 'user_password', with: 'monkeyluffy'
+        fill_in 'user_password_confirmation', with: 'monkeyluffy'
+        devise_page.click_unique '#submit'
+        expect(page.current_path).to eq new_user_password_path
+      end
+
+    end
+  
   end
 
 end

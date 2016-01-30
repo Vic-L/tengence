@@ -24,10 +24,26 @@ feature "access pages by write_only users" do
         expect(tenders_page.current_path).to eq current_posted_tenders_path
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
         expect(tenders_page).to have_content 'You are already signed in.'
+      end
+
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq current_posted_tenders_path
+          expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq current_posted_tenders_path
+          expect(page).to have_content "You are already signed in."
+        end
+
       end
 
       scenario 'resend_confirmation_page' do
@@ -177,10 +193,26 @@ feature "access pages by write_only users" do
         expect(tenders_page).not_to have_content 'You are not authorized to view this page.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
         expect(tenders_page).to have_content 'You are already signed in.'
+      end
+
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq current_posted_tenders_path
+          expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq current_posted_tenders_path
+          expect(page).to have_content "You are already signed in."
+        end
+
       end
 
       scenario 'resend_confirmation_page' do
@@ -336,10 +368,26 @@ feature "access pages by write_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
       end
 
       scenario 'resend_confirmation_page' do
@@ -492,10 +540,26 @@ feature "access pages by write_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
       end
 
       scenario 'resend_confirmation_page' do
@@ -655,10 +719,26 @@ feature "access pages by write_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
       end
 
       scenario 'resend_confirmation_page' do
@@ -811,10 +891,26 @@ feature "access pages by write_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
+      end
+
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
       end
 
       scenario 'resend_confirmation_page' do

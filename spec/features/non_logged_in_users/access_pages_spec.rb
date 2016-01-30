@@ -11,9 +11,24 @@ feature "access pages by non_logged_in users" do
     expect(tenders_page.current_path).to eq root_path
   end
 
-  scenario 'passwords' do
+  scenario 'new_password' do
     devise_page.visit_new_password_page
     expect(tenders_page.current_path).to eq new_user_password_path
+  end
+
+  feature 'edit_password' do
+
+    scenario 'no reset token' do
+      devise_page.visit_edit_password_page
+      expect(tenders_page.current_path).to eq new_user_session_path
+      expect(page).to have_content "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
+    end
+
+    scenario 'any reset token, regardless correct or wrong' do
+      devise_page.visit_edit_password_page 'some token'
+      expect(tenders_page.current_path).to eq edit_user_password_path
+    end
+
   end
 
   scenario 'resend_confirmation_page' do

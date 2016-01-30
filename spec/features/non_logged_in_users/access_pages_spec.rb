@@ -32,7 +32,7 @@ feature "access pages by non_logged_in users" do
   end
 
   scenario 'resend_confirmation_page' do
-    tenders_page.visit_resend_confirmation_page
+    devise_page.visit_user_confirmation_page
     expect(tenders_page.current_path).to eq new_user_confirmation_path
   end
 

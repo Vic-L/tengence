@@ -17,11 +17,6 @@ class TendersPage
     self
   end
 
-  def visit_resend_confirmation_page
-    visit 'users/confirmation/new'
-    self
-  end
-
   # read only
   def visit_current_tenders_page
     visit '/current_tenders'

@@ -47,7 +47,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
         expect(tenders_page).to have_content 'Your account has been confirmed.'
       end
@@ -216,7 +216,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq current_posted_tenders_path
         expect(tenders_page).to have_content 'Your account has been confirmed.'
       end
@@ -391,7 +391,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end
@@ -563,7 +563,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end
@@ -742,7 +742,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end
@@ -914,7 +914,7 @@ feature "access pages by write_only users" do
       end
 
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end

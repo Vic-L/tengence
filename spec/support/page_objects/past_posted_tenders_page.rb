@@ -34,7 +34,7 @@ class PastPostedTendersPage
         description: Faker::Lorem.sentences(5).join(" "),
         long_description: Faker::Lorem.sentences(10).join("\r\n"),
         published_date: Faker::Date.between(Time.now.in_time_zone('Singapore').to_date - 14.days, Time.now.in_time_zone('Singapore').to_date - 7.days),
-        closing_datetime: Faker::Time.between(Time.now.in_time_zone('Singapore') - 2.days, Time.now.in_time_zone('Singapore').to_date - 1.days),
+        closing_datetime: Faker::Time.between(Time.now.in_time_zone('Singapore') - 6.days, Time.now.in_time_zone('Singapore').to_date - 1.days),
         postee_id: user_id
       )
     end

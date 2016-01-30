@@ -139,12 +139,6 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq current_tenders_path
-        expect(tenders_page).to have_content 'Your account has been confirmed.'
-      end
-
     end
 
     feature 'without keywords' do
@@ -284,12 +278,6 @@ feature "access pages by read_only users" do
       scenario 'user edit page' do
         devise_page.visit_edit_page
         expect(devise_page.current_path).to eq edit_user_registration_path
-      end
-
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq keywords_tenders_path
-        expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
       end
 
     end
@@ -440,11 +428,6 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
-      end
-
     end
 
     feature 'without keywords' do
@@ -584,11 +567,6 @@ feature "access pages by read_only users" do
       scenario 'user edit page' do
         devise_page.visit_edit_page
         expect(devise_page.current_path).to eq edit_user_registration_path
-      end
-
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
       end
 
     end
@@ -739,11 +717,6 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
-      end
-
     end
 
     feature 'without keywords' do
@@ -885,11 +858,8 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
-      end
-
     end
+    
   end
+
 end

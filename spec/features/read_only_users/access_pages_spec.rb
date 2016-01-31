@@ -22,14 +22,30 @@ feature "access pages by read_only users" do
         expect(tenders_page).not_to have_content 'You are not authorized to view this page.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq current_tenders_path
         expect(tenders_page).to have_content 'You are already signed in.'
       end
 
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq current_tenders_path
+          expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq current_tenders_path
+          expect(page).to have_content "You are already signed in."
+        end
+
+      end
+
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq current_tenders_path
       end
 
@@ -123,12 +139,6 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq current_tenders_path
-        expect(tenders_page).to have_content 'Your account has been confirmed.'
-      end
-
     end
 
     feature 'without keywords' do
@@ -144,14 +154,30 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq keywords_tenders_path
         expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
       end
 
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq keywords_tenders_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq keywords_tenders_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+      end
+
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq keywords_tenders_path
         expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
       end
@@ -254,12 +280,6 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq keywords_tenders_path
-        expect(tenders_page).to have_content 'Get started with Tengence by filling in keywords related to your business.'
-      end
-
     end
 
   end
@@ -281,14 +301,30 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+      end
+
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end
@@ -390,11 +426,6 @@ feature "access pages by read_only users" do
       scenario 'user edit page' do
         devise_page.visit_edit_page
         expect(devise_page.current_path).to eq edit_user_registration_path
-      end
-
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
       end
 
     end
@@ -411,14 +442,30 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+      end
+
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end
@@ -522,11 +569,6 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
-      end
-
     end
 
   end
@@ -535,6 +577,7 @@ feature "access pages by read_only users" do
   let(:read_only_pending_reconfirmation_user_without_keywords) {create(:user, :read_only, :without_keywords, :pending_reconfirmation)}
 
   feature 'pending_reconfirmation' do
+
     feature 'with keywords' do
 
       before :each do
@@ -547,14 +590,30 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+      end
+
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end
@@ -656,11 +715,6 @@ feature "access pages by read_only users" do
       scenario 'user edit page' do
         devise_page.visit_edit_page
         expect(devise_page.current_path).to eq edit_user_registration_path
-      end
-
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
       end
 
     end
@@ -677,14 +731,30 @@ feature "access pages by read_only users" do
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
-      scenario 'passwords' do
+      scenario 'new_password' do
         devise_page.visit_new_password_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).to have_content 'Please confirm your account first.'
       end
 
+      feature 'edit_password' do
+
+        scenario 'no reset token' do
+          devise_page.visit_edit_password_page
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+        scenario 'any reset token, regardless correct or wrong' do
+          devise_page.visit_edit_password_page 'some token'
+          expect(tenders_page.current_path).to eq new_user_confirmation_path
+          # expect(page).to have_content "You are already signed in."
+        end
+
+      end
+
       scenario 'resend_confirmation_page' do
-        tenders_page.visit_resend_confirmation_page
+        devise_page.visit_user_confirmation_page
         expect(tenders_page.current_path).to eq new_user_confirmation_path
         expect(tenders_page).not_to have_content 'Please confirm your account first.'
       end
@@ -788,11 +858,8 @@ feature "access pages by read_only users" do
         expect(devise_page.current_path).to eq edit_user_registration_path
       end
 
-      scenario 'user confirmation page' do
-        devise_page.visit_user_confirmation_page
-        expect(devise_page.current_path).to eq new_user_confirmation_path
-      end
-
     end
+    
   end
+
 end

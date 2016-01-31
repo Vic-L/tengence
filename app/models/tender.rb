@@ -11,7 +11,7 @@ class Tender < ActiveRecord::Base
   accepts_nested_attributes_for :documents, :reject_if => lambda { |t| t['upload'].nil? }, allow_destroy: true
 
   default_scope { order(published_date: :desc) } 
-  validates_presence_of :buyer_name, :buyer_email, :buyer_contact_number, :published_date, :closing_datetime
+  validates_presence_of :published_date, :closing_datetime
 
   after_commit :add_to_cloudsearch, on: :create
   before_update :update_cloudsearch

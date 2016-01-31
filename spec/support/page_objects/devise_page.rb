@@ -37,6 +37,11 @@ class DevisePage
     self
   end
 
+  def visit_edit_password_page reset_token=''
+    visit "/users/password/edit?reset_password_token=#{reset_token}"
+    self
+  end
+
   def click_logout
     execute_script("$('#navigation li:last-child a').click()")
   end

@@ -1,7 +1,9 @@
 class KeywordsValidator < ActiveModel::Validator
   def validate(user)
     if user.keywords
-      user.errors[:keywords] << "can't be more than #{STANDARD_PLAN_KEYWORDS_LIMIT}" if user.keywords.split(",").count > STANDARD_PLAN_KEYWORDS_LIMIT
+      unless ENV['UNLIMITED_KEYWORDS_USERS'].split(',').include? user.email
+        user.errors[:keywords] << "can't be more than 20" if user.keywords.split(",").count > 20
+      end
     end
   end
 end
@@ -29,9 +31,10 @@ class User < ActiveRecord::Base
 
   before_validation :create_braintree_customer, on: :create
   before_destroy :delete_braintree_customer
+
+  scope :confirmed, -> {where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')")}
+
   before_create :hash_email
-  
-  scope :confirmed, -> {where.not(confirmed_at: nil)}
 
   def self.email_available?(email)
     User.find_by_email(email).blank?
@@ -40,6 +43,7 @@ class User < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
+
   def fully_confirmed?
     confirmed? && !pending_reconfirmation?
   end
@@ -87,6 +91,7 @@ class User < ActiveRecord::Base
     else
       NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> Braintree Error during delete #{self.name} (#{self.email}) - #{self.braintree_customer_id}:\r\n#{result.errors}")
     end
+  end
 
   rails_admin do
     list do

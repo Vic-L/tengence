@@ -23,6 +23,7 @@ FactoryGirl.define do
 
   trait :unconfirmed do
     confirmed_at nil
+    confirmation_sent_at nil
   end
 
   trait :without_keywords do

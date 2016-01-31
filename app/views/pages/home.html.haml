@@ -1,44 +1,32 @@
 - content_for :head do
   %meta{:content => "5AVVrmyq0DXvAgYjmbvkoF2FP2hpA6_qv8NsyQ-Yfg8", :name => "google-site-verification"}
   
-- meta title: "Tengence - We Track Tenders"
+- meta title: "Tengence - We Track Tenders (Gebiz, Sesami, Ariba and More)"
 
 %section#main-slider
   #slider
     .slider-cont.parallax-background.bg1
       .bg-overlay
       .slider-caption.slider-caption-center
-        %h2{"data-caption-animate" => "fadeInUp"}
-          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
-          -# or
-          -# %span.color= link_to "Login", new_user_session_path
-          %span We Track Tenders
+        %h1{"data-caption-animate" => "fadeInUp"}
+          %span We Track Tenders (Gebiz, Sesami, Ariba and More)
         %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} To bring you business opportunities
     .slider-cont.parallax-background.bg2
       .bg-overlay
       .slider-caption.slider-caption-center
         %h2{"data-caption-animate" => "fadeInUp"}
-          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
-          -# or
-          -# %span.color= link_to "Login", new_user_session_path
           %span Get Email Alerts
         %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Receive email alerts for potential business leads
     .slider-cont.parallax-background.bg3
       .bg-overlay
       .slider-caption.slider-caption-center
         %h2{"data-caption-animate" => "fadeInUp"}
-          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
-          -# or
-          -# %span.color= link_to "Login", new_user_session_path
           %span Exclusive Tenders
         %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders available only on Tengence from our exclusive partners
     .slider-cont.parallax-background.bg4
       .bg-overlay
       .slider-caption.slider-caption-center
         %h2{"data-caption-animate" => "fadeInUp"}
-          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
-          -# or
-          -# %span.color= link_to "Login", new_user_session_path
           %span 62
         %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders Sources Tracked and Counting
     .slider-cont.parallax-background.bg5
@@ -67,8 +55,8 @@
         %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')"}
           .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'track', gtm_label: "how-it-works"}}
             %i.fa.fa-binoculars.icon
-            %h3 Track
-            %p We Track Opportunities from >60 Sources in Singapore
+            %h3 Track Tenders
+            %p We Track Tender Opportunities from >60 Sources in Singapore. Some of Our Sources include: Gebiz, Sesami and Ariba. View the Full List Below!
         %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
           .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'alerts', gtm_label: "how-it-works"}}
             %i.fa.fa-envelope.icon
@@ -165,7 +153,7 @@
         #hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}} Hide Full List
   .row
     .small-12.columns
-      %p.white.recommendation Have a tender source that is not on the list that you would like us to track? <a class='ga-static-pages' onClick="Tengence.HomePage.scrollTo('contacts')" data-gtm-category='' data-gtm-action='let us know' data-gtm-label='sources-and-counting'>Let us know</a>!
+      %p.white.recommendation Have a tender source that you would like us to track? <a class='ga-static-pages' onClick="Tengence.HomePage.scrollTo('contacts')" data-gtm-category='' data-gtm-action='let us know' data-gtm-label='sources-and-counting'>Let us know</a>!
 
 = react_component 'Demo', {url: api_v1_demo_tenders_path}
 

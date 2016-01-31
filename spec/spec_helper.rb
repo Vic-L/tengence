@@ -155,3 +155,10 @@ end
 
 Capybara.wait_on_first_by_default = true
 Sidekiq::Testing.fake!  # by default it is fake
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end

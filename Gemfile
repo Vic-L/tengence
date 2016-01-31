@@ -43,6 +43,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'timecop' # for time manipulation
   gem "fakeredis", :require => "fakeredis/rspec"
+  gem 'shoulda-callback-matchers'
 end
 
 group :development do

@@ -172,22 +172,54 @@ feature Users::ConfirmationsController, type: :controller do
 
     feature 'with correct token' do
 
-      scenario 'unconfirmed users' do
-        unconfirmed_read_only_user.send_confirmation_instructions
-        get :show, confirmation_token: unconfirmed_read_only_user.confirmation_token
-        expect(response).to redirect_to new_user_session_path
+      feature 'non_logged_in user' do
+
+        scenario 'unconfirmed users' do
+          unconfirmed_read_only_user.send_confirmation_instructions
+          get :show, confirmation_token: unconfirmed_read_only_user.confirmation_token
+          expect(response).to redirect_to root_path
+        end
+
+        scenario 'pending_reconfirmation users' do
+          pending_reconfirmation_write_only_user.send_confirmation_instructions
+          get :show, confirmation_token: pending_reconfirmation_write_only_user.confirmation_token
+          expect(response).to redirect_to root_path
+        end
+
+        feature 'confirmed user' do
+
+          scenario 'user should not have confirmation token' do
+            expect(write_only_user.confirmation_token).to eq nil
+          end
+
+        end
+
       end
 
-      scenario 'pending_reconfirmation users' do
-        pending_reconfirmation_write_only_user.send_confirmation_instructions
-        get :show, confirmation_token: pending_reconfirmation_write_only_user.confirmation_token
-        expect(response).to redirect_to new_user_session_path
+      feature 'write_only user' do
+        
+        before :each do
+          sign_in unconfirmed_write_only_user
+        end
+
+        scenario 'should redirect_to current_posted_tenders ' do
+          unconfirmed_write_only_user.send_confirmation_instructions
+          get :show, confirmation_token: unconfirmed_write_only_user.confirmation_token
+          expect(response).to redirect_to current_posted_tenders_path
+        end
+
       end
 
-      feature 'confirmed user' do
+      feature 'read_only user' do
+        
+        before :each do
+          sign_in unconfirmed_read_only_user
+        end
 
-        scenario 'user should not have confirmation token' do
-          expect(write_only_user.confirmation_token).to eq nil
+        scenario 'should redirect_to current_posted_tenders ' do
+          unconfirmed_read_only_user.send_confirmation_instructions
+          get :show, confirmation_token: unconfirmed_read_only_user.confirmation_token
+          expect(response).to redirect_to current_tenders_path
         end
 
       end

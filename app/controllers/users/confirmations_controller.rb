@@ -43,6 +43,14 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # The path used after confirmation.
   def after_confirmation_path_for(resource_name, resource)
     # super(resource_name, resource)
-    new_user_session_path
+    if user_signed_in?
+      if current_user.read_only?
+        current_tenders_path
+      elsif current_user.write_only?
+        current_posted_tenders_path
+      end
+    else
+      root_path
+    end
   end
 end

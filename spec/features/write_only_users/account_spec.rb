@@ -68,6 +68,7 @@ feature 'account', type: :feature, js: :true do
   end
 
   feature 'on successful update' do
+
     scenario 'should successfully update attributes (not email or passwords)' do
       expect(user.name).not_to eq 'monkey luffy'
 
@@ -126,6 +127,22 @@ feature 'account', type: :feature, js: :true do
       wait_for_page_load
       expect(user.hashed_email).to eq hashed_email
     end
+
+    scenario 'should nullify unconfirmed_email when reconfirmed' do
+      fill_in 'user_email', with: 'one@piece.com'
+      wait_for_ajax
+      # ytf need to click twice haiz
+      devise_page.click_unique '#submit';devise_page.click_unique '#submit'
+      wait_for_page_load
+
+      last_email = ActionMailer::Base.deliveries.last
+      ctoken = last_email.body.match(/confirmation_token=[^"]+/)
+      expect(user.reload.unconfirmed_email.nil?).to eq false
+      visit "/users/confirmation?#{ctoken}"
+      wait_for_page_load
+      expect(user.reload.unconfirmed_email.nil?).to eq true
+    end
+
   end
 
 end

@@ -1,12 +1,8 @@
 class KeywordsValidator < ActiveModel::Validator
   def validate(user)
     if user.keywords
-      case user.subscribed_plan
-      when "free"
-        user.errors[:keywords] << "can't be more than #{FREE_PLAN_KEYWORDS_LIMIT}" if user.keywords.split(",").count > FREE_PLAN_KEYWORDS_LIMIT
-      when "standard"
-        user.errors[:keywords] << "can't be more than #{STANDARD_PLAN_KEYWORDS_LIMIT}" if user.keywords.split(",").count > STANDARD_PLAN_KEYWORDS_LIMIT
-      when "elite"
+      unless ENV['UNLIMITED_KEYWORDS_USERS'].split(',').include? user.email
+        user.errors[:keywords] << "can't be more than 20" if user.keywords.split(",").count > 20
       end
     end
   end
@@ -33,7 +29,7 @@ class User < ActiveRecord::Base
     state :write_only
   end
 
-  scope :confirmed, -> {where.not(confirmed_at: nil)}
+  scope :confirmed, -> {where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')")}
 
   before_create :hash_email
 

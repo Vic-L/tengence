@@ -3,6 +3,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
+require "strip_attributes/matchers"
 require_relative 'support/modules/tenders_page_functions'
 
 # in spec/support/ and its subdirectories.
@@ -57,6 +58,9 @@ RSpec.configure do |config|
   #   # `true` in RSpec 4.
   #   mocks.verify_partial_doubles = true
   # end
+
+  # test strip_attribute
+  config.include StripAttributes::Matchers
 
   # undo database cleaner config; prevent running examples in a transaction
   config.use_transactional_fixtures = false

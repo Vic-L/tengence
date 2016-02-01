@@ -99,7 +99,7 @@ RSpec.configure do |config|
     ActionMailer::Base.deliveries.clear
   end
   config.after(:each) do
-    User.pluck(:braintree_customer_id).each do |id|
+    User.pluck(:braintree_customer_id).compact.each do |id|
       Braintree::Customer.delete(id)
     end
     DatabaseCleaner.clean

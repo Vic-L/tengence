@@ -5,6 +5,10 @@ feature User, type: :model do
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
   it { should validate_presence_of :email }
+  it { should validate_presence_of :email }
+  it { should_not validate_presence_of :braintree_subscription_id }
+  it { should_not validate_presence_of :default_payment_method_token }
+  it { should_not validate_presence_of :braintree_customer_id }
 
   it { should have_many(:watched_tenders).dependent(:destroy) }
   it { should have_many(:viewed_tenders).dependent(:destroy) }
@@ -14,6 +18,8 @@ feature User, type: :model do
   it { should have_many(:past_posted_tenders) }
 
   it { should callback(:hash_email).before(:create) }
+  it { should callback(:create_braintree_customer).after(:create) }
+  it { should callback(:destroy_braintree_customer).before(:destroy) }
   it { should_not callback(:hash_email).before(:save) }
 
   feature 'validations' do

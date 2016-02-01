@@ -1,6 +1,6 @@
 class RemoveSingleTenderFromCloudsearchWorker
   include Sidekiq::Worker
-  sidekiq_options :backtrace => true, :retry => false
+  sidekiq_options :backtrace => 5, :retry => false
 
   def perform ref_no, description
     hash = {

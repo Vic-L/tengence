@@ -29,12 +29,11 @@ class User < ActiveRecord::Base
     state :write_only
   end
 
-  before_validation :create_braintree_customer, on: :create
-  before_destroy :delete_braintree_customer
-
   scope :confirmed, -> {where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')")}
 
   before_create :hash_email
+  after_create :create_braintree_customer
+  before_destroy :destroy_braintree_customer
 
   def self.email_available?(email)
     User.find_by_email(email).blank?
@@ -70,27 +69,14 @@ class User < ActiveRecord::Base
   end
 
   def create_braintree_customer
-    result = Braintree::Customer.create(
-      first_name: self.first_name,
-      last_name: self.last_name,
-      email: self.email,
-      company: self.company_name
-    )
-    if result.success?
-      self.braintree_customer_id = result.customer.id
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "New User #{self.name} (#{self.email}) - #{self.braintree_customer_id}")
-    else
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> Braintree Error during delete #{self.name} (#{self.email}) - #{self.braintree_customer_id}:\r\n#{result.errors}")
-    end
+    CreateBraintreeCustomerWorker.perform_async(self.id)
   end
 
-  def delete_braintree_customer
-    result = Braintree::Customer.delete(self.braintree_customer_id)
-    if result.success?
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "Deleted User #{self.name} (#{self.email}) - #{self.braintree_customer_id}")
-    else
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> Braintree Error during delete #{self.name} (#{self.email}) - #{self.braintree_customer_id}:\r\n#{result.errors}")
-    end
+  def destroy_braintree_customer
+    DestroyBraintreeCustomerWorker.perform_async(
+      name: self.name,
+      braintree_customer_id: self.braintree_customer_id,
+      email: self.email)
   end
 
   rails_admin do

@@ -3,8 +3,12 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'sidekiq/testing'
-require "strip_attributes/matchers"
+require 'strip_attributes/matchers'
+require 'fake_braintree'
 require_relative 'support/modules/tenders_page_functions'
+
+# fake braintree env
+FakeBraintree.activate!
 
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -36,6 +40,11 @@ Capybara.default_max_wait_time = 10
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  config.before do
+    FakeBraintree.clear!
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

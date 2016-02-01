@@ -28,7 +28,7 @@ class UpdateSubscriptionWithNewPaymentMethod
 
 
           response = "flash[:success] = 'You have successfully change your default payment method';"
-          response += "redirect_to edit_payment_path"
+          response += "redirect_to change_payment_path"
 
         else
 

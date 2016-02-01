@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   # resources :payment_methods, path: '/payment-methods'
   get "/billing", to: 'brain_tree#billing'
   get "/subscribe", to: 'brain_tree#subscribe', as: 'subscribe'
+  get "/change-payment", to: 'brain_tree#edit_payment', as: 'change_payment'
   get "/edit-payment", to: 'brain_tree#edit_payment', as: 'edit_payment'
   post "/create-payment", to: 'brain_tree#create_payment', as: 'create_payment'
   post "/update-payment", to: 'brain_tree#update_payment', as: 'update_payment'

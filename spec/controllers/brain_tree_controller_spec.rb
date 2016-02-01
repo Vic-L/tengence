@@ -62,14 +62,14 @@ feature BrainTreeController, type: :controller do
     before :each do
       sign_in user
       post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
-      request.env["HTTP_REFERER"] = edit_payment_path
+      request.env["HTTP_REFERER"] = change_payment_path
     end
 
     feature 'with same valid payment_method' do  
 
-      scenario 'should redirect_to edit_payment_path' do
+      scenario 'should redirect_to change_payment_path' do
         post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
-        expect(response).to redirect_to edit_payment_path
+        expect(response).to redirect_to change_payment_path
       end
 
       scenario 'should not change user braintree_subscription_id' do
@@ -90,9 +90,9 @@ feature BrainTreeController, type: :controller do
 
       feature 'with valid nonce' do
 
-        scenario 'should redirect_to edit_payment_path' do
+        scenario 'should redirect_to change_payment_path' do
           post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
-          expect(response).to redirect_to edit_payment_path
+          expect(response).to redirect_to change_payment_path
         end
 
         scenario 'should not change user braintree_subscription_id' do
@@ -125,7 +125,7 @@ feature BrainTreeController, type: :controller do
 
         scenario 'should redirect back to subscribe_path' do
           post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(response).to redirect_to edit_payment_path
+          expect(response).to redirect_to change_payment_path
         end
 
         scenario 'should not change user braintree_subscription_id' do

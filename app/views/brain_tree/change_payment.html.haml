@@ -1,19 +1,29 @@
 #wrapper
   %section
     .row
-      .small-12.column
-        Your next billing date is #{next_billing_date(current_user.braintree_subscription.next_billing_date)}.
-    .row
-      .small-12.column
-        Auto Recharge
-    .row
-      .small-12.column
-        You will be charged 40 USD on this card #{@payment_method}.
-    .row
-      .small-12.column
-        = form_tag update_payment_path do
-          #dropin
-          = submit_tag 'Confirmg Change of Payment Method', class: 'btn'
+      .medium-8.columns.medium-centered
+        .row
+          .small-12.medium-8.column
+            %h4
+              %strong Next Billing Date:
+          .small-12.medium-4.column
+            %h4
+              %strong #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
+        .row
+          .medium-12.column.medium-centered.text-center
+            You will be charged 40 USD on this card.
+        %br
+        .row
+          .medium-12.column.medium-centered.text-center
+            = form_tag update_payment_path do
+              #dropin
+              %br
+              %button#submit Confirm Change of Payment Method
+        .row
+          .medium-12.columns.medium-centered.text-center
+            - if current_user.braintree_subscription_id
+              = link_to unsubscribe_path do
+                Unsubscribe from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"

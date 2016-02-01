@@ -2,9 +2,9 @@ module BrainTreeHelper
   def days_left time
     exhausted_days = Time.now - time
     if exhausted_days > 30.days
-      "0 days"
+      "0"
     else
-      "<span id='days-left'>#{distance_of_time_in_words(30.days - exhausted_days)}</span>".html_safe
+      "#{distance_of_time_in_words(30.days - exhausted_days)}"
     end
   end
 

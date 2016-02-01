@@ -11,51 +11,37 @@
         .medium-8.columns.medium-centered
 
           - if @payment_method
-            Your next billing date is #{next_billing_date(current_user.braintree_subscription.next_billing_date)}.
-            You will be charged 40 USD on this token #{@payment_method}
-            -# TODO ADD default_payment_method_token to user column adn render card details
+            .row
+              .small-12.medium-8.column
+                %h4
+                  %strong Next Billing Date:
+              .small-12.medium-4.column
+                %h4
+                  %strong #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
           - else
-            Your free trial has #{days_left(current_user.created_at)} left.
+            .row
+              .small-12.medium-8.column
+                %h4
+                  %strong Days left till end of Free Trial:
+              .small-12.medium-4.column
+                %h4
+                  %strong #{days_left(current_user.created_at)}
+          %br
 
       .row
-        .medium-8.columns.medium-centered
+        .medium-8.columns.medium-centered.text-center
           - if current_user.braintree_subscription_id
-            = link_to "Change Payment Settings", edit_payment_path, class: 'button'
+            = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
           - else
-            = link_to 'Subscribe Now', subscribe_path, class: 'button'
+            = link_to 'Subscribe Now', subscribe_path, class: 'button', id: 'subscribe'
       .row
-        .medium-8.columns.medium-centered
+        .medium-8.columns.medium-centered.text-center
           - if current_user.braintree_subscription_id
             = link_to unsubscribe_path do
-              Unsubscribe from Tengence. Your subscription will continue till #{next_billing_date(current_user.braintree_subscription.next_billing_date)}.
+              Unsubscribe from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
 
-      - if current_user.trial?
-        %br
-        .row
-          .medium-8.columns.medium-centered
-            = link_to "I want to check Tengence out first. Skip", root_path
-          
-        -# .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
-        -#   %ul.pricing-table
-        -#     %li.title Standard
-        -#     %li.price $40.00 / Mth
-        -#     %li.description An awesome description
-        -#     %li.bullet-item 1 Database
-        -#     %li.bullet-item 5GB Storage
-        -#     %li.bullet-item 20 Users
-        -#     %li.cta-button
-        -#       = link_to 'Buy Now', new_payment_method_path(plan: 'standard'), class: 'button buy-now'
-
-        -# .medium-4.columns.animated{"data-animate" => "flipInY", "data-animate-delay" => "10"}
-        -#   %ul.pricing-table
-        -#     %li.title Elite
-        -#     %li.price $80.00 / Mth
-        -#     %li.description An awesome description
-        -#     %li.bullet-item 1 Database
-        -#     %li.bullet-item 5GB Storage
-        -#     %li.bullet-item 20 Users
-        -#     %li.cta-button
-        -#       = link_to 'Buy Now', new_payment_method_path(plan: 'standard'), class: 'button buy-now'
-
-        -# .medium-12.columns.text-center
-        -#   = link_to "I want to check Tengence out first. Skip", root_path
+      -# - if current_user.trial?
+      -#   %br
+      -#   .row
+      -#     .medium-8.columns.medium-centered
+      -#       = link_to "I want to check Tengence out first. Skip", root_path

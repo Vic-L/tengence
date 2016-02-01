@@ -31,7 +31,9 @@ class SubscribeToTengence
 
         if result.success?
           
-          user.update!(braintree_subscription_id: result.subscription.id)
+          user.update!(
+            braintree_subscription_id: result.subscription.id,
+            default_payment_method_token: result.subscription.payment_method_token)
           
           response = "flash[:success] = 'You have successfully subscribed to Tengence. Welcome to the community.';"
           response += "redirect_to billing_path"

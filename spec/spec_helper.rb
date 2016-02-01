@@ -92,7 +92,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
     Sidekiq::Worker.clear_all
     ActionMailer::Base.deliveries.clear
-    Sidekiq::Worker.clear_all
   end
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
@@ -100,6 +99,9 @@ RSpec.configure do |config|
     ActionMailer::Base.deliveries.clear
   end
   config.after(:each) do
+    User.pluck(:braintree_customer_id).each do |id|
+      Braintree::Customer.delete(id)
+    end
     DatabaseCleaner.clean
   end
   config.after(:suite) do

@@ -8,7 +8,7 @@ FactoryGirl.define do
     keywords 'stub'
 
     after :build do |user|
-      user.class.skip_callback :validation, :before, :create_braintree_customer
+      user.class.skip_callback :create, :after, :create_braintree_customer
       user.class.skip_callback :destroy, :before, :delete_braintree_customer
     end
   end
@@ -32,5 +32,12 @@ FactoryGirl.define do
 
   trait :pending_reconfirmation do
     unconfirmed_email {Faker::Internet.email}
+  end
+
+  trait :subscribed do
+    after :create do |user|
+      user.create_braintree_customer
+      CreateBraintreeCustomerWorker.drain
+    end
   end
 end

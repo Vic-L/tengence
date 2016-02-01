@@ -21,7 +21,7 @@ class SubscribeToTengence
 
       if result.success?
 
-        user.update!(default_payment_method_token: result.payment_method.token)
+        # user.update!(default_payment_method_token: result.payment_method.token)
         
         result = Braintree::Subscription.create(
           :payment_method_token => result.payment_method.token,

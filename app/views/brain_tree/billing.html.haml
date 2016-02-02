@@ -12,12 +12,23 @@
 
           - if @payment_method
             .row
-              .small-12.medium-8.column
+              .small-12.medium-6.column
                 %h4
                   %strong Next Billing Date:
-              .small-12.medium-4.column
+              .small-12.medium-6.column
+                %h4 #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}
+
+          - if @payment_method
+            .row
+              .small-12.medium-6.column
                 %h4
-                  %strong #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
+                  %strong Card to charge:
+              .small-12.medium-6.column
+                %h6
+                  %img{src: @payment_method.image_url}
+                  %strong=@payment_method.card_type
+                  ending with #{@payment_method.last_4}
+
           - else
             .row
               .small-12.medium-8.column

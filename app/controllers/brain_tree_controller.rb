@@ -4,7 +4,8 @@ class BrainTreeController < ApplicationController
 
   def billing
     if current_user.braintree_subscription_id
-      @payment_method = current_user.braintree_subscription.payment_method_token
+      @payment_method_token = current_user.braintree_subscription.payment_method_token
+      @payment_method = Braintree::PaymentMethod.find(@payment_method_token) unless @payment_method_token.nil?
     end
   end
 

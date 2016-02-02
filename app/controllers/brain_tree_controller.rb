@@ -1,6 +1,9 @@
 class BrainTreeController < ApplicationController
   before_action :authenticate_user!
+  before_action :deny_write_only_access
   before_action :deny_subscribed_user, only: [:subscribe]
+  before_action :deny_unresubscribable_user, only: [:subscribe, :change_payment]
+  before_action :deny_yet_to_subscribe_user, only: [:change_payment]
 
   def billing
     if current_user.braintree_subscription_id
@@ -40,8 +43,23 @@ class BrainTreeController < ApplicationController
   end
 
   private
+    def deny_yet_to_subscribe_user
+      if current_user.yet_to_subscribe?
+        flash[:error] = "You are not authorized to view this page."
+        redirect_to :billing
+      end
+    end
+
     def deny_subscribed_user
-      if !current_user.braintree_subscription_id.blank? && !current_user.can_resubscribe?
+      if current_user.subscribed?
+        flash[:error] = "You are not authorized to view this page."
+        redirect_to :billing
+      end
+    end
+
+    def deny_unresubscribable_user
+      if current_user.cannot_resubscribe?
+        flash[:error] = "You are not authorized to view this page."
         redirect_to :billing
       end
     end

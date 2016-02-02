@@ -67,9 +67,9 @@ feature BrainTreeController, type: :controller do
 
     feature 'with same valid payment_method' do  
 
-      scenario 'should redirect_to change_payment_path' do
+      scenario 'should redirect_to billing_path' do
         post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
-        expect(response).to redirect_to change_payment_path
+        expect(response).to redirect_to billing_path
       end
 
       scenario 'should not change user braintree_subscription_id' do

@@ -8,7 +8,7 @@ FactoryGirl.define do
     keywords 'stub'
 
     after :build do |user|
-      user.class.skip_callback :create, :after, :create_braintree_customer
+      user.class.skip_callback :create, :after, :create_braintree_customer_entity
       user.class.skip_callback :destroy, :before, :delete_braintree_customer
     end
   end
@@ -36,12 +36,14 @@ FactoryGirl.define do
 
   trait :braintree do
     after :create do |user|
-      user.create_braintree_customer
+      user.create_braintree_customer_entity
       CreateBraintreeCustomerWorker.drain
     end
   end
 
   trait :subscribed do
+    # has braintree_subscription_id
+    # dont have next_billing_date
     after :create do |user|
       result = Braintree::Customer.create(
         first_name: user.first_name,
@@ -65,6 +67,38 @@ FactoryGirl.define do
         # :merchant_account_id => "gbp_account"
       )
       user.braintree_subscription_id = result.subscription.id
+    end
+  end
+
+  trait :unsubscribed do
+    # has braintree_subscription_id
+    # has next_billing_date
+    # next_billing_date is past
+    after :create do |user|
+      result = Braintree::Customer.create(
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        company: user.company_name
+      )
+      user.braintree_customer_id = result.customer.id
+      result = Braintree::PaymentMethod.create(
+        customer_id: user.braintree_customer_id,
+        payment_method_nonce: 'fake-valid-nonce',
+        options: {
+          verify_card: true,
+          make_default: true
+        }
+      )
+      user.default_payment_method_token = result.payment_method.token
+      result = Braintree::Subscription.create(
+        :payment_method_token => result.payment_method.token,
+        :plan_id => "standard_plan",
+        # :merchant_account_id => "gbp_account"
+      )
+      user.braintree_subscription_id = result.subscription.id
+      user.next_billing_date = result.subscription.next_billing_date
+      Braintree::Subscription.cancel(result.subscription.id)
     end
   end
 end

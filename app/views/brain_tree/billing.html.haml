@@ -10,15 +10,27 @@
       .row
         .medium-8.columns.medium-centered
 
-          - if @payment_method
-            .row
-              .small-12.medium-6.column
-                %h4
-                  %strong Next Billing Date:
-              .small-12.medium-6.column
-                %h4 #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}
+          - if current_user.yet_to_subscribe?
 
-          - if @payment_method
+            .row
+              .small-12.medium-8.column
+                %h4
+                  %strong Days left till end of Free Trial:
+              .small-12.medium-4.column
+                %h4
+                  %strong #{days_left(current_user.created_at)}
+
+          - else
+
+            - if current_user.subscribed? || current_user.cannot_resubscribe?
+
+              .row
+                .small-12.medium-6.column
+                  %h4
+                    %strong Next Billing Date:
+                .small-12.medium-6.column
+                  %h4 #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}
+
             .row
               .small-12.medium-6.column
                 %h4
@@ -29,30 +41,23 @@
                   %strong=@payment_method.card_type
                   ending with #{@payment_method.last_4}
 
-          - else
-            .row
-              .small-12.medium-8.column
-                %h4
-                  %strong Days left till end of Free Trial:
-              .small-12.medium-4.column
-                %h4
-                  %strong #{days_left(current_user.created_at)}
           %br
 
       .row
         .medium-8.columns.medium-centered.text-center
-          - if current_user.can_resubscribe?
+          - if current_user.yet_to_subscribe?
             = link_to 'Subscribe Now', subscribe_path, class: 'button', id: 'subscribe'
-          - elsif current_user.unsubscribed?
-            Reubscription is available from the next billing date, #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}, onwards.
           - else
-            - if current_user.braintree_subscription_id
-              = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
-            - else
+            - if current_user.can_resubscribe?
               = link_to 'Subscribe Now', subscribe_path, class: 'button', id: 'subscribe'
+            - elsif current_user.subscribed?
+              = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
+            - elsif current_user.cannot_resubscribe?
+              %p Resubscription is available from the next billing date, #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}, onwards.
+
       .row
         .medium-8.columns.medium-centered.text-center
-          - if current_user.braintree_subscription_id && !current_user.unsubscribed?
+          - if current_user.subscribed?
             = link_to unsubscribe_path, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
               Unsubscribe from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
 

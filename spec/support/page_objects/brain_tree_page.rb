@@ -12,11 +12,6 @@ class BrainTreePage
     self
   end
 
-  def visit_subscribe_page
-    visit '/subscribe'
-    self
-  end
-
   def visit_change_payment_page
     visit '/change-payment'
     self

@@ -8,7 +8,7 @@ FactoryGirl.define do
     keywords 'stub'
 
     after :build do |user|
-      user.class.skip_callback :create, :after, :create_braintree_customer_entity
+      user.class.skip_callback :create, :after, :register_braintree_customer
       user.class.skip_callback :destroy, :before, :delete_braintree_customer
     end
   end
@@ -36,7 +36,7 @@ FactoryGirl.define do
 
   trait :braintree do
     after :create do |user|
-      user.create_braintree_customer_entity
+      user.register_braintree_customer
       CreateBraintreeCustomerWorker.drain
     end
   end

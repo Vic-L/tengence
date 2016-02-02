@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   scope :confirmed, -> {where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')")}
 
   before_create :hash_email
-  after_create :create_braintree_customer_entity
+  after_create :register_braintree_customer
   before_destroy :destroy_braintree_customer
 
   def self.email_available?(email)
@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
     Braintree::Subscription.find(braintree_subscription_id)
   end
 
-  def create_braintree_customer_entity
+  def register_braintree_customer
     CreateBraintreeCustomerWorker.perform_async(self.id)
   end
 

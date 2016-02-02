@@ -26,11 +26,58 @@ feature 'subscription', type: :feature, js: true do
         expect(page.current_path).to eq subscribe_path
       end
 
-    end
+      scenario 'with unmatched cvv' do        
+        expect(page).to have_selector 'iframe'
+        page.within_frame 'braintree-dropin-frame' do
+          fill_in 'credit-card-number', with: brain_tree_page.valid_visa
+          fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
+          fill_in 'cvv', with: brain_tree_page.unmatched_cvv
+        end
+        
+        brain_tree_page.click_unique '#submit'
+        wait_for_page_load
+        
+        expect(page.current_path).to eq subscribe_path
+        expect(page).to have_content 'Error!'
 
-    feature 'with fully filled valid fields' do
+        # NOTE: the tests below should happen under human interaction
+        # page.within_frame 'braintree-dropin-frame' do
+        #   expect(page).to have_content 'There was an error processing your request.'
+        # end
+      end
 
-      scenario 'should be successfully subscribed' do
+      scenario 'with unverified cvv' do
+        expect(page).to have_selector 'iframe'
+        page.within_frame 'braintree-dropin-frame' do
+          fill_in 'credit-card-number', with: brain_tree_page.valid_visa
+          fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
+          fill_in 'cvv', with: brain_tree_page.unverified_cvv
+        end
+        
+        brain_tree_page.click_unique '#submit'
+        wait_for_page_load
+
+        expect(page.current_path).to eq subscribe_path
+        expect(page).to have_content 'Error!'
+      end
+
+      scenario 'with invalid card' do
+        expect(page).to have_selector 'iframe'
+        page.within_frame 'braintree-dropin-frame' do
+          fill_in 'credit-card-number', with: brain_tree_page.invalid_visa
+          fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
+          fill_in 'cvv', with: brain_tree_page.valid_cvv
+        end
+        
+        brain_tree_page.click_unique '#submit'
+        wait_for_page_load
+
+        expect(page.current_path).to eq subscribe_path
+        expect(page).to have_content 'Error!'
+      end
+
+      scenario 'with fully filled valid fields' do
+
         expect(unsubscribed_user.reload.braintree_subscription_id).to eq nil
         expect(unsubscribed_user.reload.default_payment_method_token).to eq nil
         brain_tree_page.click_unique '#submit'
@@ -54,6 +101,7 @@ feature 'subscription', type: :feature, js: true do
         
         expect(unsubscribed_user.reload.braintree_subscription_id).not_to eq nil
         expect(unsubscribed_user.reload.default_payment_method_token).not_to eq nil
+
       end
 
     end

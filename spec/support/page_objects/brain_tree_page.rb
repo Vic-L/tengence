@@ -37,12 +37,20 @@ class BrainTreePage
   end
 
   def valid_visa
-    '4111111111111111'  
+    '4111111111111111'
   end
 
-  def valid_maestro
-    '6304000000000000'
+  def invalid_mastercard
+    '5105105105105100'
   end
+
+  def invalid_visa
+    '4000111111111115'
+  end
+
+  # def valid_maestro
+  #   '6304000000000000'
+  # end
 
   def valid_cvv
     '123'
@@ -56,8 +64,8 @@ class BrainTreePage
     '200'
   end
 
-  def non_participating_issuer_cvv
-    '301'
-  end
+  # def non_participating_issuer_cvv
+  #   '301'
+  # end
 
 end

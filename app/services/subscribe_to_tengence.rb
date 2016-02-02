@@ -30,10 +30,13 @@ class SubscribeToTengence
         )
 
         if result.success?
+
+          NotifyViaSlack.call(content: 'ida-hackathon', channel: "#{user.email} subscribed")
           
           user.update!(
             braintree_subscription_id: result.subscription.id,
-            default_payment_method_token: result.subscription.payment_method_token)
+            default_payment_method_token: result.subscription.payment_method_token,
+            next_billing_date: nil)
           
           response = "flash[:success] = 'You have successfully subscribed to Tengence. Welcome to the community.';"
           response += "redirect_to billing_path"

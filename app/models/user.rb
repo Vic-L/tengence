@@ -43,6 +43,14 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def unsubscribed?
+    !!next_billing_date
+  end
+
+  def can_resubscribe?
+    unsubscribed? && Time.now.in_time_zone('Singapore').to_date >= next_billing_date
+  end
+
   def fully_confirmed?
     confirmed? && !pending_reconfirmation?
   end

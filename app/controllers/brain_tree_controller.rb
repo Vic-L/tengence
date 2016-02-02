@@ -35,11 +35,14 @@ class BrainTreeController < ApplicationController
   end
 
   def unsubscribe
-
+    resp = UnsubscribeFromTengence.call(user: current_user)
+    eval(resp)
   end
 
   private
     def deny_subscribed_user
-      redirect_to :billing if !current_user.braintree_subscription_id.blank?
+      if !current_user.braintree_subscription_id.blank? && !current_user.can_resubscribe?
+        redirect_to :billing
+      end
     end
 end

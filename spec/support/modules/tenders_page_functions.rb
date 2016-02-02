@@ -1,4 +1,13 @@
 module TendersPageFunctions
+
+  def accept_confirm
+    page.driver.browser.switch_to.alert.accept
+  end
+
+  def reject_confirm
+    page.driver.browser.switch_to.alert.dismiss
+  end
+
   def find_css selector
     page.driver.find_css selector
   end

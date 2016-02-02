@@ -41,14 +41,19 @@
 
       .row
         .medium-8.columns.medium-centered.text-center
-          - if current_user.braintree_subscription_id
-            = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
-          - else
+          - if current_user.can_resubscribe?
             = link_to 'Subscribe Now', subscribe_path, class: 'button', id: 'subscribe'
+          - elsif current_user.unsubscribed?
+            Reubscription is available from the next billing date, #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}, onwards.
+          - else
+            - if current_user.braintree_subscription_id
+              = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
+            - else
+              = link_to 'Subscribe Now', subscribe_path, class: 'button', id: 'subscribe'
       .row
         .medium-8.columns.medium-centered.text-center
-          - if current_user.braintree_subscription_id
-            = link_to unsubscribe_path do
+          - if current_user.braintree_subscription_id && !current_user.unsubscribed?
+            = link_to unsubscribe_path, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
               Unsubscribe from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
 
       -# - if current_user.trial?

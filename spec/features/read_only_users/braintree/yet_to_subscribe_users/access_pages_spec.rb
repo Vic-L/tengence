@@ -18,6 +18,17 @@ feature "access pages by read_only unsubscribed users" do
       expect(page).not_to have_link 'Change Payment Settings', href: change_payment_path
     end
 
+    scenario 'subscribe' do
+      brain_tree_page.visit_subscribe_page
+      expect(page.current_path).to eq subscribe_path
+    end
+
+    scenario 'change_payment' do
+      brain_tree_page.visit_change_payment_page
+      expect(page).to have_content 'You are not authorized to view this page.'
+      expect(page.current_path).to eq billing_path
+    end
+
   end
 
 end

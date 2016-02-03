@@ -37,14 +37,12 @@ feature BrainTreeController, type: :controller do
 
     scenario 'should be redirected for subscribed_user' do
       sign_in subscribed_user
-      request.env["HTTP_REFERER"] = edit_user_registration_path
       get :subscribe
       expect(response).to redirect_to billing_path
     end
 
     scenario 'should be redirected for unsubscribed_user' do
       sign_in unsubscribed_user
-      request.env["HTTP_REFERER"] = edit_user_registration_path
       get :subscribe
       expect(response).to redirect_to billing_path
     end
@@ -233,9 +231,9 @@ feature BrainTreeController, type: :controller do
         request.env["HTTP_REFERER"] = change_payment_path
       end
 
-      scenario 'should redirect_to change_payment_path' do
+      scenario 'should redirect_to billing_path' do
         post :unsubscribe
-        expect(response).to redirect_to change_payment_path
+        expect(response).to redirect_to billing_path
       end
 
     end

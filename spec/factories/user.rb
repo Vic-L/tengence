@@ -44,7 +44,7 @@ FactoryGirl.define do
   trait :subscribed do
     # has braintree_subscription_id
     # dont have next_billing_date
-    after :create do |user|
+    before :create do |user|
       result = Braintree::Customer.create(
         first_name: user.first_name,
         last_name: user.last_name,
@@ -74,7 +74,7 @@ FactoryGirl.define do
     # has braintree_subscription_id
     # has next_billing_date
     # next_billing_date is past
-    after :create do |user|
+    before :create do |user|
       result = Braintree::Customer.create(
         first_name: user.first_name,
         last_name: user.last_name,

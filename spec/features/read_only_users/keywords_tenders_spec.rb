@@ -5,7 +5,6 @@ feature 'keywords_tenders', js: true, type: :feature do
   let(:user_without_keywords) {create(:user, :read_only,:without_keywords)}
 
   before :each do
-    # Rails.application.load_seed
     login_as(user_without_keywords, scope: :user)
     keywords_tenders_page.visit_page
     page.driver.browser.manage.window.resize_to(1432, 782)

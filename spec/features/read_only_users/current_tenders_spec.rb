@@ -5,7 +5,7 @@ feature 'current_tenders', js: true, type: :feature do
   let(:read_only_user) {create(:user, :read_only)}
 
   before :each do
-    Rails.application.load_seed
+    current_tenders_page.seed_data
     login_as(read_only_user, scope: :user)
     current_tenders_page.visit_page
     wait_for_page_load

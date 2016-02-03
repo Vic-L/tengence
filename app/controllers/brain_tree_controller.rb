@@ -45,21 +45,21 @@ class BrainTreeController < ApplicationController
   private
     def deny_yet_to_subscribe_user
       if current_user.yet_to_subscribe?
-        flash[:error] = "You are not authorized to view this page."
+        flash[:alert] = "You are not authorized to view this page."
         redirect_to :billing
       end
     end
 
     def deny_subscribed_user
       if current_user.subscribed?
-        flash[:error] = "You are not authorized to view this page."
+        flash[:alert] = "You are not authorized to view this page."
         redirect_to :billing
       end
     end
 
     def deny_unresubscribable_user
       if current_user.cannot_resubscribe?
-        flash[:error] = "You are not authorized to view this page."
+        flash[:alert] = "You are not authorized to view this page."
         redirect_to :billing
       end
     end

@@ -1,5 +1,6 @@
 var ShowTenderDetail = React.createClass({
   rawMarkup: function() {
+    // console.log(this.props.body);
     var rawMarkup = marked(this.props.body.toString(), {sanitize: false});
     return { __html: this.props.body };
   },

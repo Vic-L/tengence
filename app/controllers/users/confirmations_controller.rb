@@ -13,7 +13,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     if successfully_sent?(resource)
       respond_with({}, location: after_resending_confirmation_instructions_path_for(resource_name))
     else
-      flash[:error] = resource.errors.full_messages.to_sentence
+      flash[:alert] = resource.errors.full_messages.to_sentence
       redirect_to new_user_session_path 
     end
   end

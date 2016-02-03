@@ -63,4 +63,5 @@ class TendersPage
     visit '/tenders/' + id + '/edit'
     self
   end
+  
 end

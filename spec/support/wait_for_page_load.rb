@@ -3,6 +3,6 @@ module WaitForPageLoad
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop until page.has_css?('.mask', visible: false)
     end
-    sleep 3
+    sleep 2
   end
 end

@@ -9,9 +9,9 @@ class PastPostedTendersPage
 
   def seed_data user_id
     # create 1 current tender
-    1.times do
+    1.times do |index|
       Tender.create(
-        ref_no: 'InHouse-' + (Time.now.to_f*1000).to_i.to_s,
+        ref_no: "InHouse-current-#{index}",
         buyer_company_name: Faker::Company.name,
         buyer_contact_number: Faker::PhoneNumber.phone_number,
         buyer_name: Faker::Name.name,
@@ -24,9 +24,9 @@ class PastPostedTendersPage
       )
     end
 
-    102.times do
+    102.times do |index|
       Tender.create(
-        ref_no: 'InHouse-' + (Time.now.to_f*1000).to_i.to_s,
+        ref_no: "InHouse-past-#{index}",
         buyer_company_name: Faker::Company.name,
         buyer_contact_number: Faker::PhoneNumber.phone_number,
         buyer_name: Faker::Name.name,

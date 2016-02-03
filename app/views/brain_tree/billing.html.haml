@@ -58,7 +58,7 @@
       .row
         .medium-8.columns.medium-centered.text-center
           - if current_user.subscribed?
-            = link_to unsubscribe_path, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
+            = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
               Unsubscribe from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
 
       -# - if current_user.trial?

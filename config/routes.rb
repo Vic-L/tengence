@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   post "/create-payment", to: 'brain_tree#create_payment', as: 'create_payment'
   post "/update-payment", to: 'brain_tree#update_payment', as: 'update_payment'
   post "/unsubscribe", to: 'brain_tree#unsubscribe', as: 'unsubscribe'
+  get "/braintree_slack_pings", to: 'brain_tree#braintree_slack_pings'
 
   get '/current_tenders', to: 'current_tenders#index', as: :current_tenders
   get '/past_tenders', to: 'past_tenders#index', as: :past_tenders

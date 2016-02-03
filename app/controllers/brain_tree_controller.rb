@@ -42,6 +42,19 @@ class BrainTreeController < ApplicationController
     eval(resp)
   end
 
+  def braintree_slack_pings
+    # sample_notification = Braintree::WebhookTesting.sample_notification(
+    #   Braintree::WebhookNotification::Kind::SubscriptionWentPastDue,
+    #   "my_id"
+    # )
+    webhook_notification = Braintree::WebhookNotification.parse(
+      request.params["bt_signature"],
+      request.params["bt_payload"]
+    )
+    NotifyViaSlack.call(content: "Braintree | #{webhook_notification.kind}\r\n#{webhook_notification.timestamp}\r\nSubscription: #{webhook_notification.subscription.id}")
+    render nothing: true, status: 200
+  end
+
   private
     def deny_yet_to_subscribe_user
       if current_user.yet_to_subscribe?

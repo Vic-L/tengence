@@ -6,9 +6,62 @@ feature BrainTreeController, type: :controller do
   let!(:unsubscribed_user) { create(:user, :braintree, :unsubscribed) }
 
   feature 'GET billing' do
+
+    scenario 'should be ok for all users' do
+      sign_in yet_to_subscribe_user
+      get :billing
+      expect(response.status).to eq 200
+      expect(response).to render_template 'brain_tree/billing'
+
+      sign_in subscribed_user
+      get :billing
+      expect(response.status).to eq 200
+      expect(response).to render_template 'brain_tree/billing'
+
+      sign_in unsubscribed_user
+      get :billing
+      expect(response.status).to eq 200
+      expect(response).to render_template 'brain_tree/billing'
+    end
+
   end
 
   feature 'GET subscribe' do
+
+    scenario 'should be ok yet_to_subscribe_user' do
+      sign_in yet_to_subscribe_user
+      request.env["HTTP_REFERER"] = edit_user_registration_path
+      get :subscribe
+      expect(response).to render_template 'brain_tree/subscribe'
+    end
+
+    scenario 'should be redirected for subscribed_user' do
+      sign_in subscribed_user
+      request.env["HTTP_REFERER"] = edit_user_registration_path
+      get :subscribe
+      expect(response).to redirect_to billing_path
+    end
+
+    scenario 'should be redirected for unsubscribed_user' do
+      sign_in unsubscribed_user
+      request.env["HTTP_REFERER"] = edit_user_registration_path
+      get :subscribe
+      expect(response).to redirect_to billing_path
+    end
+
+    scenario 'should be ok for unsubscribed_user after last billing date' do
+      Timecop.freeze(unsubscribed_user.next_billing_date) do
+        sign_in unsubscribed_user
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        get :subscribe
+        expect(response).to render_template 'brain_tree/subscribe'
+        sign_out unsubscribed_user
+      end
+    end
+
+  end
+
+  feature 'GET change_payment' do
   end
 
   feature 'POST create_payment' do
@@ -200,7 +253,7 @@ feature BrainTreeController, type: :controller do
         expect(response).to redirect_to billing_path
       end
 
-    end    
+    end
 
   end
 

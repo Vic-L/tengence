@@ -101,7 +101,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, 
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.showTender = (ref_no) ->
+Tengence.ReactFunctions.showTender = (ref_no, trial_tenders_count) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/tenders/' + encodeURIComponent(ref_no).replace('.','&2E')
@@ -110,7 +110,7 @@ Tengence.ReactFunctions.showTender = (ref_no) ->
     cache: false
     success: (tender) -> 
       $('#view-more-modal').empty()
-      ReactDOM.render `<ShowTender tender={tender}/>`, document.getElementById('view-more-modal')
+      ReactDOM.render `<ShowTender tender={tender} trial_tenders_count={trial_tenders_count}/>`, document.getElementById('view-more-modal')
       $('#view-more-modal').foundation('reveal', 'open')
       return
     error: (xhr, status, err) -> 

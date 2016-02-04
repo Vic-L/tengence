@@ -9,7 +9,9 @@ feature Tender, type: :model do
 
   it { should have_many(:watched_tenders).dependent(:destroy) }
   it { should have_many(:users).through(:watched_tenders) }
-  it { should have_many(:viewed_tenders).dependent(:destroy) }
+  it { should have_many(:viewed_tenders).with_foreign_key(:ref_no).dependent(:destroy) }
+  it { should have_many(:trial_tenders).dependent(:destroy) }
+
   it { should have_many(:documents).dependent(:destroy) }
 
   it { should callback(:add_to_cloudsearch).after(:commit).on(:create) }

@@ -6,6 +6,7 @@ class Tender < ActiveRecord::Base
   has_many :watched_tenders, dependent: :destroy
   has_many :users, through: :watched_tenders
   has_many :viewed_tenders, foreign_key: :ref_no, dependent: :destroy
+  has_many :trial_tenders, dependent: :destroy
   
   has_many :documents, as: :uploadable, dependent: :destroy
   accepts_nested_attributes_for :documents, :reject_if => lambda { |t| t['upload'].nil? }, allow_destroy: true

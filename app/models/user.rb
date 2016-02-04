@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :past_tenders, through: :watched_tenders
   has_many :current_posted_tenders, foreign_key: "postee_id"
   has_many :past_posted_tenders, foreign_key: "postee_id"
+  has_many :trial_tenders, dependent: :destroy
   validates_with KeywordsValidator
   validates_presence_of :first_name, :last_name # , :email -> email already validated by devise
 
@@ -63,14 +64,14 @@ class User < ActiveRecord::Base
     unsubscribed? && Time.now.in_time_zone('Singapore').to_date < next_billing_date
   end
 
+  def trial?
+    braintree_subscription_id.nil? && (Time.current - created_at) / 86400 < 1.month
+  end
+
   def fully_confirmed?
     confirmed? && !pending_reconfirmation?
   end
 
-  def trial?
-    self.braintree_subscription_id.blank? && (Date.today - self.created_at.to_date).to_i <= 30
-  end
-  
   def braintree
     Braintree::Customer.find(self.braintree_customer_id)
   end

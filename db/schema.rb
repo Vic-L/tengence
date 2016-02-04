@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202052256) do
+ActiveRecord::Schema.define(version: 20160204015144) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -144,6 +144,14 @@ ActiveRecord::Schema.define(version: 20160202052256) do
     t.text   "description", limit: 65535
   end
 
+  create_table "trial_tenders", id: false, force: :cascade do |t|
+    t.integer "user_id",   limit: 4
+    t.integer "tender_id", limit: 4
+  end
+
+  add_index "trial_tenders", ["tender_id"], name: "index_trial_tenders_on_tender_id", using: :btree
+  add_index "trial_tenders", ["user_id"], name: "index_trial_tenders_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                        limit: 255,   default: "",     null: false
     t.string   "encrypted_password",           limit: 255,   default: "",     null: false
@@ -173,6 +181,7 @@ ActiveRecord::Schema.define(version: 20160202052256) do
     t.string   "braintree_subscription_id",    limit: 255
     t.string   "default_payment_method_token", limit: 255
     t.date     "next_billing_date"
+    t.integer  "trial_tenders_count",          limit: 4,     default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

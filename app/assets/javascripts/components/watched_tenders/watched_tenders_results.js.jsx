@@ -6,7 +6,7 @@ var WatchedTendersResults = React.createClass({
           <div className='small-12 column'>
             <TendersPagination {...this.props} />
             <table id='results-table' role='grid'>
-              <WatchedTendersTableHeader massDestroyTenders={this.props.massDestroyTenders} />
+              <GenericTendersTableHeader trial_tenders_count={this.props.trial_tenders_count} massDestroyTenders={this.props.massDestroyTenders} />
               <WatchedTendersTableBody {...this.props} />
             </table>
             <TendersPagination {...this.props} />

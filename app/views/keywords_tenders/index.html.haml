@@ -1,3 +1,6 @@
-= react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, keywords: @keywords}
+- if current_user.finished_trial?
+  = react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, keywords: @keywords}
+- else
+  = react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, keywords: @keywords, trial_tenders_count: current_user.trial_tenders_count}
         
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

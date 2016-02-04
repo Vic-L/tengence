@@ -6,7 +6,7 @@ var PostedTendersResults = React.createClass({
           <div className='small-12 column'>
             <TendersPagination {...this.props} />
             <table id='results-table' role='grid'>
-              <PostedTendersTableHeader />
+              <GenericTendersTableHeader />
               <PostedTendersTableBody {...this.props} />
             </table>
             <TendersPagination {...this.props} />

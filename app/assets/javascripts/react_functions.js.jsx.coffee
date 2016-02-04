@@ -63,9 +63,9 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, 
       page: page
       keywords: keywords
       sort: sort}
-    method: 'GET',
-    dataType: 'json',
-    cache: false,
+    method: 'GET'
+    dataType: 'json'
+    cache: false
     success: (data) ->
       finalUrl = new URI(url)
       if page?
@@ -217,3 +217,24 @@ Tengence.ReactFunctions.massDestroyTenders = (parentComponent, tender_ids, url) 
       Tengence.ReactFunctions.notifyError(window.location.href,'massDestroyTenders', xhr.statusText)
       alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused. The page will now refresh.")
       window.location.reload()
+
+Tengence.ReactFunctions.isWatchedTendersPage = ->
+  if window.location.href.indexOf('watched_tenders') == -1
+    return false
+  else
+    return true
+
+Tengence.ReactFunctions.isKeywordsTendersPage = ->
+  if window.location.href.indexOf('keywords_tenders') == -1
+    return false
+  else
+    return true
+
+Tengence.ReactFunctions.isPostedTendersPage = ->
+  if window.location.href.indexOf('posted_tenders') == -1
+    return false
+  else
+    return true
+
+Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe = (trial_tenders_count) ->
+  return trial_tenders_count?

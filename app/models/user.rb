@@ -64,8 +64,8 @@ class User < ActiveRecord::Base
     unsubscribed? && Time.now.in_time_zone('Singapore').to_date < next_billing_date
   end
 
-  def trial?
-    braintree_subscription_id.nil? && (Time.current - created_at) / 86400 < 1.month
+  def finished_trial?
+    braintree_subscription_id.nil? && (Time.current - created_at) / 86400 > 1.month
   end
 
   def fully_confirmed?

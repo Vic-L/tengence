@@ -3,7 +3,7 @@ var TendersListing = React.createClass({
   //   tenders: React.PropTypes.array
   // },
   getInitialState: function() {
-    return {tenders: [], pagination: {}, results_count: null, url: this.props.url, keywords: this.props.keywords, sort: 'newest'};
+    return {tenders: [], pagination: {}, results_count: null, url: this.props.url, keywords: this.props.keywords, sort: 'newest', trial_tenders_count: this.props.trial_tenders_count};
   },
   componentDidMount: function() {
     this.getTenders(this.state.url);
@@ -32,27 +32,6 @@ var TendersListing = React.createClass({
     url.removeQuery('page');
     Tengence.ReactFunctions.massDestroyTenders(this,tender_ids, url.toString());
   },
-  isWatchedTendersPage: function(){
-    if (window.location.href.indexOf('watched_tenders') === -1){
-      return false;
-    } else {
-      return true;
-    }
-  },
-  isKeywordsTendersPage: function(){
-    if (window.location.href.indexOf('keywords_tenders') === -1){
-      return false;
-    } else {
-      return true;
-    }
-  },
-  isPostedTendersPage: function(){
-    if (window.location.href.indexOf('posted_tenders') === -1){
-      return false;
-    } else {
-      return true;
-    }
-  },
   getDescriptionText: function(){
     var list = ['current_tenders','past_tenders','watched_tenders','keywords_tenders'];
     for (var i=0;i<list.length;i++) {
@@ -80,14 +59,14 @@ var TendersListing = React.createClass({
     if (this.props.current_tenders_count != null) {
       tenderCount = <TendersCount current_tenders_count={this.props.current_tenders_count} />;
     }
-    if (this.isWatchedTendersPage()){
+    if (Tengence.ReactFunctions.isWatchedTendersPage()){
       tenderTabs = <TenderTabs getTenders={this.getTenders} url={this.state.url} />;
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <WatchedTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
-    } else if (this.isKeywordsTendersPage()) {
+      tenderResults = <WatchedTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
+    } else if (Tengence.ReactFunctions.isKeywordsTendersPage()) {
       tenderKeywords = <KeywordsTendersForm url={this.state.url} updateKeywords={this.updateKeywords} getTenders={this.getTenders} keywords={this.state.keywords}/>;
-      tenderResults = <GenericTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
-    } else if (this.isPostedTendersPage()) {
+      tenderResults = <GenericTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
+    } else if (Tengence.ReactFunctions.isPostedTendersPage()) {
       tenderHeader = (<section id="post-tender">
           <div className="row">
             <div className="small-12 column text-center">
@@ -95,10 +74,10 @@ var TendersListing = React.createClass({
             </div>
           </div>
         </section>)
-      tenderResults = <PostedTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
+      tenderResults = <PostedTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     } else {
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <GenericTendersResults sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
+      tenderResults = <GenericTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     }
     return (
       <div id='wrapper'>

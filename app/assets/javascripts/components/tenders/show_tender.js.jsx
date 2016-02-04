@@ -111,9 +111,12 @@ var ShowTender = React.createClass({
               <div className='medium-12 column'>
                 {refNo}
                 {buyerCompanyName}
-                {buyerName}
-                {buyerContactNumber}
-                {buyerEmail}
+                <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={refNo}>Show buyer details</a>
+                <div id='in-house-tender-details'>
+                  {buyerName}
+                  {buyerContactNumber}
+                  {buyerEmail}
+                </div>
                 {published_date}
                 {closingDate}
                 {closingTime}

@@ -18,7 +18,7 @@ feature User, type: :model do
   it { should have_many(:past_posted_tenders) }
 
   it { should callback(:hash_email).before(:create) }
-  # it { should callback(:register_braintree_customer).after(:create) }
+  it { should callback(:register_braintree_customer).after(:commit).on(:create) }
   it { should callback(:destroy_braintree_customer).before(:destroy) }
   it { should_not callback(:hash_email).before(:save) }
 

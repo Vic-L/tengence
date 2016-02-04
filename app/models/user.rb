@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   scope :confirmed, -> {where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')")}
 
   before_create :hash_email
-  after_create :register_braintree_customer
+  after_commit :register_braintree_customer, on: :create
   before_destroy :destroy_braintree_customer
 
   def self.email_available?(email)

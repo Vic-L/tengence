@@ -37,16 +37,18 @@ var ShowTender = React.createClass({
         if (i !== 0) documentRows.push(<br/>);
         documentRows.push(<a target='_blank' href={this.props.tender.documents[i].url}>{this.props.tender.documents[i].original_filename + ' (' + filesize(this.props.tender.documents[i].upload_size) + ')'}</a>);
       }
-      leftRows.push(<div className='row'>
-        <div className='small-12 column'>
-          <div className='header'>
-            Documents
+      if (documentRows.size > 0) {
+        leftRows.push(<div className='row'>
+          <div className='small-12 column'>
+            <div className='header'>
+              Documents
+            </div>
           </div>
-        </div>
-        <div className='small-12 column'>
-          {documentRows}
-        </div>
-      </div>);
+          <div className='small-12 column'>
+            {documentRows}
+          </div>
+        </div>);
+      }
     }
     return leftRows;
   },

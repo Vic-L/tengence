@@ -70,12 +70,7 @@ class User < ActiveRecord::Base
   def trial?
     self.braintree_subscription_id.blank? && (Date.today - self.created_at.to_date).to_i <= 30
   end
-
-  def default_payment_method
-    # TODO ADD default_payment_method_token to user column
-    braintree.payment_methods.select{|a| a.default?}.first
-  end
-
+  
   def braintree
     Braintree::Customer.find(self.braintree_customer_id)
   end

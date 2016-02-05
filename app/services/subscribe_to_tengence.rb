@@ -31,7 +31,7 @@ class SubscribeToTengence
 
         if result.success?
 
-          NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{user.email} subscribed")
+          NotifyViaSlack.call(content: "#{user.email} subscribed")
           
           user.update!(
             braintree_subscription_id: result.subscription.id,

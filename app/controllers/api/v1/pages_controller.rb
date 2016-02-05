@@ -20,7 +20,7 @@ module Api
         if params['g-recaptcha-response'].blank? && !Rails.env.test?
           render js: "alert('Please complete the captcha')"
         else
-          NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{params[:demo_email]} requested demo email")
+          NotifyViaSlack.call(content: "#{params[:demo_email]} requested demo email")
           AlertsMailer.demo_email(params[:demo_email]).deliver_later
           render js: "$('#email-demo-submitted-button').slideDown();$('#demo-email-form fieldset').slideUp();"
         end

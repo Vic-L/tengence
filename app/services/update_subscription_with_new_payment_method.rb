@@ -26,7 +26,7 @@ class UpdateSubscriptionWithNewPaymentMethod
 
           user.update!(default_payment_method_token: payment_method_token)
 
-          NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{user.email} update payment method")
+          NotifyViaSlack.call(content: "#{user.email} update payment method")
 
           response = "flash[:success] = 'You have successfully change your default payment method';"
           response += "redirect_to billing_path"

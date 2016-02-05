@@ -11,7 +11,7 @@ class NotifyViaSlack
         notifier = Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'], username: 'Alerts-Tengence', channel: channel || "#alerts-tengence-pings")
         notifier.ping content
       elsif Rails.env.development?
-        notifier = Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'], username: 'Alerts-Tengence', channel: "#alerts-tengence-pings")
+        notifier = Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'], username: 'Alerts-Tengence', channel: "#tengence-dev")
         notifier.ping content
       else
         puts "\r\n>>>>>>>Slack notification to #{channel || '#alerts-tengence-pings'}:\r\n#{content}\r\n>>>>>>>\r\n\r\n"

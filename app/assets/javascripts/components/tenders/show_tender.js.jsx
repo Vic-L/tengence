@@ -47,22 +47,22 @@ var ShowTender = React.createClass({
     return <ShowTenderDetail header='Buyer Company Name' body={this.props.tender.buyer_company_name} />;
   },
   getBuyerName: function(){
-    if (this.props.tender.buyer_name != null && this.props.tender.buyer_name != '') {
+    if (this.props.tender.buyer_name != null && this.props.tender.buyer_name !== '') {
       return <ShowTenderDetail header='Buyer Name' body={this.props.tender.buyer_name} />;
     } else {
       return null;
     }
   },
   getBuyerContactNumber: function(){
-    if (this.props.tender.buyer_contact_number != null && this.props.tender.buyer_contact_number != '') {
+    if (this.props.tender.buyer_contact_number != null && this.props.tender.buyer_contact_number !== '') {
       return <ShowTenderDetail header='Buyer Contact Number' body={this.props.tender.buyer_contact_number} />;
     } else {
       return null;
     }
   },
   getBuyerEmail: function(){
-    if (this.props.tender.buyer_email != null && this.props.tender.buyer_email != '') {
-      buyerEmail = <ShowTenderDetail header='Buyer Email' body={this.props.tender.buyer_email} />;
+    if (this.props.tender.buyer_email != null && this.props.tender.buyer_email !== '') {
+      return <ShowTenderDetail header='Buyer Email' body={this.props.tender.buyer_email} />;
     } else {
       return null;
     }
@@ -87,7 +87,7 @@ var ShowTender = React.createClass({
     }
   },
   getOriginalLink: function(){
-    if (this.props.tender.external_link != null && this.props.tender.external_link != '') {
+    if (this.props.tender.external_link != null && this.props.tender.external_link !== '') {
       var body = "<a href='" + this.props.tender.external_link + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>";
       return <ShowTenderDetail header='Original Link' body={body} extraClass='external-link'/>;
     } else {

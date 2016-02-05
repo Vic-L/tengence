@@ -114,6 +114,7 @@ feature 'account', type: :feature, js: :true do
       last_email = ActionMailer::Base.deliveries.last
       ctoken = last_email.body.match(/confirmation_token=[^"]+/)
       visit "/users/confirmation?#{ctoken}"
+      binding.pry
       expect(page).to have_content 'Your email address has been successfully confirmed.'
       devise_page.visit_edit_page
       expect(page).not_to have_content 'Currently waiting confirmation for: one@piece.com'

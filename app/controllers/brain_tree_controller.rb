@@ -1,10 +1,10 @@
 class BrainTreeController < ApplicationController
-  before_action :authenticate_user!, except: [:braintree_slack_pings]
-  before_action :deny_write_only_access, except: [:braintree_slack_pings]
+  before_action :authenticate_user!, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
+  before_action :deny_write_only_access, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_subscribed_user, only: [:subscribe]
   before_action :deny_unresubscribable_user, only: [:subscribe, :change_payment]
   before_action :deny_yet_to_subscribe_user, only: [:change_payment]
-  skip_before_action :verify_authenticity_token, only: [:braintree_slack_pings]
+  skip_before_action :verify_authenticity_token, only: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
 
   def billing
     if current_user.braintree_subscription_id
@@ -79,7 +79,7 @@ class BrainTreeController < ApplicationController
     else
       content += "#{webhook_notification.inspect}"
     end
-    NotifyViaSlack.call(content: content, channel: 'tengence-dev')
+    NotifyViaSlack.call(content: content, channel: '#tengence-dev')
     render nothing: true, status: 200
   end  
 

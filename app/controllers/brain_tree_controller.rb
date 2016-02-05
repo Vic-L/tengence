@@ -1,9 +1,10 @@
 class BrainTreeController < ApplicationController
-  before_action :authenticate_user!
-  before_action :deny_write_only_access
+  before_action :authenticate_user!, except: [:braintree_slack_pings]
+  before_action :deny_write_only_access, except: [:braintree_slack_pings]
   before_action :deny_subscribed_user, only: [:subscribe]
   before_action :deny_unresubscribable_user, only: [:subscribe, :change_payment]
   before_action :deny_yet_to_subscribe_user, only: [:change_payment]
+  skip_before_action :verify_authenticity_token, only: [:braintree_slack_pings]
 
   def billing
     if current_user.braintree_subscription_id
@@ -51,7 +52,14 @@ class BrainTreeController < ApplicationController
       request.params["bt_signature"],
       request.params["bt_payload"]
     )
-    NotifyViaSlack.call(content: "Braintree | #{webhook_notification.kind}\r\n#{webhook_notification.timestamp}\r\nSubscription: #{webhook_notification.subscription.id}")
+    content = "Braintree | #{webhook_notification.kind}\r\n#{webhook_notification.timestamp}\r\n"
+    case webhook_notification.kind
+    when 'disbursement'
+      content += "id: #{webhook_notification.disbursement.id}\r\namount: #{webhook_notification.disbursement.amount}\r\ndisbursement_date: #{webhook_notification.disbursement.disbursement_date}"
+    else
+      content += "#{webhook_notification.inspect}"
+    end
+    NotifyViaSlack.call(content: content)
     render nothing: true, status: 200
   end
 

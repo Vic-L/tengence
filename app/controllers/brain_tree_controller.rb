@@ -79,7 +79,7 @@ class BrainTreeController < ApplicationController
     else
       content += "#{webhook_notification.inspect}"
     end
-    NotifyViaSlack.call(content: content, channel: 'tengence-dev')
+    NotifyViaSlack.call(content: content, channel: '#tengence-dev')
     render nothing: true, status: 200
   end  
 

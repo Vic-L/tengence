@@ -23,7 +23,6 @@ var ShowTender = React.createClass({
     );
   },
   buyDetails: function() {
-    console.log(this.props.trial_tender_ids);
     $.ajax({
       url: "/trial_tenders",
       data: {
@@ -31,14 +30,13 @@ var ShowTender = React.createClass({
       },
       method: "POST",
       success: function(data){
-        // console.log(data);
-        var temp = this.props.trial_tender_ids;
-        temp.push(this.props.tender.ref_no);
-        this.props.parentComponent.setState({trial_tender_ids: temp});
+        if (data !== 'ignore') {
+          this.props.parentComponent.setState({trial_tender_ids: data});
+        }
       }.bind(this),
       error: function(xhr, status, err){
         Tengence.ReactFunctions.notifyError(window.location.href,'buyDetails', xhr.statusText)
-      }.bind(this)
+      }
     });
     this.revealBoughtDetails();
   },

@@ -10,7 +10,6 @@ class CurrentTendersPage
   def seed_data
     102.times do |a|
       if a%2 == 0
-        puts 'create gebiz tender'
         Tender.create(
           ref_no: Faker::Company.ein,
           buyer_company_name: Faker::Company.name,
@@ -23,7 +22,6 @@ class CurrentTendersPage
           external_link: 'gebiz.gov'
         )
       elsif a%2 == 1
-        puts 'create non gebiz tender'
         # this will fail validation
         tender = Tender.new(
           ref_no: Faker::Company.ein,

@@ -181,7 +181,7 @@ var ShowTender = React.createClass({
 
     } else {
 
-      if (Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe(this.props.trial_tender_ids)) {
+      if (Tengence.ReactFunctions.finishedTrialButYetToSubscribe(this.props.trial_tender_ids)) {
 
         if (this.props.trial_tender_ids.length >= 3) {
 

@@ -236,7 +236,7 @@ Tengence.ReactFunctions.isPostedTendersPage = ->
   else
     return true
 
-Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe = (trial_tender_ids) ->
+Tengence.ReactFunctions.finishedTrialButYetToSubscribe = (trial_tender_ids) ->
   return trial_tender_ids?
 
 Tengence.ReactFunctions.tenderAlreadyUnlocked = (trial_tender_ids, ref_no) ->

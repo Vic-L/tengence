@@ -10,63 +10,59 @@ feature 'trial_tenders', type: :feature, js: true do
   feature 'home page' do
 
     scenario "should be able to view the full details of a non inhouse tender" do
-      Timecop.freeze(Date.today + 2.months) do
-        home_page.seed_gebiz_tender
-        home_page.visit_page
-        wait_for_page_load
-        home_page.click_common '.more-button'
-        
-        expect(page).to have_selector '#view-more-modal'
-        expect(page).not_to have_selector '#buy-details'
-        expect(page).to have_content 'Buyer Company Name'
-        expect(page).to have_content 'Buyer Name'
-        expect(page).to have_content 'Buyer Contact Number'
-        expect(page).to have_content 'Original Link'
-        home_page.click_common '.close-reveal-modal'
-        expect(page).not_to have_selector '#view-more-modal'
+      home_page.seed_gebiz_tender
+      home_page.visit_page
+      wait_for_page_load
+      home_page.click_common '.more-button'
+      
+      expect(page).to have_selector '#view-more-modal'
+      expect(page).not_to have_selector '#buy-details'
+      expect(page).to have_content 'Buyer Company Name'
+      expect(page).to have_content 'Buyer Name'
+      expect(page).to have_content 'Buyer Contact Number'
+      expect(page).to have_content 'Original Link'
+      home_page.click_common '.close-reveal-modal'
+      expect(page).not_to have_selector '#view-more-modal'
 
-        home_page.click_common '.more-button'
-        expect(page).to have_selector '#view-more-modal'
-        expect(page).not_to have_selector '#buy-details'
-        expect(page).to have_content 'Buyer Company Name'
-        expect(page).to have_content 'Buyer Name'
-        expect(page).to have_content 'Buyer Contact Number'
-        expect(page).to have_content 'Original Link'
-      end
+      home_page.click_common '.more-button'
+      expect(page).to have_selector '#view-more-modal'
+      expect(page).not_to have_selector '#buy-details'
+      expect(page).to have_content 'Buyer Company Name'
+      expect(page).to have_content 'Buyer Name'
+      expect(page).to have_content 'Buyer Contact Number'
+      expect(page).to have_content 'Original Link'
     end
 
     scenario "should be able to view the full details of a inhouse tender" do
-      Timecop.freeze(Date.today + 2.months) do
-        home_page.seed_inhouse_tender
-        home_page.visit_page
-        wait_for_page_load
-        
-        home_page.click_common '.more-button'
-        expect(page).to have_selector '#view-more-modal'
-        expect(page).not_to have_content 'Buyer Company Name'
-        expect(page).not_to have_content 'Buyer Name'
-        expect(page).not_to have_content 'Buyer Contact Number'
-        expect(page).not_to have_content 'Original Link'
-        home_page.click_unique '#ga-tender-inhouse-more'
-        expect(page).to have_content 'Buyer Company Name'
-        expect(page).to have_content 'Buyer Name'
-        expect(page).to have_content 'Buyer Contact Number'
-        expect(page).not_to have_content 'Original Link'
-        home_page.click_common '.close-reveal-modal'
-        expect(page).not_to have_selector '#view-more-modal'
+      home_page.seed_inhouse_tender
+      home_page.visit_page
+      wait_for_page_load
+      
+      home_page.click_common '.more-button'
+      expect(page).to have_selector '#view-more-modal'
+      expect(page).not_to have_content 'Buyer Company Name'
+      expect(page).not_to have_content 'Buyer Name'
+      expect(page).not_to have_content 'Buyer Contact Number'
+      expect(page).not_to have_content 'Original Link'
+      home_page.click_unique '#ga-tender-inhouse-more'
+      expect(page).to have_content 'Buyer Company Name'
+      expect(page).to have_content 'Buyer Name'
+      expect(page).to have_content 'Buyer Contact Number'
+      expect(page).not_to have_content 'Original Link'
+      home_page.click_common '.close-reveal-modal'
+      expect(page).not_to have_selector '#view-more-modal'
 
-        home_page.click_common '.more-button'
-        expect(page).to have_selector '#view-more-modal'
-        expect(page).not_to have_content 'Buyer Company Name'
-        expect(page).not_to have_content 'Buyer Name'
-        expect(page).not_to have_content 'Buyer Contact Number'
-        expect(page).not_to have_content 'Original Link'
-        home_page.click_unique '#ga-tender-inhouse-more'
-        expect(page).to have_content 'Buyer Company Name'
-        expect(page).to have_content 'Buyer Name'
-        expect(page).to have_content 'Buyer Contact Number'
-        expect(page).not_to have_content 'Original Link'
-      end
+      home_page.click_common '.more-button'
+      expect(page).to have_selector '#view-more-modal'
+      expect(page).not_to have_content 'Buyer Company Name'
+      expect(page).not_to have_content 'Buyer Name'
+      expect(page).not_to have_content 'Buyer Contact Number'
+      expect(page).not_to have_content 'Original Link'
+      home_page.click_unique '#ga-tender-inhouse-more'
+      expect(page).to have_content 'Buyer Company Name'
+      expect(page).to have_content 'Buyer Name'
+      expect(page).to have_content 'Buyer Contact Number'
+      expect(page).not_to have_content 'Original Link'
     end
 
   end

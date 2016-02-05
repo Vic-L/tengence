@@ -33,7 +33,7 @@ var GenericTendersTableHeader = React.createClass({
         </thead>
       );
     } else {
-      if (Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe(this.props.trial_tender_ids)){
+      if (Tengence.ReactFunctions.finishedTrialButYetToSubscribe(this.props.trial_tender_ids)){
         if (Tengence.ReactFunctions.isWatchedTendersPage()) {
           return (
             <thead>

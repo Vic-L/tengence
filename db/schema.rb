@@ -144,9 +144,9 @@ ActiveRecord::Schema.define(version: 20160204015144) do
     t.text   "description", limit: 65535
   end
 
-  create_table "trial_tenders", id: false, force: :cascade do |t|
+  create_table "trial_tenders", force: :cascade do |t|
     t.integer "user_id",   limit: 4
-    t.integer "tender_id", limit: 4
+    t.string  "tender_id", limit: 255
   end
 
   add_index "trial_tenders", ["tender_id"], name: "index_trial_tenders_on_tender_id", using: :btree

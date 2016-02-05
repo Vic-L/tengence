@@ -84,4 +84,56 @@ module TendersPageFunctions
     page.execute_script("var now = new Date();now.setDate(now.getDate()+30);$('#tender_closing_datetime').val(strftime('%Y-%m-%d %H:%M', now))")
     fill_in 'tender_long_description', with: Faker::Lorem.sentences(10).join("\r\n")
   end
+
+  def seed_gebiz_tender
+    Tender.create(
+      ref_no: Faker::Company.ein,
+      buyer_company_name: Faker::Company.name,
+      buyer_contact_number: Faker::PhoneNumber.phone_number,
+      buyer_name: Faker::Name.name,
+      buyer_email: Faker::Internet.email,
+      description: Faker::Lorem.sentences(5).join(" "),
+      published_date: Faker::Date.between(7.days.ago, Time.now.in_time_zone('Singapore').to_date),
+      closing_datetime: Faker::Time.between(DateTime.now + 7.days, DateTime.now + 21.days),
+      external_link: 'gebiz.gov'
+    )
+  end
+
+  def seed_non_gebiz_tender
+    Tender.create(
+      ref_no: Faker::Company.ein,
+      buyer_company_name: Faker::Company.name,
+      # buyer_contact_number: Faker::PhoneNumber.phone_number,
+      # buyer_name: Faker::Name.name,
+      # buyer_email: Faker::Internet.email,
+      description: Faker::Lorem.sentences(5).join(" "),
+      published_date: Faker::Date.between(7.days.ago, Time.now.in_time_zone('Singapore').to_date),
+      closing_datetime: Faker::Time.between(DateTime.now + 7.days, DateTime.now + 21.days),
+      external_link: Faker::Internet.url
+    )
+  end
+
+  def seed_inhouse_tender
+    Tender.create(
+      ref_no: 'InHouse-' + Faker::Company.ein,
+      buyer_company_name: Faker::Company.name,
+      buyer_contact_number: Faker::PhoneNumber.phone_number,
+      buyer_name: Faker::Name.name,
+      buyer_email: Faker::Internet.email,
+      description: Faker::Lorem.sentences(5).join(" "),
+      long_description: Faker::Lorem.sentences(5).join(" "),
+      published_date: Faker::Date.between(7.days.ago, Time.now.in_time_zone('Singapore').to_date),
+      closing_datetime: Faker::Time.between(DateTime.now + 7.days, DateTime.now + 21.days)
+    )
+  end
+
+  def seed_current_tenders_data
+    102.times do |a|
+      if a%2 == 0
+        seed_gebiz_tender
+      elsif a%2 == 1
+        seed_non_gebiz_tender
+      end
+    end
+  end
 end

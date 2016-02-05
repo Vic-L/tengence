@@ -11,7 +11,7 @@ var ShowTender = React.createClass({
     });
   },
   revealBoughtDetails: function(){
-    $('#buy-details').remove();
+    $('#buy-details-notice').remove();
     ReactDOM.render((<div>
         {this.getBuyerCompanyName()}
         {this.getBuyerName()}
@@ -23,6 +23,7 @@ var ShowTender = React.createClass({
     );
   },
   buyDetails: function() {
+    console.log(this.props.trial_tender_ids);
     $.ajax({
       url: "/trial_tenders",
       data: {
@@ -31,7 +32,9 @@ var ShowTender = React.createClass({
       method: "POST",
       success: function(data){
         // console.log(data);
-        this.props.parentComponent.setState({trial_tenders_count: +this.props.trial_tenders_count + 1});
+        var temp = this.props.trial_tender_ids;
+        temp.push(this.props.tender.ref_no);
+        this.props.parentComponent.setState({trial_tender_ids: temp});
       }.bind(this),
       error: function(xhr, status, err){
         Tengence.ReactFunctions.notifyError(window.location.href,'buyDetails', xhr.statusText)
@@ -40,7 +43,7 @@ var ShowTender = React.createClass({
     this.revealBoughtDetails();
   },
   getRefNo: function(){
-    return <ShowTenderDetail header='Reference No' body={this.props.tender.ref_no.replace('tengence-','-')} />;
+    return <ShowTenderDetail header='Reference No' body={this.props.tender.ref_no.replace('tengence-','')} />;
   },
   getBuyerCompanyName: function(){
     return <ShowTenderDetail header='Buyer Company Name' body={this.props.tender.buyer_company_name} />;
@@ -86,8 +89,12 @@ var ShowTender = React.createClass({
     }
   },
   getOriginalLink: function(){
-    var body = "<a href='" + this.props.tender.external_link + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>";
-    originalLink = <ShowTenderDetail header='Original Link' body={body} extraClass='external-link'/>;
+    if (this.props.tender.external_link != null && this.props.tender.external_link != '') {
+      var body = "<a href='" + this.props.tender.external_link + "' target='_blank' class='ga-tenders' data-gtm-category='' data-gtm-action='outbound-link' data-gtm-label='" + this.props.tender.ref_no + "'>" + this.props.tender.external_link + "</a>";
+      return <ShowTenderDetail header='Original Link' body={body} extraClass='external-link'/>;
+    } else {
+      return null;
+    }
   },
   getDocuments: function(){
     if (this.props.tender.documents[0] != null) {
@@ -116,104 +123,36 @@ var ShowTender = React.createClass({
     }
   },
   render: function() {
-    if (Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe(this.props.trial_tenders_count)) {
 
-      if (this.props.trial_tenders_count >= 3) {
-        return (
-          <div>
-            <a aria-label="Close" className="close-reveal-modal">&#215;</a>
-            <div className='row'>
-              <div className='medium-12 column'>
-                {this.getRefNo()}
-                {this.getDescription()}
-                {this.getPublished_date()}
-                {this.getClosingDate()}
-                {this.getClosingTime()}
-                {this.getLongDescription()}
-                <hr/>
-                You have used up your credits for the day to unlock business leads.
-                <br/>
-                To get UNLIMITED access to ALL tenders on Tengence, <a href='/subscribe' className='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label={this.props.tender.ref_no}>SUBSCRIBE now</a>!
-              </div>
-            </div>
-          </div>
-        )
+    if (Tengence.ReactFunctions.tenderAlreadyUnlocked(this.props.trial_tender_ids, this.props.tender.ref_no)) {
 
-      } else {
+      if (this.props.tender.in_house) {
 
-        return (
-          <div>
-            <a aria-label="Close" className="close-reveal-modal">&#215;</a>
-            <div className='row'>
-              <div className='medium-12 column'>
-                {this.getRefNo()}
-                {this.getDescription()}
-                {this.getPublished_date()}
-                {this.getClosingDate()}
-                {this.getClosingTime()}
-                {this.getLongDescription()}
-                <hr/>
-                <div id='buyer-details'></div>
-                <a id='buy-details' onClick={this.buyDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='buy details' data-gtm-label={this.props.tender.ref_no}>Show buyer details</a>
-              </div>
-            </div>
-          </div>
-        )
-
-      }
-    } else {
-
-      if (Tengence.ReactFunctions.isPostedTendersPage()) {
-
-        return (
-          <div>
-            <a aria-label="Close" className="close-reveal-modal">&#215;</a>
-            <div className='row'>
-              <div className='medium-12 column'>
-                {this.getRefNo()}
-                {this.getBuyerCompanyName()}
-                {this.getDescription()}
-                {this.getPublished_date()}
-                {this.getClosingDate()}
-                {this.getClosingTime()}
-                {this.getFullDescription()}
-                {this.getBuyerName()}
-                {this.getBuyerContactNumber()}
-                {this.getBuyerEmail()}
-                {this.getOriginalLink()}
-                {this.getDocuments()}
-              </div>
-            </div>
-          </div>
-        )
-
-      } else if (this.props.tender.in_house) {
-
-        return (
-          <div>
-            <a aria-label="Close" className="close-reveal-modal">&#215;</a>
-            <div className='row'>
-              <div className='medium-12 column'>
-                {this.getRefNo()}
-                {this.getPublished_date()}
-                {this.getClosingDate()}
-                {this.getClosingTime()}
-                {this.getDescription()}
-                {this.getLongDescription()}
-                {this.getOriginalLink()}
-                {this.getDocuments()}
-                <hr/>
-                <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>Show buyer details</a>
-                <div id='in-house-tender-details'>
-                  {this.getBuyerCompanyName()}
-                  {this.getBuyerName()}
-                  {this.getBuyerContactNumber()}
-                  {this.getBuyerEmail()}
+          return (
+            <div>
+              <a aria-label="Close" className="close-reveal-modal">&#215;</a>
+              <div className='row'>
+                <div className='medium-12 column'>
+                  {this.getRefNo()}
+                  {this.getPublished_date()}
+                  {this.getClosingDate()}
+                  {this.getClosingTime()}
+                  {this.getDescription()}
+                  {this.getLongDescription()}
+                  {this.getOriginalLink()}
+                  {this.getDocuments()}
+                  <hr/>
+                  <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>Show buyer details</a>
+                  <div id='in-house-tender-details'>
+                    {this.getBuyerCompanyName()}
+                    {this.getBuyerName()}
+                    {this.getBuyerContactNumber()}
+                    {this.getBuyerEmail()}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )
+          )
 
       } else {
 
@@ -228,7 +167,8 @@ var ShowTender = React.createClass({
                 {this.getPublished_date()}
                 {this.getClosingDate()}
                 {this.getClosingTime()}
-                {this.getFullDescription()}
+                {this.getLongDescription()}
+                <hr/>
                 {this.getBuyerName()}
                 {this.getBuyerContactNumber()}
                 {this.getBuyerEmail()}
@@ -240,6 +180,141 @@ var ShowTender = React.createClass({
         )
 
       }
+
+    } else {
+
+      if (Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe(this.props.trial_tender_ids)) {
+
+        if (this.props.trial_tender_ids.length >= 3) {
+
+          return (
+            <div>
+              <a aria-label="Close" className="close-reveal-modal">&#215;</a>
+              <div className='row'>
+                <div className='medium-12 column'>
+                  {this.getRefNo()}
+                  {this.getDescription()}
+                  {this.getPublished_date()}
+                  {this.getClosingDate()}
+                  {this.getClosingTime()}
+                  {this.getLongDescription()}
+                  <hr/>
+                  You have used up your credits for the day to unlock business leads.
+                  <br/>
+                  To get UNLIMITED access to ALL tenders on Tengence, <a href='/subscribe' className='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label={this.props.tender.ref_no}>SUBSCRIBE now</a>!
+                </div>
+              </div>
+            </div>
+          )
+
+        } else {
+
+          return (
+            <div>
+              <a aria-label="Close" className="close-reveal-modal">&#215;</a>
+              <div className='row'>
+                <div className='medium-12 column'>
+                  {this.getRefNo()}
+                  {this.getDescription()}
+                  {this.getPublished_date()}
+                  {this.getClosingDate()}
+                  {this.getClosingTime()}
+                  {this.getLongDescription()}
+                  <hr/>
+                  <div id='buyer-details'></div>
+                  <span id='buy-details-notice'>
+                  <a id='buy-details' onClick={this.buyDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='buy details' data-gtm-label={this.props.tender.ref_no}>Reveal buyer details with 1 credit</a> (You have {3 - this.props.trial_tender_ids.length} credits left for the day)
+                  </span>
+                </div>
+              </div>
+            </div>
+          )
+
+        }
+
+      } else {
+
+        if (Tengence.ReactFunctions.isPostedTendersPage()) {
+
+          return (
+            <div>
+              <a aria-label="Close" className="close-reveal-modal">&#215;</a>
+              <div className='row'>
+                <div className='medium-12 column'>
+                  {this.getRefNo()}
+                  {this.getBuyerCompanyName()}
+                  {this.getDescription()}
+                  {this.getPublished_date()}
+                  {this.getClosingDate()}
+                  {this.getClosingTime()}
+                  {this.getLongDescription()}
+                  <hr/>
+                  {this.getBuyerName()}
+                  {this.getBuyerContactNumber()}
+                  {this.getBuyerEmail()}
+                  {this.getOriginalLink()}
+                  {this.getDocuments()}
+                </div>
+              </div>
+            </div>
+          )
+
+        } else if (this.props.tender.in_house) {
+
+          return (
+            <div>
+              <a aria-label="Close" className="close-reveal-modal">&#215;</a>
+              <div className='row'>
+                <div className='medium-12 column'>
+                  {this.getRefNo()}
+                  {this.getPublished_date()}
+                  {this.getClosingDate()}
+                  {this.getClosingTime()}
+                  {this.getDescription()}
+                  {this.getLongDescription()}
+                  {this.getOriginalLink()}
+                  {this.getDocuments()}
+                  <hr/>
+                  <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>Show buyer details</a>
+                  <div id='in-house-tender-details'>
+                    {this.getBuyerCompanyName()}
+                    {this.getBuyerName()}
+                    {this.getBuyerContactNumber()}
+                    {this.getBuyerEmail()}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+
+        } else {
+
+          return (
+            <div>
+              <a aria-label="Close" className="close-reveal-modal">&#215;</a>
+              <div className='row'>
+                <div className='medium-12 column'>
+                  {this.getRefNo()}
+                  {this.getBuyerCompanyName()}
+                  {this.getDescription()}
+                  {this.getPublished_date()}
+                  {this.getClosingDate()}
+                  {this.getClosingTime()}
+                  {this.getLongDescription()}
+                  <hr/>
+                  {this.getBuyerName()}
+                  {this.getBuyerContactNumber()}
+                  {this.getBuyerEmail()}
+                  {this.getOriginalLink()}
+                  {this.getDocuments()}
+                </div>
+              </div>
+            </div>
+          )
+
+        }
+      }
+
     }
   }
 });

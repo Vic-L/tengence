@@ -72,6 +72,10 @@ class User < ActiveRecord::Base
     confirmed? && !pending_reconfirmation?
   end
 
+  def trial_tender_ids
+    trial_tenders.pluck(:tender_id)
+  end
+
   def braintree
     Braintree::Customer.find(self.braintree_customer_id)
   end

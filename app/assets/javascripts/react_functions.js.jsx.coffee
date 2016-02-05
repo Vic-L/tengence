@@ -101,7 +101,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, 
       Tengence.ReactFunctions.stopLoading()
       return
 
-Tengence.ReactFunctions.showTender = (ref_no, trial_tenders_count, parentComponent) ->
+Tengence.ReactFunctions.showTender = (ref_no, trial_tender_ids, parentComponent) ->
   Tengence.ReactFunctions.showLoading()
   $.ajax
     url: '/api/v1/tenders/' + encodeURIComponent(ref_no).replace('.','&2E')
@@ -110,7 +110,7 @@ Tengence.ReactFunctions.showTender = (ref_no, trial_tenders_count, parentCompone
     cache: false
     success: (tender) -> 
       $('#view-more-modal').empty()
-      ReactDOM.render `<ShowTender tender={tender} trial_tenders_count={trial_tenders_count} parentComponent={parentComponent}/>`, document.getElementById('view-more-modal')
+      ReactDOM.render `<ShowTender tender={tender} trial_tender_ids={trial_tender_ids} parentComponent={parentComponent}/>`, document.getElementById('view-more-modal')
       $('#view-more-modal').foundation('reveal', 'open')
       return
     error: (xhr, status, err) -> 
@@ -236,5 +236,11 @@ Tengence.ReactFunctions.isPostedTendersPage = ->
   else
     return true
 
-Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe = (trial_tenders_count) ->
-  return trial_tenders_count?
+Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe = (trial_tender_ids) ->
+  return trial_tender_ids?
+
+Tengence.ReactFunctions.tenderAlreadyUnlocked = (trial_tender_ids, ref_no) ->
+  # console.log ref_no
+  # console.log trial_tender_ids
+  # console.log $.inArray(ref_no, trial_tender_ids)
+  return !($.inArray(ref_no, trial_tender_ids) < 0)

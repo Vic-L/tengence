@@ -6,7 +6,7 @@ var GenericTenderRow = React.createClass({
     } else {
       watchlistButton = <WatchButton {...this.props} />;
     };
-    if (Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe(this.props.trial_tenders_count)){
+    if (Tengence.ReactFunctions.finished_trial_but_yet_to_subscribe(this.props.trial_tender_ids)){
       return (
         <tr>
           <td>{this.props.description}</td>
@@ -14,7 +14,7 @@ var GenericTenderRow = React.createClass({
           <td>{this.props.closingDate}</td>
           <td>{this.props.closingTime}</td>
           <td>{watchlistButton}</td>
-          <td><MoreButton parentComponent={this.props.parentComponent} trial_tenders_count={this.props.trial_tenders_count} refNo={this.props.refNo}/></td>
+          <td><MoreButton parentComponent={this.props.parentComponent} trial_tender_ids={this.props.trial_tender_ids} refNo={this.props.refNo}/></td>
         </tr>
       );
     } else {
@@ -26,7 +26,7 @@ var GenericTenderRow = React.createClass({
           <td>{this.props.closingTime}</td>
           <td>{this.props.buyerCompanyName}</td>
           <td>{watchlistButton}</td>
-          <td><MoreButton parentComponent={this.props.parentComponent} trial_tenders_count={this.props.trial_tenders_count} refNo={this.props.refNo}/></td>
+          <td><MoreButton parentComponent={this.props.parentComponent} trial_tender_ids={this.props.trial_tender_ids} refNo={this.props.refNo}/></td>
         </tr>
       );
     }

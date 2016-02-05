@@ -1,6 +1,6 @@
 - if current_user.finished_trial?
   = react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count}
 - else
-  = react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, trial_tenders_count: current_user.trial_tenders_count}
+  = react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, trial_tender_ids: current_user.trial_tender_ids}
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

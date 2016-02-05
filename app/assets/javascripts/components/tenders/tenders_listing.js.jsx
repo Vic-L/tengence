@@ -3,7 +3,7 @@ var TendersListing = React.createClass({
   //   tenders: React.PropTypes.array
   // },
   getInitialState: function() {
-    return {tenders: [], pagination: {}, results_count: null, url: this.props.url, keywords: this.props.keywords, sort: 'newest', trial_tenders_count: this.props.trial_tenders_count};
+    return {tenders: [], pagination: {}, results_count: null, url: this.props.url, keywords: this.props.keywords, sort: 'newest', trial_tender_ids: this.props.trial_tender_ids};
   },
   componentDidMount: function() {
     this.getTenders(this.state.url);
@@ -62,10 +62,10 @@ var TendersListing = React.createClass({
     if (Tengence.ReactFunctions.isWatchedTendersPage()){
       tenderTabs = <TenderTabs getTenders={this.getTenders} url={this.state.url} />;
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <WatchedTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
+      tenderResults = <WatchedTendersResults trial_tender_ids={this.state.trial_tender_ids} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} massDestroyTenders={this.massDestroyTenders} />;
     } else if (Tengence.ReactFunctions.isKeywordsTendersPage()) {
       tenderKeywords = <KeywordsTendersForm url={this.state.url} updateKeywords={this.updateKeywords} getTenders={this.getTenders} keywords={this.state.keywords}/>;
-      tenderResults = <GenericTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
+      tenderResults = <GenericTendersResults trial_tender_ids={this.state.trial_tender_ids} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     } else if (Tengence.ReactFunctions.isPostedTendersPage()) {
       tenderHeader = (<section id="post-tender">
           <div className="row">
@@ -74,10 +74,10 @@ var TendersListing = React.createClass({
             </div>
           </div>
         </section>)
-      tenderResults = <PostedTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
+      tenderResults = <PostedTendersResults trial_tender_ids={this.state.trial_tender_ids} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     } else {
       tenderSearchForm = <TendersSearch getTenders={this.getTenders} url={this.state.url}/>;
-      tenderResults = <GenericTendersResults trial_tenders_count={this.state.trial_tenders_count} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
+      tenderResults = <GenericTendersResults trial_tender_ids={this.state.trial_tender_ids} sort={this.state.sort} url={this.state.url} pagination={this.state.pagination} results_count={this.state.results_count} getTenders={this.getTenders} tenders={this.state.tenders} parentComponent={this} />;
     }
     return (
       <div id='wrapper'>

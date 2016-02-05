@@ -16,7 +16,7 @@ var WatchedTenderRow = React.createClass({
           <td>{this.props.closingDate}</td>
           <td>{this.props.closingTime}</td>
           <td>{watchlistButton}</td>
-          <td><MoreButton trial_tenders_count={this.props.trial_tenders_count} refNo={this.props.refNo}/></td>
+          <td><MoreButton parentComponent={this.props.parentComponent} trial_tenders_count={this.props.trial_tenders_count} refNo={this.props.refNo}/></td>
         </tr>
       );
     } else {
@@ -30,7 +30,7 @@ var WatchedTenderRow = React.createClass({
           <td>{this.props.closingTime}</td>
           <td>{this.props.buyerCompanyName}</td>
           <td>{watchlistButton}</td>
-          <td><MoreButton trial_tenders_count={this.props.trial_tenders_count} refNo={this.props.refNo}/></td>
+          <td><MoreButton parentComponent={this.props.parentComponent} trial_tenders_count={this.props.trial_tenders_count} refNo={this.props.refNo}/></td>
         </tr>
       );
     }

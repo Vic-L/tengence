@@ -1,7 +1,8 @@
 var MoreButton = React.createClass({
   handleClick: function(e) {
     e.preventDefault();
-    Tengence.ReactFunctions.showTender(this.props.refNo, this.props.trial_tenders_count);
+    // console.log(this.props.parentComponent);
+    Tengence.ReactFunctions.showTender(this.props.refNo, this.props.trial_tenders_count, this.props.parentComponent);
   },
   render: function() {
     return (

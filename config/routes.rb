@@ -63,7 +63,8 @@ Rails.application.routes.draw do
 
   resources :tenders
   resources :watched_tenders
-  resources :viewed_tenders
+  resources :viewed_tenders, only: [:create]
+  resources :trial_tenders, only: [:create]
 
   resource :user do
     get 'keywords', to: 'users/keywords#edit'

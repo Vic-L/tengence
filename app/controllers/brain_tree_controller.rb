@@ -52,7 +52,7 @@ class BrainTreeController < ApplicationController
       request.params["bt_signature"],
       request.params["bt_payload"]
     )
-    NotifyViaSlack.call(content: "Braintree | #{webhook_notification.kind}\r\n#{webhook_notification.timestamp}\r\nSubscription: #{webhook_notification.subscription.id}")
+    NotifyViaSlack.call(content: "Braintree | #{webhook_notification.kind}\r\n#{webhook_notification.timestamp}\r\nSubscription: #{webhook_notification.inspect}")
     render nothing: true, status: 200
   end
 

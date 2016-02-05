@@ -5,9 +5,9 @@ class DestroyBraintreeCustomerWorker
   def perform braintree_customer_id:, email: , name: 
     result = Braintree::Customer.delete(braintree_customer_id)
     if result.success?
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "Deleted User #{name} (#{email}) - #{braintree_customer_id}")
+      NotifyViaSlack.call(content: "Deleted User #{name} (#{email}) - #{braintree_customer_id}")
     else
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> Braintree Error during delete #{name} (#{email}) - #{braintree_customer_id}:\r\n#{result.errors}")
+      NotifyViaSlack.call(content: "<@vic-l> Braintree Error during delete #{name} (#{email}) - #{braintree_customer_id}:\r\n#{result.errors}")
     end
   end
 end

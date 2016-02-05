@@ -11,9 +11,9 @@ class UpdateBrainTreeCustomerEmailWorker
       email: user.email
     )
     if result.success?
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{user.email} (#{user_id}) confirmed new email - #{user.braintree_customer_id}")
+      NotifyViaSlack.call(content: "#{user.email} (#{user_id}) confirmed new email - #{user.braintree_customer_id}")
     else
-      NotifyViaSlack.call(channel: 'ida-hackathon', content: "<@vic-l> ERROR Worker\r\n#{user.email} (#{user_id}) cannot update braintree new email - #{user.braintree_customer_id}:\r\n#{result.errors.map(&:message).join("\r\n")}")
+      NotifyViaSlack.call(content: "<@vic-l> ERROR Worker\r\n#{user.email} (#{user_id}) cannot update braintree new email - #{user.braintree_customer_id}:\r\n#{result.errors.map(&:message).join("\r\n")}")
     end
   end
 end

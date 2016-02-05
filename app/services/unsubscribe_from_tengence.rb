@@ -15,7 +15,7 @@ class UnsubscribeFromTengence
         
         user.update!(next_billing_date: result.subscription.next_billing_date)
 
-        NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{user.email} unsubscribed")
+        NotifyViaSlack.call(content: "#{user.email} unsubscribed")
           
         response = "flash[:success] = 'You have successfully unsubscribed from Tengence.';"
         response += "redirect_to billing_path"

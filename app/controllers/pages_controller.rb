@@ -42,7 +42,7 @@ class PagesController < ApplicationController
     else
       subject = "#{name} (#{email}) contacted us"
       InternalMailer.notify(subject,"Comments: #{comments}").deliver_later
-      NotifyViaSlack.call(channel: "ida-hackathon", content: "#{subject}\r\n#{comments}")
+      NotifyViaSlack.call(content: "#{subject}\r\n#{comments}")
       @message = "We have received your email. The Tengence team will contact you shortly."
       @message = "<div id='success_page'>"
       @message += "<h1 class='success-message'>Email Sent Successfully.</h1>"

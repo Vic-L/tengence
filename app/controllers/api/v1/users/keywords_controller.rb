@@ -8,14 +8,14 @@ module Api
           current_user.keywords = params[:keywords]
           if current_user.valid?
             if current_user.save
-              NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{current_user.email} updated keywords:\r\n#{current_user.keywords}")
+              NotifyViaSlack.call(content: "#{current_user.email} updated keywords:\r\n#{current_user.keywords}")
               render :json => { :success => true }
             else
               NotifyViaSlack.call(content: "<@vic-l> ERROR updating keywords by #{current_user.email}\r\n#{current_user.errors.full_messages.to_sentence}")
               render json: current_user.errors.full_messages.to_sentence, status: 500
             end
           else
-            NotifyViaSlack.call(channel: 'ida-hackathon', content: "#{current_user.email} trying to be funny\r\n#{params[:keywords]}")
+            NotifyViaSlack.call(content: "#{current_user.email} trying to be funny\r\n#{params[:keywords]}")
             render json: current_user.errors.full_messages.to_sentence, status: 400
           end
         rescue => e

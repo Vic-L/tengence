@@ -12,7 +12,7 @@ class CreateBraintreeCustomerWorker
     )
     if result.success?
       user.update!(braintree_customer_id: result.customer.id)
-      NotifyViaSlack.call(content: "New User #{user.name} (#{user.email}) - #{user.braintree_customer_id}")
+      NotifyViaSlack.call(content: "Braintree customer created #{user.name} (#{user.email}) - #{user.braintree_customer_id}")
     else
       NotifyViaSlack.call(content: "<@vic-l> Braintree Error during delete #{user.name} (#{user.email}) - #{user.braintree_customer_id}:\r\n#{result.errors}")
     end

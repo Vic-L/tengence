@@ -70,6 +70,23 @@ feature 'account', type: :feature, js: :true do
 
   feature 'on successful update' do
 
+    scenario 'should update password' do
+      fill_in 'user_password', with: 'monkeyluffy'
+      fill_in 'user_password_confirmation', with: 'monkeyluffy'
+      devise_page.click_unique '#submit'
+      wait_for_page_load
+      expect(page).to have_content 'Your account has been updated successfully.'
+
+      logout(:user)
+      devise_page.visit_login_page
+      wait_for_page_load
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: 'monkeyluffy'
+      devise_page.click_unique '#submit'
+      wait_for_page_load
+      expect(page).to have_content 'Signed in successfully.'
+    end
+
     scenario 'should successfully update attributes (not email or passwords)' do
       expect(user.name).not_to eq 'monkey luffy'
 

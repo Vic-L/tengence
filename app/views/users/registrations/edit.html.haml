@@ -27,6 +27,8 @@
 - content_for :javascript do
   :javascript
     var initialEmail = "#{resource.email}";
+    var getPassword = function(){return $("input[name='user[password]']").val()};
+    var getPasswordConfirmation = function(){return $("input[name='user[password_confirmation]']").val()};
     $('form.edit_user').validate({
       rules: {
         'user[first_name]': {
@@ -48,26 +50,26 @@
         'user[password]': {
           required: {
             depends: function(){
-              return ($("input[name='user[password_confirmation]']").val() !== '' || $("input[name='user[password]']").val() !== '');
+              return (getPasswordConfirmation() !== '' || getPassword() !== '');
             }
           },
           minlength: {
             param: 8,
             depends: function(){
-              return $("input[name='user[password]']").val() !== '';
+              return getPassword() !== '';
             }
           }
         },
         'user[password_confirmation]': {
           required: {
             depends: function(){
-              return ($("input[name='user[password_confirmation]']").val() !== '' || $("input[name='user[password]']").val() !== '');
+              return (getPasswordConfirmation() !== '' || getPassword() !== '');
             }
           },
           equalTo: {
-            param: $("input[name='user[password]']").val(),
+            param: '#user_password',
             depends: function(){
-              return $("input[name='user[password]']").val() !== '';
+              return getPassword() !== '';
             }
           }
         }

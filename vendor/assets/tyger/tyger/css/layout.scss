@@ -186,7 +186,8 @@ header {
 	color: black;
 	z-index: 10000;
 	padding: 4px 0px;
-	overflow: hidden;
+	// overflow: hidden;
+	overflow: visible;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;
 	transition: background-color 0.3s;
@@ -198,6 +199,14 @@ header.shrink {
 	border-bottom: 1px solid transparent;
 }
 
+ul#account-drop,
+ul#tenders-drop {
+	width: auto;
+	li a:hover {
+		background: #386ec4;
+		color: white;
+	}
+}
 
 
 
@@ -207,7 +216,7 @@ Navigation
 =============================================== */
 header {
 	li.active a{
-		color:#386ec4;
+		color: #386ec4;
 	}
 
 	.menu-list a{

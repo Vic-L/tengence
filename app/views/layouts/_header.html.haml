@@ -1,34 +1,75 @@
 %header
+
   .row
+
     .medium-3.small-6.columns.text-align-left
+
       .header-logo
+
         - if current_user
+
           - if current_user.read_only?
+
             = link_to 'Tengence', current_tenders_path, class: 'ga-tenders', data: {gtm_category:'', gtm_action: 'logo', gtm_label: 'header'}
+
           - elsif current_user.write_only?
+
             = link_to 'Tengence', current_posted_tenders_path, class: 'ga-tenders', data: {gtm_category:'', gtm_action: 'logo', gtm_label: 'header'}
+
         - else
+
           = link_to 'Tengence', root_path, class: 'ga-static-pages', data: {gtm_category:'', gtm_action: 'logo', gtm_label: 'header'}
+
     .small-6.columns.show-for-small-only.text-right
+
       .menu-toggle-button{"data-menu-id" => "navigation"}
         %i.fa.fa-align-justify
+
     .medium-9.small-12.columns.text-right
+
       %ul#navigation.menu-list
+
         - if current_user
+
           - if current_user.read_only?
-            %li
+
+            %li.show-for-medium-up
+              %a{data: {dropdown: "tenders-drop"}} Tenders
+              %ul#tenders-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
+                %li
+                  = link_to "Current Tenders", current_tenders_path
+                %li
+                  = link_to "Past Tenders", past_tenders_path
+                %li
+                  = link_to "My Watchlist", watched_tenders_path
+                %li
+                  = link_to "Your Keywords", keywords_tenders_path
+            %li.show-for-medium-up
+              %a{data: {dropdown: "account-drop"}} Account
+              %ul#account-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
+                %li
+                  = link_to "Edit Profile", edit_user_registration_path
+                %li
+                  = link_to "Billing", billing_path
+
+            %li.show-for-small-only
               = link_to "Current Tenders", current_tenders_path
-            %li
+            %li.show-for-small-only
               = link_to "Past Tenders", past_tenders_path
-            %li
+            %li.show-for-small-only
               = link_to "My Watchlist", watched_tenders_path
-            %li
+            %li.show-for-small-only
               = link_to "Your Keywords", keywords_tenders_path
-            %li
-              = link_to "Account", edit_user_registration_path
+            %li.show-for-small-only
+              = link_to "Edit Profile", edit_user_registration_path
+            %li.show-for-small-only
+              = link_to "Billing", billing_path
+
             %li
               = link_to "Logout", destroy_user_session_path, method: :delete
+
           - elsif current_user.write_only?
+
             %li
               = link_to "Post Tender", new_tender_path
             %li
@@ -39,8 +80,11 @@
               = link_to "Account", edit_user_registration_path
             %li
               = link_to "Logout", destroy_user_session_path, method: :delete
+
         - else
+
           - if request.path == root_path
+
             %li
               %a.ga-static-pages{href: "#how-it-works", data: {gtm_category:'', gtm_action: 'how it works', gtm_label: 'header', scroll: ""}} How It Works
             %li
@@ -55,7 +99,9 @@
               = link_to "Login", new_user_session_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'login', gtm_label: 'header'}
             %li
               = link_to "Sign Up", new_user_registration_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'sign up', gtm_label: 'header'}
+
           - else
+
             %li
               = link_to "Login", new_user_session_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'login', gtm_label: 'header'}
             %li
@@ -64,11 +110,15 @@
               = link_to "Terms of Services", terms_of_service_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'terms of services', gtm_label: 'header'}
 
 - flash.each do |name, msg|
+
   .row.flash-row
+
     .medium-12.column
+
       - if msg.is_a?(String)
         %div{:'data-alert' => '', class: "alert-box round #{name.to_s}"}
           = content_tag :div, msg.html_safe
           %a.close{href: "#", class: "close"} &times;
+
 .mask
   #loader.rotating

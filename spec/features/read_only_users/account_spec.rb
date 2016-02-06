@@ -111,10 +111,11 @@ feature 'account', type: :feature, js: :true do
       # ytf need to click twice haiz
       devise_page.click_unique '#submit';devise_page.click_unique '#submit'
       wait_for_page_load
+
+      expect(page).to have_content 'You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address.'
       last_email = ActionMailer::Base.deliveries.last
       ctoken = last_email.body.match(/confirmation_token=[^"]+/)
       visit "/users/confirmation?#{ctoken}"
-      binding.pry
       expect(page).to have_content 'Your email address has been successfully confirmed.'
       devise_page.visit_edit_page
       expect(page).not_to have_content 'Currently waiting confirmation for: one@piece.com'

@@ -1,15 +1,19 @@
 class TrialTendersController < ApplicationController
   def create
     if user_signed_in?
-      tender = TrialTender.create(user_id: current_user.id, tender_id: params[:ref_no])
-      if tender.persisted?
-        
+      if current_user.trial_tenders_count < 3
+        tender = TrialTender.create(user_id: current_user.id, tender_id: params[:ref_no])
+        if tender.persisted?
+          render json: {statusCode: 'success',trial_tender_ids: current_user.trial_tender_ids}.to_json
+        else
+          NotifyViaSlack.call(content: "<@vic-l> ERROR TrialTendersController#create\r\n#{current_user.email} trial tender #{params[:ref_no]}\r\n#{tender.errors.full_messages.to_sentence}")
+          render json: 'error trial_tenders controller#create', status: 400
+        end
       else
-        NotifyViaSlack.call(content: "<@vic-l> ERROR TrialTendersController#create\r\n#{current_user.email} trial tender #{params[:ref_no]}\r\n#{tender.errors.full_messages.to_sentence}")
+        render json: {statusCode: 'maxed_for_the_day',trial_tender_ids: current_user.trial_tender_ids}.to_json
       end
-      render json: current_user.trial_tender_ids.to_json
     else
-      render json: 'ignore'.to_json
+      render json: 'User is not logged in', status: 400
     end
   end
 end

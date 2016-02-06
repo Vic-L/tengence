@@ -1,8 +1,8 @@
 class TendersController < ApplicationController
   before_action :store_location
   before_action :authenticate_user!
-  before_action :deny_read_only_access, except: [:show]
-  before_action :deny_write_only_access, only: [:show]
+  before_action :deny_read_only_access, except: [:show, :reveal_buyer_details]
+  before_action :deny_write_only_access, only: [:show, :reveal_buyer_details]
   before_action :deny_unconfirmed_users
   before_action :check_inhouse_tender, only: [:edit, :update]
   before_action :check_own_tender, only: [:edit, :update]
@@ -43,6 +43,14 @@ class TendersController < ApplicationController
       flash[:alert] = "#{@tender.errors.full_messages.to_sentence}"
     end
     redirect_to :back
+  end
+
+  def reveal_buyer_details
+    if current_user.trial_tenders_count > 3
+      @tender = nil
+    else
+      @tender = Tender.find(params[:id])
+    end
   end
 
   private

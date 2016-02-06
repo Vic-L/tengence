@@ -1,14 +1,10 @@
 #wrapper
   .row#content
+
     .small-12.column
       .header Reference No
     .small-12.column
       = @tender.ref_no_for_display
-    
-    .small-12.column
-      .header Buyer Company Name
-    .small-12.column
-      = @tender.buyer_company_name
   
     .small-12.column
       .header Description
@@ -29,82 +25,119 @@
       .header Closing Time
     .small-12.column
       = @tender.closing_datetime.strftime('%H:%M %p')
-  
-  - if @tender.in_house?
 
-    
-    .small-12.column
-      .header Full Description
-    .small-12.column
-      = simple_format @tender.long_description, {}, wrapper_tag: 'div', sanitize: false
-  
-  - else
+    - unless @tender.long_description.blank?
+        
+      .small-12.column
+        .header Full Description
+      .small-12.column
+        = simple_format @tender.long_description, {}, wrapper_tag: 'div', sanitize: false
 
     .small-12.column
-      .header Original Link
-    .small-12.column
-      = link_to @tender.external_link, @tender.external_link, target: '_blank',class: 'ga-tenders', data: {gtm_category: '', gtm_action: 'outbound link', gtm_label: @tender.ref_no}
-  
-  - unless @tender.documents.blank?
-    
-    .small-12.column
-      .header Documents
-    - @tender.documents.each do |doc|
-      .small-12.column
-        = link_to "#{doc.upload.original_filename} (#{number_to_human_size(doc.upload.size)})", doc.upload.url, target: '_blank'
+      %hr
 
-  - if !@tender.in_house?
-    
-    .small-12.column
-      .header Buyer Name
-    .small-12.column
-      = @tender.buyer_name
-  
-    .small-12.column
-      .header Buyer Contact Number
-    .small-12.column
-      = @tender.buyer_contact_number
-  
-    .small-12.column
-      .header Buyer Email
-    .small-12.column
-      = @tender.buyer_email
+    - if tender_already_unlocked? current_user.trial_tender_ids, @tender.ref_no
 
-  - else
-    
-    .small-12.column
-      %a#ga-tender-inhouse-more.ga-tenders{data: {gtm_category: '', gtm_action: 'inhouse details', gtm_label: @tender.ref_no}}
-        Show buyer details</a>
+      - if @tender.in_house?
 
-    #in-house-tender-details
-    
-      .small-12.column
-        .header Buyer Name
-      .small-12.column
-        = @tender.buyer_name
-    
-      .small-12.column
-        .header Buyer Contact Number
-      .small-12.column
-        = @tender.buyer_contact_number
-    
-      .small-12.column
-        .header Buyer Email
-      .small-12.column
-        = @tender.buyer_email
+        .small-12.column
+          %a#ga-tender-inhouse-more.ga-tenders{data: {gtm_category: '', gtm_action: 'inhouse details', gtm_label: @tender.ref_no}} Show buyer details
 
-- content_for :javascript do
-  :javascript
-    $(function(){
-      $('#ga-tender-inhouse-more').click(function(){
-        $('#in-house-tender-details').show();
-        $('#reveal-tender-text').hide();
-        $.ajax({
-          url: "#{viewed_tenders_path}",
-          data: {
-            ref_no: "#{@tender.ref_no}"
-          },
-          method: "POST"
-        });
-      });
-    });
+        #in-house-tender-details
+          = render partial: 'tenders/buyer_details', locals: {tender: @tender}
+
+        - content_for :javascript do
+          :javascript
+            $('#ga-tender-inhouse-more').click(function(){
+              $('#in-house-tender-details').show();
+              $(this).remove();
+              $.ajax({
+                url: "#{viewed_tenders_path}",
+                data: {
+                  ref_no: "#{@tender.ref_no}"
+                },
+                method: "POST"
+              });
+            });
+          
+      - else
+
+        = render partial: 'tenders/buyer_details', locals: {tender: @tender}
+
+    - else
+
+      - if current_user.finished_trial_but_yet_to_subscribe? || current_user.can_resubscribe?
+
+        - if current_user.trial_tender_ids.size >= 3
+
+          .small-12.column
+            You have used up your credits for the day to unlock business leads.
+            %br
+            To get UNLIMITED access to ALL tenders on Tengence, <a href='/subscribe' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label={@tender.ref_no}>SUBSCRIBE now</a>!
+
+        - else
+
+          #buyer-details
+            .small-12.column
+              %span
+                %a#buy-details.ga-tenders{data: {gtm_category: '', gtm_action: 'buy details', gtm_label: @tender.ref_no}} Reveal buyer details with 1 credit
+              (You have #{3 - current_user.trial_tender_ids.size} credits left for the day)
+
+          - content_for :javascript do
+            :javascript
+              $('#buy-details').click(function(){
+                document.body.classList.add('loading');
+                $.ajax({
+                  url: "/trial_tenders",
+                  data: {
+                    ref_no: "#{@tender.ref_no}"
+                  },
+                  method: "POST",
+                  success: function(data){
+                    console.log(data);
+                    if (data.statusCode !== 'maxed_for_the_day') {
+                      $.ajax({
+                        url: "/tenders/#{@tender.ref_no}/reveal_buyer_details",
+                        method: 'GET',
+                      });
+                    } else {
+                      $('#buyer-details').html("<div class='small-12 column'>You have used up your credits for the day to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/subscribe' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label=<%= @tender.ref_no %>>SUBSCRIBE now</a>!</div>");
+                      document.body.classList.remove('loading');
+                      alert('Max unlock limit reached.');
+                    }
+                  },
+                  error: function(xhr, status, err){
+                    Tengence.ReactFunctions.notifyError(window.location.href,'buyDetails', xhr.statusText)
+                    alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
+                    document.body.classList.remove('loading');
+                  }
+                });
+              });
+
+      - else
+
+        - if @tender.in_house?
+
+          .small-12.column
+            %a#ga-tender-inhouse-more.ga-tenders{data: {gtm_category: '', gtm_action: 'inhouse details', gtm_label: @tender.ref_no}} Show buyer details
+
+          #in-house-tender-details
+            = render partial: 'tenders/buyer_details', locals: {tender: @tender}
+
+          - content_for :javascript do
+            :javascript
+              $('#ga-tender-inhouse-more').click(function(){
+                $('#in-house-tender-details').show();
+                $(this).remove();
+                $.ajax({
+                  url: "#{viewed_tenders_path}",
+                  data: {
+                    ref_no: "#{@tender.ref_no}"
+                  },
+                  method: "POST"
+                });
+              });
+
+        - else
+
+          = render partial: 'tenders/buyer_details', locals: {tender: @tender}

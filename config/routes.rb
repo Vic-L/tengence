@@ -62,7 +62,11 @@ Rails.application.routes.draw do
   post '/update_keywords', to: 'keywords_tenders#update_keywords', as: :update_keywords
   post '/mass_destroy', to: 'watched_tenders#mass_destroy', as: :mass_destroy
 
-  resources :tenders
+  resources :tenders do
+    member do
+      get 'reveal_buyer_details', to: 'tenders#reveal_buyer_details'
+    end
+  end
   resources :watched_tenders
   resources :viewed_tenders, only: [:create]
   resources :trial_tenders, only: [:create]

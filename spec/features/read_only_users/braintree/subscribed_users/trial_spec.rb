@@ -131,4 +131,46 @@ feature 'trial_tenders', type: :feature, js: true do
 
   end
 
+  feature 'show tender page' do
+
+    scenario "should be able to view the full details of a non inhouse tender" do
+      tenders_page.seed_gebiz_tender
+      tenders_page.visit_show_tender_page Tender.first.ref_no
+      wait_for_page_load
+      
+      expect(page).to have_content 'Reference No'
+      expect(page).to have_content 'Description'
+      expect(page).to have_content 'Published Date'
+      expect(page).to have_content 'Closing Date'
+      expect(page).to have_content 'Closing Time'
+      expect(page).to have_content 'Buyer Company Name'
+      expect(page).to have_content 'Buyer Name'
+      expect(page).to have_content 'Buyer Contact Number'
+      expect(page).to have_content 'Original Link'
+    end
+
+    scenario "should be able to view the full details of a inhouse tender" do
+      tenders_page.seed_inhouse_tender
+      tenders_page.visit_show_tender_page Tender.first.ref_no
+      wait_for_page_load
+      
+      expect(page).to have_content 'Reference No'
+      expect(page).to have_content 'Description'
+      expect(page).to have_content 'Published Date'
+      expect(page).to have_content 'Closing Date'
+      expect(page).to have_content 'Closing Time'
+      expect(page).not_to have_content 'Buyer Company Name'
+      expect(page).not_to have_content 'Buyer Name'
+      expect(page).not_to have_content 'Buyer Contact Number'
+      expect(page).not_to have_content 'Original Link'
+      
+      tenders_page.click_unique '#ga-tender-inhouse-more'
+      expect(page).to have_content 'Buyer Company Name'
+      expect(page).to have_content 'Buyer Name'
+      expect(page).to have_content 'Buyer Contact Number'
+      expect(page).not_to have_content 'Original Link'
+    end
+
+  end
+
 end

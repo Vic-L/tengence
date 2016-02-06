@@ -1,0 +1,37 @@
+.small-12.column
+  .header Buyer Company Name
+.small-12.column
+  = tender.buyer_company_name
+  
+- unless tender.buyer_name.blank?
+  .small-12.column
+    .header Buyer Name
+  .small-12.column
+    = tender.buyer_name
+
+- unless tender.buyer_contact_number.blank?
+  .small-12.column
+    .header Buyer Contact Number
+  .small-12.column
+    = tender.buyer_contact_number
+
+- unless tender.buyer_email.blank?
+  .small-12.column
+    .header Buyer Email
+  .small-12.column
+    = tender.buyer_email
+
+- unless tender.external_link.blank?
+
+  .small-12.column
+    .header Original Link
+  .small-12.column
+    = link_to tender.external_link, tender.external_link, target: '_blank',class: 'ga-tenders', data: {gtm_category: '', gtm_action: 'outbound link', gtm_label: tender.ref_no}
+
+- unless tender.documents.blank?
+  
+  .small-12.column
+    .header Documents
+  - tender.documents.each do |doc|
+    .small-12.column
+      = link_to "#{doc.upload.original_filename} (#{number_to_human_size(doc.upload.size)})", doc.upload.url, target: '_blank'

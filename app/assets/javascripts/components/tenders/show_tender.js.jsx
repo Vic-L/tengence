@@ -30,15 +30,21 @@ var ShowTender = React.createClass({
       },
       method: "POST",
       success: function(data){
-        if (data !== 'ignore') {
-          this.props.parentComponent.setState({trial_tender_ids: data});
+        this.props.parentComponent.setState({trial_tender_ids: data.trial_tender_ids});
+        if (data.statusCode === 'maxed_for_the_day') {
+          alert('Max unlock limit reached.');
+          $('#buyer-details').html("You have used up your credits for the day to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/subscribe' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label='" + this.props.tender.ref_no + "'>SUBSCRIBE now</a>!");
+        } else {
+          this.revealBoughtDetails();
         }
       }.bind(this),
       error: function(xhr, status, err){
         Tengence.ReactFunctions.notifyError(window.location.href,'buyDetails', xhr.statusText)
+      },
+      complete: function(){
+        $('#buy-details-notice').remove();
       }
     });
-    this.revealBoughtDetails();
   },
   getRefNo: function(){
     return <ShowTenderDetail header='Reference No' body={this.props.tender.ref_no.replace('tengence-','')} />;
@@ -132,13 +138,11 @@ var ShowTender = React.createClass({
               <div className='row'>
                 <div className='medium-12 column'>
                   {this.getRefNo()}
+                  {this.getDescription()}
                   {this.getPublished_date()}
                   {this.getClosingDate()}
                   {this.getClosingTime()}
-                  {this.getDescription()}
                   {this.getLongDescription()}
-                  {this.getOriginalLink()}
-                  {this.getDocuments()}
                   <hr/>
                   <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>Show buyer details</a>
                   <div id='in-house-tender-details'>
@@ -146,6 +150,8 @@ var ShowTender = React.createClass({
                     {this.getBuyerName()}
                     {this.getBuyerContactNumber()}
                     {this.getBuyerEmail()}
+                    {this.getOriginalLink()}
+                    {this.getDocuments()}
                   </div>
                 </div>
               </div>
@@ -160,13 +166,13 @@ var ShowTender = React.createClass({
             <div className='row'>
               <div className='medium-12 column'>
                 {this.getRefNo()}
-                {this.getBuyerCompanyName()}
                 {this.getDescription()}
                 {this.getPublished_date()}
                 {this.getClosingDate()}
                 {this.getClosingTime()}
                 {this.getLongDescription()}
                 <hr/>
+                {this.getBuyerCompanyName()}
                 {this.getBuyerName()}
                 {this.getBuyerContactNumber()}
                 {this.getBuyerEmail()}
@@ -240,13 +246,13 @@ var ShowTender = React.createClass({
               <div className='row'>
                 <div className='medium-12 column'>
                   {this.getRefNo()}
-                  {this.getBuyerCompanyName()}
                   {this.getDescription()}
                   {this.getPublished_date()}
                   {this.getClosingDate()}
                   {this.getClosingTime()}
                   {this.getLongDescription()}
                   <hr/>
+                  {this.getBuyerCompanyName()}
                   {this.getBuyerName()}
                   {this.getBuyerContactNumber()}
                   {this.getBuyerEmail()}
@@ -265,13 +271,11 @@ var ShowTender = React.createClass({
               <div className='row'>
                 <div className='medium-12 column'>
                   {this.getRefNo()}
+                  {this.getDescription()}
                   {this.getPublished_date()}
                   {this.getClosingDate()}
                   {this.getClosingTime()}
-                  {this.getDescription()}
                   {this.getLongDescription()}
-                  {this.getOriginalLink()}
-                  {this.getDocuments()}
                   <hr/>
                   <a id='ga-tender-inhouse-more' onClick={this.revealDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='inhouse details' data-gtm-label={this.props.tender.ref_no}>Show buyer details</a>
                   <div id='in-house-tender-details'>
@@ -279,6 +283,8 @@ var ShowTender = React.createClass({
                     {this.getBuyerName()}
                     {this.getBuyerContactNumber()}
                     {this.getBuyerEmail()}
+                    {this.getOriginalLink()}
+                    {this.getDocuments()}
                   </div>
                 </div>
               </div>
@@ -293,13 +299,13 @@ var ShowTender = React.createClass({
               <div className='row'>
                 <div className='medium-12 column'>
                   {this.getRefNo()}
-                  {this.getBuyerCompanyName()}
                   {this.getDescription()}
                   {this.getPublished_date()}
                   {this.getClosingDate()}
                   {this.getClosingTime()}
                   {this.getLongDescription()}
                   <hr/>
+                  {this.getBuyerCompanyName()}
                   {this.getBuyerName()}
                   {this.getBuyerContactNumber()}
                   {this.getBuyerEmail()}

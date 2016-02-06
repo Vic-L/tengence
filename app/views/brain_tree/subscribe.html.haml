@@ -1,10 +1,25 @@
 #wrapper
+
   %section
+
     .row
-      .small-12.column
-        40 USD per month
+      .small-12.medium-8.medium-centered.column.text-center
+        %h4 Subscription rate: 50 USD / month
+
+    %hr
+
     .row
-      .small-12.column
+      .small-12.medium-8.medium-centered.column.text-center
+        %a{:href => "https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified", :target => "_blank"}
+          %img{:border => "0", :height => "50px", :src => "https://s3.amazonaws.com/braintree-badges/braintree-badge-wide-dark.png", :width => "318px"}
+        %br.show-for-small-only
+        %br.show-for-small-only
+        = image_tag 'rapidssl.gif'
+
+    %hr
+
+    .row
+      .small-12.medium-8.medium-centered.column.text-center
         = form_tag create_payment_path do
           #dropin
           %button#submit{type: 'submit'} Confirm

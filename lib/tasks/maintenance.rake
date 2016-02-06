@@ -1,4 +1,10 @@
 namespace :maintenance do
+  task :remove_trial_tenders => :environment do
+    TrialTender.destroy_all
+    content = "Removed all trial tenders\r\nNumber of users with trial_tenders_count > 0 = #{User.where.not(trial_tenders_count: 0).count}"
+    NotifyViaSlack.call(content: content)
+  end
+
   task :cleanup_past_tenders => :environment do
     t = Time.now.in_time_zone('Singapore').beginning_of_day
     t = t.utc + t.utc_offset()

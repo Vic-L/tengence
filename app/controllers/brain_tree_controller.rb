@@ -88,8 +88,7 @@ class BrainTreeController < ApplicationController
     
     when 'subscription_canceled', 'subscription_charged_successfully', 'subscription_charged_unsuccessfully', 'subscription_expired', 'subscription_trial_ended', 'subscription_went_active', 'subscription_went_past_due'
 
-      user = User.find_by_braintree_subscription_id(webhook_notification.subscription.id)
-      content += "user: #{user.email}\r\nsubscription_id: #{webhook_notification.subscription.id}"
+      content += "subscription_id: #{webhook_notification.subscription.id}"
 
     else
 

@@ -93,10 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def destroy_braintree_customer
-    DestroyBraintreeCustomerWorker.perform_async(
-      name: self.name,
-      braintree_customer_id: self.braintree_customer_id,
-      email: self.email)
+    DestroyBraintreeCustomerWorker.perform_async(self.name, self.email, self.braintree_customer_id)
   end
 
   rails_admin do

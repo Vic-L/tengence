@@ -44,21 +44,28 @@ class BrainTreeController < ApplicationController
   end
 
   def braintree_slack_pings
-    # sample_notification = Braintree::WebhookTesting.sample_notification(
-    #   Braintree::WebhookNotification::Kind::SubscriptionWentPastDue,
-    #   "my_id"
-    # )
     webhook_notification = Braintree::WebhookNotification.parse(
       request.params["bt_signature"],
       request.params["bt_payload"]
     )
     content = "Braintree | #{webhook_notification.kind}\r\n#{webhook_notification.timestamp}\r\n"
     case webhook_notification.kind
+    
     when 'disbursement'
-      content += "id: #{webhook_notification.disbursement.id}\r\namount: #{webhook_notification.disbursement.amount}\r\ndisbursement_date: #{webhook_notification.disbursement.disbursement_date}"
+    
+      content += "disbursement_id: #{webhook_notification.disbursement.id}\r\namount: #{webhook_notification.disbursement.amount}\r\ndisbursement_date: #{webhook_notification.disbursement.disbursement_date}"
+    
+    when 'subscription_canceled', 'subscription_charged_successfully', 'subscription_charged_unsuccessfully', 'subscription_expired', 'subscription_trial_ended', 'subscription_went_active', 'subscription_went_past_due'
+
+      user = User.find_by_braintree_subscription_id(webhook_notification.subscription.id)
+      content += "user: #{user.email}\r\nsubscription_id: #{webhook_notification.subscription.id}"
+
     else
+
       content += "#{webhook_notification.inspect}"
+      
     end
+
     NotifyViaSlack.call(content: content)
     render nothing: true, status: 200
   end
@@ -74,14 +81,25 @@ class BrainTreeController < ApplicationController
     )
     content = "Braintree | #{webhook_notification.kind}\r\n#{webhook_notification.timestamp}\r\n"
     case webhook_notification.kind
+    
     when 'disbursement'
-      content += "id: #{webhook_notification.disbursement.id}\r\namount: #{webhook_notification.disbursement.amount}\r\ndisbursement_date: #{webhook_notification.disbursement.disbursement_date}"
+    
+      content += "disbursement_id: #{webhook_notification.disbursement.id}\r\namount: #{webhook_notification.disbursement.amount}\r\ndisbursement_date: #{webhook_notification.disbursement.disbursement_date}"
+    
+    when 'subscription_canceled', 'subscription_charged_successfully', 'subscription_charged_unsuccessfully', 'subscription_expired', 'subscription_trial_ended', 'subscription_went_active', 'subscription_went_past_due'
+
+      user = User.find_by_braintree_subscription_id(webhook_notification.subscription.id)
+      content += "user: #{user.email}\r\nsubscription_id: #{webhook_notification.subscription.id}"
+
     else
+
       content += "#{webhook_notification.inspect}"
+
     end
+
     NotifyViaSlack.call(content: content, channel: '#tengence-dev')
     render nothing: true, status: 200
-  end  
+  end
 
   private
     def deny_yet_to_subscribe_user

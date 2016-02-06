@@ -1,13 +1,16 @@
 class BrainTreeController < ApplicationController
   before_action :authenticate_user!, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_write_only_access, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
-  before_action :deny_subscribed_user, only: [:subscribe]
-  before_action :deny_unresubscribable_user, only: [:subscribe, :change_payment]
-  before_action :deny_yet_to_subscribe_user, only: [:change_payment]
+  before_action :deny_subscribed_user, only: [:subscribe, :create_payment]
+  before_action :deny_unresubscribable_user, only: [:subscribe, :change_payment, :create_payment, :unsubscribe]
+  before_action :deny_resubscribable_user, only: [:change_payment, :unsubscribe]
+  before_action :deny_yet_to_subscribe_user, only: [:change_payment, :payment_history, :update_payment]
   skip_before_action :verify_authenticity_token, only: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
 
   def billing
     if current_user.braintree_subscription_id
+
+
       @payment_method_token = current_user.braintree_subscription.payment_method_token
       @payment_method = Braintree::PaymentMethod.find(@payment_method_token) unless @payment_method_token.nil?
     end
@@ -20,6 +23,10 @@ class BrainTreeController < ApplicationController
   def change_payment
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
     @payment_method = current_user.braintree_subscription.payment_method_token
+  end
+
+  def payment_history
+    @subscription = Braintree::Subscription.find(current_user.braintree_subscription_id)
   end
 
   def update_payment
@@ -121,4 +128,12 @@ class BrainTreeController < ApplicationController
         redirect_to :billing
       end
     end
+
+    def deny_resubscribable_user
+      if current_user.can_resubscribe?
+        flash[:alert] = "You are not authorized to view this page."
+        redirect_to :billing
+      end
+    end
+
 end

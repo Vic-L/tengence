@@ -22,4 +22,8 @@ module BrainTreeHelper
   def next_billing_date date
     "#{Date.parse(date).strftime('%e %b %Y')}."
   end
+
+  def billing_period subscription_details
+    "#{(Date.parse(subscription_details.billing_period_start_date)).strftime('%d %b %Y')} - #{(Date.parse(subscription_details.billing_period_end_date)).strftime('%d %b %Y')}"
+  end
 end

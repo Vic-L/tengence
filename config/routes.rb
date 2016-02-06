@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get "/edit-payment", to: 'brain_tree#edit_payment', as: 'edit_payment'
   post "/create-payment", to: 'brain_tree#create_payment', as: 'create_payment'
   post "/update-payment", to: 'brain_tree#update_payment', as: 'update_payment'
+  get "/payment-history", to: 'brain_tree#payment_history', as: 'payment_history'
   post "/unsubscribe", to: 'brain_tree#unsubscribe', as: 'unsubscribe'
   post "/braintree_slack_pings", to: 'brain_tree#braintree_slack_pings'
   post "/sandbox_braintree_slack_pings", to: 'brain_tree#sandbox_braintree_slack_pings'

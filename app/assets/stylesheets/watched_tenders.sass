@@ -3,6 +3,7 @@
     #wrapper
       ul.tabs
         margin-top: 30px
+
         li.tab-title
           width: 50%
           display: block
@@ -16,10 +17,12 @@
             -webkit-transition: color 0.3s
             transition: color 0.3s
             padding-top: 17px
+            
             &:hover, &:focus
               color: #386ec4
               &::after
                 background: white
+            
             &::after
               position: absolute
               top: 0
@@ -35,29 +38,36 @@
               transition-timing-function: ease, cubic-bezier(0.7, 0, 0.3, 1)
               -webkit-transform: translate3d(0, 100%, 0) translate3d(0, -3px, 0)
               transform: translate3d(0, 100%, 0) translate3d(0, -3px, 0)
+
           &.active
             a
               font-weight: bold
               color: white
               background: #386ec4
+              
               &::after
                 background: #386ec4
                 width: 100%
                 left: 0
+
       .tabs-content
         padding-top: 0
         margin-top: 0
+
         section.search-field
           padding-top: 90px
           padding-bottom: 0
           .title-section
             margin-bottom: 0
+
           #query-field
             background: #e5e5e5
+
           button.search-submit-button,
           button.back-button
             margin-bottom: 0
             padding
+          
           button.search-submit-button
             background: #386ec4
             &:hover

@@ -19,10 +19,3 @@ a.slider-link:link, a.slider-link:visited, a.link-btn span, .button, button#subm
 /*li.active a{
 	color:#386ec4 !important;
 }*/
-
-/* filter counter in portfolio */
-.cbp-l-filters-alignCenter .cbp-filter-counter::before {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid #386ec4;
-}

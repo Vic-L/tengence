@@ -7,10 +7,12 @@
 .tenders
   #wrapper
     padding-top: 80px
+  
   &.index
     #wrapper
       button#submit
         margin-bottom: 16px
+
       section#hero
         padding-bottom: 0
         .counter
@@ -22,11 +24,13 @@
                 font-size: 150px
               .text
                 font-size: 20px
+
       section#description
         padding-top: 60px
         padding-bottom: 0
         p
           font-size: 18px
+
       select.sort
         display: inline-block
         width: auto
@@ -39,12 +43,14 @@
     #wrapper
       section#post-tender
         padding: 0
+      
       .button#post-a-tender-button
         font-size: 50px
         margin-top: 50px
         margin-bottom: 50px
         font-family: 'Roboto'
         font-weight: bold
+    
     #edit-tender-modal   
       form.edit_tender
         button
@@ -88,45 +94,57 @@
 #search-field
   padding-top: 90px
   padding-bottom: 0
+
   .title-section
     margin-bottom: 0
+
   #query-field
     background: #e5e5e5
+
   button.search-submit-button,
   button.back-button
     margin-bottom: 0
+
   button.search-submit-button
     background: #386ec4
     &:hover
       background: darken(#386ec4,20%)
+
 #tender-results
   padding-top: 20px
+
   .button
     margin-bottom: 0
     width: 100%
     @media only screen and (max-width: 40em)
       padding-left: 0
       padding-right: 0
+
     &.unwatch-button
       background: #ff4444
       &:hover
         background: darken(#ff4444,20%)
+
     &.watch-button
       background: #44cc9b
       &:hover
         background: darken(#44cc9b,20%)
+
     &.more-button
       background: #238aae
       &:hover
         background: darken(#238aae,20%)
+
   nav.pagination
     display: inline
     a,span
       margin-right: 5px
+
   span.total-count
     font-weight: bold
     font-size: 16px
     margin-left: 5px
+
   table#results-table
     thead
       th
@@ -136,24 +154,30 @@
         #destroy-all-button
           margin-left: 5px
           font-size: 20px
+
     tbody
       td
         padding: 5px
         text-align: center
         border: 1px solid #d9d9d9
+
 #view-more-modal
   z-index: 10001 // 1 higher header
+
   .header
     font-weight: bold
+  
   .external-link
     // text-decoration: underline
     // font-size: 22px
     // font-weight: bold
     overflow-wrap: break-word
+  
   #ga-tender-inhouse-more,
   #buy-details
     cursor: pointer
     font-size: 22px
     text-decoration: underline
+    
   #in-house-tender-details
     display: none

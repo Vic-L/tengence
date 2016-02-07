@@ -50,28 +50,31 @@
         %h4
           %strong We track tenders and notify you whenever you have related tender opportunities. Find out more below.
   .row
-    .medium-12.columns
-      #services-container.cbp-l-grid-gallery
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')"}
-          .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'track', gtm_label: "how-it-works"}}
-            %i.fa.fa-binoculars.icon
-            %h3 Track Tenders
-            %p We Track Tender Opportunities from >60 Sources in Singapore. Some of Our Sources include: Gebiz, Sesami and Ariba. View the Full List Below!
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
-          .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'alerts', gtm_label: "how-it-works"}}
-            %i.fa.fa-envelope.icon
-            %h3 Alerts
-            %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
-          .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'watch', gtm_label: "how-it-works"}}
-            %i.fa.fa-eye.icon
-            %h3 Watch
-            %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
-        %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
-          .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'never lose out', gtm_label: "how-it-works"}}
-            %i.fa.fa-globe.icon
-            %h3 Never Lose Out
-            %p Be Updated and Never Miss Out Another Tender
+    .medium-6.columns
+      %a.service{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')"}
+        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'track', gtm_label: "how-it-works"}}
+          %i.fa.fa-binoculars.icon
+          %h3 Track Tenders
+          %p We Track Tender Opportunities from >60 Sources in Singapore. Some of Our Sources include: Gebiz, Sesami and Ariba. View the Full List Below!
+    .medium-6.columns
+      %a.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
+        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'alerts', gtm_label: "how-it-works"}}
+          %i.fa.fa-envelope.icon
+          %h3 Alerts
+          %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
+  .row
+    .medium-6.columns
+      %a.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
+        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'watch', gtm_label: "how-it-works"}}
+          %i.fa.fa-eye.icon
+          %h3 Watch
+          %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
+    .medium-6.columns
+      %a.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
+        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'never lose out', gtm_label: "how-it-works"}}
+          %i.fa.fa-globe.icon
+          %h3 Never Lose Out
+          %p Be Updated and Never Miss Out Another Tender
 
 %section#sources-and-counting.dark
   .row

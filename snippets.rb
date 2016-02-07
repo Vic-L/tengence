@@ -42,4 +42,4 @@ end
 Benchmark.bm do |bm|
   bm.report{Tender.where('closing_datetime >= NOW() AND status = "open"').count}
   bm.report{CurrentTender.count}
-end
+end;nil

@@ -109,6 +109,10 @@
             %li
               = link_to "Terms of Services", terms_of_service_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'terms of services', gtm_label: 'header'}
 
+.mask
+  #loader.rotating
+
+
 - flash.each do |name, msg|
 
   .row.flash-row
@@ -119,6 +123,3 @@
         %div{:'data-alert' => '', class: "alert-box round #{name.to_s}"}
           = content_tag :div, msg.html_safe
           %a.close{href: "#", class: "close"} &times;
-
-.mask
-  #loader.rotating

@@ -2,10 +2,12 @@
   &.home
     header
       background: transparent
+      
       .header-logo a
         color: white
         &:hover
           color: black
+      
       ul.menu-list
         li a
           color: white
@@ -13,27 +15,34 @@
         li.active a,
         li.active a:hover
           color: black
+      
       .menu-toggle-button, .menu-toggle-button.active
         color: white
+      
       .menu-toggle-button
         i.icon
           color: white
+      
       .menu-toggle-button.active
         i.icon
           color: black
       
       &.shrink
         background-color: #212121
+        
         .header-logo a:hover
           color: #386ec4
+
         ul.menu-list
           li a:hover,
           li.active a,
           li.active a:hover
             color: #386ec4
+
         .menu-toggle-button.active
           i.icon
             color: #386ec4
+
     .bg-overlay
       position: absolute
       top: 0px
@@ -43,56 +52,57 @@
       background-color: #386ec4
       opacity: 0.8
 
-    .alert-box
-      position: absolute
-      top: 84px
-      z-index: 2
-      left: 0
-      right: 0
-
     section#how-it-works
       p
         font-size: 1.2rem
+
       .title-section
         margin-bottom: 0
-      a.cbp-item
-        text-align: center
-        padding: 15px
-        .cbp-item-wrapper
-          margin: 30px 0
-          p
-            margin: 0
-        .icon
-          margin-bottom: 40px
-          color: #386ec4
-        h3
-          margin-bottom: 25px
-        &:hover
-          background: #386ec4
-          .icon,
-          h3,
-          p
-            color: white
+
+      a.service
+        .animated
+          text-align: center
+          padding: 15px
+
+          .icon
+            margin-bottom: 40px
+            color: #386ec4
+
+          h3
+            margin-bottom: 25px
+
+          &:hover
+            background: #386ec4
+            .icon,
+            h3,
+            p
+              color: white
 
     section#email
+
       #sample-email-container
         position: relative
+
         .bg-overlay
           display: none
+
           .fa-search-plus
             margin: auto
             display: inline-block
             vertical-align: middle
             font-size: 50px
             color: white
+
         &:hover
           cursor: pointer
           .bg-overlay
             display: block
+
       .g-recaptcha
         margin-bottom: 16px
         div
           margin: auto
+
       #demo-email-form
         display: inline-block
         vertical-align: middle
@@ -106,6 +116,7 @@
             margin: 0
           span#agree-notice
             white-space: normal
+
       #email-demo-submitted-button
         display: none
         background-color: #44cc9b
@@ -120,17 +131,21 @@
     section#sources-and-counting
       .title-section
         margin-bottom: 0
+
         .sources-count
           color: #386ec4
           font-size: 100px
+
       p.recommendation
         font-style: italic
+
       .remainder-tender-source,
       #show-all,
       #hide-all
         display: none
         &.active
           display: inline-block
+
       #show-all,
       #hide-all
         margin: 16px auto
@@ -146,6 +161,7 @@
     section#contacts
       .title-section
         margin-bottom: 0
+
       #message
         margin-top: 0
         padding-top: 0

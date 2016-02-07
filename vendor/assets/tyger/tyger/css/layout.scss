@@ -552,14 +552,6 @@ Parallax
 /* ==============================================
 Services
 =============================================== */
-#services {
-	overflow: hidden;
-}
-
-section#services {
-	margin-top: 0px;
-}
-
 div.service .cbp-item-wrapper {
 	overflow: hidden;
 	position: relative;
@@ -586,10 +578,6 @@ div.service .cbp-item-wrapper {
 	color: #222;
 }
 
-.service-icon, #services .service-description span {
-	position: relative !important;
-}
-
 .service i {
 	position: relative;
 	bottom: -10px;
@@ -597,175 +585,9 @@ div.service .cbp-item-wrapper {
 	font-size: 70px;
 }
 
-.service h5 {
+.service h3 {
 	font-weight: bold;
 }
-
-#services .service .service-description {
-	top: 100%;
-	padding: 50px;
-}
-
-#services .service .service-description:hover {
-	cursor: pointer;
-}
-.service-title{
-}
-.service-title h2{
-	margin-bottom:-10px;
-}
-
-.feature-box {
-	/*margin-bottom:50px;*/
-}
-
-.feature-box i {
-	color: #fff;
-	font-size: 36px;
-}
-
-.feature-box p {
-	color: #fff;
-	margin-bottom: 0px;
-}
-
-.feature-box h5 {
-
-	color: #fff;
-	font-weight: bold;
-}
-
-.service-content i {
-	font-size: 56px;
-	color: #fff;
-}
-
-/* List on detail service */
-ul.list {
-	margin: 0px;
-}
-
-ul.list li {
-	list-style-type: none;
-	padding: 3px 0px;
-}
-
-ul.list li:before {
-	content: "\e251";
-	font-family: 'Tyger';
-	margin-right: 10px;
-}
-
-
-
-
-
-
-/* ==============================================
-Portfolio
-=============================================== */
-section#works {
-	padding-bottom: 0;
-}
-
-section#detail {
-	padding: 80px 0px;
-}
-.th-detail {
-	left: 0;
-	margin: 0 auto;
-	opacity: 0;
-	right: 0;
-	top: 50px;
-	width:100%;
-	text-align:center;
-	transition: all 0.3s ease 0s;
-}
-.cbp-caption-activeWrap:hover .th-detail {
-	margin-top: 35%;
-    opacity: 1;
-   /* top: 50% !important;*/
-}
-.cbp-l-grid-projects-title{
-	font-family:'Montserrat', sans-serif;
-	color:#fff;
-	font-size:1.4rem;
-	padding:10px 0px;
-	margin-bottom:10px;
-}
-.cbp-l-caption-buttonLeft, .cbp-l-caption-buttonRight{
-	text-transform:uppercase;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
-}
-.cbp-l-filters-alignRight .cbp-filter-item, .cbp-l-filters-alignCenter .cbp-filter-item{
-	background:#eceaea;
-	padding:5px 10px;
-	margin:50px 5px 25px 5px;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
-}
-.filters-container{
-
-}
-.cbp-l-filters-alignRight .cbp-filter-item-active, .cbp-l-filters-alignCenter .cbp-filter-item-active {
-	color:#fff !important;
-}
-.cbp-l-filters-alignRight .cbp-filter-item:hover .cbp-filter-counter, .cbp-l-filters-alignCenter .cbp-filter-item:hover .cbp-filter-counter{
-	bottom:	40px;
-}
-.cbp-l-inline{
-	background:#fff;
-	padding:30px;
-
-}
-.cbp-l-inline h4{
-	margin-bottom:-3px;
-}
-
-.cbp-l-grid-slider-team-social a{
-	color:#ccc;
-	position:relative;
-	top:10px;
-}
-.cbp-popup-singlePage-counter{
-	color:#fff;
-	font-family:'Montserrat', sans-serif;
-}
-.cbp-popup-singlePage .cbp-popup-content{
-	margin-top:80px;
-}
-.cbp-popup-singlePageInline .cbp-popup-content{
-
-	margin-top:0px;
-}
-.cbp-l-inline{
-	margin-bottom:30px;
-}
-
-
-
-
-/* ==============================================
-Pricing Table
-=============================================== */
-.pricing-table{
-	border-color:rgba(255, 255, 255, 0.4);
-	margin-bottom:40px;
-}
-
-.pricing-table .title{
-	padding:1.8rem 1.25rem;
-	font-size:1.6rem
-}
-.pricing-table .button{
-	-moz-border-radius:2px;
-	-weblit-border-radius:2px;
-	border-radius:2px;
-}
-
 
 
 
@@ -1237,9 +1059,6 @@ Media Query
 	.section-desc p{
 		margin-bottom:50px;
 	}
-	.portfolio-item {
-		width: 100%;
-	}
 
 	.parallax{	
 		margin-bottom:0px;
@@ -1279,20 +1098,6 @@ Media Query
 		margin-bottom: 70px;
 	}
 
-	.blog-item-preview {
-		margin-bottom: 50px;
-	}
-
-	.blog-item-preview:last-child {
-		margin-bottom: 0px;
-	}
-
-	.cbp-l-filters-alignRight .cbp-filter-item, .cbp-l-filters-alignCenter .cbp-filter-item{
-		margin:10px 5px 0px;
-	}
-	.cbp-caption-activeWrap:hover .th-detail{
-		margin-top:120px;
-	}
 	.animated {
 		visibility: visible !important;
 		-webkit-animation: none !important;
@@ -1345,19 +1150,8 @@ Media Query
 
 
 }
-@media only screen and (min-width: 40.063em) {
-	.portfolio-item {
-		width: 25%;
-	}
-}
 /* tablets */
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
-	.portfolio-item {
-		width: 50%;
-	}
-	.cbp-caption-activeWrap:hover .th-detail{
-		/*margin-top:120px;*/
-	}
 	.slider-cont.parallax-background, .parallax{
 		background-position:center center;
 	}

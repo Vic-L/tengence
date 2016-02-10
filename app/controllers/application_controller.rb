@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
     def deny_unconfirmed_users
       if user_signed_in? && !current_user.fully_confirmed?
-        flash[:warning] = "Please confirm your account first."
+        flash[:warning] = "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
         redirect_to new_user_confirmation_path
       end
     end

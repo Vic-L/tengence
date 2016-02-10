@@ -5,6 +5,16 @@ var KeywordsTendersForm = React.createClass({
     var keywords = document.getElementById('keywords').value;
     this.props.updateKeywords(keywords, urlFragments);
   },
+  submitKeywords: function(e) {
+    if(e.keyCode === 13){
+      e.preventDefault();
+      if (!$('body').hasClass('loading')){
+        var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
+        var keywords = document.getElementById('keywords').value;
+        this.props.updateKeywords(keywords, urlFragments);
+      }
+    }
+  },
   render: function() {
     var notice;
     if (this.props.keywords != null){
@@ -22,7 +32,7 @@ var KeywordsTendersForm = React.createClass({
         {notice}
         <div className="small-8 columns small-centered text-center">
           <span>Your keywords:</span>
-          <textarea id=' keywords' rows='3' name="keywords" id="keywords" placeholder="Enter up to 20 keywords separated by commas, eg. jurong,maintenance, event" defaultValue={this.props.keywords}>
+          <textarea id=' keywords' rows='3' name="keywords" id="keywords" placeholder="Enter up to 20 keywords separated by commas, eg. jurong,maintenance, event" defaultValue={this.props.keywords} onKeyDown={this.submitKeywords}>
           </textarea>
           <button id='submit' onClick={this.handleClick}>UPDATE</button>
         </div>

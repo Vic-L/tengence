@@ -43,3 +43,27 @@ Tengence.HomePage.initHeader = ->
         menuItems.parent().removeClass('active').end().filter('[href=#' + id + ']').parent().addClass 'active'
       return
     return
+
+Tengence.HomePage.initContactUsForm = () ->
+  $('#contactform').submit ->
+    'use strict'
+    action = $(this).attr('action')
+    $('#message').slideUp 300, ->
+      $('#message').hide()
+      $('#submit').after('<img src="<%= image_path "ajax-loader.gif"%>" class="loader" />').attr 'disabled', 'disabled'
+      $.post action, {
+        name: $('#name').val()
+        email: $('#contact_email').val()
+        comments: $('#comments').val()
+      }, (data) ->
+        document.getElementById('message').innerHTML = data
+        $('#message').slideDown 300
+        $('#contactform img.loader').fadeOut 'slow', ->
+          $(this).remove()
+          return
+        $('#submit').removeAttr 'disabled'
+        if data.match('success') != null
+          $('#contactform').slideUp 'slow'
+        return
+      return
+    false

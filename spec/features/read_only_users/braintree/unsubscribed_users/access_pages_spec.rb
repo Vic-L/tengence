@@ -59,7 +59,7 @@ feature "access pages by read_only resubscribe users" do
     scenario 'change_payment' do
       Timecop.freeze(unsubscribed_user.next_billing_date) do
         brain_tree_page.visit_change_payment_page
-        expect(page.current_path).to eq change_payment_path
+        expect(page.current_path).to eq billing_path
       end
     end
 

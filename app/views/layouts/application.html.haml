@@ -27,7 +27,12 @@
       });
       /* trigger foundation() after window load for react and foundation to work...TODO better way? */
       $(window).load(function(){
-        $(document).foundation();
+        $(document).foundation({
+          accordion: {
+            multi_expand: true,
+            toggleable: true
+          }
+        });
       });
     = yield :javascript
     = render 'layouts/ga_scripts'

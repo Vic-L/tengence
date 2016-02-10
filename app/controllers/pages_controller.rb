@@ -7,6 +7,9 @@ class PagesController < ApplicationController
   def terms_of_service
   end
 
+  def faq
+  end
+
   def refresh_cloudsearch
     begin
       array = []

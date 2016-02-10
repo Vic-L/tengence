@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   post 'contact_us_email', to: 'pages#contact_us_email'
   get 'terms-of-service', to: 'pages#terms_of_service'
   get 'refresh_cloudsearch', to: 'pages#refresh_cloudsearch'
+  get 'faq', to: 'pages#faq'
 
   # braintree
   # resources :payment_methods, path: '/payment-methods'

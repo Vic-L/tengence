@@ -25,12 +25,12 @@ class PagesController < ApplicationController
       end; nil
       response = AwsManager.upload_document array.to_json
       if response.class == String
-        NotifyViaSlack.call(content: "<@vic-l> ERROR adding records to AWSCloudSearch!!\r\n#{response}")
+        NotifyViaSlack.delay.call(content: "<@vic-l> ERROR adding records to AWSCloudSearch!!\r\n#{response}")
       else
-        NotifyViaSlack.call(content: "Added all records on AWSCloudSearch")
+        NotifyViaSlack.delay.call(content: "Added all records on AWSCloudSearch")
       end
     rescue => e
-      NotifyViaSlack.call(content: "Error when refreshing cloudsearch:\r\n#{e.message}\r\n#{e.backtrace.to_s}")
+      NotifyViaSlack.delay.call(content: "Error when refreshing cloudsearch:\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     ensure
       render json: "success".to_json
     end
@@ -45,7 +45,7 @@ class PagesController < ApplicationController
     else
       subject = "#{name} (#{email}) contacted us"
       InternalMailer.notify(subject,"Comments: #{comments}").deliver_later
-      NotifyViaSlack.call(content: "#{subject}\r\n#{comments}")
+      NotifyViaSlack.delay.call(content: "#{subject}\r\n#{comments}")
       @message = "We have received your email. The Tengence team will contact you shortly."
       @message = "<div id='success_page'>"
       @message += "<h1 class='success-message'>Email Sent Successfully.</h1>"

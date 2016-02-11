@@ -26,14 +26,14 @@ class UpdateSubscriptionWithNewPaymentMethod
 
           user.update!(default_payment_method_token: payment_method_token)
 
-          NotifyViaSlack.call(content: "#{user.email} update payment method")
+          NotifyViaSlack.delay.call(content: "#{user.email} update payment method")
 
           response = "flash[:success] = 'You have successfully change your default payment method';"
           response += "redirect_to billing_path"
 
         else
 
-          NotifyViaSlack.call(content: "<@vic-l> ERROR UpdateSubscriptionWithNewPaymentMethod Braintree::Subscription.update\r\n#{result.errors.map(&:message).join("\r\n")}")
+          NotifyViaSlack.delay.call(content: "<@vic-l> ERROR UpdateSubscriptionWithNewPaymentMethod Braintree::Subscription.update\r\n#{result.errors.map(&:message).join("\r\n")}")
 
         response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
         response += "redirect_to :back"
@@ -42,7 +42,7 @@ class UpdateSubscriptionWithNewPaymentMethod
       
       else
 
-        NotifyViaSlack.call(content: "<@vic-l> ERROR UpdateSubscriptionWithNewPaymentMethod Braintree::PaymentMethod.create\r\n#{result.errors.map(&:message).join("\r\n")}")
+        NotifyViaSlack.delay.call(content: "<@vic-l> ERROR UpdateSubscriptionWithNewPaymentMethod Braintree::PaymentMethod.create\r\n#{result.errors.map(&:message).join("\r\n")}")
 
         response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
         response += "redirect_to :back"
@@ -54,7 +54,7 @@ class UpdateSubscriptionWithNewPaymentMethod
       response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
       response += "redirect_to :back"
 
-      NotifyViaSlack.call(content: "<@vic-l> RESCUE UpdateSubscriptionWithNewPaymentMethod\r\n#{e.message.to_s}\r\n#{e.backtrace.join("\r\n")}")
+      NotifyViaSlack.delay.call(content: "<@vic-l> RESCUE UpdateSubscriptionWithNewPaymentMethod\r\n#{e.message.to_s}\r\n#{e.backtrace.join("\r\n")}")
     
     ensure
       return response

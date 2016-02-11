@@ -24,7 +24,7 @@ before_action :deny_write_only_access, only: [:new_vendors]
   def create
     content_hash = sign_up_params
     content_hash.delete('password')
-    NotifyViaSlack.call(content: content_hash.map{|k,v| "#{k}: #{v}"}.join("\r\n"))
+    NotifyViaSlack.delay.call(content: content_hash.map{|k,v| "#{k}: #{v}"}.join("\r\n"))
     super
   end
 

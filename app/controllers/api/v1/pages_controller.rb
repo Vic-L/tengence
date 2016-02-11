@@ -11,7 +11,7 @@ module Api
         content << ["error: " + params[:error]]
         content << ["user: " + (current_user.try(:email) || 'non_logged_in user')]
         content << ["user agent: " + request.user_agent]
-        NotifyViaSlack.call(content: "<@vic-l> ERROR\r\n#{content.join("\r\n")}")
+        NotifyViaSlack.delay.call(content: "<@vic-l> ERROR\r\n#{content.join("\r\n")}")
         render :json => { :success => true }
       end
 
@@ -20,7 +20,7 @@ module Api
         if params['g-recaptcha-response'].blank? && !Rails.env.test?
           render js: "alert('Please complete the captcha')"
         else
-          NotifyViaSlack.call(content: "#{params[:demo_email]} requested demo email")
+          NotifyViaSlack.delay.call(content: "#{params[:demo_email]} requested demo email")
           AlertsMailer.demo_email(params[:demo_email]).deliver_later
           render js: "$('#email-demo-submitted-button').slideDown();$('#demo-email-form fieldset').slideUp();"
         end

@@ -73,7 +73,7 @@ class BrainTreeController < ApplicationController
       
     end
 
-    NotifyViaSlack.call(content: content)
+    NotifyViaSlack.delay.call(content: content)
     render nothing: true, status: 200
   end
 
@@ -103,7 +103,7 @@ class BrainTreeController < ApplicationController
 
     end
 
-    NotifyViaSlack.call(content: content, channel: '#tengence-dev')
+    NotifyViaSlack.delay.call(content: content, channel: '#tengence-dev')
     render nothing: true, status: 200
   end
 

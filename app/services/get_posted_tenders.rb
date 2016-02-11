@@ -33,7 +33,7 @@ class GetPostedTenders
 
       return [@tenders, @current_page, @total_pages, @limit_value, @last_page, @watched_tender_ids, @results_count]
     rescue => e
-      NotifyViaSlack.call(content: "<@vic-l> Error GetTenders.rb\r\n#{e.message}\r\n#{e.backtrace.to_s}")
+      NotifyViaSlack.delay.call(content: "<@vic-l> Error GetTenders.rb\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     end
 
   end

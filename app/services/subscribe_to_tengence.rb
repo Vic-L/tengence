@@ -31,7 +31,7 @@ class SubscribeToTengence
 
         if result.success?
 
-          NotifyViaSlack.call(content: "#{user.email} subscribed")
+          NotifyViaSlack.delay.call(content: "#{user.email} subscribed")
           
           user.update!(
             braintree_subscription_id: result.subscription.id,
@@ -43,7 +43,7 @@ class SubscribeToTengence
 
         else
 
-          NotifyViaSlack.call(content: "<@vic-l> ERROR SubscribeToTengence Braintree::Subscription.create\r\n#{result.errors.map(&:message).join("\r\n")}")
+          NotifyViaSlack.delay.call(content: "<@vic-l> ERROR SubscribeToTengence Braintree::Subscription.create\r\n#{result.errors.map(&:message).join("\r\n")}")
 
           response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
           response += "redirect_to :back"
@@ -52,7 +52,7 @@ class SubscribeToTengence
 
       else
 
-        NotifyViaSlack.call(content: "<@vic-l> ERROR SubscribeToTengence Braintree::PaymentMethod.create\r\n#{result.errors.map(&:message).join("\r\n")}")
+        NotifyViaSlack.delay.call(content: "<@vic-l> ERROR SubscribeToTengence Braintree::PaymentMethod.create\r\n#{result.errors.map(&:message).join("\r\n")}")
 
         response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
         response += "redirect_to :back"
@@ -64,7 +64,7 @@ class SubscribeToTengence
       response = "flash[:alert] = 'An error occurred. Our developers are notified and are currently working on it. Thank you for your patience.';"
       response += "redirect_to :back"
 
-      NotifyViaSlack.call(content: "<@vic-l> RESCUE SubscribeToTengence\r\n#{e.message.to_s}\r\n#{e.backtrace.join("\r\n")}")
+      NotifyViaSlack.delay.call(content: "<@vic-l> RESCUE SubscribeToTengence\r\n#{e.message.to_s}\r\n#{e.backtrace.join("\r\n")}")
     
     ensure
       return response

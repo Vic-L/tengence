@@ -25,12 +25,12 @@ module EmailerActions
             render nothing: true
           else
             if (Time.now.in_time_zone('Asia/Singapore').to_date.saturday? || Time.now.in_time_zone('Asia/Singapore').to_date.sunday?)
-              NotifyViaSlack.call(content: "Give me a break its the weekend!")
+              NotifyViaSlack.delay.call(content: "Give me a break its the weekend!")
               redirect_to '/admin', flash: {alert: "Give me a break its the weekend!"}
             else
               User.read_only.confirmed.each do |user|
                 begin
-                  NotifyViaSlack.call(content: "#{user.email} has no keywords") and next if user.keywords.blank?
+                  NotifyViaSlack.delay.call(content: "#{user.email} has no keywords") and next if user.keywords.blank?
                   results_ref_nos = []
                   user.keywords.split(",").each do |keyword|
                     # get tenders for each keyword belonging to a user
@@ -49,7 +49,7 @@ module EmailerActions
 
                   current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - @page_name.to_i.days).pluck(:ref_no) # tender published from x days ago based on @page_name's value which is intiated in config/locale/en.yml en > admin > actions > x_day_ago > title
                   
-                  NotifyViaSlack.call(content: "#{user.email} has no tenders matching his/her keywords") and next if current_tenders_ref_nos.blank?
+                  NotifyViaSlack.delay.call(content: "#{user.email} has no tenders matching his/her keywords") and next if current_tenders_ref_nos.blank?
 
                   AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size,  @page_name.to_i).deliver_now
                   InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size, @page_name.to_i).deliver_now
@@ -58,7 +58,7 @@ module EmailerActions
                     WatchedTender.create(tender_id: ref_no, user_id: user.id)
                   end
                 rescue => e
-                  NotifyViaSlack.call(content: "Error in email rake for user #{user.id}\r\n\r\n#{e.message}\r\n\r\n#{e.backtrace.to_s}")
+                  NotifyViaSlack.delay.call(content: "Error in email rake for user #{user.id}\r\n\r\n#{e.message}\r\n\r\n#{e.backtrace.to_s}")
                   InternalMailer.notify("Error in email rake for user #{user.id}", "#{e.message}\r\n\r\n#{e.backtrace.to_s}").deliver_now
                 end
               end

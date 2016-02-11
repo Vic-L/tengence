@@ -15,14 +15,14 @@ class UnsubscribeFromTengence
         
         user.update!(next_billing_date: result.subscription.next_billing_date)
 
-        NotifyViaSlack.call(content: "#{user.email} unsubscribed")
+        NotifyViaSlack.delay.call(content: "#{user.email} unsubscribed")
           
         response = "flash[:success] = 'You have successfully unsubscribed from Tengence.';"
         response += "redirect_to billing_path"
 
       else
 
-        NotifyViaSlack.call(content: "<@vic-l> ERROR UnsubscribeFromTengence Braintree::Subscription.cancel\r\n#{result.errors.map(&:message).join("\r\n")}")
+        NotifyViaSlack.delay.call(content: "<@vic-l> ERROR UnsubscribeFromTengence Braintree::Subscription.cancel\r\n#{result.errors.map(&:message).join("\r\n")}")
 
         response = "flash[:alert] = 'Error!\r\n#{result.errors.map(&:message).join("\r\n")}';"
         response += "redirect_to :back"
@@ -34,7 +34,7 @@ class UnsubscribeFromTengence
       response = "flash[:alert] = 'An error occurred. Our developers are notified and are currently working on it. Thank you for your patience.';"
       response += "redirect_to :back"
 
-      NotifyViaSlack.call(content: "<@vic-l> RESCUE UnsubscribeFromTengence\r\n#{e.message.to_s}\r\n#{e.backtrace.join("\r\n")}")
+      NotifyViaSlack.delay.call(content: "<@vic-l> RESCUE UnsubscribeFromTengence\r\n#{e.message.to_s}\r\n#{e.backtrace.join("\r\n")}")
     
     ensure
       return response

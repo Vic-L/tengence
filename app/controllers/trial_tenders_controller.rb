@@ -6,7 +6,7 @@ class TrialTendersController < ApplicationController
         if tender.persisted?
           render json: {statusCode: 'success',trial_tender_ids: current_user.trial_tender_ids}.to_json
         else
-          NotifyViaSlack.call(content: "<@vic-l> ERROR TrialTendersController#create\r\n#{current_user.email} trial tender #{params[:ref_no]}\r\n#{tender.errors.full_messages.to_sentence}")
+          NotifyViaSlack.delay.call(content: "<@vic-l> ERROR TrialTendersController#create\r\n#{current_user.email} trial tender #{params[:ref_no]}\r\n#{tender.errors.full_messages.to_sentence}")
           render json: 'error trial_tenders controller#create', status: 400
         end
       else

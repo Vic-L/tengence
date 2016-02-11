@@ -32,7 +32,7 @@ class GetKeywordsTenders
 
       return [@tenders, @current_page, @total_pages, @limit_value, @last_page, @results_count, @watched_tender_ids]
     rescue => e
-      NotifyViaSlack.call(content: "<@vic-l> Error GetKeywordsTenders.rb\r\n#{e.message}\r\n#{e.backtrace.to_s}")
+      NotifyViaSlack.delay.call(content: "<@vic-l> Error GetKeywordsTenders.rb\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     end
 
   end

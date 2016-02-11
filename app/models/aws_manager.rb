@@ -26,6 +26,7 @@ class AwsManager
   end
 
   def self.search keyword:, cursor: nil
+    keyword.downcase!
     Rails.cache.fetch("AWSCloudSearch-#{keyword}") {
       client = Aws::CloudSearchDomain::Client.new(endpoint: ENV['AWS_CLOUDSEARCH_SEARCH_ENDPOINT'])
       resp = client.search({

@@ -84,3 +84,4 @@ gem 'paperclip', :git=> 'https://github.com/thoughtbot/paperclip', :ref => '523b
 gem 'selenium-webdriver', '~> 2.48.0'
 gem 'react-rails', '~> 1.5.0'
 gem 'metamagic', '~> 3.1.7'
+gem 'dalli', '~> 2.7.5'

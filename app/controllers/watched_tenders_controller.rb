@@ -8,7 +8,7 @@ class WatchedTendersController < ApplicationController
     @current_tenders_count = CurrentTender.count
     # unless params['query'].blank?
     #   @type = params['type']
-    #   results_ref_nos = AwsManager.search(keyword: params['query'].downcase)
+    #   results_ref_nos = AwsManager.search(keyword: params['query'])
       
     #   results_ref_nos = results_ref_nos & current_user.watched_tenders.pluck(:tender_id)
       

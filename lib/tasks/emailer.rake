@@ -14,7 +14,7 @@ namespace :emailer do
         results_ref_nos = []
         user.keywords.split(",").each do |keyword|
           # get tenders for each keyword belonging to a user
-          results_ref_nos << AwsManager.search(keyword: keyword.downcase)
+          results_ref_nos << AwsManager.search(keyword: keyword)
         end
         results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
 
@@ -53,7 +53,7 @@ namespace :emailer do
         results_ref_nos = []
         user.keywords.split(",").each do |keyword|
           # get tenders for each keyword belonging to a user
-          results_ref_nos << AwsManager.search(keyword: keyword.downcase)
+          results_ref_nos << AwsManager.search(keyword: keyword)
         end
         results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
 

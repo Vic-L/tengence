@@ -43,18 +43,19 @@ namespace :deploy do
   after "deploy", "deploy:restart"
   after "deploy", "nginx:restart"
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
+  # after :restart, :clear_cache do
+  #   on roles(:web), in: :groups, limit: 3, wait: 10 do
+  #     # Here we can do anything such as:
+  #     # within release_path do
+  #     #   execute :rake, 'cache:clear'
+  #     # end
+  #   end
+  # end
 
 end
 
 namespace :maintenance do
+
   task :cleanup_past_tenders do
     on roles(:app) do
       within release_path do
@@ -64,4 +65,15 @@ namespace :maintenance do
       end
     end
   end
+
+  task :refresh_cache do
+    on roles(:app) do
+      within release_path do
+        with :rails_env => fetch(:rails_env) do
+          execute :rake, "maintenance:refresh_cache"
+        end
+      end
+    end
+  end
+  
 end

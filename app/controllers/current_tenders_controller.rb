@@ -7,7 +7,7 @@ class CurrentTendersController < ApplicationController
   def index
     @current_tenders_count = CurrentTender.count
     # unless params['query'].blank?
-    #   results_ref_nos = AwsManager.search(keyword: params['query'])
+    #   results_ref_nos = AwsManager.search(keyword: params['query'].downcase)
     #   tenders = CurrentTender.includes(:users).where(ref_no: results_ref_nos)
     #   @tenders = tenders.page(params[:page]).per(50)
     #   @results_count = tenders.count

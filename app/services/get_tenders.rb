@@ -11,10 +11,7 @@ class GetTenders
     begin
       set_sort_order
       unless params['query'].blank?
-        results = AwsManager.search(keyword: params['query'])
-        results_ref_nos = results.hits.hit.map do |result|
-          result.fields["ref_no"][0]
-        end
+        results_ref_nos = AwsManager.search(keyword: params['query'])
         
         results_ref_nos = results_ref_nos & user.watched_tenders.pluck(:tender_id) if only_watched_tenders?
 

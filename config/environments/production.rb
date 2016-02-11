@@ -15,7 +15,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # use dalli store
-  config.cache_store = :dalli_store
+  config.cache_store = :dalli_store, 'localhost', { :namespace => "Tengence", :expires_in => 2.days, pool_size: 20 }
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.

@@ -215,6 +215,11 @@ ul#tenders-drop {
 Navigation
 =============================================== */
 header {
+
+	ul {
+		text-align: left;
+	}
+
 	li.active a{
 		color: #386ec4;
 	}
@@ -238,26 +243,45 @@ header {
 	.menu-toggle-button, .menu-toggle-button.active {
 		color: black
 	}
+
+	label.free-trial {
+		background: yellow;
+		position: absolute;
+		right: 0;
+		bottom: -9px;
+		font-weight: bold;
+		padding: 2px 5px;
+		font-size: 12px;
+		border-radius: 5px;
+		margin: 0;
+	}
+
 }
 
 header.shrink {
+
 	ul.menu-list>li>a {
 		color:#fff;
 	}
+
 	ul.menu-list>li>a:hover {
 		color:#386ec4
 	}
+	
 	.header-logo a:link,
 	.header-logo a:visited {
 		color: #fff;
 	}
+	
 	.header-logo a:hover,
 	.header-logo a:link:hover, {
 		color: #386ec4;
 	}
+	
 	.menu-toggle-button, .menu-toggle-button.active {
 		color: white
 	}
+
 }
 
 
@@ -1042,9 +1066,16 @@ Media Query
 		bottom:-7px;
 	}
 	header {
+
 		ul.menu-list li a {
 			color: white;
 		}
+
+		label.free-trial {
+			bottom: 4px;
+			right: 4px;
+		}
+
 	}
 	section{
 		padding:84px 0px;

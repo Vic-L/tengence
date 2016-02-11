@@ -31,7 +31,7 @@ var KeywordsTendersForm = React.createClass({
       <div className='row'>
         {notice}
         <div className="small-8 columns small-centered text-center">
-          <span>Your keywords:</span>
+          <span>Your keywords (Note: separate keywords with comma)</span>
           <textarea id=' keywords' rows='3' name="keywords" id="keywords" placeholder="Enter up to 20 keywords separated by commas, eg. jurong,maintenance, event" defaultValue={this.props.keywords} onKeyDown={this.submitKeywords}>
           </textarea>
           <button id='submit' onClick={this.handleClick}>UPDATE</button>

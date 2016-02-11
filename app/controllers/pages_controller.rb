@@ -32,6 +32,9 @@ class PagesController < ApplicationController
     rescue => e
       NotifyViaSlack.call(content: "Error when refreshing cloudsearch:\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     ensure
+      Tengence::Application.load_tasks
+      Rake::Task['maintenance:refresh_cache'].reenable
+      Rake::Task['maintenance:refresh_cache'].invoke
       render json: "success".to_json
     end
   end

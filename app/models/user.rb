@@ -49,11 +49,11 @@ class User < ActiveRecord::Base
   end
 
   def subscribed?
-    braintree_subscription_id && !next_billing_date
+    !braintree_subscription_id.blank? && !next_billing_date
   end
 
   def unsubscribed?
-    braintree_subscription_id && !!next_billing_date
+    !braintree_subscription_id.blank? && !!next_billing_date
   end
 
   def can_resubscribe?

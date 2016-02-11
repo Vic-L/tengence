@@ -1,10 +1,10 @@
 module BrainTreeHelper
   def days_left time
-    exhausted_days = Time.now - time
-    if exhausted_days > 30.days
+    exhausted_time = (Time.current - time).abs
+    if exhausted_time > 30.days.to_i
       "0"
     else
-      "#{distance_of_time_in_words(30.days - exhausted_days)}"
+      "#{distance_of_time_in_words(30.days.to_i - exhausted_time)}"
     end
   end
 
@@ -26,4 +26,14 @@ module BrainTreeHelper
   def billing_period subscription_details
     "#{(Date.parse(subscription_details.billing_period_start_date)).strftime('%d %b %Y')} - #{(Date.parse(subscription_details.billing_period_end_date)).strftime('%d %b %Y')}"
   end
+
+  # def header_label user
+  #   if user.yet_to_subscribe?
+  #     "<label class='free-trial'>#{days_left(user.created_at)} left</label>".html_safe
+  #   elsif user.can_resubscribe?
+  #     "<label class='free-trial'>free</label>".html_safe
+  #   elsif user.unsubscribed?
+  #     "<label class='free-trial'>#{days_left(user.next_billing_date.to_time)} left</label>".html_safe
+  #   end
+  # end
 end

@@ -288,7 +288,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
 
 <%= render partial: 'layouts/emails/footer_wave' %>
 <% unless @subject.include?("TA") %>
-  <img src="https://www.google-analytics.com/collect?v=1&t=event&ec=email&ea=open&tid=UA-70909252-1&cid=alert_email_<%= Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') %>&dt=<%= @subject %>&dh=www.tengence.com.sg&dp=%2Falert_email_<%= Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') %>_<%= @user.hashed_email%>"/>
+  <img src="https://www.google-analytics.com/collect?v=1&t=event&ec=email&ea=open&tid=UA-70909252-1&el=alert_email-<%= Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') %>-<%= @user.hashed_email%>&cid=alert_email_<%= Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') %>&dt=<%= @subject %>&dh=www.tengence.com.sg&dp=%2Falert_email-<%= Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') %>-<%= @user.hashed_email%>"/>
 <% end %>
 
 </div>

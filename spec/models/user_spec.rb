@@ -22,7 +22,7 @@ feature User, type: :model do
   it { should_not callback(:hash_email).before(:save) }
 
   let!(:user) { create(:user, :read_only) }
-
+  let(:write_only_user) { create(:user, :write_only) }
   let(:tender) { create(:gebiz_tender) }
 
   feature 'validations' do
@@ -155,6 +155,16 @@ feature User, type: :model do
       expect(user.trial_tenders.count).to eq 0
       TrialTender.create(user_id: user.id, tender_id: tender.ref_no)
       expect(user.reload.trial_tenders.count).to eq 1
+    end
+
+    scenario 'read_only?' do
+      expect(user.read_only?).to eq true
+      expect(write_only_user.read_only?).to eq false
+    end
+
+    scenario 'write_only?' do
+      expect(user.write_only?).to eq false
+      expect(write_only_user.write_only?).to eq true
     end
 
   end

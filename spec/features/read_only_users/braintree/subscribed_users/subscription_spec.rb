@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'subscription', type: :feature, js: true do
   let(:brain_tree_page) { BrainTreePage.new }
-  let!(:subscribed_user) {create(:user, :read_only, :subscribed)}
+  let!(:subscribed_user) {create(:user, :read_only, :subscribed_one_month)}
 
   feature 'change payment' do
     before :each do

@@ -41,7 +41,7 @@ FactoryGirl.define do
     end
   end
 
-  trait :subscribed do
+  trait :subscribed_one_month do
     # has braintree_subscription_id
     # dont have next_billing_date
     before :create do |user|
@@ -63,14 +63,13 @@ FactoryGirl.define do
       user.default_payment_method_token = result.payment_method.token
       result = Braintree::Subscription.create(
         :payment_method_token => result.payment_method.token,
-        :plan_id => "standard_plan",
-        # :merchant_account_id => "gbp_account"
+        :plan_id => "one_month_plan"
       )
       user.braintree_subscription_id = result.subscription.id
     end
   end
 
-  trait :unsubscribed do
+  trait :unsubscribed_one_month do
     # has braintree_subscription_id
     # has next_billing_date
     # next_billing_date is past
@@ -93,8 +92,7 @@ FactoryGirl.define do
       user.default_payment_method_token = result.payment_method.token
       result = Braintree::Subscription.create(
         :payment_method_token => result.payment_method.token,
-        :plan_id => "standard_plan",
-        # :merchant_account_id => "gbp_account"
+        :plan_id => "one_month_plan"
       )
       user.braintree_subscription_id = result.subscription.id
       user.next_billing_date = result.subscription.next_billing_date

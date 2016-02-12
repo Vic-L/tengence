@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'trial_tenders', type: :feature, js: true do
   let(:tenders_page) { TendersPage.new }
-  let!(:subscribed_user) { create(:user, :subscribed) }
+  let!(:subscribed_user) { create(:user, :subscribed_one_month) }
 
   before :each do
     login_as(subscribed_user, scope: :user)

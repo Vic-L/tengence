@@ -32,7 +32,8 @@ feature "home_page", type: :feature, js: true do
       expect(ActionMailer::Base.deliveries.count).to eq 0
       home_page.fill_up_demo_email_form
       home_page.click_common '.email-demo-submit-button'
-      expect {home_page.click_common '.email-demo-submit-button'}.to change( Sidekiq::Worker.jobs, :size ).by(1)
+      expect {home_page.click_common '.email-demo-submit-button'}.to change( Sidekiq::Worker.jobs, :size ).by(2)
+      # 1 is slack ping
     end
 
     scenario 'invalid email' do
@@ -65,7 +66,8 @@ feature "home_page", type: :feature, js: true do
       home_page.submit_contacts_form
       wait_for_ajax
 
-      expect(Sidekiq::Worker.jobs.size).to eq 1
+      expect(Sidekiq::Worker.jobs.size).to eq 2
+      # 1 is slack ping
       expect(page).not_to have_content 'Please fill up all fields.'
       expect(page).to have_content 'Email Sent Successfully.'
       expect(page).to have_content 'your message has been submitted to us.'

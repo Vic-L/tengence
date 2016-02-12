@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'subscription', type: :feature, js: true do
   let(:brain_tree_page) { BrainTreePage.new }
-  let!(:unsubscribed_user) {create(:user, :read_only, :unsubscribed)}
+  let!(:unsubscribed_user) {create(:user, :read_only, :unsubscribed_one_month)}
 
   feature 'resubscribe' do
 

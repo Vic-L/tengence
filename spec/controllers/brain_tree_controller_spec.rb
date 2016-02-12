@@ -2,8 +2,8 @@ require 'spec_helper'
 
 feature BrainTreeController, type: :controller do
   let!(:yet_to_subscribe_user) { create(:user, :braintree) }
-  let!(:subscribed_user) { create(:user, :braintree, :subscribed) }
-  let!(:unsubscribed_user) { create(:user, :braintree, :unsubscribed) }
+  let!(:subscribed_user) { create(:user, :braintree, :subscribed_one_month) }
+  let!(:unsubscribed_user) { create(:user, :braintree, :unsubscribed_one_month) }
 
   feature 'GET billing' do
 

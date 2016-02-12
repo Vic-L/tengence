@@ -25,8 +25,7 @@ class SubscribeToTengence
         
         result = Braintree::Subscription.create(
           :payment_method_token => result.payment_method.token,
-          :plan_id => "standard_plan",
-          # :merchant_account_id => "gbp_account"
+          :plan_id => "one_month_plan",
         )
 
         if result.success?

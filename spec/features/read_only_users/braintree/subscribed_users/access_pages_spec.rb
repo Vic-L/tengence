@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "access pages by subscribed read_only users" do
   let(:brain_tree_page) { BrainTreePage.new }
-  let!(:subscribed_user) {create(:user, :read_only, :subscribed)}
+  let!(:subscribed_user) {create(:user, :read_only, :subscribed_one_month)}
 
   feature 'billing page' do
     

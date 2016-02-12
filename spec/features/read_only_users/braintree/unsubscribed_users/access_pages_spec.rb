@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "access pages by read_only resubscribe users" do
   let(:brain_tree_page) { BrainTreePage.new }
-  let!(:unsubscribed_user) {create(:user, :read_only, :unsubscribed)}
+  let!(:unsubscribed_user) {create(:user, :read_only, :unsubscribed_one_month)}
   
   before :each do
     login_as(unsubscribed_user, scope: :user)

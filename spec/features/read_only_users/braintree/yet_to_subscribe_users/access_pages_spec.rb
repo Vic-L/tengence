@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "access pages by read_only unsubscribed users" do
+feature "access pages by read_only yet_to_subscribe users" do
   let(:brain_tree_page) { BrainTreePage.new }
   let!(:yet_to_subscribe_user) {create(:user, :read_only, :braintree)}
 

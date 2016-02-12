@@ -81,8 +81,8 @@ feature User, type: :model do
 
     let!(:unconfirmed_user) { create(:user, :unconfirmed) }
     let!(:pending_reconfirmation_user) { create(:user, :pending_reconfirmation) }
-    let!(:subscribed_user) { create(:user, :subscribed) }
-    let!(:unsubscribed_user) { create(:user, :unsubscribed) }
+    let!(:subscribed_user) { create(:user, :subscribed_one_month) }
+    let!(:unsubscribed_user) { create(:user, :unsubscribed_one_month) }
 
     scenario 'name' do
       expect(user.name).to eq "#{user.first_name} #{user.last_name}"

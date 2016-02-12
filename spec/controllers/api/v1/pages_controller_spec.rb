@@ -72,7 +72,7 @@ feature Api::V1::PagesController, type: :controller do
           format: :json,
           demo_email: Faker::Internet.email
         }
-        expect(Sidekiq::Worker.jobs.size).to eq 1
+        expect(Sidekiq::Worker.jobs.size).to eq 2 # one from slack notification
       end
     end
 

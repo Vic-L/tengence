@@ -24,7 +24,9 @@ class User < ActiveRecord::Base
   validates_with KeywordsValidator
   validates_presence_of :first_name, :last_name # , :email -> email already validated by devise
 
-  scope :confirmed, -> {where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')")}
+  scope :confirmed, -> { where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')") }
+  scope :read_only, -> { where(access_level: 'read_only') }
+  scope :write_only, -> { where(access_level: 'write_only') }
 
   before_create :hash_email
   after_commit :register_braintree_customer, on: :create

@@ -22,7 +22,7 @@ feature User, type: :model do
   it { should_not callback(:hash_email).before(:save) }
 
   let!(:user) { create(:user, :read_only) }
-  let(:write_only_user) { create(:user, :write_only) }
+  let!(:write_only_user) { create(:user, :write_only) }
   let(:tender) { create(:gebiz_tender) }
 
   feature 'validations' do
@@ -64,6 +64,31 @@ feature User, type: :model do
         user = create(:user, :read_only, unconfirmed_email: '')
         expect(User.confirmed.include? user).to eq true
       end
+
+    end
+
+    feature 'read_only' do
+
+      scenario 'should not include write_only_user' do
+        expect(User.read_only.all.include?(write_only_user)).to eq false
+      end
+
+      scenario 'should include read_only_user' do
+        expect(User.read_only.all.include?(user)).to eq true
+      end
+
+    end
+
+    feature 'write_only' do
+
+      scenario 'should include write_only_user' do
+        expect(User.write_only.all.include?(write_only_user)).to eq true
+      end
+
+      scenario 'should not include read_only_user' do
+        expect(User.write_only.all.include?(user)).to eq false
+      end
+
     end
 
   end

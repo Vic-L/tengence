@@ -1,105 +1,106 @@
-#wrapper
+- cache 'faq', expires_in: 1.month do
+  #wrapper
 
-  %section#faq-billing
+    %section#faq-billing
 
-    .row
-      .small-12.column
-        .subtitle
-          %h2
-            FAQ <span class='color'>-</span> Subscription
-          %p Here are some common questions that we have been getting from our clients.
+      .row
+        .small-12.column
+          .subtitle
+            %h2
+              FAQ <span class='color'>-</span> Subscription
+            %p Here are some common questions that we have been getting from our clients.
 
-    .row
-      .small-12.column
-        %ul.accordion{data: {accordion: "billingAccordion", options: "multi_expand:true;toggleable: true"}}
+      .row
+        .small-12.column
+          %ul.accordion{data: {accordion: "billingAccordion", options: "multi_expand:true;toggleable: true"}}
 
-          %li.accordion-navigation
-            %a{:href => "#faq-billing-cost"} How much is the service provided by Tengence?
-            #faq-billing-cost.content
-              %p Tengence run on a monthly subscription of 50 USD. The actual price in SGD varies according to the exchange rate between the 2 currencies (administrative fees may apply).
+            %li.accordion-navigation
+              %a{:href => "#faq-billing-cost"} How much is the service provided by Tengence?
+              #faq-billing-cost.content
+                %p Tengence run on a monthly subscription of 50 USD. The actual price in SGD varies according to the exchange rate between the 2 currencies (administrative fees may apply).
 
-          %li.accordion-navigation
-            %a{:href => "#faq-billing-security"} Will our company credit card information with Tengence be secured?
-            #faq-billing-security.content
-              %p Tengence is certified by RapidSSL and encrypts your information before sending them across the Internet to our 
-              %p Tengence follows the Payment Card Industry Data Security Standard (PCI DSS), as required by our 3rd party payment system vendor, Braintree, which is a highly reliable electronics payment subsidiary under PayPal®.
-              %p Tengence will not store your credit card information on our servers but in Braintree's vault.
-              %p Click the badge below to view our verfication seal credited under Braintree.
-              %p
-                %a{href: "https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified", target: "_blank"}
-                  = image_tag "https://s3.amazonaws.com/braintree-badges/braintree-badge-dark.png", width: "164px", height: "44px", border: "0"
+            %li.accordion-navigation
+              %a{:href => "#faq-billing-security"} Will our company credit card information with Tengence be secured?
+              #faq-billing-security.content
+                %p Tengence is certified by RapidSSL and encrypts your information before sending them across the Internet to our 
+                %p Tengence follows the Payment Card Industry Data Security Standard (PCI DSS), as required by our 3rd party payment system vendor, Braintree, which is a highly reliable electronics payment subsidiary under PayPal®.
+                %p Tengence will not store your credit card information on our servers but in Braintree's vault.
+                %p Click the badge below to view our verfication seal credited under Braintree.
+                %p
+                  %a{href: "https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified", target: "_blank"}
+                    = image_tag "https://s3.amazonaws.com/braintree-badges/braintree-badge-dark.png", width: "164px", height: "44px", border: "0"
 
-          %li.accordion-navigation
-            %a{:href => "#faq-billing-trial"} How long is the free trial?
-            #faq-billing-trial.content
-              %p Free trial starts 1 month from the time of registration.
+            %li.accordion-navigation
+              %a{:href => "#faq-billing-trial"} How long is the free trial?
+              #faq-billing-trial.content
+                %p Free trial starts 1 month from the time of registration.
 
-          %li.accordion-navigation
-            %a{:href => "#faq-billing-payment-method"} Alternative payment methods?
-            #faq-billing-payment-method.content
-              %p We only accept credit card payments for now (MasterCard and Visa).
+            %li.accordion-navigation
+              %a{:href => "#faq-billing-payment-method"} Alternative payment methods?
+              #faq-billing-payment-method.content
+                %p We only accept credit card payments for now (MasterCard and Visa).
 
-          %li.accordion-navigation
-            %a{:href => "#faq-billing-tier"} My company does not use Tengence's service frequently, but will still like to be part of the community. Is there a free tier?
-            #faq-billing-tier.content
-              %p Yes there is. Our free tier starts right after the end of the free trial period should our clients not wish to subscribe to our services. Clients under free trial can only see the full details of a tender up to a limit of 3 for a day. The limit will be reset the next working day.
+            %li.accordion-navigation
+              %a{:href => "#faq-billing-tier"} My company does not use Tengence's service frequently, but will still like to be part of the community. Is there a free tier?
+              #faq-billing-tier.content
+                %p Yes there is. Our free tier starts right after the end of the free trial period should our clients not wish to subscribe to our services. Clients under free trial can only see the full details of a tender up to a limit of 3 for a day. The limit will be reset the next working day.
 
-  %section#faq-plans.dark
+    %section#faq-plans.dark
 
-    .row
-      .small-12.column
-        .subtitle.white
-          %h2
-            FAQ <span class='color'>-</span> Plans and Features
-          %p.white Here are some upcoming features that Tengence is looking to add.
-          %p.white We will love to hear feedbacks on these features, as well as any new features that our clients will love to have.
+      .row
+        .small-12.column
+          .subtitle.white
+            %h2
+              FAQ <span class='color'>-</span> Plans and Features
+            %p.white Here are some upcoming features that Tengence is looking to add.
+            %p.white We will love to hear feedbacks on these features, as well as any new features that our clients will love to have.
 
-    .row
-      .small-12.column
-        %ul.accordion{data: {accordion: "planAccordion", options: "multi_expand:true;toggleable: true"}}
+      .row
+        .small-12.column
+          %ul.accordion{data: {accordion: "planAccordion", options: "multi_expand:true;toggleable: true"}}
 
-          %li.accordion-navigation
-            %a{:href => "#faq-plans-what"} What is Tengence?
-            #faq-plans-what.content
-              %p Tengence seeks to become the platform where ALL business dealings can be made with ease. We seek to facilitate the whole process of getting business leads, as well as creating business leads.
-              %p As our client, we want you to be able to get all tenders there possibly are in Singapore and never lose out any oppportunities, without having to actively do any more Google searches for potential clients; We want to bring business to you.
-              %p And soon enough, we want you to be able to request for quotations and tenders with a simple post. and say goodbye to inefficient Googling and GreenBooking for potential buyers/suppliers.
-              %p All of this in just a single platform for 
+            %li.accordion-navigation
+              %a{:href => "#faq-plans-what"} What is Tengence?
+              #faq-plans-what.content
+                %p Tengence seeks to become the platform where ALL business dealings can be made with ease. We seek to facilitate the whole process of getting business leads, as well as creating business leads.
+                %p As our client, we want you to be able to get all tenders there possibly are in Singapore and never lose out any oppportunities, without having to actively do any more Google searches for potential clients; We want to bring business to you.
+                %p And soon enough, we want you to be able to request for quotations and tenders with a simple post. and say goodbye to inefficient Googling and GreenBooking for potential buyers/suppliers.
+                %p All of this in just a single platform for 
 
-          %li.accordion-navigation
-            %a{:href => "#faq-plans-pros"} What is it in for me and/or my company?
-            #faq-plans-pros.content
-              %p Tengence is building a community and network for businesses in Singapore. We sincerely wish you will come on board in exchange for contacts with the growing community of businesses, for more business leads and for the ease of getting them.
+            %li.accordion-navigation
+              %a{:href => "#faq-plans-pros"} What is it in for me and/or my company?
+              #faq-plans-pros.content
+                %p Tengence is building a community and network for businesses in Singapore. We sincerely wish you will come on board in exchange for contacts with the growing community of businesses, for more business leads and for the ease of getting them.
 
-          %li.accordion-navigation
-            %a{:href => "#faq-plans-chat"} Upcoming feature - Chat?
-            #faq-plans-chat.content
-              %p Our team has experience with procurements and we are sick of the Q&A emails with our buyers/suppliers. What is worse is most of them are the same repeated questions. What is worst is we are going to do business with only one of them; one.
-              %p On Tengence, we want you to be able to post their job descriptions, and bring the buyers/suppliers to your doorstep. No more active Googling or GrrenBooking on your part to find them; leave this to Tengence and our community to find you, and more importantly, make better use of your time.
-              %p We will love to hear your opinions on this feature. Talk to us. Leave us your feedback/opinions in <a href='#contacts'>contact us section below</a>. We greatly apreciate it.
-              %p If you have another feature or problem that you will like Tengence to have, feel free to ping us in the <a href='#contacts'>contact us section below</a>.
+            %li.accordion-navigation
+              %a{:href => "#faq-plans-chat"} Upcoming feature - Chat?
+              #faq-plans-chat.content
+                %p Our team has experience with procurements and we are sick of the Q&A emails with our buyers/suppliers. What is worse is most of them are the same repeated questions. What is worst is we are going to do business with only one of them; one.
+                %p On Tengence, we want you to be able to post their job descriptions, and bring the buyers/suppliers to your doorstep. No more active Googling or GrrenBooking on your part to find them; leave this to Tengence and our community to find you, and more importantly, make better use of your time.
+                %p We will love to hear your opinions on this feature. Talk to us. Leave us your feedback/opinions in <a href='#contacts'>contact us section below</a>. We greatly apreciate it.
+                %p If you have another feature or problem that you will like Tengence to have, feel free to ping us in the <a href='#contacts'>contact us section below</a>.
 
-  %section#contacts
-    .row
-      .medium-3.small-12.columns.animated{data: {animate: "fadeInDown", animate_delay: '0'}}
-        .title-section
-          %h3
-            %strong Contact Us
-      .medium-9.columns.animated{data: {animate: "fadeInUp", animate_delay: '0'}}
-        .section-desc
-          %h4
-            %strong Talk to us. We are all ears.
-    .row
-      #message
-      = form_tag '/contact_us_email', remote: true, id: 'contactform' do
-        .small-6.columns
-          = text_field_tag "name", nil, placeholder: "Name"
-        .small-6.columns
-          = email_field_tag "contact_email", nil, placeholder: "Email"
-        .small-12.columns
-          = text_area_tag "comments", nil, placeholder: "Message"
-        .small-12.columns.text-center
-          %button#submit{:type => "submit"} SEND
+    %section#contacts
+      .row
+        .medium-3.small-12.columns.animated{data: {animate: "fadeInDown", animate_delay: '0'}}
+          .title-section
+            %h3
+              %strong Contact Us
+        .medium-9.columns.animated{data: {animate: "fadeInUp", animate_delay: '0'}}
+          .section-desc
+            %h4
+              %strong Talk to us. We are all ears.
+      .row
+        #message
+        = form_tag '/contact_us_email', remote: true, id: 'contactform' do
+          .small-6.columns
+            = text_field_tag "name", nil, placeholder: "Name"
+          .small-6.columns
+            = email_field_tag "contact_email", nil, placeholder: "Email"
+          .small-12.columns
+            = text_area_tag "comments", nil, placeholder: "Message"
+          .small-12.columns.text-center
+            %button#submit{:type => "submit"} SEND
 
 - content_for :javascript do
   :javascript

@@ -24,12 +24,6 @@ class User < ActiveRecord::Base
   validates_with KeywordsValidator
   validates_presence_of :first_name, :last_name # , :email -> email already validated by devise
 
-  include AASM
-  aasm column: :access_level do
-    state :read_only, :initial => true
-    state :write_only
-  end
-
   scope :confirmed, -> {where("confirmed_at IS NOT NULL AND (unconfirmed_email IS NULL OR unconfirmed_email = '')")}
 
   before_create :hash_email
@@ -78,6 +72,14 @@ class User < ActiveRecord::Base
 
   def braintree
     Braintree::Customer.find(self.braintree_customer_id)
+  end
+
+  def write_only?
+    access_level == 'write_only'
+  end
+
+  def read_only?
+    access_level == 'read_only'
   end
 
   def braintree_payment_methods

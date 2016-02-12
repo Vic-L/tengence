@@ -144,6 +144,7 @@ GEM
     concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
     daemons (1.2.3)
+    dalli (2.7.5)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
@@ -406,6 +407,8 @@ DEPENDENCIES
   capistrano3-nginx (~> 2.0)
   capybara
   coffee-rails (~> 4.1.0)
+  connection_pool (~> 2.2.0)
+  dalli (~> 2.7.5)
   database_cleaner
   devise (~> 3.5.2)
   dotenv-rails (~> 2.0.2)

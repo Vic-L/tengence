@@ -6,10 +6,7 @@ class PastTendersController < ApplicationController
 
   def index
     # unless params['query'].blank?
-    #   results = AwsManager.search(keyword: params['query'])
-    #   results_ref_nos = results.hits.hit.map do |result|
-    #     result.fields["ref_no"][0]
-    #   end
+    #   results_ref_nos = AwsManager.search(keyword: params['query'])
     #   tenders = PastTender.includes(:users).where(ref_no: results_ref_nos)
     #   @tenders = tenders.page(params[:page]).per(50)
     #   @results_count = @tenders.count

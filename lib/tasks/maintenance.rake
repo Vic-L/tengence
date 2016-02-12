@@ -31,4 +31,15 @@ namespace :maintenance do
       end
     end
   end
+
+  task :refresh_cache => :environment do
+    Rails.cache.clear
+    keywords = User.pluck(:keywords).flatten.compact.uniq.join(',')
+    results_ref_nos = []
+    keywords.split(',').each do |keyword|
+      results_ref_nos << AwsManager.search(keyword: keyword.strip.downcase)
+    end
+    results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
+  end
+
 end

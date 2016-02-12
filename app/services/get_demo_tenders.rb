@@ -8,10 +8,7 @@ class GetDemoTenders
   def call
     begin
       unless params['query'].blank?
-        results = AwsManager.search(keyword: params['query'])
-        results_ref_nos = results.hits.hit.map do |result|
-          result.fields["ref_no"][0]
-        end
+        results_ref_nos = AwsManager.search(keyword: params['query'])
 
         eval("@tenders = #{table}.where(ref_no: results_ref_nos).order(published_date: :desc)")
         @results_count = @tenders.count

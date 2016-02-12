@@ -14,5 +14,9 @@ class AddSingleTenderToCloudsearchWorker
     puts hash.to_s
     AwsManager.upload_document [hash].to_json
     NotifyViaSlack.call(content: "<@ganther> New Tender Posted\r\nwww.tengence.com.sg/admin/tender/#{ref_no}") if Rails.env.production?
+
+    Tengence::Application.load_tasks
+    Rake::Task['maintenance:refresh_cache'].reenable
+    Rake::Task['maintenance:refresh_cache'].invoke
   end
 end

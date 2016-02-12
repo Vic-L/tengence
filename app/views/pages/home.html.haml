@@ -3,195 +3,193 @@
   
 - meta title: "Tengence - We Track Tenders (Gebiz, Sesami, Ariba and More)"
 
-%section#main-slider
-  #slider
-    .slider-cont.parallax-background.bg1
-      .bg-overlay
-      .slider-caption.slider-caption-center
-        %h1{"data-caption-animate" => "fadeInUp"}
-          %span We Track Tenders (Gebiz, Sesami, Ariba and More)
-        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} To bring you business opportunities
-    .slider-cont.parallax-background.bg2
-      .bg-overlay
-      .slider-caption.slider-caption-center
-        %h2{"data-caption-animate" => "fadeInUp"}
-          %span Get Email Alerts
-        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Receive email alerts for potential business leads
-    .slider-cont.parallax-background.bg3
-      .bg-overlay
-      .slider-caption.slider-caption-center
-        %h2{"data-caption-animate" => "fadeInUp"}
-          %span Exclusive Tenders
-        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders available only on Tengence from our exclusive partners
-    .slider-cont.parallax-background.bg4
-      .bg-overlay
-      .slider-caption.slider-caption-center
-        %h2{"data-caption-animate" => "fadeInUp"}
-          %span 62
-        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders Sources Tracked and Counting
-    .slider-cont.parallax-background.bg5
-      .bg-overlay
-      .slider-caption.slider-caption-center
-        %h2{"data-caption-animate" => "fadeInUp"}
-          -# %span= link_to "Sign Up", new_user_registration_path, class: 'color sign-up-link'
-          -# or
-          -# %span.color= link_to "Login", new_user_session_path
-          %span Stay Informed
-        %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Never missed any more tenders
+- cache 'home main-slider', expires_in: 1.month do
+  %section#main-slider
+    #slider
+      .slider-cont.parallax-background.bg1
+        .bg-overlay
+        .slider-caption.slider-caption-center
+          %h1{"data-caption-animate" => "fadeInUp"}
+            %span We Track Tenders (Gebiz, Sesami, Ariba and More)
+          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} To bring you business opportunities
+      .slider-cont.parallax-background.bg2
+        .bg-overlay
+        .slider-caption.slider-caption-center
+          %h2{"data-caption-animate" => "fadeInUp"}
+            %span Get Email Alerts
+          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Receive email alerts for potential business leads
+      .slider-cont.parallax-background.bg3
+        .bg-overlay
+        .slider-caption.slider-caption-center
+          %h2{"data-caption-animate" => "fadeInUp"}
+            %span Exclusive Tenders
+          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders available only on Tengence from our exclusive partners
+      .slider-cont.parallax-background.bg4
+        .bg-overlay
+        .slider-caption.slider-caption-center
+          %h2{"data-caption-animate" => "fadeInUp"}
+            %span 62
+          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders Sources Tracked and Counting
+      .slider-cont.parallax-background.bg5
+        .bg-overlay
+        .slider-caption.slider-caption-center
+          %h2{"data-caption-animate" => "fadeInUp"}
+            %span Stay Informed
+          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Never missed any more tenders
 
-%section#how-it-works
-  .row
-    .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-      .title-section
-        %h3
-          %strong How It Works
-    .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-      .section-desc
-        %h4
-          %strong We track tenders and notify you whenever you have related tender opportunities. Find out more below.
-  .row
-    .medium-6.columns
-      %a.service{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')"}
-        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'track', gtm_label: "how-it-works"}}
-          %i.fa.fa-binoculars.icon
-          %h3 Track Tenders
-          %p We Track Tender Opportunities from >60 Sources in Singapore. Some of Our Sources include: Gebiz, Sesami and Ariba. View the Full List Below!
-    .medium-6.columns
-      %a.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
-        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'alerts', gtm_label: "how-it-works"}}
-          %i.fa.fa-envelope.icon
-          %h3 Alerts
-          %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
-  .row
-    .medium-6.columns
-      %a.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
-        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'watch', gtm_label: "how-it-works"}}
-          %i.fa.fa-eye.icon
-          %h3 Watch
-          %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
-    .medium-6.columns
-      %a.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
-        .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'never lose out', gtm_label: "how-it-works"}}
-          %i.fa.fa-globe.icon
-          %h3 Never Lose Out
-          %p Be Updated and Never Miss Out Another Tender
+- cache 'home how-it-works', expires_in: 1.month do
+  %section#how-it-works
+    .row
+      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3
+            %strong How It Works
+      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+        .section-desc
+          %h4
+            %strong We track tenders and notify you whenever you have related tender opportunities. Find out more below.
+    .row
+      .medium-12.columns
+        #services-container.cbp-l-grid-gallery
+          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')"}
+            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'track', gtm_label: "how-it-works"}}
+              %i.fa.fa-binoculars.icon
+              %h3 Track Tenders
+              %p We Track Tender Opportunities from >60 Sources in Singapore. Some of Our Sources include: Gebiz, Sesami and Ariba. View the Full List Below!
+          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
+            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'alerts', gtm_label: "how-it-works"}}
+              %i.fa.fa-envelope.icon
+              %h3 Alerts
+              %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
+          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
+            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'watch', gtm_label: "how-it-works"}}
+              %i.fa.fa-eye.icon
+              %h3 Watch
+              %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
+          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
+            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'never lose out', gtm_label: "how-it-works"}}
+              %i.fa.fa-globe.icon
+              %h3 Never Lose Out
+              %p Be Updated and Never Miss Out Another Tender
 
-%section#sources-and-counting.dark
-  .row
-    .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-      .title-section
-        %h3.sources-count
-          %strong 62
-    .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-      .section-desc
-        %h4.white
-          %strong Number of sources tracked (and counting)
-        %p.white We are working on adding new tender sources daily so as to bring you more business leads.
-  .row
-    .small-12.columns
-      %h4.white List of Tender Sources
-      %ul.white
-        %li https://www.gebiz.gov.sg
-        %li https://hcisingapore.gov.in/pages.php?id=6
-        %li http://www.singaporepools.com.sg/en/tnq/Pages/quotations.aspx
-        %li http://www.singaporepools.com.sg/en/tnq/Pages/tendernotice.aspx
-        %li https://www.sats.com.sg/Tenders/Pages/Tenders.aspx
-        %li https://sg.sesami.net/nhg/businessOpportunities.jsp
-        %li https://sg.sesami.net/cag/businessOpportunities.jsp#
-        %li https://sg.sesami.net/sp/businessOpportunities.jsp
-        %li https://sg.sesami.net/ste/gtprfqlist.jsp?frmPg=Login.jsp&docType=Tender
-        %li.remainder-tender-source https://sg.sesami.net/sia/gtprfqlist.jsp?frmPg=GlobalTradingPostLDAP.jsp
-        %li.remainder-tender-source https://www.sac.gov.sg/announcements/tenders
-        %li.remainder-tender-source http://www.turfclub.com.sg/Corporate/Pages/ITQ.aspx
-        %li.remainder-tender-source http://www.turfclub.com.sg/Corporate/Pages/TenderNotices.aspx
-        %li.remainder-tender-source http://www.sutd.edu.sg/procurement.aspx
-        %li.remainder-tender-source http://www.mohh.com.sg/tenders.html
-        %li.remainder-tender-source https://www.sota.edu.sg/procurement
-        %li.remainder-tender-source http://www.singaporecancersociety.org.sg/SCSTenders.aspx
-        %li.remainder-tender-source https://mybusiness.singtel.com/trading-board
-        %li.remainder-tender-source http://www.ahtc.sg/tender-advertisements/
-        %li.remainder-tender-source http://www.emservices.com.sg/em/tenders-advertisements.aspx
-        %li.remainder-tender-source http://www.btptc.org.sg/Tender/Tender.htm
-        %li.remainder-tender-source http://www.smrt.com.sg/Doing-Business-with-Us/Procurement/Tender-Notice
-        %li.remainder-tender-source http://www.redcross.org.sg/articles/tender
-        %li.remainder-tender-source http://www.mptc.org.sg/index.php/webtender/tender_advertisement/1
-        %li.remainder-tender-source https://www.uwcsea.edu.sg/purchasing
-        %li.remainder-tender-source http://www.tuaspower.com.sg/tender-notice/index.aspx
-        %li.remainder-tender-source https://www.singaporepsa.com/port-users/tender-notices/14-port-services
-        %li.remainder-tender-source https://srm.singaporepower.com.sg/irj/portal/anonymous
-        %li.remainder-tender-source http://www.mediacorp.sg/corporate-en/tendernotices
-        %li.remainder-tender-source http://www.nkfs.org/about-nkf/tender/invitation-to-tender/
-        %li.remainder-tender-source http://www.nkfs.org/about-nkf/tender/invitation-to-quote/
-        %li.remainder-tender-source https://www.sgnic.sg/tenderarchive
-        %li.remainder-tender-source https://service.ariba.com/Discovery.aw/128481036/aw?awh=r&awssk=AFztUy.2&awrdt=1#b0
-        %li.remainder-tender-source https://www.nhcs.com.sg/aboutnhc/tendersrfp/Pages/ITQ.aspx
-        %li.remainder-tender-source https://www.nhcs.com.sg/ABOUTNHC/TENDERSRFP/Pages/Tender.aspx
-        %li.remainder-tender-source http://www.sas.edu.sg/page.cfm?p=1228
-        %li.remainder-tender-source http://isca.org.sg/procurement/
-        %li.remainder-tender-source https://www.nationalgallery.sg/about/about-the-gallery/business-opportunities/current-tender-notices
-        %li.remainder-tender-source https://www.singaporeartmuseum.sg/about/tender_quotes.html
-        %li.remainder-tender-source http://www.sportsschool.edu.sg/GeneralPageDetails.aspx?id=100
-        %li.remainder-tender-source https://www.theartshouse.sg/about-us/business-opportunities/
-        %li.remainder-tender-source http://www.ntfgh.com.sg/JurongHealth/Procurement/Tenders.aspx
-        %li.remainder-tender-source http://www.ntfgh.com.sg/JurongHealth/Procurement/ITQs.aspx
-        %li.remainder-tender-source http://www.spd.org.sg/rfp
-        %li.remainder-tender-source http://dramacentre.com/business-opportunities.html
-        %li.remainder-tender-source http://info.singtel.com/about-us/tenders
-        %li.remainder-tender-source http://gpo.nhg.singhealth.com.sg/tender/gpo/pub/Users/GRFP.asp?Inst_name=MM&Status=Guser
-        %li.remainder-tender-source http://singapore.usembassy.gov/contracting_opportunities.html
-        %li.remainder-tender-source https://www.ihis.com.sg/tenderandrfp/Pages/tenders-and-rfp.aspx
-        %li.remainder-tender-source http://www.philippine-embassy.org.sg/invitation-to-bid-2/
-        %li.remainder-tender-source http://home.ezlink.com.sg/rfp
-        %li.remainder-tender-source http://iits.smu.edu.sg/tender
-        %li.remainder-tender-source https://www.ggspl.com/tenders/
-        %li.remainder-tender-source http://www.senokoenergy.com/tender-notices
-        %li.remainder-tender-source http://www.psamarine.com/tenders.htm
-        %li.remainder-tender-source http://www.singaporecruise.com.sg/index.php/business/tender-notices/
-        %li.remainder-tender-source http://www.apec.org/Projects/Tenders-and-RFPs.aspx
-        %li.remainder-tender-source http://www.renci.org.sg/noticestenders/
-        %li.remainder-tender-source http://app.cias.com.sg/tender.asp
-        %li.remainder-tender-source http://www.sentosa.com.sg/en/about-us/tender-notices/
-      .text-center
-        #show-all.button.active.ga-static-pages{data: {gtm_category: '', gtm_action: 'show full list', gtm_label: "sources-and-counting"}} Show Full List
-        #hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}} Hide Full List
-  .row
-    .small-12.columns
-      %p.white.recommendation Have a tender source that you would like us to track? <a class='ga-static-pages' onClick="Tengence.HomePage.scrollTo('contacts')" data-gtm-category='' data-gtm-action='let us know' data-gtm-label='sources-and-counting'>Let us know</a>!
+- cache 'home sources-and-counting', expires_in: 1.month do
+  %section#sources-and-counting.dark
+    .row
+      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3.sources-count
+            %strong 62
+      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+        .section-desc
+          %h4.white
+            %strong Number of sources tracked (and counting)
+          %p.white We are working on adding new tender sources daily so as to bring you more business leads.
+    .row
+      .small-12.columns
+        %h4.white List of Tender Sources
+        %ul.white
+          %li https://www.gebiz.gov.sg
+          %li https://hcisingapore.gov.in/pages.php?id=6
+          %li http://www.singaporepools.com.sg/en/tnq/Pages/quotations.aspx
+          %li http://www.singaporepools.com.sg/en/tnq/Pages/tendernotice.aspx
+          %li https://www.sats.com.sg/Tenders/Pages/Tenders.aspx
+          %li https://sg.sesami.net/nhg/businessOpportunities.jsp
+          %li https://sg.sesami.net/cag/businessOpportunities.jsp#
+          %li https://sg.sesami.net/sp/businessOpportunities.jsp
+          %li https://sg.sesami.net/ste/gtprfqlist.jsp?frmPg=Login.jsp&docType=Tender
+          %li.remainder-tender-source https://sg.sesami.net/sia/gtprfqlist.jsp?frmPg=GlobalTradingPostLDAP.jsp
+          %li.remainder-tender-source https://www.sac.gov.sg/announcements/tenders
+          %li.remainder-tender-source http://www.turfclub.com.sg/Corporate/Pages/ITQ.aspx
+          %li.remainder-tender-source http://www.turfclub.com.sg/Corporate/Pages/TenderNotices.aspx
+          %li.remainder-tender-source http://www.sutd.edu.sg/procurement.aspx
+          %li.remainder-tender-source http://www.mohh.com.sg/tenders.html
+          %li.remainder-tender-source https://www.sota.edu.sg/procurement
+          %li.remainder-tender-source http://www.singaporecancersociety.org.sg/SCSTenders.aspx
+          %li.remainder-tender-source https://mybusiness.singtel.com/trading-board
+          %li.remainder-tender-source http://www.ahtc.sg/tender-advertisements/
+          %li.remainder-tender-source http://www.emservices.com.sg/em/tenders-advertisements.aspx
+          %li.remainder-tender-source http://www.btptc.org.sg/Tender/Tender.htm
+          %li.remainder-tender-source http://www.smrt.com.sg/Doing-Business-with-Us/Procurement/Tender-Notice
+          %li.remainder-tender-source http://www.redcross.org.sg/articles/tender
+          %li.remainder-tender-source http://www.mptc.org.sg/index.php/webtender/tender_advertisement/1
+          %li.remainder-tender-source https://www.uwcsea.edu.sg/purchasing
+          %li.remainder-tender-source http://www.tuaspower.com.sg/tender-notice/index.aspx
+          %li.remainder-tender-source https://www.singaporepsa.com/port-users/tender-notices/14-port-services
+          %li.remainder-tender-source https://srm.singaporepower.com.sg/irj/portal/anonymous
+          %li.remainder-tender-source http://www.mediacorp.sg/corporate-en/tendernotices
+          %li.remainder-tender-source http://www.nkfs.org/about-nkf/tender/invitation-to-tender/
+          %li.remainder-tender-source http://www.nkfs.org/about-nkf/tender/invitation-to-quote/
+          %li.remainder-tender-source https://www.sgnic.sg/tenderarchive
+          %li.remainder-tender-source https://service.ariba.com/Discovery.aw/128481036/aw?awh=r&awssk=AFztUy.2&awrdt=1#b0
+          %li.remainder-tender-source https://www.nhcs.com.sg/aboutnhc/tendersrfp/Pages/ITQ.aspx
+          %li.remainder-tender-source https://www.nhcs.com.sg/ABOUTNHC/TENDERSRFP/Pages/Tender.aspx
+          %li.remainder-tender-source http://www.sas.edu.sg/page.cfm?p=1228
+          %li.remainder-tender-source http://isca.org.sg/procurement/
+          %li.remainder-tender-source https://www.nationalgallery.sg/about/about-the-gallery/business-opportunities/current-tender-notices
+          %li.remainder-tender-source https://www.singaporeartmuseum.sg/about/tender_quotes.html
+          %li.remainder-tender-source http://www.sportsschool.edu.sg/GeneralPageDetails.aspx?id=100
+          %li.remainder-tender-source https://www.theartshouse.sg/about-us/business-opportunities/
+          %li.remainder-tender-source http://www.ntfgh.com.sg/JurongHealth/Procurement/Tenders.aspx
+          %li.remainder-tender-source http://www.ntfgh.com.sg/JurongHealth/Procurement/ITQs.aspx
+          %li.remainder-tender-source http://www.spd.org.sg/rfp
+          %li.remainder-tender-source http://dramacentre.com/business-opportunities.html
+          %li.remainder-tender-source http://info.singtel.com/about-us/tenders
+          %li.remainder-tender-source http://gpo.nhg.singhealth.com.sg/tender/gpo/pub/Users/GRFP.asp?Inst_name=MM&Status=Guser
+          %li.remainder-tender-source http://singapore.usembassy.gov/contracting_opportunities.html
+          %li.remainder-tender-source https://www.ihis.com.sg/tenderandrfp/Pages/tenders-and-rfp.aspx
+          %li.remainder-tender-source http://www.philippine-embassy.org.sg/invitation-to-bid-2/
+          %li.remainder-tender-source http://home.ezlink.com.sg/rfp
+          %li.remainder-tender-source http://iits.smu.edu.sg/tender
+          %li.remainder-tender-source https://www.ggspl.com/tenders/
+          %li.remainder-tender-source http://www.senokoenergy.com/tender-notices
+          %li.remainder-tender-source http://www.psamarine.com/tenders.htm
+          %li.remainder-tender-source http://www.singaporecruise.com.sg/index.php/business/tender-notices/
+          %li.remainder-tender-source http://www.apec.org/Projects/Tenders-and-RFPs.aspx
+          %li.remainder-tender-source http://www.renci.org.sg/noticestenders/
+          %li.remainder-tender-source http://app.cias.com.sg/tender.asp
+          %li.remainder-tender-source http://www.sentosa.com.sg/en/about-us/tender-notices/
+        .text-center
+          #show-all.button.active.ga-static-pages{data: {gtm_category: '', gtm_action: 'show full list', gtm_label: "sources-and-counting"}} Show Full List
+          #hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}} Hide Full List
+    .row
+      .small-12.columns
+        %p.white.recommendation Have a tender source that you would like us to track? <a class='ga-static-pages' onClick="Tengence.HomePage.scrollTo('contacts')" data-gtm-category='' data-gtm-action='let us know' data-gtm-label='sources-and-counting'>Let us know</a>!
 
 = react_component 'Demo', {url: api_v1_demo_tenders_path}
 
-%section#email.dark
-  .row
-    .small-12.column
-      .subtitle.white
-        %h2 
-          Email Alerts
-          %span.color .
-        %p.white Get email alerts from us daily on the latest business opporutnities for your company
-  .row{"data-equalizer" => ''}
-    .medium-6.columns.animated.text-center{"data-animate" => "fadeInLeft", "data-animate-delay" => "0", 'data-equalizer-watch' => ''}
-      %h5.white Sample email
-      #sample-email-container
-        .bg-overlay
-          .ghost-block.ga-static-pages{data: {gtm_category: '', gtm_action: 'sample email image', gtm_label: "email"}}
-            %i.fa.fa-search-plus.ga-static-pages{data: {gtm_category: '', gtm_action: 'sample email icon', gtm_label: "email"}}
-        = image_tag "home/sample_email.jpg", alt: 'Gebiz-Tenders-Alerts-Tender-Singapore', id: 'sample-email'
-    .medium-6.columns.animated.text-center{"data-animate" => "fadeInRight", "data-animate-delay" => "0", 'data-equalizer-watch' => ''}
-      %h5.white Request a sample email from us
-      .ghost-block
-        = form_tag api_v1_demo_email_path, id:'demo-email-form', remote: true do
-          %fieldset
-            = email_field_tag 'demo_email'
-            = check_box_tag 'agree', '1', false
-            %span#agree-notice By requesting this demo email, you agree to sign up for Tengence's newsletter.
-            %br
-            %br
-            -# TODO fix this dirty fix for recapthca in tests
-            - unless Rails.env.test?
-              .text-center
-                .g-recaptcha{"data-sitekey" => "6LfSgRUTAAAAAC9gv7LrOBb9Fr50HCPqlqUSCz1_"}
-            = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button', type: 'submit', data: {disable_with: 'Processing'}  
-          .button#email-demo-submitted-button{disabled: ''} Demo Email Sent Successfully
+- cache 'home email', expires_in: 1.month do
+  %section#email.dark
+    .row
+      .small-12.column
+        .subtitle.white
+          %h2 
+            Email Alerts
+            %span.color .
+          %p.white Get email alerts from us daily on the latest business opporutnities for your company
+    .row{"data-equalizer" => ''}
+      .medium-6.columns.animated.text-center{"data-animate" => "fadeInLeft", "data-animate-delay" => "0", 'data-equalizer-watch' => ''}
+        %h5.white Sample email
+        #sample-email-container
+          .bg-overlay
+            .ghost-block.ga-static-pages{data: {gtm_category: '', gtm_action: 'sample email image', gtm_label: "email"}}
+              %i.fa.fa-search-plus.ga-static-pages{data: {gtm_category: '', gtm_action: 'sample email icon', gtm_label: "email"}}
+          = image_tag "home/sample_email.jpg", alt: 'Gebiz-Tenders-Alerts-Tender-Singapore', id: 'sample-email'
+      .medium-6.columns.animated.text-center{"data-animate" => "fadeInRight", "data-animate-delay" => "0", 'data-equalizer-watch' => ''}
+        %h5.white Request a sample email from us
+        .ghost-block
+          = form_tag api_v1_demo_email_path, id:'demo-email-form', remote: true do
+            %fieldset
+              = email_field_tag 'demo_email'
+              = check_box_tag 'agree', '1', false
+              %span#agree-notice By requesting this demo email, you agree to sign up for Tengence's newsletter.
+              %br
+              %br
+              -# TODO fix this dirty fix for recapthca in tests
+              - unless Rails.env.test?
+                .text-center
+                  .g-recaptcha{"data-sitekey" => "6LfSgRUTAAAAAC9gv7LrOBb9Fr50HCPqlqUSCz1_"}
+              = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button', type: 'submit', data: {disable_with: 'Processing'}  
+            .button#email-demo-submitted-button{disabled: ''} Demo Email Sent Successfully
 
 -# %section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
 -#   .bg-overlay
@@ -211,27 +209,28 @@
 -#           %p Responsive functionality that can be adapted to any screen size.
 -#           %cite Norman Bates
 
-%section#contacts
-  .row
-    .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
-      .title-section
-        %h3
-          %strong Contact Us
-    .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
-      .section-desc
-        %h4
-          %strong Talk to us. We are all ears.
-  .row
-    #message
-    = form_tag '/contact_us_email', remote: true, id: 'contactform' do
-      .small-6.columns
-        = text_field_tag "name", nil, placeholder: "Name"
-      .small-6.columns
-        = email_field_tag "contact_email", nil, placeholder: "Email"
-      .small-12.columns
-        = text_area_tag "comments", nil, placeholder: "Message"
-      .small-12.columns.text-center
-        %button#submit{:type => "submit"} SEND
+- cache 'home contacts', expires_in: 1.month do
+  %section#contacts
+    .row
+      .medium-3.small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3
+            %strong Contact Us
+      .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
+        .section-desc
+          %h4
+            %strong Talk to us. We are all ears.
+    .row
+      #message
+      = form_tag '/contact_us_email', remote: true, id: 'contactform' do
+        .small-6.columns
+          = text_field_tag "name", nil, placeholder: "Name"
+        .small-6.columns
+          = email_field_tag "contact_email", nil, placeholder: "Email"
+        .small-12.columns
+          = text_area_tag "comments", nil, placeholder: "Message"
+        .small-12.columns.text-center
+          %button#submit{:type => "submit"} SEND
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
 #sample-email-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

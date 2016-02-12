@@ -137,19 +137,19 @@ feature BrainTreeController, type: :controller do
       feature 'with valid nonce' do
 
         scenario 'should redirect_to billing_path' do
-          post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
+          post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce', plan: 'one_month_plan'}
           expect(response).to redirect_to billing_path
         end
 
         scenario 'should give user braintree_subscription_id' do
           expect(yet_to_subscribe_user.braintree_subscription_id).to eq nil
-          post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
+          post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce', plan: 'one_month_plan'}
           expect(yet_to_subscribe_user.reload.braintree_subscription_id).not_to eq nil
         end
 
         scenario 'should give user default_payment_method_token' do
           expect(yet_to_subscribe_user.default_payment_method_token).to eq nil
-          post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
+          post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce', plan: 'one_month_plan'}
           expect(yet_to_subscribe_user.reload.default_payment_method_token).not_to eq nil
         end
 
@@ -212,7 +212,7 @@ feature BrainTreeController, type: :controller do
 
     before :each do
       sign_in yet_to_subscribe_user
-      post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
+      post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce', plan: 'one_month_plan'}
       request.env["HTTP_REFERER"] = change_payment_path
       yet_to_subscribe_user.reload
     end
@@ -332,7 +332,7 @@ feature BrainTreeController, type: :controller do
 
       before :each do
         sign_in unsubscribed_user
-        post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
+        post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce', plan: 'one_month_plan'}
         request.env["HTTP_REFERER"] = edit_user_registration_path
       end
 

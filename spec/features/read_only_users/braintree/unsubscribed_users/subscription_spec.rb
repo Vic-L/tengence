@@ -19,12 +19,12 @@ feature 'subscription', type: :feature, js: true do
       Timecop.freeze(unsubscribed_user.next_billing_date) do
         brain_tree_page.visit_billing_page
         wait_for_page_load
-        expect(page).to have_selector '#subscribe'
+        expect(page).to have_selector '#subscribe-monthly'
         expect(page).not_to have_selector '#change-payment'
         expect(page).not_to have_selector '#unsubscribe'
         expect(page).not_to have_content "Resubscription is available from the next billing date"
 
-        brain_tree_page.click_unique '#subscribe'
+        brain_tree_page.click_unique '#subscribe-monthly'
         wait_for_page_load
         expect(page).to have_selector 'iframe' # user same card
         page.within_frame 'braintree-dropin-frame' do
@@ -41,7 +41,7 @@ feature 'subscription', type: :feature, js: true do
         expect(unsubscribed_user.braintree_subscription_id).not_to eq original_subscription_id
         expect(unsubscribed_user.next_billing_date).to eq nil
         
-        expect(page).not_to have_selector '#subscribe'
+        expect(page).not_to have_selector '#subscribe-monthly'
         expect(page).to have_selector '#change-payment'
         expect(page).to have_selector '#unsubscribe'
         expect(page).not_to have_content "Resubscription is available from the next billing date"

@@ -49,15 +49,15 @@
           .medium-4.columns
             %h4 Monthly
             %h5 $40 / month (30 days)
-            = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe'
+            = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
           .medium-4.columns
             %h4 Quarterly
             %h5 $180 / quarter (90 days)
-            = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe'
+            = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
           .medium-4.columns
             %h4 Annually
             %h5 $480 / year
-            = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe'
+            = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
           
       - else
 
@@ -71,13 +71,13 @@
               .row
                 .medium-4.columns
                   Monthly (30 days)
-                  = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe'
+                  = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
                 .medium-4.columns
                   Quarterly (90 days)
-                  = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe'
+                  = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
                 .medium-4.columns
                   Annually
-                  = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe'
+                  = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
           
             - elsif current_user.subscribed?
           

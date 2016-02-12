@@ -16,7 +16,7 @@ feature "access pages by read_only resubscribe users" do
       expect(page).not_to have_link 'Subscribe Now', href: subscribe_one_month_path
       expect(page).to have_content "Resubscription is available from the next billing date, #{Date.parse(unsubscribed_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}, onwards."
       expect(page).to have_content 'Next Billing Date'
-      expect(page).not_to have_selector '#subscribe'
+      expect(page).not_to have_selector '#subscribe-monthly'
       expect(page).not_to have_selector '#change-payment'
       expect(page).not_to have_selector '#unsubscribe'
       expect(page).not_to have_link 'Change Payment Settings', href: change_payment_path

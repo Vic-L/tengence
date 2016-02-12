@@ -17,6 +17,7 @@ class BrainTreeController < ApplicationController
   end
 
   def subscribe
+    @plan = params[:plan]
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
   end
 
@@ -40,7 +41,8 @@ class BrainTreeController < ApplicationController
   def create_payment
     resp = SubscribeToTengence.call(
       user: current_user,
-      payment_method_nonce: params['payment_method_nonce']
+      payment_method_nonce: params['payment_method_nonce'],
+      plan: params['plan']
       )
     eval(resp)
   end

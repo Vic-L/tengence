@@ -43,24 +43,57 @@
 
           %br
 
-      .row
-        .medium-8.columns.medium-centered.text-center
-          - if current_user.yet_to_subscribe?
-            = link_to 'Subscribe Now', subscribe_path, class: 'button', id: 'subscribe'
-          - else
+      - if current_user.yet_to_subscribe?
+
+        .row.text-center
+          .medium-4.columns
+            %h4 Monthly
+            %h5 $40 / month (30 days)
+            = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe'
+          .medium-4.columns
+            %h4 Quarterly
+            %h5 $180 / quarter (90 days)
+            = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe'
+          .medium-4.columns
+            %h4 Annually
+            %h5 $480 / year
+            = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe'
+          
+      - else
+
+        .row
+          .medium-8.columns.medium-centered.text-center
+          
             = link_to "Payment History", payment_history_path, class: 'button', id: 'payment-history'
+          
             - if current_user.can_resubscribe?
-              = link_to 'Subscribe Now', subscribe_path, class: 'button', id: 'subscribe'
+          
+              .row
+                .medium-4.columns
+                  Monthly (30 days)
+                  = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe'
+                .medium-4.columns
+                  Quarterly (90 days)
+                  = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe'
+                .medium-4.columns
+                  Annually
+                  = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe'
+          
             - elsif current_user.subscribed?
+          
               = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
+          
             - elsif current_user.cannot_resubscribe?
+          
               %p Resubscription is available from the next billing date, #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}, onwards.
 
       - if current_user.subscribed?
+        
         .row
           .medium-8.columns.medium-centered.text-center
             = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
               Unsubscribe from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
+
       %br
 
       .row

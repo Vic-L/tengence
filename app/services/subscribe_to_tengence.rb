@@ -4,6 +4,7 @@ class SubscribeToTengence
 
   attribute :user, User
   attribute :payment_method_nonce, String
+  attribute :plan, String
 
   def call
 
@@ -22,10 +23,10 @@ class SubscribeToTengence
       if result.success?
 
         # user.update!(default_payment_method_token: result.payment_method.token)
-        
+
         result = Braintree::Subscription.create(
           :payment_method_token => result.payment_method.token,
-          :plan_id => "one_month_plan",
+          :plan_id => plan
         )
 
         if result.success?

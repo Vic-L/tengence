@@ -13,13 +13,13 @@ feature "access pages by subscribed read_only users" do
     scenario 'should have correct contents in page' do
       brain_tree_page.visit_billing_page
       expect(page).not_to have_content 'Days left till end of Free Trial'
-      expect(page).not_to have_link 'Subscribe Now', href: subscribe_path
+      expect(page).not_to have_link 'Subscribe Now', href: subscribe_one_month_path
       expect(page).to have_content 'Next Billing Date'
       expect(page).to have_link 'Change Payment Settings', href: change_payment_path
     end
 
     scenario 'subscribe' do
-      brain_tree_page.visit_subscribe_page
+      brain_tree_page.visit_subscribe_one_month_page
       expect(page).to have_content 'You are not authorized to view this page.'
       expect(page.current_path).to eq billing_path
     end

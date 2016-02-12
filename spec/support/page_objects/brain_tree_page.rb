@@ -2,8 +2,18 @@ class BrainTreePage
   include Capybara::DSL
   include TendersPageFunctions
 
-  def visit_subscribe_page
-    visit '/subscribe'
+  def visit_subscribe_one_month_page
+    visit '/subscribe-monthly'
+    self
+  end
+
+  def visit_subscribe_three_months_page
+    visit '/subscribe-quarterly'
+    self
+  end
+
+  def visit_subscribe_one_year_page
+    visit '/subscribe-annually'
     self
   end
 

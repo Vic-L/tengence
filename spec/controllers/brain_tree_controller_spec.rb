@@ -130,8 +130,8 @@ feature BrainTreeController, type: :controller do
     feature 'yet_to_subscribe_user' do
     
       before :each do
-        request.env["HTTP_REFERER"] = subscribe_path
         sign_in yet_to_subscribe_user
+        request.env["HTTP_REFERER"] = edit_user_registration_path
       end
 
       feature 'with valid nonce' do
@@ -157,9 +157,9 @@ feature BrainTreeController, type: :controller do
 
       feature 'with invalid nonce' do
 
-        scenario 'should redirect back to subscribe_path' do
+        scenario 'should redirect back to back' do
           post :create_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(response).to redirect_to subscribe_path
+          expect(response).to redirect_to edit_user_registration_path
         end
 
         scenario 'should not give user braintree_subscription_id' do
@@ -269,7 +269,7 @@ feature BrainTreeController, type: :controller do
 
       feature 'with invalid nonce' do
 
-        scenario 'should redirect back to subscribe_path' do
+        scenario 'should redirect back to change_payment_path' do
           post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
           expect(response).to redirect_to change_payment_path
         end

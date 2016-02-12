@@ -46,7 +46,9 @@ Rails.application.routes.draw do
   # braintree
   # resources :payment_methods, path: '/payment-methods'
   get "/billing", to: 'brain_tree#billing'
-  get "/subscribe", to: 'brain_tree#subscribe', as: 'subscribe'
+  get "/subscribe-monthly", to: 'brain_tree#subscribe', as: 'subscribe_one_month', defaults: {plan: 'one_month_plan'}
+  get "/subscribe-quarterly", to: 'brain_tree#subscribe', as: 'subscribe_three_month', defaults: {plan: 'three_months_plan'}
+  get "/subscribe-annually", to: 'brain_tree#subscribe', as: 'subscribe_one_year', defaults: {plan: 'one_year_plan'}
   get "/change-payment", to: 'brain_tree#change_payment', as: 'change_payment'
   get "/edit-payment", to: 'brain_tree#edit_payment', as: 'edit_payment'
   post "/create-payment", to: 'brain_tree#create_payment', as: 'create_payment'

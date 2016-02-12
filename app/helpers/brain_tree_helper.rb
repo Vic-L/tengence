@@ -36,4 +36,15 @@ module BrainTreeHelper
   #     "<label class='free-trial'>#{days_left(user.next_billing_date.to_time)} left</label>".html_safe
   #   end
   # end
+
+  def subscription_rate plan
+    case plan
+    when 'one_month_plan'
+      "$40 / month"
+    when 'three_months_plan'
+      "$150 / 90 days"
+    when 'one_year_plan'
+      "$480 / year"
+    end
+  end
 end

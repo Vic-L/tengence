@@ -13,14 +13,14 @@ feature "access pages by read_only yet_to_subscribe users" do
     scenario 'should have correct contents in page' do
       brain_tree_page.visit_billing_page
       expect(page).to have_content 'Days left till end of Free Trial'
-      expect(page).to have_link 'Subscribe Now', href: subscribe_path
+      expect(page).to have_link 'Subscribe Now', href: subscribe_one_month_path
       expect(page).not_to have_content 'Next Billing Date'
       expect(page).not_to have_link 'Change Payment Settings', href: change_payment_path
     end
 
     scenario 'subscribe' do
-      brain_tree_page.visit_subscribe_page
-      expect(page.current_path).to eq subscribe_path
+      brain_tree_page.visit_subscribe_one_month_page
+      expect(page.current_path).to eq subscribe_one_month_path
     end
 
     scenario 'change_payment' do

@@ -4,7 +4,7 @@
 
     .row
       .small-12.medium-8.medium-centered.column.text-center
-        %h4 Subscription rate: 50 USD / month
+        %h4 Subscription rate: #{subscription_rate(@plan)}
 
     %hr
 
@@ -22,6 +22,7 @@
       .small-12.medium-8.medium-centered.column.text-center
         = form_tag create_payment_path do
           #dropin
+          = hidden_field_tag 'plan', @plan
           %button#submit{type: 'submit'} Confirm
 
 - content_for :javascript do

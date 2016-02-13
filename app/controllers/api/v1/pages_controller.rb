@@ -27,6 +27,7 @@ module Api
       end
 
       def demo_tenders
+        NotifyViaSlack.delay.call(content: "Demo Search: #{params['query']}") unless params['query'].blank?
         @tenders, @current_page, @total_pages, @limit_value, @last_page, @watched_tender_ids, @results_count = GetDemoTenders.call(params: params, table: "CurrentTender")
         respond_with @tenders, template: "/api/v1/tenders/index.json.jbuilder"
       end

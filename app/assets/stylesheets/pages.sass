@@ -1,19 +1,24 @@
 .pages
   &.home
+    
+    .alert-box
+      position: absolute
+
     header
       background: transparent
       
+
       .header-logo a
         color: white
         &:hover
           color: black
       
       ul.menu-list
-        li a
+        & > li > a
           color: white
-        li a:hover,
-        li.active a,
-        li.active a:hover
+        & > li > a:hover,
+        & > li.active > a,
+        & > li.active > a:hover
           color: black
       
       .menu-toggle-button, .menu-toggle-button.active
@@ -34,9 +39,9 @@
           color: #386ec4
 
         ul.menu-list
-          li a:hover,
-          li.active a,
-          li.active a:hover
+          & > li > a:hover,
+          & > li.active > a,
+          & > li.active > a:hover
             color: #386ec4
 
         .menu-toggle-button.active
@@ -187,5 +192,13 @@
             display: inline-block
           p:not(:last-child)
             margin-bottom: 16px
+    .title-section
+      margin-bottom: 0
+
+  &.contact
+    
+    i.fa:before
+      margin-right: 5px
+
     .title-section
       margin-bottom: 0

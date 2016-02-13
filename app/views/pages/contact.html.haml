@@ -1,0 +1,35 @@
+#wrapper
+
+  %section#contacts
+
+    .row
+      .medium-3.small-12.columns.animated{data: {animate: "fadeInDown", animate_delay: '0'}}
+        .title-section
+          %h3
+            %strong Contact Us
+      .medium-9.columns.animated{data: {animate: "fadeInUp", animate_delay: '0'}}
+        .section-desc
+          %h4
+            %strong
+              Contact us directly: 
+              %br
+              %i.fa.fa-envelope= "contact@tengence.com.sg | "
+              %i.fa.fa-phone +65 81439251
+              %br
+              Or fill up the form below
+
+    .row
+      #message
+      = form_tag '/contact_us_email', remote: true, id: 'contactform' do
+        .small-6.columns
+          = text_field_tag "name", nil, placeholder: "Name"
+        .small-6.columns
+          = email_field_tag "contact_email", nil, placeholder: "Email"
+        .small-12.columns
+          = text_area_tag "comments", nil, placeholder: "Message"
+        .small-12.columns.text-center
+          %button#submit{:type => "submit"} SEND
+
+- content_for :javascript do
+  :javascript
+    Tengence.HomePage.initContactUsForm();

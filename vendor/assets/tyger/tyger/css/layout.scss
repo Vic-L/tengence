@@ -200,7 +200,8 @@ header.shrink {
 }
 
 ul#account-drop,
-ul#tenders-drop {
+ul#tenders-drop,
+ul#help-drop {
 	width: auto;
 	li a:hover {
 		background: #386ec4;
@@ -1065,9 +1066,6 @@ Media Query
 		font-size:2rem;
 		margin-top:-5px;
 	}
-	.header-logo a:link, .header-logo a:visited{
-		bottom:-7px;
-	}
 	header {
 
 		ul.menu-list li a {
@@ -1086,11 +1084,14 @@ Media Query
 	.title-section{
 		margin-bottom:-15px;
 	}
-	.section-desc, .title-section h3{
+	.counter .number-detail {
+		margin-bottom: 75px
+	}
+	.section-desc, .title-section h3 {
 		top:0;
 		transform:translateY(0%);
 	}
-	.section-desc p{
+	.section-desc p {
 		margin-bottom:50px;
 	}
 
@@ -1110,7 +1111,8 @@ Media Query
 		border-right:none;
 	}
 
-	.slider-caption h2 {
+	.slider-caption h2,
+	.slider-caption h1 {
 		font-size: 2rem;
 	}
 

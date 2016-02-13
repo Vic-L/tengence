@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get 'terms-of-service', to: 'pages#terms_of_service'
   get 'refresh_cloudsearch', to: 'pages#refresh_cloudsearch'
   get 'faq', to: 'pages#faq'
+  get 'contact', to: 'pages#contact'
 
   # braintree
   # resources :payment_methods, path: '/payment-methods'

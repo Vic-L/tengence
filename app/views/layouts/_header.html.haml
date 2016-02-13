@@ -110,8 +110,22 @@
               = link_to "Login", new_user_session_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'login', gtm_label: 'header'}
             %li
               = link_to "Sign Up", new_user_registration_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'sign up', gtm_label: 'header'}
+          
+        %li.show-for-medium-up
+          %a{data: {dropdown: "help-drop"}} Help
+          %ul#help-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
             %li
-              = link_to "Terms of Services", terms_of_service_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'terms of services', gtm_label: 'header'}
+              = link_to "Terms of Service", terms_of_service_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'terms of services', gtm_label: 'header'}
+            %li
+              = link_to "FAQ", faq_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'faq', gtm_label: 'header'}
+            %li
+              = link_to "Contact", contact_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'contact', gtm_label: 'header'}
+        %li.show-for-small-only
+          = link_to "Terms of Service", terms_of_service_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'terms of services', gtm_label: 'header'}
+        %li.show-for-small-only
+          = link_to "FAQ", faq_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'faq', gtm_label: 'header'}
+        %li.show-for-small-only
+          = link_to "Contact", contact_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'contact', gtm_label: 'header'}
 
 .mask
   #loader.rotating

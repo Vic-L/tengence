@@ -179,19 +179,30 @@
         font-size: 30px
 
   &.faq
-    section#faq-billing
+
+    section#faq-general
+
       li.accordion-navigation
+      
         p:not(:last-child)
           margin-bottom: 16px
-    section#faq-plans
-      li.accordion-navigation
+
+    section#faq-billing
+
+      li.accordion-navigation:not(.active)
+
         & > a
           color: white
+
+      li.accordion-navigation
         .content
+
           a
             display: inline-block
+
           p:not(:last-child)
             margin-bottom: 16px
+
     .title-section
       margin-bottom: 0
 

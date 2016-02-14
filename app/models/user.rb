@@ -29,8 +29,8 @@ class User < ActiveRecord::Base
   scope :write_only, -> { where(access_level: 'write_only') }
 
   before_create :hash_email
-  after_commit :register_braintree_customer, on: :create
-  before_destroy :destroy_braintree_customer
+  after_commit :register_braintree_customer, on: :create, if: :read_only?
+  before_destroy :destroy_braintree_customer, if: :read_only?
 
   def self.email_available?(email)
     User.find_by_email(email).blank?

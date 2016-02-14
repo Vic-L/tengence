@@ -17,8 +17,8 @@ feature User, type: :model do
   it { should have_many(:trial_tenders).dependent(:destroy) }
 
   it { should callback(:hash_email).before(:create) }
-  it { should callback(:register_braintree_customer).after(:commit).on(:create) }
-  it { should callback(:destroy_braintree_customer).before(:destroy) }
+  it { should callback(:register_braintree_customer).after(:commit).on(:create).if(:read_only?) }
+  it { should callback(:destroy_braintree_customer).before(:destroy).if(:read_only?) }
   it { should_not callback(:hash_email).before(:save) }
 
   let!(:user) { create(:user, :read_only) }

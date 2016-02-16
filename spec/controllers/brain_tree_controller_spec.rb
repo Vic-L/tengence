@@ -4,10 +4,12 @@ feature BrainTreeController, type: :controller do
   let!(:yet_to_subscribe_user) { create(:user, :braintree) }
   let!(:subscribed_user) { create(:user, :braintree, :subscribed_one_month) }
   let!(:unsubscribed_user) { create(:user, :braintree, :unsubscribed_one_month) }
+  let!(:unconfirmed_user) { create(:user, :braintree, :unconfirmed) }
+  let!(:pending_reconfirmation_user) { create(:user, :braintree, :pending_reconfirmation) }
 
   feature 'GET billing' do
 
-    scenario 'should be ok for all users' do
+    scenario 'should be ok for all confirmed users' do
       sign_in yet_to_subscribe_user
       get :billing
       expect(response.status).to eq 200
@@ -22,6 +24,18 @@ feature BrainTreeController, type: :controller do
       get :billing
       expect(response.status).to eq 200
       expect(response).to render_template 'brain_tree/billing'
+    end
+
+    scenario 'should be denied access for all unconfirmed/pending_reconfirmation users' do
+      sign_in unconfirmed_user
+      get :billing
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
+
+      sign_in pending_reconfirmation_user
+      get :billing
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
     end
 
   end
@@ -57,6 +71,18 @@ feature BrainTreeController, type: :controller do
       end
     end
 
+    scenario 'should be denied access for all confirmed users' do
+      sign_in unconfirmed_user
+      get :subscribe
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
+
+      sign_in pending_reconfirmation_user
+      get :subscribe
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
+    end
+
   end
 
   feature 'GET change_payment' do
@@ -90,6 +116,18 @@ feature BrainTreeController, type: :controller do
       end
     end
 
+    scenario 'should be denied access for all unconfirmed/pending_reconfirmation users' do
+      sign_in unconfirmed_user
+      get :change_payment
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
+
+      sign_in pending_reconfirmation_user
+      get :change_payment
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
+    end
+
   end
 
   feature 'GET payment_history' do
@@ -121,6 +159,18 @@ feature BrainTreeController, type: :controller do
         get :payment_history
         expect(response).to render_template 'brain_tree/payment_history'
       end
+    end
+
+    scenario 'should be denied access for all unconfirmed/pending_reconfirmation users' do
+      sign_in unconfirmed_user
+      get :change_payment
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
+
+      sign_in pending_reconfirmation_user
+      get :change_payment
+      expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+      expect(response).to redirect_to new_user_confirmation_path
     end
 
   end
@@ -174,34 +224,64 @@ feature BrainTreeController, type: :controller do
 
       end
 
-      feature 'subscribed_user' do
+    end
 
-        before :each do
-          request.env["HTTP_REFERER"] = edit_user_registration_path
-          sign_in subscribed_user
-        end
+    feature 'subscribed_user' do
 
-        scenario 'should redirect_to billing_path' do
-          post :create_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(response).to redirect_to billing_path
-          expect(response.request.flash.alert).to eq "You are not authorized to view this page."
-        end
-
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in subscribed_user
       end
 
-      feature 'unsubscribed_user' do
+      scenario 'should redirect_to billing_path' do
+        post :create_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+        expect(response).to redirect_to billing_path
+        expect(response.request.flash.alert).to eq "You are not authorized to view this page."
+      end
 
-        before :each do
-          request.env["HTTP_REFERER"] = edit_user_registration_path
-          sign_in unsubscribed_user
-        end
+    end
 
-        scenario 'should not redirect_to billing_path' do
-          post :create_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(response).to redirect_to billing_path
-          expect(response.request.flash.alert).to eq "You are not authorized to view this page."
-        end
+    feature 'unsubscribed_user' do
 
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in unsubscribed_user
+      end
+
+      scenario 'should not redirect_to billing_path' do
+        post :create_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+        expect(response).to redirect_to billing_path
+        expect(response.request.flash.alert).to eq "You are not authorized to view this page."
+      end
+
+    end
+
+    feature 'unconfirmed_user' do
+
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in unconfirmed_user
+      end
+
+      scenario 'should be redirect_to new_user_confirmation_path' do
+        post :create_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+        expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+        expect(response).to redirect_to new_user_confirmation_path
+      end
+
+    end
+
+    feature 'pending_reconfirmation_user' do
+
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in pending_reconfirmation_user
+      end
+
+      scenario 'should be redirect_to new_user_confirmation_path' do
+        post :create_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+        expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+        expect(response).to redirect_to new_user_confirmation_path
       end
 
     end
@@ -210,88 +290,122 @@ feature BrainTreeController, type: :controller do
 
   feature 'POST update_payment' do
 
-    before :each do
-      sign_in yet_to_subscribe_user
-      post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce', plan: 'one_month_plan'}
-      request.env["HTTP_REFERER"] = change_payment_path
-      yet_to_subscribe_user.reload
-    end
+    feature 'yet_to_subscribe_user' do
 
-    feature 'with same valid payment_method' do  
-
-      scenario 'should redirect_to billing_path' do
-        post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
-        expect(response).to redirect_to billing_path
+      before :each do
+        sign_in yet_to_subscribe_user
+        post :create_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce', plan: 'one_month_plan'}
+        request.env["HTTP_REFERER"] = change_payment_path
+        yet_to_subscribe_user.reload
       end
 
-      scenario 'should not change user braintree_subscription_id' do
-        original_braintree_subscription_id = yet_to_subscribe_user.braintree_subscription_id
-        post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
-        expect(yet_to_subscribe_user.reload.braintree_subscription_id).to eq original_braintree_subscription_id
-      end
-
-    end
-
-    feature 'with another payment_method' do
-
-      feature 'with valid nonce' do
+      feature 'with same valid payment_method' do  
 
         scenario 'should redirect_to billing_path' do
-          post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
+          post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
           expect(response).to redirect_to billing_path
         end
 
         scenario 'should not change user braintree_subscription_id' do
           original_braintree_subscription_id = yet_to_subscribe_user.braintree_subscription_id
-          post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
+          post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
           expect(yet_to_subscribe_user.reload.braintree_subscription_id).to eq original_braintree_subscription_id
-        end
-
-        scenario 'should change user default_payment_method_token' do
-          original_default_payment_method_token = yet_to_subscribe_user.default_payment_method_token
-          post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
-          expect(yet_to_subscribe_user.reload.default_payment_method_token).not_to eq original_default_payment_method_token
-        end
-
-        scenario 'should not cause a new transaction' do
-          original_transaction_count = yet_to_subscribe_user.braintree_subscription.transactions.count
-          post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
-          expect(yet_to_subscribe_user.reload.braintree_subscription.transactions.count).to eq original_transaction_count
-        end
-
-        scenario 'should change the payment token in braintree subscription' do
-          original_subscription_payment_token = yet_to_subscribe_user.braintree_subscription.payment_method_token
-          post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
-          expect(yet_to_subscribe_user.reload.braintree_subscription.payment_method_token).not_to eq original_subscription_payment_token
         end
 
       end
 
-      feature 'with invalid nonce' do
+      feature 'with another payment_method' do
 
-        scenario 'should redirect back to change_payment_path' do
-          post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(response).to redirect_to change_payment_path
+        feature 'with valid nonce' do
+
+          scenario 'should redirect_to billing_path' do
+            post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
+            expect(response).to redirect_to billing_path
+          end
+
+          scenario 'should not change user braintree_subscription_id' do
+            original_braintree_subscription_id = yet_to_subscribe_user.braintree_subscription_id
+            post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
+            expect(yet_to_subscribe_user.reload.braintree_subscription_id).to eq original_braintree_subscription_id
+          end
+
+          scenario 'should change user default_payment_method_token' do
+            original_default_payment_method_token = yet_to_subscribe_user.default_payment_method_token
+            post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
+            expect(yet_to_subscribe_user.reload.default_payment_method_token).not_to eq original_default_payment_method_token
+          end
+
+          scenario 'should not cause a new transaction' do
+            original_transaction_count = yet_to_subscribe_user.braintree_subscription.transactions.count
+            post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
+            expect(yet_to_subscribe_user.reload.braintree_subscription.transactions.count).to eq original_transaction_count
+          end
+
+          scenario 'should change the payment token in braintree subscription' do
+            original_subscription_payment_token = yet_to_subscribe_user.braintree_subscription.payment_method_token
+            post :update_payment, { payment_method_nonce: 'fake-valid-visa-nonce'}
+            expect(yet_to_subscribe_user.reload.braintree_subscription.payment_method_token).not_to eq original_subscription_payment_token
+          end
+
         end
 
-        scenario 'should not change user braintree_subscription_id' do
-          original_braintree_subscription_id = yet_to_subscribe_user.braintree_subscription_id
-          post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(yet_to_subscribe_user.reload.braintree_subscription_id).to eq original_braintree_subscription_id
+        feature 'with invalid nonce' do
+
+          scenario 'should redirect back to change_payment_path' do
+            post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+            expect(response).to redirect_to change_payment_path
+          end
+
+          scenario 'should not change user braintree_subscription_id' do
+            original_braintree_subscription_id = yet_to_subscribe_user.braintree_subscription_id
+            post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+            expect(yet_to_subscribe_user.reload.braintree_subscription_id).to eq original_braintree_subscription_id
+          end
+
+          scenario 'should not change user default_payment_method_token' do
+            original_default_payment_method_token = yet_to_subscribe_user.default_payment_method_token
+            post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+            expect(yet_to_subscribe_user.reload.default_payment_method_token).to eq original_default_payment_method_token
+          end
+
+          scenario 'should not change the payment token in braintree subscription' do
+            original_subscription_payment_token = yet_to_subscribe_user.braintree_subscription.payment_method_token
+            post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
+            expect(yet_to_subscribe_user.reload.braintree_subscription.payment_method_token).to eq original_subscription_payment_token
+          end
+
         end
 
-        scenario 'should not change user default_payment_method_token' do
-          original_default_payment_method_token = yet_to_subscribe_user.default_payment_method_token
-          post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(yet_to_subscribe_user.reload.default_payment_method_token).to eq original_default_payment_method_token
-        end
+      end
 
-        scenario 'should not change the payment token in braintree subscription' do
-          original_subscription_payment_token = yet_to_subscribe_user.braintree_subscription.payment_method_token
-          post :update_payment, { payment_method_nonce: 'fake-processor-declined-visa-nonce'}
-          expect(yet_to_subscribe_user.reload.braintree_subscription.payment_method_token).to eq original_subscription_payment_token
-        end
+    end
 
+    feature 'unconfirmed_user' do
+
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in unconfirmed_user
+      end
+
+      scenario 'should be redirect_to new_user_confirmation_path' do
+        post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
+        expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+        expect(response).to redirect_to new_user_confirmation_path
+      end
+
+    end
+
+    feature 'pending_reconfirmation_user' do
+
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in pending_reconfirmation_user
+      end
+      
+      scenario 'should be redirect_to new_user_confirmation_path' do
+        post :update_payment, { payment_method_nonce: 'fake-valid-mastercard-nonce'}
+        expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+        expect(response).to redirect_to new_user_confirmation_path
       end
 
     end
@@ -346,6 +460,36 @@ feature BrainTreeController, type: :controller do
           post :unsubscribe
           expect(response).to redirect_to billing_path
         end
+      end
+
+    end
+
+    feature 'unconfirmed_user' do
+
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in unconfirmed_user
+      end
+
+      scenario 'should be redirect_to new_user_confirmation_path' do
+        post :unsubscribe
+        expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+        expect(response).to redirect_to new_user_confirmation_path
+      end
+
+    end
+
+    feature 'pending_reconfirmation_user' do
+
+      before :each do
+        request.env["HTTP_REFERER"] = edit_user_registration_path
+        sign_in pending_reconfirmation_user
+      end
+
+      scenario 'should be redirect_to new_user_confirmation_path' do
+        post :unsubscribe
+        expect(response.request.flash['warning']).to eq "Please confirm your account first. We regret that email delivery might be delayed. Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox."
+        expect(response).to redirect_to new_user_confirmation_path
       end
 
     end

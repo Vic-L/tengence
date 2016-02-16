@@ -1,5 +1,6 @@
 class BrainTreeController < ApplicationController
   before_action :authenticate_user!, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
+  before_action :deny_unconfirmed_users, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_write_only_access, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_subscribed_user, only: [:subscribe, :create_payment]
   before_action :deny_unresubscribable_user, only: [:subscribe, :change_payment, :create_payment, :unsubscribe]

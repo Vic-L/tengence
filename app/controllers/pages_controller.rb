@@ -48,7 +48,7 @@ class PagesController < ApplicationController
       @message = "Please fill up all fields."
     else
       subject = "#{name} (#{email}) contacted us"
-      InternalMailer.notify(subject,"Comments: #{comments}").deliver_later
+      InternalMailer.notify(subject,"Comments: #{comments}", 'john@tengence.com.sg').deliver_later
       NotifyViaSlack.delay.call(content: "#{subject}\r\n#{comments}")
       @message = "We have received your email. The Tengence team will contact you shortly."
       @message = "<div id='success_page'>"

@@ -32,6 +32,11 @@ class DevisePage
     self
   end
 
+  def visit_user_show_confirmation_page ctoken=''
+    visit '/users/confirmation/?confirmation_token=' + ctoken
+    self
+  end
+
   def visit_new_password_page
     visit '/users/password/new'
     self

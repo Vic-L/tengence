@@ -2,16 +2,6 @@ class TendersPage
   include Capybara::DSL
   include TendersPageFunctions
 
-  def visit_home_page
-    visit '/'
-    self
-  end
-
-  def visit_terms_of_service_page
-    visit '/terms-of-service'
-    self
-  end
-
   def visit_account_page
     visit '/users/edit'
     self

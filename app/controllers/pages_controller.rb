@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :authenticate_current_user, only: [:home]
+  before_action :deny_write_only_access, only: [:faq]
 
   def home
   end

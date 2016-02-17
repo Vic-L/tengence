@@ -30,9 +30,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       set_flash_message(:notice, :confirmed) if is_flashing_format?
       respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
     else
-      # respond_with_navigational(resource.errors, status: :unprocessable_entity){ render :new }
-      flash.now[:error] = resource.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      # respond_with_navigational(resource.errors, status: :unprocessable_entity){ render 'users/confirmations/new' }
+      flash[:error] = resource.errors.full_messages.to_sentence
+      redirect_to new_user_confirmation_path
     end
   end
 

@@ -22,6 +22,13 @@
 # role :db,  %w{deploy@example.com}
 
 
+role :app, %w{staging.tengence.com.sg}
+role :web, %w{staging.tengence.com.sg}
+role :db,  %w{staging.tengence.com.sg}
+
+# server '54.149.206.7', user: 'ubuntu', roles: %w{web}
+server 'staging.tengence.com.sg', user: 'ubuntu', roles: %w{web}
+
 
 # Configuration
 # =============

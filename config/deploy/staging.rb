@@ -31,6 +31,9 @@ server 'staging.tengence.com.sg', user: 'ubuntu', roles: %w{web}
 
 set :branch, 'trial'
 
+# Default value for :linked_files is []
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/sidekiq.yml', '.env', 'public/robots.txt', 'config/thin/staging.yml')
+
 
 # Configuration
 # =============

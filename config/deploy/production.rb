@@ -28,7 +28,10 @@ role :db,  %w{www.tengence.com.sg}
 # server '54.149.206.7', user: 'ubuntu', roles: %w{web}
 server 'www.tengence.com.sg', user: 'ubuntu', roles: %w{web}
 
-set :branch, 'trial'
+set :branch, 'master'
+
+# Default value for :linked_files is []
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/sidekiq.yml', '.env', 'public/robots.txt', 'config/thin/production.yml')
 
 # Configuration
 # =============

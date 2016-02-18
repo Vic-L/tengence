@@ -28,6 +28,8 @@ role :db,  %w{www.tengence.com.sg}
 # server '54.149.206.7', user: 'ubuntu', roles: %w{web}
 server 'www.tengence.com.sg', user: 'ubuntu', roles: %w{web}
 
+set :branch, 'trial'
+
 # Configuration
 # =============
 # You can set any configuration variable like in config/deploy.rb

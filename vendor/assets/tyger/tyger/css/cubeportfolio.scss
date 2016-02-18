@@ -1,0 +1,105 @@
+/*!
+ * Cube Portfolio - Responsive jQuery Grid Plugin
+ *
+ * version: 2.0.1 (21 January, 2015)
+ * require: jQuery v1.7+
+ *
+ * Copyright (c) 2015, Mihai Buricea (http://scriptpie.com)
+ * Released under CodeCanyon License http://codecanyon.net/licenses
+ *
+ */
+.cbp, .cbp *, .cbp :before, .cbp :after, .cbp-l-filters-alignCenter, .cbp-l-filters-alignCenter *, .cbp-l-filters-alignLeft, .cbp-l-filters-alignLeft *, .cbp-l-filters-alignRight, .cbp-l-filters-alignRight *, .cbp-l-filters-button, .cbp-l-filters-button *, .cbp-l-filters-buttonCenter, .cbp-l-filters-buttonCenter *, .cbp-l-filters-dropdown, .cbp-l-filters-dropdown *, .cbp-l-filters-list, .cbp-l-filters-list *, .cbp-l-filters-work, .cbp-l-filters-work *, .cbp-l-filters-big, .cbp-l-filters-big *, .cbp-l-filters-text, .cbp-l-filters-text *, .cbp-popup-wrap, .cbp-popup-wrap *, .cbp-popup-singlePage, .cbp-popup-singlePage * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.cbp-l-grid-work-title, .cbp-l-grid-work-desc, .cbp-l-grid-blog-title, .cbp-l-grid-projects-title, .cbp-l-grid-projects-desc, .cbp-l-grid-masonry-projects-title, .cbp-l-grid-masonry-projects-desc, .cbp-l-grid-agency-title, .cbp-l-grid-agency-desc {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+/*  ---------------------------------------------------------------
+    Default style for plugin. Please change them carefully!
+    --------------------------------------------------------------- */
+.cbp, .cbp-wrapper, .cbp-item {
+  filter: inherit;
+  /* ie8 bug on fadeOut*/ }
+
+.cbp {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  visibility: visible !important;
+  /* @editable properties */
+  height: 400px; }
+
+.cbp-item {
+  float: left;
+  margin-right: 10px; }
+
+.cbp-wrapper, .cbp .cbp-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; }
+
+.cbp .cbp-item {
+  z-index: 2;
+  display: block; }
+
+.cbp-item-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  left: 0; }
+
+.cbp img, .cbp-slider img, .cbp-l-project-related-wrap img, .cbp-l-inline img {
+  display: block;
+  width: 100%;
+  height: auto; }
+
+.cbp a, .cbp a:hover, .cbp a:active {
+  text-decoration: none;
+  outline: 0; }
+
+.cbp-no-transition .cbp-item {
+  -webkit-transition: none !important;
+  transition: none !important; }
+
+.cbp-appendItems-loading {
+  /*overflow: visible;*/
+  -webkit-transition: height 0.4s ease !important;
+  transition: height 0.4s ease !important; }
+
+.cbp-appendItems-loading .cbp-wrapper {
+  -webkit-transition: none !important;
+  transition: none !important; }
+
+.cbp-loading {
+  /* @editable properties */
+  background: image-url("cbp-loading.gif") no-repeat scroll center center transparent; }
+
+.cbp .cbp-item-hidden {
+  pointer-events: none;
+  z-index: 1; }
+
+.cbp-wrapper {
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 1; }
+
+.cbp-ready .cbp-wrapper {
+  visibility: visible; }
+
+.cbp-wrapper-front {
+  z-index: 3; }
+
+.cbp-wrapper-back {
+  z-index: -1; }
+
+/*  END - Default style for plugin. Please change them carefully! */

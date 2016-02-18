@@ -33,7 +33,7 @@ var ShowTender = React.createClass({
         this.props.parentComponent.setState({trial_tender_ids: data.trial_tender_ids});
         if (data.statusCode === 'maxed_for_the_day') {
           alert('Max unlock limit reached.');
-          $('#buyer-details').html("You have used up your credits for the day to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/subscribe' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label='" + this.props.tender.ref_no + "'>SUBSCRIBE now</a>!");
+          $('#buyer-details').html("You have used up your credits for the day to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label='" + this.props.tender.ref_no + "'>SUBSCRIBE now</a>!");
         } else {
           this.revealBoughtDetails();
         }
@@ -205,7 +205,7 @@ var ShowTender = React.createClass({
                   <hr/>
                   You have used up your credits for the day to unlock business leads.
                   <br/>
-                  To get UNLIMITED access to ALL tenders on Tengence, <a href='/subscribe' className='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label={this.props.tender.ref_no}>SUBSCRIBE now</a>!
+                  To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' className='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label={this.props.tender.ref_no}>SUBSCRIBE now</a>!
                 </div>
               </div>
             </div>

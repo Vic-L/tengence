@@ -341,7 +341,7 @@ feature 'trial_tenders', type: :feature, js: true do
           tenders_page.click_common '.more-button', 3
           expect(page).to have_selector '#view-more-modal'
           expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
-          expect(page).to have_link 'SUBSCRIBE now', href: '/subscribe'
+          expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
         end
       end
 
@@ -519,7 +519,7 @@ feature 'trial_tenders', type: :feature, js: true do
           tenders_page.click_common '.more-button', 3
           expect(page).to have_selector '#view-more-modal'
           expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
-          expect(page).to have_link 'SUBSCRIBE now', href: '/subscribe'
+          expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
         end
       end
 
@@ -690,7 +690,7 @@ feature 'trial_tenders', type: :feature, js: true do
 
           tenders_page.visit_show_tender_page Tender.find_by_description(first_tender_description).ref_no
           expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
-          expect(page).to have_link 'SUBSCRIBE now', href: '/subscribe'
+          expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
         end
       end
 

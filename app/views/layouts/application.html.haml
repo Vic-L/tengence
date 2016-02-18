@@ -21,10 +21,6 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     / End Style Switcher
     :javascript
-      $(document).foundation();
-      $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
-        document.body.classList.remove('loading');
-      });
       /* trigger foundation() after window load for react and foundation to work...TODO better way? */
       $(window).load(function(){
         $(document).foundation({
@@ -32,6 +28,9 @@
             multi_expand: true,
             toggleable: true
           }
+        });
+        $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+          document.body.classList.remove('loading');
         });
       });
     = yield :javascript

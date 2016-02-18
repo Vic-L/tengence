@@ -13,6 +13,6 @@ class UpdateSingleTenderInCloudsearchWorker
     }
     puts hash.to_s
     AwsManager.upload_document [hash].to_json
-    NotifyViaSlack.call(content: "<@ganther> Tender Updated\r\nwww.tengence.com.sg/admin/tender/#{ref_no}") if Rails.env.production?
+    NotifyViaSlack.call(content: "<@ganther> Tender Updated\r\nwww.tengence.com.sg/admin/tender/#{ref_no}")
   end
 end

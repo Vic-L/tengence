@@ -1,5 +1,5 @@
 class InternalMailer < ApplicationMailer
-  self.delivery_method = :sendmail if Rails.env.production?
+  self.delivery_method = :sendmail if (Rails.env.production? || Rails.env.staging?)
 
   default from: 'notification@tengence.com.sg'
 

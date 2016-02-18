@@ -7,7 +7,7 @@ class NotifyViaSlack
 
   def call
     begin
-      if Rails.env.production?
+      if (Rails.env.production? || Rails.env.staging?)
         notifier = Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'], username: 'Alerts-Tengence', channel: channel || "#alerts-tengence-pings")
         notifier.ping content
       elsif Rails.env.development?

@@ -20,8 +20,15 @@
 
     .row
       .small-12.medium-8.medium-centered.column.text-center
+        %h4 Enter Credit Card Details Below
+
+    %br
+
+    .row
+      .small-12.medium-8.medium-centered.column.text-center
         = form_tag create_payment_path do
           #dropin
+          %br
           = hidden_field_tag 'plan', @plan
           %button#submit{type: 'submit'} Confirm
 

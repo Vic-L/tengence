@@ -6,29 +6,33 @@ namespace :maintenance do
   end
 
   task :cleanup_past_tenders => :environment do
-    t = Time.now.in_time_zone('Singapore').beginning_of_day
-    t = t.utc + t.utc_offset()
-    ref_nos = Tender.non_inhouse.where("closing_datetime < ?", t - 1.month).pluck(:ref_no)
-    if ref_nos.blank?
-      NotifyViaSlack.call(content: "No ancient tenders on AWSCloudSearch")
-    else
-      WatchedTender.where(tender_id: ref_nos).destroy_all
-      Tender.where(ref_no: ref_nos).delete_all
-      
-      array = []
-      ref_nos.each do |ref_no|
-        array << {
-          'type': "delete",
-          'id': ref_no
-        }
-      end; nil
-      response = AwsManager.upload_document array.to_json
-
-      if response.class == String
-        NotifyViaSlack.call(content: "<@vic-l> ERROR removing ancient tenders from AWSCloudSearch!!\r\n#{response}")
+    if Rails.env.production?
+      t = Time.now.in_time_zone('Singapore').beginning_of_day
+      t = t.utc + t.utc_offset()
+      ref_nos = Tender.non_inhouse.where("closing_datetime < ?", t - 1.month).pluck(:ref_no)
+      if ref_nos.blank?
+        NotifyViaSlack.call(content: "No ancient tenders on AWSCloudSearch")
       else
-        NotifyViaSlack.call(content: "Removed ancient tenders on AWSCloudSearch")
+        WatchedTender.where(tender_id: ref_nos).destroy_all
+        Tender.where(ref_no: ref_nos).delete_all
+        
+        array = []
+        ref_nos.each do |ref_no|
+          array << {
+            'type': "delete",
+            'id': ref_no
+          }
+        end; nil
+        response = AwsManager.upload_document array.to_json
+
+        if response.class == String
+          NotifyViaSlack.call(content: "<@vic-l> ERROR removing ancient tenders from AWSCloudSearch!!\r\n#{response}")
+        else
+          NotifyViaSlack.call(content: "Removed ancient tenders on AWSCloudSearch")
+        end
       end
+    else
+      puts "execute 'rake maintenance:cleanup_past_tenders'"
     end
   end
 

@@ -44,7 +44,7 @@ module EmailerActions
                   #   current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
                   # end
 
-                  current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - @page_name.to_i.days).pluck(:ref_no) # tender published from x days ago based on @page_name's value which is intiated in config/locale/en.yml en > admin > actions > x_day_ago > title
+                  current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - @page_name.to_i.days).where("published_date < ?", Time.now.in_time_zone('Asia/Singapore').to_date).pluck(:ref_no) # tender published from x days ago based on @page_name's value which is intiated in config/locale/en.yml en > admin > actions > x_day_ago > title
                   
                   NotifyViaSlack.call(content: "#{user.email} has no tenders matching his/her keywords") and next if current_tenders_ref_nos.blank?
 

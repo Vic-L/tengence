@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :intercept_bots
 
   before_action do
     if user_signed_in? && current_user.email == 'vljc17@gmail.com'
@@ -54,6 +55,13 @@ class ApplicationController < ActionController::Base
       if user_signed_in? && current_user.keywords.blank?
         flash[:info] = "Get started with Tengence by filling in keywords related to your business."
         redirect_to keywords_tenders_path
+      end
+    end
+
+    def intercept_bots
+      user_agent = request.user_agent
+      if user_agent =~ /libwww-perl/
+        render nothing: true, status: 403
       end
     end
 end

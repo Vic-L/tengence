@@ -2,11 +2,6 @@ class TendersPage
   include Capybara::DSL
   include TendersPageFunctions
 
-  def visit_account_page
-    visit '/users/edit'
-    self
-  end
-
   # read only
   def visit_current_tenders_page
     visit '/current_tenders'

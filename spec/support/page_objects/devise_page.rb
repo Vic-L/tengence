@@ -48,7 +48,7 @@ class DevisePage
   end
 
   def click_logout
-    execute_script("$('#navigation li:last-child a').click()")
+    click_link "Logout"
   end
 
   def fill_up_registration_form

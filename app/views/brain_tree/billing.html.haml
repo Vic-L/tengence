@@ -48,15 +48,24 @@
         .row.text-center
           .medium-4.columns
             %h4 Monthly
-            %h5 $40 / month (30 days)
+            %h5 
+              $60 / month
+              %br
+              30 days
             = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
           .medium-4.columns
             %h4 Quarterly
-            %h5 $180 / quarter (90 days)
+            %h5 
+              $150 / quarter
+              %br
+              ($50 / month)
             = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
           .medium-4.columns
             %h4 Annually
-            %h5 $480 / year
+            %h5 
+              $480 / year
+              %br
+              ($40 / month)
             = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
           
       - else

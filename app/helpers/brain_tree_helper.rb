@@ -8,17 +8,6 @@ module BrainTreeHelper
     end
   end
 
-  def pre_payment_accouncement plan
-    html = "You are subscribing for #{plan.titleize} Plan.<br>"
-    case plan
-    when 'standard'
-      html += "40 USD / month<br><br>"
-    when 'elite'
-      html += "80 USD / month<br><br>"
-    end
-    html.html_safe
-  end
-
   def next_billing_date date
     "#{Date.parse(date).strftime('%e %b %Y')}."
   end
@@ -40,7 +29,7 @@ module BrainTreeHelper
   def subscription_rate plan
     case plan
     when 'one_month_plan'
-      "$40 / month"
+      "$60 / month"
     when 'three_months_plan'
       "$150 / 90 days"
     when 'one_year_plan'

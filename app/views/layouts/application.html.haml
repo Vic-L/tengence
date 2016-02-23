@@ -33,4 +33,5 @@
       });
     = yield :javascript
     = render 'layouts/ga_scripts'
-    = render 'layouts/heatmap_scripts'
+    - if Rails.env.production?
+      = render 'layouts/heatmap_scripts'

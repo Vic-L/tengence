@@ -6,6 +6,8 @@
     = metamagic title: "Tengence", description: "We Track Tender Opportunities from >60 Sources (Gebiz, Sesami, Ariba and More) in Singapore. Get Daily Email Alerts & Notifications. Keyword Tracking. Sign Up Now!"
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
+    - if Rails.env.production?
+      = render 'layouts/heatmap_scripts'
     = yield :head
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
@@ -36,5 +38,3 @@
       });
     = yield :javascript
     = render 'layouts/ga_scripts'
-    - if Rails.env.production?
-      = render 'layouts/heatmap_scripts'

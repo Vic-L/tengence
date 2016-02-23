@@ -11,6 +11,8 @@
     = yield :head
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
+
+    = render 'layouts/ga_scripts'
     
     :javascript
       dataLayer = [];
@@ -37,4 +39,3 @@
         });
       });
     = yield :javascript
-    = render 'layouts/ga_scripts'

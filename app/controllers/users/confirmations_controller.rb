@@ -31,7 +31,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
     else
       # respond_with_navigational(resource.errors, status: :unprocessable_entity){ render 'users/confirmations/new' }
-      flash[:error] = resource.errors.full_messages.to_sentence
+      flash[:alert] = resource.errors.full_messages.to_sentence
       redirect_to new_user_confirmation_path
     end
   end

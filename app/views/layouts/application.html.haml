@@ -11,13 +11,8 @@
     = yield :head
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
-
+  
     = render 'layouts/ga_scripts'
-    
-    :javascript
-      dataLayer = [];
-      var GA_tender_id = null, GA_UID = null,
-        GA_access_level = null;
     
     = render 'layouts/header'
     = yield

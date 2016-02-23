@@ -32,20 +32,80 @@ class BrainTreeController < ApplicationController
   end
 
   def update_payment
-    resp = UpdateSubscriptionWithNewPaymentMethod.call(
-      user: current_user,
-      payment_method_nonce: params['payment_method_nonce'])
-    
-    eval(resp)
+
+    resp = CreateNewPaymentMethod.call(
+      braintree_customer_id: current_user.braintree_customer_id,
+      payment_method_nonce: params[:payment_method_nonce])
+
+    if resp[:status] == 'success'
+
+      resp = UpdateSubscriptionWithNewPaymentMethod.call(
+        braintree_subscription_id: current_user.braintree_subscription_id,
+        payment_method_token: resp[:token],
+        user: current_user)
+
+      if resp[:status] == 'success'
+
+        flash[:success] = resp[:message]
+        redirect_to billing_path
+
+      elsif resp[:status] == 'error'
+
+        flash[:alert] = resp[:message]
+        redirect_to request.referrer
+
+      end
+
+    elsif resp[:status] == 'error'
+
+      flash[:alert] = resp[:message]
+      redirect_to request.referrer
+
+    else
+
+      # binding.pry
+
+    end
+
   end
 
   def create_payment
-    resp = SubscribeToTengence.call(
-      user: current_user,
-      payment_method_nonce: params['payment_method_nonce'],
-      plan: params['plan']
-      )
-    eval(resp)
+
+    resp = CreateNewPaymentMethod.call(
+      braintree_customer_id: current_user.braintree_customer_id,
+      payment_method_nonce: params[:payment_method_nonce])
+
+    if resp[:status] == 'success'
+
+      resp = CreateSubscription.call(
+        user: current_user,
+        payment_method_token: resp[:token],
+        plan: params[:plan]
+        )
+
+      if resp[:status] == 'success'
+
+        flash[:success] = resp[:message]
+        redirect_to billing_path
+
+      elsif resp[:status] == 'error'
+
+        flash[:alert] = resp[:message]
+        redirect_to request.referrer
+
+      end
+
+    elsif resp[:status] == 'error'
+
+      flash[:alert] = resp[:message]
+      redirect_to request.referrer
+
+    else
+
+      # binding.pry
+
+    end
+
   end
 
   def unsubscribe

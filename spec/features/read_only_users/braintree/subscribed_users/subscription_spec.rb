@@ -34,7 +34,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content 'You have successfully change your default payment method'
+      expect(page).to have_content 'You have successfully changed your default payment method'
       expect(page.current_path).to eq billing_path
     end
 

@@ -6,14 +6,13 @@
     = metamagic title: "Tengence", description: "We Track Tender Opportunities from >60 Sources (Gebiz, Sesami, Ariba and More) in Singapore. Get Daily Email Alerts & Notifications. Keyword Tracking. Sign Up Now!"
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
+    - if Rails.env.production?
+      = render 'layouts/heatmap_scripts'
     = yield :head
   
   %body{class: "#{params[:controller].parameterize} #{params[:action].parameterize}"}
-    
-    :javascript
-      dataLayer = [];
-      var GA_tender_id = null, GA_UID = null,
-        GA_access_level = null;
+  
+    = render 'layouts/ga_scripts'
     
     = render 'layouts/header'
     = yield
@@ -31,7 +30,5 @@
       $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
         document.body.classList.remove('loading');
       });
+
     = yield :javascript
-    = render 'layouts/ga_scripts'
-    - if Rails.env.production?
-      = render 'layouts/heatmap_scripts'

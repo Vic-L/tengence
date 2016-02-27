@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212063810) do
+ActiveRecord::Schema.define(version: 20160227141736) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -177,10 +177,11 @@ ActiveRecord::Schema.define(version: 20160212063810) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",            limit: 255
-    t.string   "braintree_subscription_id",    limit: 255
     t.string   "default_payment_method_token", limit: 255
     t.date     "next_billing_date"
     t.integer  "trial_tenders_count",          limit: 4,     default: 0
+    t.string   "subscribed_plan",              limit: 255,   default: "free_plan"
+    t.boolean  "auto_renew",                                 default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

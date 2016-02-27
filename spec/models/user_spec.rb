@@ -4,7 +4,6 @@ feature User, type: :model do
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }
   it { should validate_presence_of :email }
-  it { should_not validate_presence_of :braintree_subscription_id }
   it { should_not validate_presence_of :default_payment_method_token }
   it { should_not validate_presence_of :braintree_customer_id }
 
@@ -122,12 +121,31 @@ feature User, type: :model do
       end
     end
 
+    scenario 'trial?' do
+      expect(subscribed_user.trial?).to eq false
+      expect(user.trial?).to eq true
+      expect(unsubscribed_user.trial?).to eq false
+      Timecop.freeze(Time.current + 31.days) do
+        expect(user.trial?).to eq false
+      end
+    end
+
+    scenario 'finished_trial_but_yet_to_subscribe?' do
+      expect(subscribed_user.finished_trial_but_yet_to_subscribe?).to eq false
+      expect(user.finished_trial_but_yet_to_subscribe?).to eq false
+      expect(unsubscribed_user.finished_trial_but_yet_to_subscribe?).to eq false
+      Timecop.freeze(Time.current + 31.days) do
+        expect(user.finished_trial_but_yet_to_subscribe?).to eq true
+      end
+    end
+
     scenario 'subscribed?' do
       expect(subscribed_user.subscribed?).to eq true
       expect(user.subscribed?).to eq false
       expect(unsubscribed_user.subscribed?).to eq false
       Timecop.freeze(Time.current + 31.days) do
-        expect(unsubscribed_user.subscribed?).to eq false
+        # prerequisite for unubscribed is not time vs next_billing_date but subscibed_plan and billing_date
+        expect(subscribed_user.subscribed?).to eq true # still true
       end
     end
 
@@ -140,33 +158,23 @@ feature User, type: :model do
       end
     end
 
-    scenario 'can_resubscribe?' do
-      expect(subscribed_user.can_resubscribe?).to eq false
-      expect(user.can_resubscribe?).to eq false
-      expect(unsubscribed_user.can_resubscribe?).to eq false
+    scenario 'unsubscribed_and_yet_to_finish_cycle?' do
+      expect(subscribed_user.unsubscribed_and_yet_to_finish_cycle?).to eq false
+      expect(user.unsubscribed_and_yet_to_finish_cycle?).to eq false
+      expect(unsubscribed_user.unsubscribed_and_yet_to_finish_cycle?).to eq true
       Timecop.freeze(Time.current + 31.days) do
-        expect(unsubscribed_user.can_resubscribe?).to eq true
+        expect(subscribed_user.unsubscribed_and_yet_to_finish_cycle?).to eq false
+        expect(unsubscribed_user.unsubscribed_and_yet_to_finish_cycle?).to eq false
       end
     end
 
-    scenario 'cannot_resubscribe?' do
-      expect(subscribed_user.cannot_resubscribe?).to eq false
-      expect(user.cannot_resubscribe?).to eq false
-      expect(unsubscribed_user.cannot_resubscribe?).to eq true
+    scenario 'unsubscribed_and_finished_cycle?' do
+      expect(subscribed_user.unsubscribed_and_finished_cycle?).to eq false
+      expect(user.unsubscribed_and_finished_cycle?).to eq false
+      expect(unsubscribed_user.unsubscribed_and_finished_cycle?).to eq false
       Timecop.freeze(Time.current + 31.days) do
-        expect(unsubscribed_user.cannot_resubscribe?).to eq false
-      end
-    end
-
-    scenario 'finished_trial_but_yet_to_subscribe?' do
-      expect(subscribed_user.finished_trial_but_yet_to_subscribe?).to eq false
-      expect(user.finished_trial_but_yet_to_subscribe?).to eq false
-      Timecop.freeze(Time.current + 31.days) do
-        expect(user.finished_trial_but_yet_to_subscribe?).to eq true
-      end
-      expect(unsubscribed_user.finished_trial_but_yet_to_subscribe?).to eq false
-      Timecop.freeze(Time.current + 31.days) do
-        expect(unsubscribed_user.finished_trial_but_yet_to_subscribe?).to eq false
+        expect(subscribed_user.unsubscribed_and_finished_cycle?).to eq false
+        expect(unsubscribed_user.unsubscribed_and_finished_cycle?).to eq true
       end
     end
 

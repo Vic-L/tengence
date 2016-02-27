@@ -41,27 +41,34 @@ class User < ActiveRecord::Base
   end
 
   def yet_to_subscribe?
-    braintree_subscription_id.blank?
+    default_payment_method_token.blank?
+  end
+
+  def trial?
+    yet_to_subscribe? && (Time.current - created_at) < 1.month.to_i
+   end
+
+  def finished_trial_but_yet_to_subscribe?
+    yet_to_subscribe? && (Time.current - created_at) >= 1.month.to_i
   end
 
   def subscribed?
-    !braintree_subscription_id.blank? && !next_billing_date
+    !default_payment_method_token.blank? && subscribed_plan != "free_plan" && !next_billing_date.nil?
   end
+
+  # do not change next billing date to nil even after unsubscribing and time has passed
+  # only plan change
 
   def unsubscribed?
-    !braintree_subscription_id.blank? && !!next_billing_date
+    !default_payment_method_token.blank? && subscribed_plan == "free_plan" && !next_billing_date.nil?
   end
 
-  def can_resubscribe?
+  def unsubscribed_and_yet_to_finish_cycle?
+     unsubscribed? && Time.now.in_time_zone('Singapore').to_date < next_billing_date
+  end
+
+  def unsubscribed_and_finished_cycle?
     unsubscribed? && Time.now.in_time_zone('Singapore').to_date >= next_billing_date
-  end
-
-  def cannot_resubscribe?
-    unsubscribed? && Time.now.in_time_zone('Singapore').to_date < next_billing_date
-  end
-
-  def finished_trial_but_yet_to_subscribe?
-    braintree_subscription_id.nil? && (Time.current - created_at) > 1.month.to_i
   end
 
   def fully_confirmed?
@@ -88,9 +95,9 @@ class User < ActiveRecord::Base
     braintree.payment_methods
   end
 
-  def braintree_subscription
-    Braintree::Subscription.find(braintree_subscription_id)
-  end
+  # def braintree_subscription
+  #   Braintree::Subscription.find(braintree_subscription_id)
+  # end
 
   def register_braintree_customer
     CreateBraintreeCustomerWorker.perform_async(self.id)

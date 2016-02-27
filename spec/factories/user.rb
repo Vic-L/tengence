@@ -61,11 +61,8 @@ FactoryGirl.define do
         }
       )
       user.default_payment_method_token = result.payment_method.token
-      result = Braintree::Subscription.create(
-        :payment_method_token => result.payment_method.token,
-        :plan_id => "one_month_plan"
-      )
-      user.braintree_subscription_id = result.subscription.id
+      user.next_billing_date = Date.today + 30.day
+      user.subscribed_plan = "one_month_plan"
     end
   end
 
@@ -90,13 +87,8 @@ FactoryGirl.define do
         }
       )
       user.default_payment_method_token = result.payment_method.token
-      result = Braintree::Subscription.create(
-        :payment_method_token => result.payment_method.token,
-        :plan_id => "one_month_plan"
-      )
-      user.braintree_subscription_id = result.subscription.id
-      user.next_billing_date = result.subscription.next_billing_date
-      Braintree::Subscription.cancel(result.subscription.id)
+      user.next_billing_date = Date.today + 30.day
+      user.subscribed_plan = "free_plan"
     end
   end
 end

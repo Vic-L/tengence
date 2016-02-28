@@ -26,8 +26,10 @@ module TenderFunctions
   def self.included(base)
     base.class_eval do
       scope :gebiz, -> {where("external_link like '%gebiz.gov%'")}
-      scope :non_gebiz, -> {where.not("external_link like '%gebiz.gov%'")}
+      scope :non_gebiz, -> { non_inhouse.where.not("external_link like '%gebiz.gov%'") }
+      # scope :non_gebiz, -> {where("NOT(external_link like '%gebiz.gov%') OR external_link IS NULL")}
       scope :non_inhouse, -> {where.not("ref_no like '%InHouse-%'")}
+      scope :inhouse, -> {where("ref_no like '%InHouse-%'")}
     end
   end
 

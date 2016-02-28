@@ -50,7 +50,7 @@ Tengence.HomePage.initContactUsForm = () ->
     action = $(this).attr('action')
     $('#message').slideUp 300, ->
       $('#message').hide()
-      $('#submit').after('<img src="<%= image_path "ajax-loader.gif"%>" class="loader" />').attr 'disabled', 'disabled'
+      $('#submit').after('<img src="https://<%= ENV["CDN_HOST"] %>/static_assets/home/ajax-loader.gif" class="loader" />').attr 'disabled', 'disabled'
       $.post action, {
         name: $('#name').val()
         email: $('#contact_email').val()

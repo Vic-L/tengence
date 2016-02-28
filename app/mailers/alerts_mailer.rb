@@ -16,6 +16,7 @@ class AlertsMailer < ApplicationMailer
     tenders = Tender.where(ref_no: ref_nos_array)
     @gebiz_tenders = tenders.gebiz
     @non_gebiz_tenders = tenders.non_gebiz
+    @inhouse_tenders = tenders.inhouse
     if days_ago
       @date = "From #{(Time.now.in_time_zone('Asia/Singapore').to_date - days_ago.days).strftime('%A %d-%m-%y')}"
     else

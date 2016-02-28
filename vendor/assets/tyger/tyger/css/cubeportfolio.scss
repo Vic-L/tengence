@@ -81,7 +81,7 @@
 
 .cbp-loading {
   /* @editable properties */
-  background: image-url("cbp-loading.gif") no-repeat scroll center center transparent; }
+  background: url("https://<%= ENV['CDN_HOST'] %>/static_assets/home/cbp-loading.gif") no-repeat scroll center center transparent; }
 
 .cbp .cbp-item-hidden {
   pointer-events: none;

@@ -1,4 +1,4 @@
-- if current_user.finished_trial_but_yet_to_subscribe? || current_user.can_resubscribe?
+- if current_user.finished_trial_but_yet_to_subscribe? || current_user.unsubscribed_and_finished_cycle?
   = react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, keywords: @keywords, trial_tender_ids: current_user.trial_tender_ids}
 - else
   = react_component 'TendersListing', {url: '/api/v1' + request.fullpath, current_tenders_count: @current_tenders_count, keywords: @keywords}

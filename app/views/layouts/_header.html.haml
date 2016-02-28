@@ -46,7 +46,7 @@
                   = link_to "Your Keywords", keywords_tenders_path
             %li.show-for-medium-up
               %a{data: {dropdown: "account-drop"}} Account
-              - if current_user.yet_to_subscribe? || current_user.can_resubscribe?
+              - if current_user.finished_trial_but_yet_to_subscribe? || current_user.unsubscribed_and_finished_cycle?
                 %label.free-trial free
               %ul#account-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
                 %li
@@ -66,7 +66,7 @@
               = link_to "Edit Profile", edit_user_registration_path
             %li.show-for-small-only
               = link_to "Billing", billing_path
-              - if current_user.yet_to_subscribe? || current_user.can_resubscribe?
+              - if current_user.finished_trial_but_yet_to_subscribe? || current_user.unsubscribed_and_finished_cycle?
                 %label.free-trial free
 
             %li

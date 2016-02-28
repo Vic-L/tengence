@@ -36,4 +36,24 @@ module BrainTreeHelper
       "$480 / year"
     end
   end
+
+  def plan plan
+    case plan
+
+    when "one_month_plan"
+
+      "Monthly ($60 / Month)"
+
+    when "three_months_plan"
+
+      "Quarterly ($150 / 90 days)"
+
+    when "one_year_plan"
+
+      "Quarterly ($480 / year)"
+
+    end
+
+  end
+
 end

@@ -8,10 +8,10 @@
               %strong Next Billing Date:
           .small-12.medium-4.column
             %h4
-              %strong #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
+              %strong #{current_user.next_billing_date.strftime('%e %b %Y')}.
         .row
           .medium-12.column.medium-centered.text-center
-            You will be charged 40 USD on this card.
+            You will be charged #{subscription_rate(current_user.subscribed_plan)} on this card.
         %br
         .row
           .medium-12.column.medium-centered.text-center
@@ -21,9 +21,9 @@
               %button#submit Confirm Change of Payment Method
         .row
           .medium-12.columns.medium-centered.text-center
-            - if current_user.braintree_subscription_id
+            - if current_user.subscribed?
               = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
-                Unsubscribe from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
+                Unsubscribe from Tengence. Your subscription will continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"

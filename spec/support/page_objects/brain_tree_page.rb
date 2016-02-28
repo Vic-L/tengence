@@ -37,6 +37,11 @@ class BrainTreePage
     self
   end
 
+  def visit_payment_history_page
+    visit '/payment-history'
+    self
+  end
+
   def valid_mastercard
     '5555555555554444'
   end

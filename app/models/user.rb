@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def yet_to_subscribe?
-    default_payment_method_token.blank?
+    default_payment_method_token.blank? || next_billing_date.nil? # can have default_payment_method_token with no next_billing_date
   end
 
   def trial?
@@ -56,8 +56,7 @@ class User < ActiveRecord::Base
     !default_payment_method_token.blank? && subscribed_plan != "free_plan" && !next_billing_date.nil?
   end
 
-  # do not change next billing date to nil even after unsubscribing and time has passed
-  # only plan change
+  # NOTE: next_billing_date will never become nil once it is init with a value
 
   def unsubscribed?
     !default_payment_method_token.blank? && subscribed_plan == "free_plan" && !next_billing_date.nil?

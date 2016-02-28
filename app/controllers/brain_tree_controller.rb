@@ -2,19 +2,12 @@ class BrainTreeController < ApplicationController
   before_action :authenticate_user!, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_unconfirmed_users, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_write_only_access, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
-  before_action :deny_subscribed_user, only: [:subscribe, :create_payment]
-  before_action :deny_unresubscribable_user, only: [:subscribe, :change_payment, :create_payment, :unsubscribe]
-  before_action :deny_resubscribable_user, only: [:change_payment, :unsubscribe]
+  before_action :deny_unsubscribed_user, only: [:change_payment, :update_payment]
   before_action :deny_yet_to_subscribe_user, only: [:change_payment, :payment_history, :update_payment]
   skip_before_action :verify_authenticity_token, only: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
 
   def billing
-    if current_user.braintree_subscription_id
-
-
-      @payment_method_token = current_user.braintree_subscription.payment_method_token
-      @payment_method = Braintree::PaymentMethod.find(@payment_method_token) unless @payment_method_token.nil?
-    end
+    @payment_method = Braintree::PaymentMethod.find(current_user.default_payment_method_token) if current_user.default_payment_method_token
   end
 
   def subscribe
@@ -24,11 +17,13 @@ class BrainTreeController < ApplicationController
 
   def change_payment
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
-    @payment_method = current_user.braintree_subscription.payment_method_token
+    @payment_method = current_user.default_payment_method_token
   end
 
   def payment_history
-    @subscription = Braintree::Subscription.find(current_user.braintree_subscription_id)
+    @transactions = Braintree::Transaction.search do |search|
+      search.customer_id.is current_user.braintree_customer_id
+    end
   end
 
   def update_payment
@@ -39,22 +34,10 @@ class BrainTreeController < ApplicationController
 
     if resp[:status] == 'success'
 
-      resp = UpdateSubscriptionWithNewPaymentMethod.call(
-        braintree_subscription_id: current_user.braintree_subscription_id,
-        payment_method_token: resp[:token],
-        user: current_user)
+      current_user.update!(default_payment_method_token: resp[:token])
 
-      if resp[:status] == 'success'
-
-        flash[:success] = resp[:message]
-        redirect_to billing_path
-
-      elsif resp[:status] == 'error'
-
-        flash[:alert] = resp[:message]
-        redirect_to request.referrer
-
-      end
+      flash[:success] = 'You have successfully changed your default payment method'
+      redirect_to billing_path
 
     elsif resp[:status] == 'error'
 
@@ -64,6 +47,7 @@ class BrainTreeController < ApplicationController
     else
 
       # binding.pry
+      NotifyViaSlack.call(content: "This should not happen in brain_tree_controller#update_payment")
 
     end
 
@@ -80,7 +64,8 @@ class BrainTreeController < ApplicationController
       resp = CreateSubscription.call(
         user: current_user,
         payment_method_token: resp[:token],
-        plan: params[:plan]
+        plan: params[:plan],
+        next_billing_date: current_user.next_billing_date
         )
 
       if resp[:status] == 'success'
@@ -102,7 +87,7 @@ class BrainTreeController < ApplicationController
 
     else
 
-      # binding.pry
+      NotifyViaSlack.call(content: "This should not happen in brain_tree_controller#create_payment")
 
     end
 
@@ -110,7 +95,22 @@ class BrainTreeController < ApplicationController
 
   def unsubscribe
     resp = UnsubscribeFromTengence.call(user: current_user)
-    eval(resp)
+
+    if resp[:status] == 'success'
+      
+      flash[:success] = resp[:message]
+      redirect_to billing_path
+    
+    elsif resp[:status] == 'error'
+
+      flash[:alert] = resp[:message]
+      redirect_to request.referrer
+
+    else
+
+      NotifyViaSlack.call(content: "This should not happen in brain_tree_controller#unsubscribe")
+
+    end
   end
 
   def braintree_slack_pings
@@ -185,15 +185,8 @@ class BrainTreeController < ApplicationController
       end
     end
 
-    def deny_unresubscribable_user
-      if current_user.cannot_resubscribe?
-        flash[:alert] = "You are not authorized to view this page."
-        redirect_to :billing
-      end
-    end
-
-    def deny_resubscribable_user
-      if current_user.can_resubscribe?
+    def deny_unsubscribed_user
+      if current_user.unsubscribed?
         flash[:alert] = "You are not authorized to view this page."
         redirect_to :billing
       end

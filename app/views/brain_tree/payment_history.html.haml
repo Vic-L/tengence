@@ -3,7 +3,7 @@
   %section
 
     .row
-      .small-12.columns.animated{data: {animate: "fadeInDown", animate: "0"}}
+      .small-12.columns.animated{data: {animate: "fadeInDown", animate_delay: "0"}}
         .title-section
           %h3 Payment History
           -# %p NOTE: For users who have unsubscribed from Tengence before, the table below will not reflect your previous subscription(s).
@@ -17,17 +17,17 @@
 
             %tr
               %th Time of Settlement
+              %th Email
               %th Amount (USD)
               %th Credit Card
-              %th Billing Period
 
           %tbody
-            - @subscription.transactions.each do |transaction|
+            - @transactions.each do |transaction|
               %tr
                 %td= "#{@subscription.created_at.strftime('%d %b %Y %H:%M %Z')}"
+                %td= transaction.customer_email
                 %td= transaction.amount
                 %td
                   %img{src: transaction.credit_card_details.image_url}
                   %strong=transaction.credit_card_details.card_type
                   ending with #{transaction.credit_card_details.last_4}
-                %td= billing_period(transaction.subscription_details)

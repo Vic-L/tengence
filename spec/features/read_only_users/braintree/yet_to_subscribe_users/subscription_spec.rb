@@ -2,8 +2,7 @@ require 'spec_helper'
 
 feature 'subscription', type: :feature, js: true do
   let(:brain_tree_page) { BrainTreePage.new }
-  let!(:yet_to_subscribe_user) {create(:user, :read_only, :braintree)}
-
+  let!(:yet_to_subscribe_user) {create(:user, :braintree)}
 
   feature 'validations' do
     
@@ -75,8 +74,11 @@ feature 'subscription', type: :feature, js: true do
     end
 
     scenario 'with fully filled valid fields' do
-      expect(yet_to_subscribe_user.reload.braintree_subscription_id).to eq nil
-      expect(yet_to_subscribe_user.reload.default_payment_method_token).to eq nil
+
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.next_billing_date).to eq nil
+      expect(yet_to_subscribe_user.default_payment_method_token).to eq nil
+
       brain_tree_page.click_unique '#submit'
       expect(page).to have_selector 'iframe'
       page.within_frame 'braintree-dropin-frame' do
@@ -96,8 +98,9 @@ feature 'subscription', type: :feature, js: true do
       expect(page).to have_content 'Next Billing Date'
       expect(page).to have_link 'Change Payment Settings', href: change_payment_path
       
-      expect(yet_to_subscribe_user.reload.braintree_subscription_id).not_to eq nil
-      expect(yet_to_subscribe_user.reload.default_payment_method_token).not_to eq nil
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.next_billing_date).not_to eq nil
+      expect(yet_to_subscribe_user.default_payment_method_token).not_to eq nil
 
     end
 
@@ -124,7 +127,12 @@ feature 'subscription', type: :feature, js: true do
       wait_for_page_load
 
       expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
-      expect(yet_to_subscribe_user.reload.braintree_subscription.plan_id).to eq 'one_month_plan'
+
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.next_billing_date).to eq Date.today + 30.day
+      expect(yet_to_subscribe_user.default_payment_method_token).not_to eq nil
+      expect(yet_to_subscribe_user.subscribed_plan).to eq 'one_month_plan'
+
     end
 
     scenario 'three_months_plan' do
@@ -142,7 +150,11 @@ feature 'subscription', type: :feature, js: true do
       wait_for_page_load
 
       expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
-      expect(yet_to_subscribe_user.reload.braintree_subscription.plan_id).to eq 'three_months_plan'
+
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.next_billing_date).to eq Date.today + 90.day
+      expect(yet_to_subscribe_user.default_payment_method_token).not_to eq nil
+      expect(yet_to_subscribe_user.subscribed_plan).to eq 'three_months_plan'
     end
 
     scenario 'one_year_plan' do
@@ -160,7 +172,12 @@ feature 'subscription', type: :feature, js: true do
       wait_for_page_load
 
       expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
-      expect(yet_to_subscribe_user.reload.braintree_subscription.plan_id).to eq 'one_year_plan'
+
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.next_billing_date).to eq Date.today + 1.year
+      expect(yet_to_subscribe_user.default_payment_method_token).not_to eq nil
+      expect(yet_to_subscribe_user.subscribed_plan).to eq 'one_year_plan'
+
     end
 
   end

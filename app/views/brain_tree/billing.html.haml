@@ -22,24 +22,48 @@
 
           - else
 
-            - if current_user.subscribed? || current_user.cannot_resubscribe?
+            - if current_user.subscribed? && @payment_method
+
+              .row
+                .small-12.medium-6.column
+                  %h4
+                    %strong Plan:
+                .small-12.medium-6.column
+                  %h4 #{plan current_user.subscribed_plan}
 
               .row
                 .small-12.medium-6.column
                   %h4
                     %strong Next Billing Date:
                 .small-12.medium-6.column
-                  %h4 #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}
+                  %h4 #{current_user.next_billing_date.strftime('%e %b %Y')}
 
-            .row
-              .small-12.medium-6.column
-                %h4
-                  %strong Card to charge:
-              .small-12.medium-6.column
-                %h6
-                  %img{src: @payment_method.image_url}
-                  %strong=@payment_method.card_type
-                  ending with #{@payment_method.last_4}
+              .row
+                .small-12.medium-6.column
+                  %h4
+                    %strong Card to charge:
+                .small-12.medium-6.column
+                  %h6
+                    %img{src: @payment_method.image_url}
+                    %strong=@payment_method.card_type
+                    ending with #{@payment_method.last_4}
+
+            - elsif current_user.unsubscribed? && @payment_method
+
+              - if current_user.unsubscribed_and_yet_to_finish_cycle?
+
+                .row
+                  .small-12.medium-6.column
+                    %h4
+                      %strong Next Billing Date:
+                  .small-12.medium-6.column
+                    %h4 #{current_user.next_billing_date.strftime('%e %b %Y')}
+
+              - elsif current_user.unsubscribed_and_finished_cycle?
+
+                .row
+                  .small-12.medium-8.medium-centered.column.text-center
+                    %h4 Your subscription has ended.
 
           %br
 
@@ -70,39 +94,69 @@
           
       - else
 
-        .row
-          .medium-8.columns.medium-centered.text-center
+        - if current_user.subscribed? || current_user.unsubscribed?
+
+          .row
+            .medium-8.columns.medium-centered.text-center
+
+              - if current_user.subscribed?
+              
+                = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
+
+              = link_to "Payment History", payment_history_path, class: 'button', id: 'payment-history'
+
+        - if current_user.subscribed?
+
+          .row
+            .medium-8.columns.medium-centered.text-center
+              %h4 NOTE: Upgrading now will not charge immediately. The new billing cycle will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
           
-            = link_to "Payment History", payment_history_path, class: 'button', id: 'payment-history'
-          
-            - if current_user.can_resubscribe?
-          
-              .row
-                .medium-4.columns
-                  Monthly (30 days)
-                  = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
-                .medium-4.columns
-                  Quarterly (90 days)
-                  = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
-                .medium-4.columns
-                  Annually
-                  = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
-          
-            - elsif current_user.subscribed?
-          
-              = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
-          
-            - elsif current_user.cannot_resubscribe?
-          
-              %p Resubscription is available from the next billing date, #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}, onwards.
+          .row
+            .medium-4.columns
+              Monthly (30 days)
+              = link_to 'Upgrade Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
+            .medium-4.columns
+              Quarterly (90 days)
+              = link_to 'Upgrade Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
+            .medium-4.columns
+              Annually
+              = link_to 'Upgrade Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
+
+        - elsif current_user.unsubscribed?
+
+          .row
+            .medium-8.columns.medium-centered.text-center
+              %h4 NOTE: Resubscribing now will not charge immediately. The new billing cycle will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
+          .row
+            .medium-4.columns
+              Monthly (30 days)
+              = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
+            .medium-4.columns
+              Quarterly (90 days)
+              = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
+            .medium-4.columns
+              Annually
+              = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
 
       - if current_user.subscribed?
+      
+        .row
+          .medium-8.columns.medium-centered.text-center
+            %h4 Auto Renew?
+        .row
+          .medium-2.columns.medium-centered.text-center
+            %fieldset#renewal-toggle.switch.round.large{:tabindex => "0"}
+              %input#exampleCheckboxSwitch4{:type => "checkbox"}
+              %label{:for => "exampleCheckboxSwitch4"}
+
+        %br
         
         .row
           .medium-8.columns.medium-centered.text-center
             = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
               Unsubscribe 
-            from Tengence. Your subscription will continue till #{Date.parse(current_user.braintree_subscription.next_billing_date).strftime('%e %b %Y')}.
+            from Tengence. Your subscription will continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
       %br
 

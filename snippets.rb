@@ -43,3 +43,8 @@ Benchmark.bm do |bm|
   bm.report{Tender.where('closing_datetime >= NOW() AND status = "open"').count}
   bm.report{CurrentTender.count}
 end;nil
+
+# auto renew
+# check payment history
+# deny different users
+# trials

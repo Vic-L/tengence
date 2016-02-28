@@ -144,11 +144,13 @@
         .row
           .medium-8.columns.medium-centered.text-center
             %h4 Auto Renew?
+            %p.strong#renew-true Your subscription will auto renew
+            %p.strong#renew-false Your subscription will not auto renew
         .row
           .medium-2.columns.medium-centered.text-center
             %fieldset#renewal-toggle.switch.round.large{:tabindex => "0"}
-              %input#exampleCheckboxSwitch4{:type => "checkbox"}
-              %label{:for => "exampleCheckboxSwitch4"}
+              %input#renew-toggle{:type => "checkbox", checked: current_user.auto_renew}
+              %label{:for => "renew-toggle"}
 
         %br
         
@@ -177,3 +179,35 @@
       -#   .row
       -#     .medium-8.columns.medium-centered
       -#       = link_to "I want to check Tengence out first. Skip", root_path
+
+- content_for :javascript do
+  :javascript
+    var renewTrueTimeout, renewFalseTimeout;
+    $('#renew-toggle').click(function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      $.ajax({
+        url: '#{toggle_renew_path}',
+        method: "POST",
+        dataType: 'json'
+      }).success(function(data,status,xhr){
+        $('#renew-toggle').prop('checked', data)
+      }).error(function(xhr,status,error){
+        $('#renew-toggle').prop('checked', data);
+        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
+      }).done(function(){
+        if ($('#renew-toggle').prop('checked') === true) {
+          clearTimeout(renewTrueTimeout);
+          clearTimeout(renewFalseTimeout);
+          $('#renew-true').slideDown();
+          $('#renew-false').slideUp();
+          renewTrueTimeout = setTimeout(function(){ $('#renew-true').slideUp(); }, 3000);
+        } else {
+          clearTimeout(renewTrueTimeout);
+          clearTimeout(renewFalseTimeout);
+          $('#renew-false').slideDown();
+          $('#renew-true').slideUp();
+          renewTrueTimeout = setTimeout(function(){ $('#renew-false').slideUp(); }, 3000);
+        }
+      })
+    });

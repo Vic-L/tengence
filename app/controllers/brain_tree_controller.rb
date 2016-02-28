@@ -54,7 +54,6 @@ class BrainTreeController < ApplicationController
   end
 
   def create_payment
-
     resp = CreateNewPaymentMethod.call(
       braintree_customer_id: current_user.braintree_customer_id,
       payment_method_nonce: params[:payment_method_nonce])
@@ -65,7 +64,8 @@ class BrainTreeController < ApplicationController
         user: current_user,
         payment_method_token: resp[:token],
         plan: params[:plan],
-        next_billing_date: current_user.next_billing_date
+        next_billing_date: current_user.next_billing_date,
+        renew: params[:renew].present?
         )
 
       if resp[:status] == 'success'
@@ -110,6 +110,20 @@ class BrainTreeController < ApplicationController
 
       NotifyViaSlack.call(content: "This should not happen in brain_tree_controller#unsubscribe")
 
+    end
+  end
+
+  def toggle_renew
+    begin
+      current_user.update!(auto_renew: !current_user.auto_renew)
+      respond_to do |format|
+        format.json { render :json => current_user.auto_renew, status: :ok }
+      end
+    rescue => e
+      NotifyViaSlack.call(content: "This should not happen in brain_tree_controller#unsubscribe")
+      respond_to do |format|
+        format.json { render :json => current_user.auto_renew, status: :internal_server_error }
+      end
     end
   end
 

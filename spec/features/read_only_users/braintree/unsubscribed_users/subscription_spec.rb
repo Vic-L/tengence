@@ -76,6 +76,10 @@ feature 'subscription', type: :feature, js: true do
 
     end
 
+    scenario 'toggle in billing path' do
+      expect(page).not_to have_content "Auto Renew?"
+    end
+
   end
 
 end

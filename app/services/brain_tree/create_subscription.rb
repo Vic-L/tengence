@@ -6,6 +6,7 @@ class CreateSubscription
   attribute :payment_method_token, String
   attribute :plan, String
   attribute :next_billing_date, Date
+  attribute :renew, Boolean
 
   def call
 
@@ -29,7 +30,8 @@ class CreateSubscription
           user.update!(
             subscribed_plan: plan,
             default_payment_method_token: payment_method_token,
-            next_billing_date: get_next_billing_date)
+            next_billing_date: get_next_billing_date,
+            auto_renew: renew)
 
           return {status: 'success', message: 'You have successfully subscribed to Tengence. Welcome to the community.'}
 
@@ -45,7 +47,8 @@ class CreateSubscription
 
         user.update!(
           subscribed_plan: plan,
-          default_payment_method_token: payment_method_token)
+          default_payment_method_token: payment_method_token,
+          auto_renew: renew)
 
         return {status: 'success', message: 'You have successfully subscribed to Tengence. Welcome to the community.'}
 

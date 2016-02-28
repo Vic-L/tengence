@@ -20,14 +20,16 @@
               %th Email
               %th Amount (USD)
               %th Credit Card
+              %th Status
 
           %tbody
             - @transactions.each do |transaction|
               %tr
-                %td= "#{@subscription.created_at.strftime('%d %b %Y %H:%M %Z')}"
-                %td= transaction.customer_email
+                %td= "#{transaction.created_at.strftime('%d %b %Y %H:%M %Z')}"
+                %td= transaction.customer_details.email
                 %td= transaction.amount
                 %td
                   %img{src: transaction.credit_card_details.image_url}
                   %strong=transaction.credit_card_details.card_type
                   ending with #{transaction.credit_card_details.last_4}
+                %td= transaction.status

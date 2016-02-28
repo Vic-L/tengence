@@ -30,6 +30,9 @@
           #dropin
           %br
           = hidden_field_tag 'plan', @plan
+          = check_box_tag 'renew', "1", false
+          %strong Auto renew subscription?
+          %br
           %button#submit{type: 'submit'} Confirm
 
 - content_for :javascript do

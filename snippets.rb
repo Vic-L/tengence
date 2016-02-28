@@ -48,3 +48,6 @@ end;nil
 # check payment history
 # deny different users
 # trials
+# should not have upgrade for the other 2 plans
+# subscription details in transactions?
+# add note of upgrading/resubscribing to subscribe page?

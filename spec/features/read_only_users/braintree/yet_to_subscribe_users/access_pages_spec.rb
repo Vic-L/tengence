@@ -46,6 +46,11 @@ feature "access pages by read_only yet_to_subscribe users" do
       fail
     end
 
+    scenario "toggle_renew" do
+      pending("how to do post in feature (non controller) spec")
+      fail
+    end
+
   end
 
 end

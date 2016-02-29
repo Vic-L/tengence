@@ -2,8 +2,8 @@ class BrainTreeController < ApplicationController
   before_action :authenticate_user!, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_unconfirmed_users, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
   before_action :deny_write_only_access, except: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
-  before_action :deny_unsubscribed_user, only: [:change_payment, :update_payment]
-  before_action :deny_yet_to_subscribe_user, only: [:change_payment, :payment_history, :update_payment]
+  before_action :deny_unsubscribed_user, only: [:change_payment, :update_payment, :unsubscribe]
+  before_action :deny_yet_to_subscribe_user, only: [:change_payment, :payment_history, :update_payment, :unsubscribe]
   skip_before_action :verify_authenticity_token, only: [:sandbox_braintree_slack_pings, :braintree_slack_pings]
 
   def billing

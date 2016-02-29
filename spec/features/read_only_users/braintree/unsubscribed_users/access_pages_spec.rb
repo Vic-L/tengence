@@ -50,6 +50,16 @@ feature "access pages by read_only resubscribe users" do
       fail
     end
 
+    scenario "update_payment" do
+      pending("how to do post in feature (non controller) spec")
+      fail
+    end
+
+    scenario "toggle_renew" do
+      pending("how to do post in feature (non controller) spec")
+      fail
+    end
+
   end
 
   feature 'after/on next_billing_date' do
@@ -72,13 +82,13 @@ feature "access pages by read_only resubscribe users" do
     scenario 'subscribe' do
       Timecop.freeze(unsubscribed_user.next_billing_date) do
         brain_tree_page.visit_subscribe_one_month_page
-      expect(page.current_path).to eq subscribe_one_month_path
+        expect(page.current_path).to eq subscribe_one_month_path
 
-      brain_tree_page.visit_subscribe_three_months_page
-      expect(page.current_path).to eq subscribe_three_months_path
+        brain_tree_page.visit_subscribe_three_months_page
+        expect(page.current_path).to eq subscribe_three_months_path
 
-      brain_tree_page.visit_subscribe_one_year_page
-      expect(page.current_path).to eq subscribe_one_year_path
+        brain_tree_page.visit_subscribe_one_year_page
+        expect(page.current_path).to eq subscribe_one_year_path
       end
     end
 
@@ -95,6 +105,11 @@ feature "access pages by read_only resubscribe users" do
     end
 
     scenario "update_payment" do
+      pending("how to do post in feature (non controller) spec")
+      fail
+    end
+
+    scenario "toggle_renew" do
       pending("how to do post in feature (non controller) spec")
       fail
     end

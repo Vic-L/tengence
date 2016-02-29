@@ -44,10 +44,6 @@ Benchmark.bm do |bm|
   bm.report{CurrentTender.count}
 end;nil
 
-# auto renew
-# check payment history
-# deny different users
-# trials
 # should not have upgrade for the other 2 plans
-# subscription details in transactions?
 # add note of upgrading/resubscribing to subscribe page?
+# scheduler

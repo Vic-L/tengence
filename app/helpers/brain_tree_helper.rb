@@ -16,16 +16,6 @@ module BrainTreeHelper
     "#{(Date.parse(subscription_details.billing_period_start_date)).strftime('%d %b %Y')} - #{(Date.parse(subscription_details.billing_period_end_date)).strftime('%d %b %Y')}"
   end
 
-  # def header_label user
-  #   if user.yet_to_subscribe?
-  #     "<label class='free-trial'>#{days_left(user.created_at)} left</label>".html_safe
-  #   elsif user.can_resubscribe?
-  #     "<label class='free-trial'>free</label>".html_safe
-  #   elsif user.unsubscribed?
-  #     "<label class='free-trial'>#{days_left(user.next_billing_date.to_time)} left</label>".html_safe
-  #   end
-  # end
-
   def subscription_rate plan
     case plan
     when 'one_month_plan'
@@ -50,7 +40,7 @@ module BrainTreeHelper
 
     when "one_year_plan"
 
-      "Quarterly ($480 / year)"
+      "Annually ($480 / year)"
 
     end
 

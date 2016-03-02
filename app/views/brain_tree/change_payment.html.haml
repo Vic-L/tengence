@@ -1,7 +1,10 @@
 #wrapper
+
   %section
+    
     .row
       .medium-8.columns.medium-centered
+
         .row
           .small-12.medium-8.column
             %h4
@@ -9,24 +12,93 @@
           .small-12.medium-4.column
             %h4
               %strong #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
         .row
-          .medium-12.column.medium-centered.text-center
-            You will be charged #{subscription_rate(current_user.subscribed_plan)} on this card.
+          .small-12.medium-8.column
+            %h4
+              %strong Plan:
+          .small-12.medium-4.column
+            %h4
+              %strong #{subscription_rate(current_user.subscribed_plan)}
+
+        .row
+          .small-12.medium-8.column
+            %h4
+              %strong Current Payment Card:
+          .small-12.medium-4.column
+            %h6
+              %img{src: @payment_method.image_url}
+              %strong=@payment_method.card_type
+              ending with #{@payment_method.last_4}
+
+        %hr
+
+        .row
+          .medium-8.column.medium-centered.text-center
+            %ul#actions.button-group.round.even-2.toggle
+              %li
+                %input#auto-renew-option{"data-toggle" => "button", :name => "radio-group", :type => "radio", checked: true}
+                %label.button{:for => "auto-renew-option"} Auto Renew?
+              %li
+                %input#change-card-option{"data-toggle" => "button", :name => "radio-group", :type => "radio"}
+                %label.button{:for => "change-card-option"} Change Card?
+
         %br
-        .row
+
+        .row#auto-renew-content
+          .small-12.column.text-center
+            %p Toggle the button to change your preference to auto renew your subscription with Tengence.
+          .small-12.column.text-center
+            %h4 
+              %strong Auto Renew?:
+          .medium-4.column.medium-centered.text-center
+            %fieldset#renewal-toggle.switch.round.large{:tabindex => "0"}
+              %input#renew-toggle{:type => "checkbox", checked: current_user.auto_renew}
+              %label{:for => "renew-toggle"}
+          %br
+          .medium-8.column.medium-centered.text-center
+            %p.strong#renew-true 
+              Your subscription will auto renew.
+              %br
+              It will be charged on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+            %p.strong#renew-false
+              Your subscription will NOT auto renew.
+              %br
+              Your subscription will remain valid till #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
+        .row#change-card-content
           .medium-12.column.medium-centered.text-center
             = form_tag update_payment_path do
               #dropin
               %br
               %button#submit Confirm Change of Payment Method
-        .row
-          .medium-12.columns.medium-centered.text-center
-            - if current_user.subscribed?
-              = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
-                Unsubscribe from Tengence. Your subscription will continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
+  %section#minor.dark
+
+    = render 'layouts/transaction_validity_stamp'
+
+    %br
+
+    .row
+      .medium-8.columns.medium-centered.text-center
+        %span
+          Read our <a href='/terms-of-service' class='ga-static-pages' data-gtm-category='' data-gtm-action='read tos' data-gtm-label='tos (billing page)' target='_blank'> terms of service</a>.
+
+    %br
+
+    .row
+      .medium-8.columns.medium-centered.text-center
+        %span
+          Read our <a href='/faq' class='ga-static-pages' data-gtm-category='' data-gtm-action='read faq' data-gtm-label='faq (billing page)' target='_blank'> FAQ</a>.
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"
+  - if current_user.auto_renew
+    :javascript
+      $('#renew-true').show()
+  - else
+    :javascript
+      $('#renew-false').show()
   :javascript
     var client_token = "#{@client_token}";
     braintree.setup(
@@ -34,3 +106,44 @@
       'dropin', {
         container: 'dropin'
       });
+    $('#renew-toggle').click(function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      $.ajax({
+        url: '#{toggle_renew_path}',
+        method: "POST",
+        dataType: 'json'
+      }).success(function(data,status,xhr){
+        $('#renew-toggle').prop('checked', data)
+      }).error(function(xhr,status,error){
+        $('#renew-toggle').prop('checked', data);
+        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
+      }).done(function(){
+        if ($('#renew-toggle').prop('checked') === true) {
+          $('#renew-true').slideDown();
+          $('#renew-false').slideUp();
+        } else {
+          $('#renew-false').slideDown();
+          $('#renew-true').slideUp();
+        }
+      })
+    });
+    $('#auto-renew-option').change(function(){
+      
+      if ($('#auto-renew-option:checked')) {
+        console.log("1");
+        $('#auto-renew-content').show();
+        $('#auto-renew-content').animateCss('fadeInRight');
+        $('#change-card-content').hide();
+      } else {
+        console.log("2");
+      }
+    });
+    $('#change-card-option').change(function(){
+      console.log("wer")
+      if ($('#change-card-option:checked')) {
+        $('#change-card-content').show();
+        $('#change-card-content').animateCss('fadeInLeft');
+        $('#auto-renew-content').hide();
+      }
+    });

@@ -4,32 +4,41 @@
 
     .row
       .small-12.columns.animated{data: {animate: "fadeInDown", animate_delay: "0"}}
+
         .title-section
           %h3 Payment History
           -# %p NOTE: For users who have unsubscribed from Tengence before, the table below will not reflect your previous subscription(s).
-    
-    .row
 
-      .small-12.column
-        %table{role: "grid", width: '100%'}
+    - if @transactions.count.zero?
 
-          %thead
+      .row
+        .small-12.column.text-center
+          %p You have no payments with us yet.
 
-            %tr
-              %th Time of Settlement
-              %th Email
-              %th Amount (USD)
-              %th Credit Card
-              %th Status
+    - else
+      
+      .row
+        .small-12.column
 
-          %tbody
-            - @transactions.each do |transaction|
+          %table{role: "grid", width: '100%'}
+
+            %thead
+
               %tr
-                %td= "#{transaction.created_at.strftime('%d %b %Y %H:%M %Z')}"
-                %td= transaction.customer_details.email
-                %td= transaction.amount
-                %td
-                  %img{src: transaction.credit_card_details.image_url}
-                  %strong=transaction.credit_card_details.card_type
-                  ending with #{transaction.credit_card_details.last_4}
-                %td= transaction.status
+                %th Time of Settlement
+                %th Email
+                %th Amount (USD)
+                %th Credit Card
+                %th Status
+
+            %tbody
+              - @transactions.each do |transaction|
+                %tr
+                  %td= "#{transaction.created_at.strftime('%d %b %Y %H:%M %Z')}"
+                  %td= transaction.customer_details.email
+                  %td= transaction.amount
+                  %td
+                    %img{src: transaction.credit_card_details.image_url}
+                    %strong=transaction.credit_card_details.card_type
+                    ending with #{transaction.credit_card_details.last_4}
+                  %td= transaction.status

@@ -10,16 +10,6 @@
 
     .row
       .small-12.medium-8.medium-centered.column.text-center
-        %a{:href => "https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified", :target => "_blank"}
-          %img{:border => "0", :height => "50px", :src => "https://s3.amazonaws.com/braintree-badges/braintree-badge-wide-dark.png", :width => "318px"}
-        %br.show-for-small-only
-        %br.show-for-small-only
-        = image_tag 'rapidssl.gif'
-
-    %hr
-
-    .row
-      .small-12.medium-8.medium-centered.column.text-center
         %h4 Enter Credit Card Details Below
 
     %br
@@ -34,6 +24,24 @@
           %strong Auto renew subscription?
           %br
           %button#submit{type: 'submit'} Confirm
+
+  %section#minor.dark
+
+    = render 'layouts/transaction_validity_stamp'
+
+    %br
+
+    .row
+      .medium-8.columns.medium-centered.text-center
+        %span
+          Read our <a href='/terms-of-service' class='ga-static-pages' data-gtm-category='' data-gtm-action='read tos' data-gtm-label='tos (billing page)' target='_blank'> terms of service</a>.
+
+    %br
+
+    .row
+      .medium-8.columns.medium-centered.text-center
+        %span
+          Read our <a href='/faq' class='ga-static-pages' data-gtm-category='' data-gtm-action='read faq' data-gtm-label='faq (billing page)' target='_blank'> FAQ</a>.
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"

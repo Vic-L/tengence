@@ -44,15 +44,30 @@
                   = link_to "My Watchlist", watched_tenders_path
                 %li
                   = link_to "Your Keywords", keywords_tenders_path
+
             %li.show-for-medium-up
               %a{data: {dropdown: "account-drop"}} Account
               - if current_user.finished_trial_but_yet_to_subscribe? || current_user.unsubscribed_and_finished_cycle?
-                %label.free-trial free
+                %label.subscription-level.trial free
+              - if current_user.trial? || current_user.subscribed? || current_user.unsubscribed_and_yet_to_finish_cycle?
+                %label.subscription-level.pro pro
               %ul#account-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
                 %li
                   = link_to "Edit Profile", edit_user_registration_path
                 %li
+                  - if current_user.yet_to_subscribe?
+                    = link_to "Pricing & Plans", plans_path
+                  - if current_user.unsubscribed?
+                    = link_to "Resubscribe", plans_path
+                  - if current_user.subscribed?
+                    = link_to "Upgrade", plans_path
+                %li
                   = link_to "Billing", billing_path
+                - if current_user.subscribed?
+                  %li
+                    = link_to "Change Payment Settings", change_payment_path
+                %li
+                  = link_to "Payment History", payment_history_path
 
             %li.show-for-small-only
               = link_to "Current Tenders", current_tenders_path
@@ -62,12 +77,19 @@
               = link_to "My Watchlist", watched_tenders_path
             %li.show-for-small-only
               = link_to "Your Keywords", keywords_tenders_path
-            %li.show-for-small-only
+            %li.show-for-small-only.text-right
               = link_to "Edit Profile", edit_user_registration_path
-            %li.show-for-small-only
+            %li.show-for-small-only.text-right
               = link_to "Billing", billing_path
               - if current_user.finished_trial_but_yet_to_subscribe? || current_user.unsubscribed_and_finished_cycle?
-                %label.free-trial free
+                %label.subscription-level.trial free
+              - if current_user.trial? || current_user.subscribed? || current_user.unsubscribed_and_yet_to_finish_cycle?
+                %label.subscription-level.pro pro
+            - if current_user.subscribed?
+              %li.show-for-small-only.text-right
+                = link_to "Change Payment Settings", change_payment_path
+            %li.show-for-small-only.text-right
+              = link_to "Payment History", payment_history_path
 
             %li
               = link_to "Logout", destroy_user_session_path, method: :delete

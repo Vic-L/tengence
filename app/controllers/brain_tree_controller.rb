@@ -10,6 +10,9 @@ class BrainTreeController < ApplicationController
     @payment_method = Braintree::PaymentMethod.find(current_user.default_payment_method_token) if current_user.default_payment_method_token
   end
 
+  def plans
+  end
+
   def subscribe
     @plan = params[:plan]
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
@@ -17,7 +20,7 @@ class BrainTreeController < ApplicationController
 
   def change_payment
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
-    @payment_method = current_user.default_payment_method_token
+    @payment_method = Braintree::PaymentMethod.find(current_user.default_payment_method_token) if current_user.default_payment_method_token
   end
 
   def payment_history

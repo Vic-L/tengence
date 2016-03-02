@@ -1,0 +1,64 @@
+#wrapper
+
+  %section
+  
+    - if current_user.yet_to_subscribe?
+
+      .row.text-center
+        .medium-4.columns
+          %h4 Monthly
+          %h5 
+            $60 / month
+            %br
+            30 days
+          = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
+        .medium-4.columns
+          %h4 Quarterly
+          %h5 
+            $150 / quarter
+            %br
+            ($50 / month)
+          = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
+        .medium-4.columns
+          %h4 Annually
+          %h5 
+            $480 / year
+            %br
+            ($40 / month)
+          = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
+        
+    - else
+
+      - if current_user.subscribed?
+
+        .row
+          .medium-8.columns.medium-centered.text-center
+            %h4 NOTE: Upgrading now will not charge immediately. The new billing cycle will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+        
+        .row
+          .medium-4.columns
+            Monthly (30 days)
+            = link_to 'Upgrade Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
+          .medium-4.columns
+            Quarterly (90 days)
+            = link_to 'Upgrade Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
+          .medium-4.columns
+            Annually
+            = link_to 'Upgrade Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
+
+      - elsif current_user.unsubscribed?
+
+        .row
+          .medium-8.columns.medium-centered.text-center
+            %h4 NOTE: Resubscribing now will not charge immediately. The new billing cycle will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
+        .row
+          .medium-4.columns
+            Monthly (30 days)
+            = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
+          .medium-4.columns
+            Quarterly (90 days)
+            = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
+          .medium-4.columns
+            Annually
+            = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'

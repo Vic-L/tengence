@@ -245,8 +245,7 @@ header {
 		color: black
 	}
 
-	label.free-trial {
-		background: yellow;
+	label.subscription-level {
 		position: absolute;
 		right: 0;
 		bottom: -9px;
@@ -255,6 +254,13 @@ header {
 		font-size: 12px;
 		border-radius: 5px;
 		margin: 0;
+		&.pro {
+			background: #386ec4;
+			color: white;
+		}
+		&.trial {
+			background: yellow;
+		}
 	}
 
 }
@@ -1077,9 +1083,11 @@ Media Query
 			color: white;
 		}
 
-		label.free-trial {
+		label.subscription-level {
 			bottom: 4px;
-			right: 4px;
+			left: 4px;
+			right: auto;
+			text-align: left;
 		}
 
 	}

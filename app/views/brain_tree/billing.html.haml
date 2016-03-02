@@ -6,30 +6,80 @@
         .title-section
           %h3 Billing Overview
 
-    #pricing-tables
-      .row
-        .medium-8.columns.medium-centered
+    .row
+      .medium-8.columns.medium-centered
 
-          - if current_user.yet_to_subscribe?
+        - if current_user.yet_to_subscribe?
+
+          .row
+            .small-12.medium-8.column
+              %h4
+                %strong Days left till end of Free Trial:
+            .small-12.medium-4.column
+              %h4
+                %strong #{days_left(current_user.created_at)}
+
+          %hr
+          
+          .row
+            .small-12.column.small-centered
+              = link_to 'Pricing', plans_path, class: 'button'
+
+          %hr
+
+        - else
+
+          - if current_user.subscribed? && @payment_method
+
+            %hr.show-for-small-only
+    
+            .row
+              .small-8.medium-6.column
+                %h4
+                  %strong Auto Renew:
+              .small-4.medium-2.column
+                %fieldset#renewal-toggle.switch.round{:tabindex => "0"}
+                  %input#renew-toggle{:type => "checkbox", checked: current_user.auto_renew}
+                  %label{:for => "renew-toggle"}
+              .small-12.medium-4.column
+                %p.strong#renew-true Your subscription will auto renew
+                %p.strong#renew-false Your subscription will not auto renew
+
+            %hr.show-for-small-only
 
             .row
-              .small-12.medium-8.column
+              .small-12.medium-6.column
                 %h4
-                  %strong Days left till end of Free Trial:
-              .small-12.medium-4.column
+                  %strong Plan:
+              .small-12.medium-6.column
+                %h4 #{plan current_user.subscribed_plan}
+
+            %hr.show-for-small-only
+
+            .row
+              .small-12.medium-6.column
                 %h4
-                  %strong #{days_left(current_user.created_at)}
+                  %strong Next Billing Date:
+              .small-12.medium-6.column
+                %h4 #{current_user.next_billing_date.strftime('%e %b %Y')}
 
-          - else
+            %hr.show-for-small-only
 
-            - if current_user.subscribed? && @payment_method
+            .row
+              .small-12.medium-6.column
+                %h4
+                  %strong Card to charge:
+              .small-12.medium-6.column
+                %h6
+                  %img{src: @payment_method.image_url}
+                  %strong=@payment_method.card_type
+                  ending with #{@payment_method.last_4}
 
-              .row
-                .small-12.medium-6.column
-                  %h4
-                    %strong Plan:
-                .small-12.medium-6.column
-                  %h4 #{plan current_user.subscribed_plan}
+            %hr.show-for-small-only
+
+          - elsif current_user.unsubscribed? && @payment_method
+
+            - if current_user.unsubscribed_and_yet_to_finish_cycle?
 
               .row
                 .small-12.medium-6.column
@@ -38,147 +88,41 @@
                 .small-12.medium-6.column
                   %h4 #{current_user.next_billing_date.strftime('%e %b %Y')}
 
+            - elsif current_user.unsubscribed_and_finished_cycle?
+
               .row
-                .small-12.medium-6.column
-                  %h4
-                    %strong Card to charge:
-                .small-12.medium-6.column
-                  %h6
-                    %img{src: @payment_method.image_url}
-                    %strong=@payment_method.card_type
-                    ending with #{@payment_method.last_4}
-
-            - elsif current_user.unsubscribed? && @payment_method
-
-              - if current_user.unsubscribed_and_yet_to_finish_cycle?
-
-                .row
-                  .small-12.medium-6.column
-                    %h4
-                      %strong Next Billing Date:
-                  .small-12.medium-6.column
-                    %h4 #{current_user.next_billing_date.strftime('%e %b %Y')}
-
-              - elsif current_user.unsubscribed_and_finished_cycle?
-
-                .row
-                  .small-12.medium-8.medium-centered.column.text-center
-                    %h4 Your subscription has ended.
-
-          %br
-
-      - if current_user.yet_to_subscribe?
-
-        .row.text-center
-          .medium-4.columns
-            %h4 Monthly
-            %h5 
-              $60 / month
-              %br
-              30 days
-            = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
-          .medium-4.columns
-            %h4 Quarterly
-            %h5 
-              $150 / quarter
-              %br
-              ($50 / month)
-            = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
-          .medium-4.columns
-            %h4 Annually
-            %h5 
-              $480 / year
-              %br
-              ($40 / month)
-            = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
-          
-      - else
-
-        - if current_user.subscribed? || current_user.unsubscribed?
-
-          .row
-            .medium-8.columns.medium-centered.text-center
-
-              - if current_user.subscribed?
-              
-                = link_to "Change Payment Settings", change_payment_path, class: 'button', id: 'change-payment'
-
-              = link_to "Payment History", payment_history_path, class: 'button', id: 'payment-history'
-
-        - if current_user.subscribed?
-
-          .row
-            .medium-8.columns.medium-centered.text-center
-              %h4 NOTE: Upgrading now will not charge immediately. The new billing cycle will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-          
-          .row
-            .medium-4.columns
-              Monthly (30 days)
-              = link_to 'Upgrade Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
-            .medium-4.columns
-              Quarterly (90 days)
-              = link_to 'Upgrade Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
-            .medium-4.columns
-              Annually
-              = link_to 'Upgrade Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
-
-        - elsif current_user.unsubscribed?
-
-          .row
-            .medium-8.columns.medium-centered.text-center
-              %h4 NOTE: Resubscribing now will not charge immediately. The new billing cycle will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-
-          .row
-            .medium-4.columns
-              Monthly (30 days)
-              = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
-            .medium-4.columns
-              Quarterly (90 days)
-              = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
-            .medium-4.columns
-              Annually
-              = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
-
-      - if current_user.subscribed?
-      
-        .row
-          .medium-8.columns.medium-centered.text-center
-            %h4 Auto Renew?
-            %p.strong#renew-true Your subscription will auto renew
-            %p.strong#renew-false Your subscription will not auto renew
-        .row
-          .medium-2.columns.medium-centered.text-center
-            %fieldset#renewal-toggle.switch.round.large{:tabindex => "0"}
-              %input#renew-toggle{:type => "checkbox", checked: current_user.auto_renew}
-              %label{:for => "renew-toggle"}
+                .small-12.medium-8.medium-centered.column.text-center
+                  %h4 Your subscription has ended.
 
         %br
-        
-        .row
-          .medium-8.columns.medium-centered.text-center
-            = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
-              Unsubscribe 
-            from Tengence. Your subscription will continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
-      %br
+    - if current_user.subscribed?
 
       .row
         .medium-8.columns.medium-centered.text-center
-          %span
-            Read our <a href='/terms-of-service' class='ga-static-pages' data-gtm-category='' data-gtm-action='read tos' data-gtm-label='tos (billing page)' target='_blank'> terms of service</a>.
+          = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
+            Unsubscribe 
+          from Tengence. Your subscription will still continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
-      %br
+    %br
 
-      .row
-        .medium-8.columns.medium-centered.text-center
-          %span
-            Read our <a href='/faq' class='ga-static-pages' data-gtm-category='' data-gtm-action='read faq' data-gtm-label='faq (billing page)' target='_blank'> FAQ</a>.
+    .row
+      .medium-8.columns.medium-centered.text-center
+        %span
+          Read our <a href='/terms-of-service' class='ga-static-pages' data-gtm-category='' data-gtm-action='read tos' data-gtm-label='tos (billing page)' target='_blank'> terms of service</a>.
 
-      -# - if current_user.trial?
-      -#   %br
-      -#   .row
-      -#     .medium-8.columns.medium-centered
-      -#       = link_to "I want to check Tengence out first. Skip", root_path
+    %br
+
+    .row
+      .medium-8.columns.medium-centered.text-center
+        %span
+          Read our <a href='/faq' class='ga-static-pages' data-gtm-category='' data-gtm-action='read faq' data-gtm-label='faq (billing page)' target='_blank'> FAQ</a>.
+
+    -# - if current_user.trial?
+    -#   %br
+    -#   .row
+    -#     .medium-8.columns.medium-centered
+    -#       = link_to "I want to check Tengence out first. Skip", root_path
 
 - content_for :javascript do
   :javascript

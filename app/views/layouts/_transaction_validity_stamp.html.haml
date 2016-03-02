@@ -1,0 +1,13 @@
+.row
+  .small-12.medium-8.medium-centered.column.text-center
+    .row
+      .small-12.medium-3.column
+        Powered by:
+      .small-12.medium-4.column
+        %a{:href => "https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified", :target => "_blank"}
+          %img{:border => "0", :height => "50px", :src => "https://s3.amazonaws.com/braintree-badges/braintree-badge-wide-dark.png", :width => "318px"}
+        
+      .small-12.medium-3.column
+        SSL Secured Transaction:
+      .small-12.medium-2.column
+        = image_tag 'rapidssl.gif'

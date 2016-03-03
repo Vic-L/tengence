@@ -22,6 +22,11 @@ class BrainTreePage
     self
   end
 
+  def visit_plans_page
+    visit '/plans'
+    self
+  end
+
   def visit_change_payment_page
     visit '/change-payment'
     self

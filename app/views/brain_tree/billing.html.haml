@@ -23,7 +23,7 @@
           
           .row
             .small-12.column.small-centered
-              = link_to 'Pricing', plans_path, class: 'button'
+              = link_to 'Pricing & Plans', plans_path, class: 'button'
 
           %hr
 
@@ -90,9 +90,7 @@
 
             - elsif current_user.unsubscribed_and_finished_cycle?
 
-              .row
-                .small-12.medium-8.medium-centered.column.text-center
-                  %h4 Your subscription has ended.
+              %h4.text-center Your subscription has ended.
 
         %br
 

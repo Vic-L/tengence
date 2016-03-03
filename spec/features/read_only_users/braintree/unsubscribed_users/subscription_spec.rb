@@ -8,22 +8,12 @@ feature 'subscription', type: :feature, js: true do
 
     before :each do
       login_as(unsubscribed_user, scope: :user)
-      brain_tree_page.visit_billing_page
+      brain_tree_page.visit_plans_page
       wait_for_page_load
     end
 
     scenario 'should not be charged if resubscribed before next billing date' do
-      expect(page).not_to have_content "Auto Renew?"
-      expect(page).not_to have_content "Your subscription has ended."
-      expect(page).to have_content "Resubscribing now will not charge immediately. The new billing cycle will start on #{unsubscribed_user.next_billing_date.strftime('%e %b %Y')}"
-      expect(page).to have_link 'Resubscribe Now', href: subscribe_one_month_path
-      expect(page).to have_link 'Resubscribe Now', href: subscribe_three_months_path
-      expect(page).to have_link 'Resubscribe Now', href: subscribe_one_year_path
-      expect(page).not_to have_link 'Change Payment Settings', href: change_payment_path
-      expect(page).to have_link 'Payment History', href: payment_history_path
-
       brain_tree_page.click_unique "#subscribe-quarterly"
-      expect(page).to have_content "Subscription rate: $150 / 90 days"
 
       # no card details as payment method is abstractly created
       page.within_frame 'braintree-dropin-frame' do
@@ -34,6 +24,7 @@ feature 'subscription', type: :feature, js: true do
 
       # first transaction that user unsubscribed from is not created
       expect(unsubscribed_user.braintree.transactions.count).to eq 0
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
@@ -45,17 +36,7 @@ feature 'subscription', type: :feature, js: true do
     scenario 'should be charged if resubscribed after next billing date' do
 
       Timecop.freeze(unsubscribed_user.next_billing_date) do
-        expect(page).not_to have_content "Auto Renew?"
-        expect(page).not_to have_content "Your subscription has ended."
-        expect(page).to have_content "Resubscribing now will not charge immediately. The new billing cycle will start on #{unsubscribed_user.next_billing_date.strftime('%e %b %Y')}"
-        expect(page).to have_link 'Resubscribe Now', href: subscribe_one_month_path
-        expect(page).to have_link 'Resubscribe Now', href: subscribe_three_months_path
-        expect(page).to have_link 'Resubscribe Now', href: subscribe_one_year_path
-        expect(page).not_to have_link 'Change Payment Settings', href: change_payment_path
-        expect(page).to have_link 'Payment History', href: payment_history_path
-
         brain_tree_page.click_unique "#subscribe-quarterly"
-        expect(page).to have_content "Subscription rate: $150 / 90 days"
 
         # no card details as payment method is abstractly created
         page.within_frame 'braintree-dropin-frame' do
@@ -66,6 +47,7 @@ feature 'subscription', type: :feature, js: true do
 
         # first transaction that user unsubscribed from is not created
         expect(unsubscribed_user.braintree.transactions.count).to eq 0
+        brain_tree_page.scroll_into_view '#submit'
         brain_tree_page.click_unique '#submit'
         wait_for_page_load
 

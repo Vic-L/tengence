@@ -14,6 +14,7 @@ feature 'subscription', type: :feature, js: true do
     
     scenario 'with nothing filled in' do
       expect(page).to have_selector 'iframe'
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       page.within_frame 'braintree-dropin-frame' do
         expect(page).to have_css('.credit-card-number-label.invalid')
@@ -31,6 +32,7 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.unmatched_cvv
       end
       
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
       
@@ -51,6 +53,7 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.unverified_cvv
       end
       
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
@@ -66,6 +69,7 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
       
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
@@ -79,6 +83,7 @@ feature 'subscription', type: :feature, js: true do
       expect(yet_to_subscribe_user.next_billing_date).to eq nil
       expect(yet_to_subscribe_user.default_payment_method_token).to eq nil
 
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       expect(page).to have_selector 'iframe'
       page.within_frame 'braintree-dropin-frame' do
@@ -87,16 +92,12 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
       sleep 0.5
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
       expect(page.current_path).to eq billing_path
       expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
-      
-      expect(page).not_to have_content 'Days left till end of Free Trial'
-      expect(page).not_to have_link 'Subscribe Now', href: subscribe_one_month_path
-      expect(page).to have_content 'Next Billing Date'
-      expect(page).to have_link 'Change Payment Settings', href: change_payment_path
       
       yet_to_subscribe_user.reload
       expect(yet_to_subscribe_user.next_billing_date).not_to eq nil
@@ -123,6 +124,7 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
       
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
@@ -146,6 +148,7 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
       
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
@@ -168,6 +171,7 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
       
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
@@ -188,7 +192,7 @@ feature 'subscription', type: :feature, js: true do
       login_as(yet_to_subscribe_user, scope: :user)
     end
 
-    scenario 'should change to true if checked' do
+    scenario 'should remain false if not toggle to true' do
       brain_tree_page.visit_subscribe_one_year_page
       wait_for_page_load
 
@@ -198,8 +202,40 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
-      check("renew")
+      expect(page).to have_content "You will be charged $480 immediately."
+      expect(page).to have_content "You will NOT be automatically charged $480 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
       
+      brain_tree_page.scroll_into_view '#submit'
+      brain_tree_page.click_unique '#submit'
+      wait_for_page_load
+
+      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+
+      expect(yet_to_subscribe_user.auto_renew).to eq false
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.auto_renew).to eq false
+    end
+
+    scenario 'should be true if toggle to true' do
+      brain_tree_page.visit_subscribe_one_year_page
+      wait_for_page_load
+
+      expect(page).to have_selector 'iframe'
+      page.within_frame 'braintree-dropin-frame' do
+        fill_in 'credit-card-number', with: brain_tree_page.valid_visa
+        fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
+        fill_in 'cvv', with: brain_tree_page.valid_cvv
+      end
+      expect(page).to have_content "You will be charged $480 immediately."
+      expect(page).to have_content "You will NOT be automatically charged $480 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+
+      brain_tree_page.scroll_into_view '#renewal-toggle'
+      brain_tree_page.click_unique '#renewal-toggle'
+
+      expect(page).to have_content "You will be charged $480 immediately."
+      expect(page).to have_content "You will be automatically charged $480 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+
+      brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
@@ -208,28 +244,6 @@ feature 'subscription', type: :feature, js: true do
       expect(yet_to_subscribe_user.auto_renew).to eq false
       yet_to_subscribe_user.reload
       expect(yet_to_subscribe_user.auto_renew).to eq true
-    end
-
-    scenario 'should change to false if checked' do
-      brain_tree_page.visit_subscribe_one_year_page
-      wait_for_page_load
-
-      expect(page).to have_selector 'iframe'
-      page.within_frame 'braintree-dropin-frame' do
-        fill_in 'credit-card-number', with: brain_tree_page.valid_visa
-        fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
-        fill_in 'cvv', with: brain_tree_page.valid_cvv
-      end
-      uncheck("renew")
-      
-      brain_tree_page.click_unique '#submit'
-      wait_for_page_load
-
-      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
-
-      expect(yet_to_subscribe_user.auto_renew).to eq false
-      yet_to_subscribe_user.reload
-      expect(yet_to_subscribe_user.auto_renew).to eq false
     end
 
     scenario 'toggle in billing path' do

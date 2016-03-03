@@ -27,23 +27,37 @@ module BrainTreeHelper
     end
   end
 
+  def transaction_amount plan
+    case plan
+    when 'one_month_plan'
+      "$60"
+    when 'three_months_plan'
+      "$150"
+    when 'one_year_plan'
+      "$480"
+    end
+  end
+
   def plan plan
     case plan
-
     when "one_month_plan"
-
       "Monthly ($60 / Month)"
-
     when "three_months_plan"
-
       "Quarterly ($150 / 90 days)"
-
     when "one_year_plan"
-
       "Annually ($480 / year)"
-
     end
+  end
 
+  def plan_next_billing_date plan
+    case plan
+    when "one_month_plan"
+      (Time.now.in_time_zone('Asia/Singapore').to_date + 30.days).strftime('%e %b %Y')
+    when "three_months_plan"
+      (Time.now.in_time_zone('Asia/Singapore').to_date + 90.days).strftime('%e %b %Y')
+    when "one_year_plan"
+      (Time.now.in_time_zone('Asia/Singapore').to_date + 1.year).strftime('%e %b %Y')
+    end
   end
 
 end

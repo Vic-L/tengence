@@ -3,27 +3,120 @@
   %section
 
     .row
-      .small-12.medium-8.medium-centered.column.text-center
-        %h4 Subscription rate: #{subscription_rate(@plan)}
+      .small-12.medium-10.medium-centered.column
 
-    %hr
-
-    .row
-      .small-12.medium-8.medium-centered.column.text-center
-        %h4 Enter Credit Card Details Below
-
-    %br
-
-    .row
-      .small-12.medium-8.medium-centered.column.text-center
         = form_tag create_payment_path do
-          #dropin
-          %br
           = hidden_field_tag 'plan', @plan
-          = check_box_tag 'renew', "1", false
-          %strong Auto renew subscription?
-          %br
-          %button#submit{type: 'submit'} Confirm
+
+          - if current_user.yet_to_subscribe?
+            %h6 You have chosen to subscribe to Tengence #{plan(@plan).downcase}.
+            %h6 You will be charged #{transaction_amount @plan} immediately.
+          - elsif current_user.subscribed?
+            %h6 You have chosen to change to subscribe to Tengence #{plan(@plan).downcase}.
+            %h6 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+            %h6 You will NOT be charged #{transaction_amount @plan} immediately.
+          - elsif current_user.unsubscribed?
+            %h6 You have chosen to resubscribe to Tengence #{plan(@plan).downcase}.
+            - if current_user.unsubscribed_and_yet_to_finish_cycle?
+              %h6 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+              %h6 You will NOT be charged #{transaction_amount @plan} immediately.
+            - elsif current_user.unsubscribed_and_finished_cycle?
+              %h6 You will be charged #{transaction_amount @plan} immediately.
+
+          %h6 You will be charged to the chosen payment card below.
+          %p NOTE: You will receive email receipts for every transaction.
+
+          %hr
+
+          .row
+            .small-1.column
+              %h4
+                %i.fa.fa-credit-card
+            .small-11.column
+              %h4 Credit Card
+
+              #dropin
+              %br
+
+          %hr
+
+          .row
+            .small-1.column
+              %h4
+                %i.fa.fa-refresh
+            .small-11.column
+              %h4 Auto Renew?
+              .row
+                .small-3.medium-2.column
+                  %fieldset#renewal-toggle.switch.round.large{:tabindex => "0"}
+                    %input#renew{:type => "checkbox", checked: current_user.auto_renew}
+                    %label{:for => "renew"}
+                .small-9.medium-10.column
+                  
+                  %p.strong#renew-true
+
+                    - if current_user.yet_to_subscribe?
+
+                      You will be charged #{transaction_amount @plan} immediately.
+                      %br
+                      You will be automatically charged #{transaction_amount @plan} on your next billing date on #{plan_next_billing_date @plan}.
+
+                    - elsif current_user.subscribed?
+
+                      You will NOT be charged #{transaction_amount @plan} immediately.
+                      %br
+                      You will be automatically charged on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
+                    - elsif current_user.unsubscribed?
+
+                      - if current_user.unsubscribed_and_yet_to_finish_cycle?
+                    
+                        You will NOT be charged #{transaction_amount @plan} immediately.
+                        %br
+                        You will be automatically charged on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+                    
+                      - elsif current_user.unsubscribed_and_finished_cycle?
+                    
+                        You will be charged #{transaction_amount @plan} immediately.
+                        %br
+                        You will be automatically charged #{transaction_amount @plan} on your next billing date on #{plan_next_billing_date @plan}.
+                    
+                  %p.strong#renew-false
+
+                    - if current_user.yet_to_subscribe?
+
+                      You will be charged #{transaction_amount @plan} immediately.
+                      %br
+                      You will NOT be automatically charged #{transaction_amount @plan} on your next billing date on #{plan_next_billing_date @plan}.
+
+                    - elsif current_user.subscribed?
+
+                      You will NOT be charged #{transaction_amount @plan} immediately.
+                      %br
+                      You will NOT be automatically charged on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
+                    - elsif current_user.unsubscribed?
+
+                      - if current_user.unsubscribed_and_yet_to_finish_cycle?
+                    
+                        You will NOT be charged #{transaction_amount @plan} immediately.
+                        %br
+                        You will NOT be automatically charged on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+                    
+                      - elsif current_user.unsubscribed_and_finished_cycle?
+                    
+                        You will be charged #{transaction_amount @plan} immediately.
+                        %br
+                        You will NOT be automatically charged #{transaction_amount @plan} on your next billing date on #{plan_next_billing_date @plan}.
+
+          %hr
+
+          .row
+            .small-1.column
+              %h4
+                %i.fa.fa-check-circle
+            .small-11.column
+              %button#submit{type: 'submit'} Confirm
 
   %section#minor.dark
 
@@ -45,6 +138,12 @@
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"
+  - if current_user.auto_renew
+    :javascript
+      $('#renew-true').show()
+  - else
+    :javascript
+      $('#renew-false').show()
   :javascript
     var client_token = "#{@client_token}";
     braintree.setup(
@@ -52,3 +151,13 @@
       'dropin', {
         container: 'dropin'
       });
+
+    $('#renew').click(function(event){
+      if ($(this).prop('checked')) {
+        $('#renew-true').slideDown();
+        $('#renew-false').slideUp();
+      } else {
+        $('#renew-true').slideUp();
+        $('#renew-false').slideDown();
+      }
+    });

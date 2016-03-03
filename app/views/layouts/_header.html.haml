@@ -55,12 +55,7 @@
                 %li
                   = link_to "Edit Profile", edit_user_registration_path
                 %li
-                  - if current_user.yet_to_subscribe?
-                    = link_to "Pricing & Plans", plans_path
-                  - if current_user.unsubscribed?
-                    = link_to "Resubscribe", plans_path
-                  - if current_user.subscribed?
-                    = link_to "Upgrade", plans_path
+                  = link_to "Pricing & Plans", plans_path
                 %li
                   = link_to "Billing", billing_path
                 - if current_user.subscribed?
@@ -79,6 +74,8 @@
               = link_to "Your Keywords", keywords_tenders_path
             %li.show-for-small-only.text-right
               = link_to "Edit Profile", edit_user_registration_path
+            %li.show-for-small-only.text-right
+              = link_to "Pricing & Plans", plans_path
             %li.show-for-small-only.text-right
               = link_to "Billing", billing_path
               - if current_user.finished_trial_but_yet_to_subscribe? || current_user.unsubscribed_and_finished_cycle?

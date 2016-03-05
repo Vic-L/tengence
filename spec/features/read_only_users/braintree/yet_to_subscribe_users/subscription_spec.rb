@@ -186,6 +186,36 @@ feature 'subscription', type: :feature, js: true do
 
   end
 
+  feature "transactions" do
+
+    before :each do
+      login_as(yet_to_subscribe_user, scope: :user)
+      brain_tree_page.visit_subscribe_three_months_page
+    end
+
+    scenario 'should charge' do
+
+      expect(page).to have_selector 'iframe'
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.braintree.transactions.count).to eq 0
+      
+      page.within_frame 'braintree-dropin-frame' do
+        fill_in 'credit-card-number', with: brain_tree_page.valid_visa
+        fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
+        fill_in 'cvv', with: brain_tree_page.valid_cvv
+      end
+      brain_tree_page.scroll_into_view '#submit'
+      brain_tree_page.click_unique '#submit'
+      wait_for_page_load
+
+      expect(page).to have_content "You have successfully subscribed to Tengence. Welcome to the community."
+      yet_to_subscribe_user.reload
+      expect(yet_to_subscribe_user.braintree.transactions.count).to eq 1
+
+    end
+
+  end
+
   feature 'auto renew' do
 
     before :each do

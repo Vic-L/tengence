@@ -66,6 +66,56 @@ FactoryGirl.define do
     end
   end
 
+  trait :subscribed_three_months do
+    # has braintree_subscription_id
+    # dont have next_billing_date
+    before :create do |user|
+      result = Braintree::Customer.create(
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        company: user.company_name
+      )
+      user.braintree_customer_id = result.customer.id
+      result = Braintree::PaymentMethod.create(
+        customer_id: user.braintree_customer_id,
+        payment_method_nonce: 'fake-valid-nonce',
+        options: {
+          verify_card: true,
+          make_default: true
+        }
+      )
+      user.default_payment_method_token = result.payment_method.token
+      user.next_billing_date = Date.today + 90.day
+      user.subscribed_plan = "three_months_plan"
+    end
+  end
+
+  trait :subscribed_one_year do
+    # has braintree_subscription_id
+    # dont have next_billing_date
+    before :create do |user|
+      result = Braintree::Customer.create(
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        company: user.company_name
+      )
+      user.braintree_customer_id = result.customer.id
+      result = Braintree::PaymentMethod.create(
+        customer_id: user.braintree_customer_id,
+        payment_method_nonce: 'fake-valid-nonce',
+        options: {
+          verify_card: true,
+          make_default: true
+        }
+      )
+      user.default_payment_method_token = result.payment_method.token
+      user.next_billing_date = Date.today + 1.year
+      user.subscribed_plan = "one_year_plan"
+    end
+  end
+
   trait :unsubscribed_one_month do
     # has braintree_subscription_id
     # has next_billing_date

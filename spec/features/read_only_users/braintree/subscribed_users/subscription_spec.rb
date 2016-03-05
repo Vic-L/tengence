@@ -48,46 +48,90 @@ feature 'subscription', type: :feature, js: true do
   
   end
 
-  feature 'upgrade' do
+  feature 'plans' do
 
-    before :each do
-      login_as(subscribed_user, scope: :user)
-      brain_tree_page.visit_plans_page
-      wait_for_page_load
+    feature "page content" do
+
+      let!(:subscribed_three_months_user) {create(:user, :subscribed_three_months)}
+      let!(:subscribed_one_year_user) {create(:user, :subscribed_one_year)}
+
+      scenario 'one month user' do
+        login_as(subscribed_user, scope: :user)
+        brain_tree_page.visit_plans_page
+        wait_for_page_load
+
+        expect(page).not_to have_content "Free"
+        expect(page).not_to have_content "billed $59 every 30 days"
+        expect(page).to have_content "billed $147 every 90 days"
+        expect(page).to have_content "billed $468 every year"
+      end
+
+      scenario 'three months user' do
+        login_as(subscribed_three_months_user, scope: :user)
+        brain_tree_page.visit_plans_page
+        wait_for_page_load
+
+        expect(page).not_to have_content "Free"
+        expect(page).to have_content "billed $59 every 30 days"
+        expect(page).not_to have_content "billed $147 every 90 days"
+        expect(page).to have_content "billed $468 every year"
+      end
+
+      scenario 'one year user' do
+        login_as(subscribed_one_year_user, scope: :user)
+        brain_tree_page.visit_plans_page
+        wait_for_page_load
+
+        expect(page).not_to have_content "Free"
+        expect(page).to have_content "billed $59 every 30 days"
+        expect(page).to have_content "billed $147 every 90 days"
+        expect(page).not_to have_content "billed $468 every year"
+      end
+
     end
 
-    scenario 'should change plan' do
-      expect(page).to have_selector "#subscribe-quarterly"
-      brain_tree_page.click_unique "#subscribe-quarterly"
-      wait_for_page_load
+    feature "actions" do
 
-      # first transaction that user unsubscribed from is not created
-      expect(subscribed_user.subscribed_plan).to eq 'one_month_plan'
-      brain_tree_page.scroll_into_view '#submit'
+      before :each do
+        login_as(subscribed_user, scope: :user)
+        brain_tree_page.visit_plans_page
+        wait_for_page_load
+      end
 
-      brain_tree_page.click_unique '#submit'
-      wait_for_page_load
+      scenario 'should change plan' do
+        expect(page).to have_selector "#subscribe-quarterly"
+        brain_tree_page.click_unique "#subscribe-quarterly"
+        wait_for_page_load
 
-      expect(page).to have_content "You have successfully subscribed to Tengence. Welcome to the community."
-      subscribed_user.reload
-      expect(subscribed_user.subscribed_plan).to eq 'three_months_plan'
-    end
+        # first transaction that user unsubscribed from is not created
+        expect(subscribed_user.subscribed_plan).to eq 'one_month_plan'
+        brain_tree_page.scroll_into_view '#submit'
 
-    scenario 'should not charge' do
-      expect(page).to have_selector "#subscribe-quarterly"
-      brain_tree_page.click_unique "#subscribe-quarterly"
-      wait_for_page_load
+        brain_tree_page.click_unique '#submit'
+        wait_for_page_load
 
-      # first transaction that user unsubscribed from is not created
-      expect(subscribed_user.braintree.transactions.count).to eq 0
-      brain_tree_page.scroll_into_view '#submit'
+        expect(page).to have_content "You have successfully subscribed to Tengence. Welcome to the community."
+        subscribed_user.reload
+        expect(subscribed_user.subscribed_plan).to eq 'three_months_plan'
+      end
 
-      brain_tree_page.click_unique '#submit'
-      wait_for_page_load
+      scenario 'should not charge' do
+        expect(page).to have_selector "#subscribe-quarterly"
+        brain_tree_page.click_unique "#subscribe-quarterly"
+        wait_for_page_load
 
-      expect(page).to have_content "You have successfully subscribed to Tengence. Welcome to the community."
-      subscribed_user.reload
-      expect(subscribed_user.braintree.transactions.count).to eq 0
+        # first transaction that user unsubscribed from is not created
+        expect(subscribed_user.braintree.transactions.count).to eq 0
+        brain_tree_page.scroll_into_view '#submit'
+
+        brain_tree_page.click_unique '#submit'
+        wait_for_page_load
+
+        expect(page).to have_content "You have successfully subscribed to Tengence. Welcome to the community."
+        subscribed_user.reload
+        expect(subscribed_user.braintree.transactions.count).to eq 0
+
+      end
 
     end
 
@@ -155,7 +199,6 @@ feature 'subscription', type: :feature, js: true do
       subscribed_user.reload
       expect(subscribed_user.auto_renew).to eq false
     end
-
 
   end
 

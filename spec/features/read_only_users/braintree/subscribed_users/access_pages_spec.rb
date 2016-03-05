@@ -30,6 +30,9 @@ feature "access pages by subscribed read_only users" do
 
     scenario "plans" do
       brain_tree_page.visit_plans_page
+      expect(page).not_to have_content "Free"
+      expect(page).not_to have_content "Your next billing date is on #{subscribed_user.next_billing_date.strftime('%e %b %Y')}."
+      expect(page).not_to have_content "Resubscribing now will not start immediately. It will start on #{subscribed_user.next_billing_date.strftime('%e %b %Y')}."
       expect(page.current_path).to eq plans_path
     end
 

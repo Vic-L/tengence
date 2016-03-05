@@ -51,8 +51,9 @@
       - if current_user.subscribed?
 
         .row.text-center
+          .medium-1.column
           - unless current_user.subscribed_plan == 'one_month_plan'
-            .medium-6.columns
+            .medium-offset-1.medium-4.columns
               %ul.pricing-table
                 %li.title Monthly
                 %li.price
@@ -62,8 +63,9 @@
                 %li.bullet-item Access FULL information of ALL #{CurrentTender.count} open tenders each day
                 %li.cta-button
                   = link_to 'Change Plan', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
+            .medium-1.columns
           - unless current_user.subscribed_plan == 'three_months_plan'
-            .medium-6.columns
+            .medium-offset-1.medium-4.columns
               %ul.pricing-table
                 %li.title Quarterly
                 %li.price
@@ -74,8 +76,9 @@
                 %li.cta-button
                   %h4 Save 17%
                   = link_to 'Change Plan', subscribe_three_months_path, class: 'button round', id: 'subscribe-quarterly'
+            .medium-1.columns
           - unless current_user.subscribed_plan == 'one_year_plan'
-            .medium-6.columns
+            .medium-offset-1.medium-4.columns
               %ul.pricing-table.spot-light
                 %li.title Annually
                 %li.bullet-item.advertise MOST WORTHWHILE
@@ -87,6 +90,7 @@
                 %li.cta-button
                   %h4 Save 33%
                   = link_to 'Change Plan', subscribe_one_year_path, class: 'button round', id: 'subscribe-annually'
+            .medium-1.columns
 
       - elsif current_user.unsubscribed?
 

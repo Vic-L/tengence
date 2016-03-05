@@ -24,9 +24,7 @@ class BrainTreeController < ApplicationController
   end
 
   def payment_history
-    @transactions = Braintree::Transaction.search do |search|
-      search.customer_id.is current_user.braintree_customer_id
-    end
+    @transactions = current_user.braintree.transactions
   end
 
   def update_payment

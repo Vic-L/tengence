@@ -20,7 +20,7 @@ feature User, type: :model do
   it { should callback(:destroy_braintree_customer).before(:destroy).if(:read_only?) }
   it { should_not callback(:hash_email).before(:save) }
 
-  let!(:user) { create(:user, :read_only) }
+  let!(:user) { create(:user) }
   let!(:write_only_user) { create(:user, :write_only) }
   let(:tender) { create(:gebiz_tender) }
 
@@ -49,6 +49,39 @@ feature User, type: :model do
   end
 
   feature 'scope' do
+
+    feature 'subscribed' do
+
+      scenario 'should not include unsubscribed_user' do
+        expect(User.subscribed.include? user).to eq false
+      end
+
+      scenario 'should include all subscribed_users' do
+        subscribed_one_month_user = create(:user, :subscribed_one_month)
+        subscribed_three_months_user = create(:user, :subscribed_three_months)
+        subscribed_one_year_user = create(:user, :subscribed_one_year)
+        expect(User.subscribed.include? subscribed_one_month_user).to eq true
+        expect(User.subscribed.include? subscribed_three_months_user).to eq true
+        expect(User.subscribed.include? subscribed_one_year_user).to eq true
+      end
+
+      scenario 'should not include write_only_user' do
+        expect(User.subscribed.include? write_only_user).to eq false
+      end
+
+    end
+
+    feature 'charged_today' do
+
+      scenario 'should only include users with correct next_billing_date' do
+        subscribed_one_month_user = create(:user, :subscribed_one_month)
+        expect(User.charged_today.include? subscribed_one_month_user).to eq false
+        Timecop.freeze(subscribed_one_month_user.next_billing_date) do
+          expect(User.charged_today.include? subscribed_one_month_user).to eq true
+        end
+      end
+
+    end
 
     feature 'confirmed' do
 

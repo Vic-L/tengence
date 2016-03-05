@@ -54,6 +54,10 @@ class BrainTreeController < ApplicationController
     when 'disbursement'
     
       content += "disbursement_id: #{webhook_notification.disbursement.id}\r\namount: #{webhook_notification.disbursement.amount}\r\ndisbursement_date: #{webhook_notification.disbursement.disbursement_date}"
+
+    when 'transaction_disbursed'
+
+      content += "transaction_id: #{webhook_notification.transaction.id}\r\namount: #{webhook_notification.transaction.amount}\r\ntransaction_status: #{webhook_notification.transaction.status}\r\ntransaction_date: #{webhook_notification.transaction.created_at}\r\customer_email: #{webhook_notification.transaction.customer_details.email}"
     
     when 'subscription_canceled', 'subscription_charged_successfully', 'subscription_charged_unsuccessfully', 'subscription_expired', 'subscription_trial_ended', 'subscription_went_active', 'subscription_went_past_due'
 

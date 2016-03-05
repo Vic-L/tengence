@@ -47,3 +47,10 @@ end;nil
 # should not have upgrade for the other 2 plans
 # add note of upgrading/resubscribing to subscribe page?
 # scheduler
+
+#### aws-cli ####
+## add cache control to aws assets
+# s3cmd modify --recursive --acl-public --add-header="Cache-Control:max-age=2592000" s3://geo-site/webroot/
+# aws s3 cp /Users/L/Documents/tengence/app/assets/fonts/lato-v11-latin s3://tengence-alerts-production/static_assets/fonts/lato-v11-latin/ --recursive --acl public-read --cache-control "public,max-age=2,628,000"
+## upoload cert to aws
+# aws iam upload-server-certificate --server-certificate-name ssl_20160124 --certificate-body file:/Users/L/Documents/tengence/tengence-ssl/ssl-original.crt --private-key file:/Users/L/Documents/tengence/tengence-ssl/ssl.pem --certificate-chain file:/Users/L/Documents/tengence/tengence-ssl/ssl-intermediate.crt --path /cloudfront/production/

@@ -9,21 +9,21 @@
           = hidden_field_tag 'plan', @plan
 
           - if current_user.yet_to_subscribe?
-            %h6 You have chosen to subscribe to Tengence #{plan(@plan).downcase}.
-            %h6 You will be charged #{transaction_amount @plan} immediately.
+            %h5 You have chosen to subscribe to Tengence #{plan(@plan).downcase}.
+            %h5 You will be charged #{transaction_amount @plan} immediately.
           - elsif current_user.subscribed?
-            %h6 You have chosen to change to subscribe to Tengence #{plan(@plan).downcase}.
-            %h6 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-            %h6 You will NOT be charged #{transaction_amount @plan} immediately.
+            %h5 You have chosen to change to subscribe to Tengence #{plan(@plan).downcase}.
+            %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+            %h5 You will NOT be charged #{transaction_amount @plan} immediately.
           - elsif current_user.unsubscribed?
-            %h6 You have chosen to resubscribe to Tengence #{plan(@plan).downcase}.
+            %h5 You have chosen to resubscribe to Tengence #{plan(@plan).downcase}.
             - if current_user.unsubscribed_and_yet_to_finish_cycle?
-              %h6 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-              %h6 You will NOT be charged #{transaction_amount @plan} immediately.
+              %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+              %h5 You will NOT be charged #{transaction_amount @plan} immediately.
             - elsif current_user.unsubscribed_and_finished_cycle?
-              %h6 You will be charged #{transaction_amount @plan} immediately.
+              %h5 You will be charged #{transaction_amount @plan} immediately.
 
-          %h6 You will be charged to the chosen payment card below.
+          %h5 You will be charged to the chosen payment card below.
           %p NOTE: You will receive email receipts for every transaction.
 
           %hr

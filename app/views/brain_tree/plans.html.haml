@@ -1,9 +1,8 @@
 #wrapper
-
-  %section
   
-    - if current_user.yet_to_subscribe?
+  - if current_user.yet_to_subscribe?
 
+    %section
       .row.text-center
         .medium-3.columns
           %ul.pricing-table
@@ -45,11 +44,12 @@
               %span.value 0
             %li.description Free Tier
             %li.bullet-item Access FULL information of ONLY up to 3 out of #{CurrentTender.count} open tenders per day
-        
-    - else
+      
+  - else
 
-      - if current_user.subscribed?
+    - if current_user.subscribed?
 
+      %section
         .row.text-center
           .medium-1.column
           - unless current_user.subscribed_plan == 'one_month_plan'
@@ -92,13 +92,17 @@
                   = link_to 'Change Plan', subscribe_one_year_path, class: 'button round', id: 'subscribe-annually'
             .medium-1.columns
 
-      - elsif current_user.unsubscribed?
+    - elsif current_user.unsubscribed?
 
-        - if current_user.unsubscribed_and_yet_to_finish_cycle?
+      - if current_user.unsubscribed_and_yet_to_finish_cycle?
 
-          %h6 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-          %h6 Resubscribing now will not start immediately. It will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+        %section
+          .row
+            .medium-8.columns.medium-centered
+              %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+              %h5 Resubscribing now will not start immediately. It will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
+      %section
         .row.text-center
           .medium-4.columns
             %ul.pricing-table

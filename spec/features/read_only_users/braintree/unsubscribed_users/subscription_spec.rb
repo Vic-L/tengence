@@ -14,13 +14,9 @@ feature 'subscription', type: :feature, js: true do
 
     scenario 'should not be charged if resubscribed before next billing date' do
       brain_tree_page.click_unique "#subscribe-quarterly"
+      wait_for_page_load
 
-      # no card details as payment method is abstractly created
-      page.within_frame 'braintree-dropin-frame' do
-        fill_in 'credit-card-number', with: brain_tree_page.valid_visa
-        fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
-        fill_in 'cvv', with: brain_tree_page.valid_cvv
-      end
+      expect(page).to have_selector '#braintree-dropin-frame'
 
       # first transaction that user unsubscribed from is not created
       expect(unsubscribed_user.braintree.transactions.count).to eq 0
@@ -38,12 +34,7 @@ feature 'subscription', type: :feature, js: true do
       Timecop.freeze(unsubscribed_user.next_billing_date) do
         brain_tree_page.click_unique "#subscribe-quarterly"
 
-        # no card details as payment method is abstractly created
-        page.within_frame 'braintree-dropin-frame' do
-          fill_in 'credit-card-number', with: brain_tree_page.valid_visa
-          fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
-          fill_in 'cvv', with: brain_tree_page.valid_cvv
-        end
+        expect(page).to have_selector '#braintree-dropin-frame'
 
         # first transaction that user unsubscribed from is not created
         expect(unsubscribed_user.braintree.transactions.count).to eq 0

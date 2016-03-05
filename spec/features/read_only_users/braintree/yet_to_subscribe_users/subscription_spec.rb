@@ -202,8 +202,8 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
-      expect(page).to have_content "You will be charged $480 immediately."
-      expect(page).to have_content "You will NOT be automatically charged $480 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be charged $468 immediately."
+      expect(page).to have_content "You will NOT be automatically charged $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
       
       brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
@@ -226,14 +226,14 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
-      expect(page).to have_content "You will be charged $480 immediately."
-      expect(page).to have_content "You will NOT be automatically charged $480 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be charged $468 immediately."
+      expect(page).to have_content "You will NOT be automatically charged $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
 
       brain_tree_page.scroll_into_view '#renewal-toggle'
       brain_tree_page.click_unique '#renewal-toggle'
 
-      expect(page).to have_content "You will be charged $480 immediately."
-      expect(page).to have_content "You will be automatically charged $480 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be charged $468 immediately."
+      expect(page).to have_content "You will be automatically charged $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
 
       brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'

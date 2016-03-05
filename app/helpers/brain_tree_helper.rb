@@ -19,33 +19,33 @@ module BrainTreeHelper
   def subscription_rate plan
     case plan
     when 'one_month_plan'
-      "$60 / month"
+      "$59 / month"
     when 'three_months_plan'
-      "$150 / 90 days"
+      "$147 / 90 days"
     when 'one_year_plan'
-      "$480 / year"
+      "$468 / year"
     end
   end
 
   def transaction_amount plan
     case plan
     when 'one_month_plan'
-      "$60"
+      "$59"
     when 'three_months_plan'
-      "$150"
+      "$147"
     when 'one_year_plan'
-      "$480"
+      "$468"
     end
   end
 
   def plan plan
     case plan
     when "one_month_plan"
-      "Monthly ($60 / Month)"
+      "Monthly ($59 / Month)"
     when "three_months_plan"
-      "Quarterly ($150 / 90 days)"
+      "Quarterly ($147 / 90 days)"
     when "one_year_plan"
-      "Annually ($480 / year)"
+      "Annually ($468 / year)"
     end
   end
 

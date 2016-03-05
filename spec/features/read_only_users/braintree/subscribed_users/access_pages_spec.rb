@@ -35,30 +35,30 @@ feature "access pages by subscribed read_only users" do
 
     scenario "subscribe" do
       brain_tree_page.visit_subscribe_one_month_page
-      expect(page).not_to have_content "You have chosen to subscribe to Tengence monthly ($60 / month)."
-      expect(page).not_to have_content "You will be charged $60 immediately."
-      expect(page).to have_content "You will NOT be charged $60 immediately."
-      expect(page).to have_content "You have chosen to change to subscribe to Tengence monthly ($60 / month)."
+      expect(page).not_to have_content "You have chosen to subscribe to Tengence monthly ($59 / month)."
+      expect(page).not_to have_content "You will be charged $59 immediately."
+      expect(page).to have_content "You will NOT be charged $59 immediately."
+      expect(page).to have_content "You have chosen to change to subscribe to Tengence monthly ($59 / month)."
       expect(page).to have_content "Your next billing date is on #{subscribed_user.next_billing_date.strftime('%e %b %Y')}."
-      expect(page).not_to have_content "You have chosen to resubscribe to Tengence monthly ($60 / month)."
+      expect(page).not_to have_content "You have chosen to resubscribe to Tengence monthly ($59 / month)."
       expect(page.current_path).to eq subscribe_one_month_path
 
       brain_tree_page.visit_subscribe_three_months_page
-      expect(page).not_to have_content "You have chosen to subscribe to Tengence quarterly ($150 / 90 days)."
-      expect(page).not_to have_content "You will be charged $150 immediately."
-      expect(page).to have_content "You will NOT be charged $150 immediately."
-      expect(page).to have_content "You have chosen to change to subscribe to Tengence quarterly ($150 / 90 days)."
+      expect(page).not_to have_content "You have chosen to subscribe to Tengence quarterly ($147 / 90 days)."
+      expect(page).not_to have_content "You will be charged $147 immediately."
+      expect(page).to have_content "You will NOT be charged $147 immediately."
+      expect(page).to have_content "You have chosen to change to subscribe to Tengence quarterly ($147 / 90 days)."
       expect(page).to have_content "Your next billing date is on #{subscribed_user.next_billing_date.strftime('%e %b %Y')}."
-      expect(page).not_to have_content "You have chosen to resubscribe to Tengence quarterly ($150 / 90 days)."
+      expect(page).not_to have_content "You have chosen to resubscribe to Tengence quarterly ($147 / 90 days)."
       expect(page.current_path).to eq subscribe_three_months_path
 
       brain_tree_page.visit_subscribe_one_year_page
-      expect(page).not_to have_content "You have chosen to subscribe to Tengence annually ($480 / year)."
-      expect(page).not_to have_content "You will be charged $480 immediately."
-      expect(page).to have_content "You will NOT be charged $480 immediately."
-      expect(page).to have_content "You have chosen to change to subscribe to Tengence annually ($480 / year)."
+      expect(page).not_to have_content "You have chosen to subscribe to Tengence annually ($468 / year)."
+      expect(page).not_to have_content "You will be charged $468 immediately."
+      expect(page).to have_content "You will NOT be charged $468 immediately."
+      expect(page).to have_content "You have chosen to change to subscribe to Tengence annually ($468 / year)."
       expect(page).to have_content "Your next billing date is on #{subscribed_user.next_billing_date.strftime('%e %b %Y')}."
-      expect(page).not_to have_content "You have chosen to resubscribe to Tengence annually ($480 / year)."
+      expect(page).not_to have_content "You have chosen to resubscribe to Tengence annually ($468 / year)."
       expect(page.current_path).to eq subscribe_one_year_path
     end
 

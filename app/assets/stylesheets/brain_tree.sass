@@ -58,3 +58,60 @@
 
     #change-card-content
       display: none
+
+  &.plans
+
+    ul.pricing-table
+      border-radius: 10px
+      border: 1px solid #386ec4
+
+      &.spot-light
+        margin-top: -32px
+
+        li.advertise
+          background: #43AC6A
+          color: white
+          padding-top: 5px
+          padding-bottom: 5px
+
+      @media only screen and (max-width: 40em)
+        &.spot-light
+          margin-top: 0
+
+      li.bullet-item
+        line-height: 1.5
+        color: #81878C
+        background: none
+        border: 0
+        &:after
+          display: block
+          width: 60px
+          height: 2px
+          background: #E8EBEB
+          position: absolute
+          left: 50%
+          margin-left: -30px
+          bottom: -10px
+
+      li.title
+        font-size: 20px
+        background: none
+        font-weight: bold
+        color: black
+        border-bottom: solid 1px #DDDDDD
+
+      li.description
+        border: 0
+      
+      li.price
+        background: none
+        font-weight: bold
+        border: 0
+        span.value
+          font-size: 40px
+        span.rate
+          font-size: 16px
+      
+      li.cta-button
+        background: none
+        padding: 15px

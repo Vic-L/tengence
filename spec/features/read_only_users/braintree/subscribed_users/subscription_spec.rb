@@ -202,4 +202,21 @@ feature 'subscription', type: :feature, js: true do
 
   end
 
+  feature 'payment history' do
+    let!(:subscribed_transacted_user) {create(:user, :subscribed_one_month, :transacted_one_month)}
+
+    scenario 'should show message if no transaction' do
+      login_as(subscribed_user, scope: :user)
+      brain_tree_page.visit_payment_history_page
+      expect(page).to have_content "You have no payments with us yet."
+    end
+
+    scenario 'should show transaction details' do
+      login_as(subscribed_transacted_user, scope: :user)
+      brain_tree_page.visit_payment_history_page
+      expect(page).to have_content "Time of Settlement"
+    end
+
+  end
+
 end

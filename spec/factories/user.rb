@@ -141,4 +141,16 @@ FactoryGirl.define do
       user.subscribed_plan = "free_plan"
     end
   end
+
+  trait :transacted_one_month do
+    after :create do| user|
+      result = Braintree::Transaction.sale(
+        :payment_method_token => user.default_payment_method_token,
+        amount: "59.00",
+        :options => {
+          :submit_for_settlement => true
+        }
+      )
+    end
+  end
 end

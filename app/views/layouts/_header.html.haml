@@ -35,7 +35,7 @@
 
             %li.show-for-medium-up
               %a{data: {dropdown: "tenders-drop"}} Tenders
-              %ul#tenders-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
+              %ul#tenders-drop.fadeIn.animated.blink{:class => "f-dropdown", "data-dropdown-content" => ""}
                 %li
                   = link_to "Current Tenders", current_tenders_path
                 %li
@@ -51,7 +51,7 @@
                 %label.subscription-level.trial free
               - if current_user.trial? || current_user.subscribed? || current_user.unsubscribed_and_yet_to_finish_cycle?
                 %label.subscription-level.pro pro
-              %ul#account-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
+              %ul#account-drop.fadeIn.animated.blink{:class => "f-dropdown", "data-dropdown-content" => ""}
                 %li
                   = link_to "Edit Profile", edit_user_registration_path
                 %li
@@ -132,7 +132,7 @@
           
         %li.show-for-medium-up
           %a{data: {dropdown: "help-drop"}} Help
-          %ul#help-drop{:class => "f-dropdown", "data-dropdown-content" => ""}
+          %ul#help-drop.fadeIn.animated.blink{:class => "f-dropdown", "data-dropdown-content" => ""}
             %li
               = link_to "Terms of Service", terms_of_service_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'terms of services', gtm_label: 'header'}
             %li

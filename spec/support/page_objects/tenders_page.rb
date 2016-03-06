@@ -1,5 +1,4 @@
 class TendersPage
-  include Capybara::DSL
   include TendersPageFunctions
 
   # read only

@@ -1,5 +1,4 @@
 class PastPostedTendersPage
-  include Capybara::DSL
   include TendersPageFunctions
 
   def visit_page

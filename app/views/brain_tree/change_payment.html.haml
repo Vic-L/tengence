@@ -47,10 +47,10 @@
 
         .row#auto-renew-content
           .small-12.column.text-center
-            %p Toggle the button to change your preference to auto renew your subscription with Tengence.
+            Toggle the button to change your preference to auto renew your subscription with Tengence.
           .small-12.column.text-center
             %h4 
-              %strong Auto Renew?:
+              %strong Auto Renew?
           .medium-4.column.medium-centered.text-center
             %fieldset#renewal-toggle.switch.round.large{:tabindex => "0"}
               %input#renew-toggle{:type => "checkbox", checked: current_user.auto_renew}
@@ -60,18 +60,24 @@
             %p.strong#renew-true 
               Your subscription will auto renew.
               %br
-              It will be charged on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+              It will be billed on #{current_user.next_billing_date.strftime('%e %b %Y')}.
             %p.strong#renew-false
               Your subscription will NOT auto renew.
               %br
               Your subscription will remain valid till #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
         .row#change-card-content
-          .medium-12.column.medium-centered.text-center
+          .small-12.column.text-center
+            Click 'Change payment method' and fill in new credit card details
+            %br
+            before clicking confirm.
+            %br
+            %br
+          .medium-12.column.text-center
             = form_tag update_payment_path do
               #dropin
               %br
-              %button#submit Confirm Change of Payment Method
+              = button_tag 'Confirm', {id: 'submit', data: {disable_with: "Processing..."}}
 
   %section#minor.dark
 

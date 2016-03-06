@@ -103,7 +103,7 @@
                     } else {
                       $('#buyer-details').html("<div class='small-12 column'>You have used up your credits for the day to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label=<%= @tender.ref_no %>>SUBSCRIBE now</a>!</div>");
                       document.body.classList.remove('loading');
-                      alert('Max unlock limit reached.');
+                      alert('You have used up all your credits for the day. Please come back the next working day.');
                     }
                   },
                   error: function(xhr, status, err){

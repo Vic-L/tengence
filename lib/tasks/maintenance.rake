@@ -48,7 +48,7 @@ namespace :maintenance do
 
   task :charge_users => :environment do
 
-    User.subscribed.charged_today.each do |user|
+    User.subscribed.billed_today.each do |user|
 
       next if user.email == 'vljc17@gmail.com'
       

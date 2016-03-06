@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   scope :read_only, -> { where(access_level: 'read_only') }
   scope :write_only, -> { where(access_level: 'write_only') }
   scope :subscribed, -> { where.not(subscribed_plan: 'free_plan', default_payment_method_token: nil, next_billing_date: nil) }
-  scope :charged_today, -> { where(next_billing_date: Time.now.in_time_zone('Singapore').to_date) }
+  scope :billed_today, -> { where(next_billing_date: Time.now.in_time_zone('Singapore').to_date) }
 
   before_create :hash_email
   after_commit :register_braintree_customer, on: :create, if: :read_only?

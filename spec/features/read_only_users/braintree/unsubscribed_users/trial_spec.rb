@@ -177,6 +177,47 @@ feature 'trial_tenders', type: :feature, js: true do
         end
       end
 
+      scenario 'cannot reveal details in another tab once hit limit' do
+        Timecop.freeze(Date.today + 2.months) do
+          tenders_page.seed_current_tenders_data
+          tenders_page.visit_current_tenders_page
+          wait_for_page_load
+          unsubscribed_user.reload
+          first_tender_description = tenders_page.find_css('tbody tr td')[0].all_text
+          
+          tenders_page.click_common '.more-button'
+          expect(page).to have_selector '#view-more-modal'
+          tenders_page.click_unique '#buy-details'
+          tenders_page.click_common '.close-reveal-modal'
+          expect(page).not_to have_selector '#view-more-modal'
+          tenders_page.click_common '.more-button', 1
+          expect(page).to have_selector '#view-more-modal'
+          tenders_page.click_unique '#buy-details'
+          tenders_page.click_common '.close-reveal-modal'
+          expect(page).not_to have_selector '#view-more-modal'
+
+          tenders_page.in_browser(:one) do
+            login_as(unsubscribed_user, scope: :user)
+            tenders_page.visit_current_tenders_page
+            wait_for_page_load
+
+            tenders_page.click_common '.more-button', 2
+            expect(page).to have_selector '#view-more-modal'
+            tenders_page.click_unique '#buy-details'
+            tenders_page.click_common '.close-reveal-modal'
+            expect(page).not_to have_selector '#view-more-modal'
+          end
+
+          tenders_page.click_common '.more-button', 3
+          expect(page).to have_selector '#view-more-modal'
+          tenders_page.click_unique '#buy-details'
+          expect(page.driver.browser.switch_to.alert.text).to eq "You have used up all your credits for the day. Please come back the next working day."
+          tenders_page.accept_confirm
+          expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
+          expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
+        end
+      end
+
     end
 
     feature 'watched_tenders page' do

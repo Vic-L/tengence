@@ -24,6 +24,7 @@ end; nil
 AwsManager.upload_document array.to_json
 
 # things to run before implementing braintree
+User.find(2).update(default_payment_method_token: nil, next_billing_date: nil, auto_renew: false)
 User.all.each do |user|
   result = Braintree::Customer.create(
     first_name: user.first_name,
@@ -44,13 +45,23 @@ Benchmark.bm do |bm|
   bm.report{CurrentTender.count}
 end;nil
 
-# should not have upgrade for the other 2 plans
-# add note of upgrading/resubscribing to subscribe page?
-# scheduler
-
 #### aws-cli ####
 ## add cache control to aws assets
 # s3cmd modify --recursive --acl-public --add-header="Cache-Control:max-age=2592000" s3://geo-site/webroot/
 # aws s3 cp /Users/L/Documents/tengence/app/assets/fonts/lato-v11-latin s3://tengence-alerts-production/static_assets/fonts/lato-v11-latin/ --recursive --acl public-read --cache-control "public,max-age=2,628,000"
 ## upoload cert to aws
 # aws iam upload-server-certificate --server-certificate-name ssl_20160124 --certificate-body file:/Users/L/Documents/tengence/tengence-ssl/ssl-original.crt --private-key file:/Users/L/Documents/tengence/tengence-ssl/ssl.pem --certificate-chain file:/Users/L/Documents/tengence/tengence-ssl/ssl-intermediate.crt --path /cloudfront/production/
+
+
+# things to do
+# setup live braintree account settings
+ # set up logic to automate emails when subscription is nearing end date
+# finalize faq
+# will test a subscription of 1 cent or 1 dollar
+
+# holiday gem for automating emails
+# front page
+# email on unsent tenders
+# quick feedback feature
+# landing pages
+# add info to signup page to use company emai

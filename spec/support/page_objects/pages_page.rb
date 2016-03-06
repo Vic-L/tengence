@@ -1,5 +1,4 @@
 class PagesPage
-  include Capybara::DSL
   include TendersPageFunctions
 
   def visit_home_page

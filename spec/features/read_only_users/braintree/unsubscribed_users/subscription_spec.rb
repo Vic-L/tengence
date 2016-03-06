@@ -12,7 +12,7 @@ feature 'subscription', type: :feature, js: true do
       wait_for_page_load
     end
 
-    scenario 'should not be charged if resubscribed before next billing date' do
+    scenario 'should not be billed if resubscribed before next billing date' do
       brain_tree_page.click_unique "#subscribe-quarterly"
       wait_for_page_load
 
@@ -29,7 +29,7 @@ feature 'subscription', type: :feature, js: true do
       expect(unsubscribed_user.braintree.transactions.count).to eq 0
     end
 
-    scenario 'should be charged if resubscribed after next billing date' do
+    scenario 'should be billed if resubscribed after next billing date' do
 
       Timecop.freeze(unsubscribed_user.next_billing_date) do
         brain_tree_page.click_unique "#subscribe-quarterly"

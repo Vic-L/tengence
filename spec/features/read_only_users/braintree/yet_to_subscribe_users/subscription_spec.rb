@@ -83,21 +83,18 @@ feature 'subscription', type: :feature, js: true do
       expect(yet_to_subscribe_user.next_billing_date).to eq nil
       expect(yet_to_subscribe_user.default_payment_method_token).to eq nil
 
-      brain_tree_page.scroll_into_view '#submit'
-      brain_tree_page.click_unique '#submit'
       expect(page).to have_selector 'iframe'
       page.within_frame 'braintree-dropin-frame' do
         fill_in 'credit-card-number', with: brain_tree_page.valid_visa
         fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
-      sleep 0.5
       brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page.current_path).to eq billing_path
       expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+      expect(page.current_path).to eq billing_path
       
       yet_to_subscribe_user.reload
       expect(yet_to_subscribe_user.next_billing_date).not_to eq nil
@@ -232,8 +229,8 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
-      expect(page).to have_content "You will be charged $468 immediately."
-      expect(page).to have_content "You will NOT be automatically charged $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be billed $468 immediately."
+      expect(page).to have_content "You will NOT be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
       
       brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
@@ -256,14 +253,14 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
-      expect(page).to have_content "You will be charged $468 immediately."
-      expect(page).to have_content "You will NOT be automatically charged $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be billed $468 immediately."
+      expect(page).to have_content "You will NOT be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
 
       brain_tree_page.scroll_into_view '#renewal-toggle'
       brain_tree_page.click_unique '#renewal-toggle'
 
-      expect(page).to have_content "You will be charged $468 immediately."
-      expect(page).to have_content "You will be automatically charged $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be billed $468 immediately."
+      expect(page).to have_content "You will be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
 
       brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'

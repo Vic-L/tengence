@@ -1,4 +1,14 @@
 module TendersPageFunctions
+  include Capybara::DSL
+
+  def in_browser(name)
+    old_session = Capybara.session_name
+
+    Capybara.session_name = name
+    yield
+
+    Capybara.session_name = old_session
+  end
 
   def accept_confirm
     page.driver.browser.switch_to.alert.accept

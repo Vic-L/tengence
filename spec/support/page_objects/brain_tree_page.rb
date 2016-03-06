@@ -1,5 +1,4 @@
 class BrainTreePage
-  include Capybara::DSL
   include TendersPageFunctions
 
   def visit_subscribe_one_month_page

@@ -1,5 +1,4 @@
 class RegistrationPage
-  include Capybara::DSL
   include TendersPageFunctions
 
   def visit_read_only_users_registration_page

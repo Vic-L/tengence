@@ -71,13 +71,13 @@ feature User, type: :model do
 
     end
 
-    feature 'charged_today' do
+    feature 'billed_today' do
 
       scenario 'should only include users with correct next_billing_date' do
         subscribed_one_month_user = create(:user, :subscribed_one_month)
-        expect(User.charged_today.include? subscribed_one_month_user).to eq false
+        expect(User.billed_today.include? subscribed_one_month_user).to eq false
         Timecop.freeze(subscribed_one_month_user.next_billing_date) do
-          expect(User.charged_today.include? subscribed_one_month_user).to eq true
+          expect(User.billed_today.include? subscribed_one_month_user).to eq true
         end
       end
 

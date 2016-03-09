@@ -78,3 +78,8 @@ img.grayscale {
 //     font-size: 110%;
 //   }
 // }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}

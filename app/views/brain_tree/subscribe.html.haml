@@ -9,22 +9,31 @@
           = hidden_field_tag 'plan', @plan
 
           - if current_user.yet_to_subscribe?
+            %h4 You will be billed #{transaction_amount @plan} immediately.
+          - elsif current_user.subscribed?
+            %h4 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+            %h4 You will NOT be billed #{transaction_amount @plan} immediately.
+          - elsif current_user.unsubscribed?
+            - if current_user.unsubscribed_and_yet_to_finish_cycle?
+              %h4 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+              %h4 You will NOT be billed #{transaction_amount @plan} immediately.
+            - elsif current_user.unsubscribed_and_finished_cycle?
+              %h4 You will be billed #{transaction_amount @plan} immediately.
+
+
+          - if current_user.yet_to_subscribe?
             %h5 You have chosen to subscribe to Tengence #{plan(@plan).downcase}.
-            %h5 You will be billed #{transaction_amount @plan} immediately.
+            
           - elsif current_user.subscribed?
             %h5 You have chosen to change to subscribe to Tengence #{plan(@plan).downcase}.
-            %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-            %h5 You will NOT be billed #{transaction_amount @plan} immediately.
           - elsif current_user.unsubscribed?
             %h5 You have chosen to resubscribe to Tengence #{plan(@plan).downcase}.
-            - if current_user.unsubscribed_and_yet_to_finish_cycle?
-              %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-              %h5 You will NOT be billed #{transaction_amount @plan} immediately.
-            - elsif current_user.unsubscribed_and_finished_cycle?
-              %h5 You will be billed #{transaction_amount @plan} immediately.
 
           %h5 You will be billed to the chosen payment card below.
-          %p NOTE: You will receive email receipts for every transaction.
+          %p
+            NOTE: You will receive email receipts for every transaction.
+            %br
+            NOTE: Tengence does NOT store you credit card details. Tengence works with <a href="https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified" target="_blank" >Braintree</a> to handle payments.
 
           %hr
 
@@ -116,7 +125,7 @@
               %h4
                 %i.fa.fa-check-circle
             .small-11.column
-              = button_tag 'Confirm', {id: 'submit', data: {disable_with: "Processing..."}}
+              = button_tag 'Confirm', {id: 'submit'}
 
   %section#minor.dark
 

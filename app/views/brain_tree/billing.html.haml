@@ -9,6 +9,17 @@
     .row
       .medium-8.columns.medium-centered
 
+        .row
+          .small-12.medium-8.column.text-center
+            - if current_user.yet_to_subscribe?
+            - else
+              - if current_user.subscribed? && @payment_method
+                %h4 You are subscribed to the PRO version of Tengence
+              - elsif current_user.unsubscribed? && @payment_method
+                - if current_user.unsubscribed_and_yet_to_finish_cycle?
+                  %h4 You are subscribed to the PRO version of Tengence
+                - elsif current_user.unsubscribed_and_finished_cycle?
+
         - if current_user.yet_to_subscribe?
 
           .row

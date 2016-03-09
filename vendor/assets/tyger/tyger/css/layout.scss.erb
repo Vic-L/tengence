@@ -203,16 +203,18 @@ ul#account-drop,
 ul#tenders-drop,
 ul#help-drop {
 	width: auto;
-	border: 1px solid #386ec4;
+	border: 1px solid #E3E6E6;
 	border-radius: 5px;
 	li {
 		background: none;
 		color: #386ec4;
-		&:first-child {
+		&:first-child,
+		&:first-child > a, {
 			border-top-left-radius: 5px;
 			border-top-right-radius: 5px;
 		}
-		&:last-child {
+		&:last-child,
+		&:last-child > a {
 			border-bottom-left-radius: 5px;
 			border-bottom-right-radius: 5px;
 		}

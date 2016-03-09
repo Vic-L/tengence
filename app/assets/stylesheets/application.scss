@@ -24,6 +24,7 @@
 }
 
 html,body {
+  font-size: 110%;
   &.loading {
     cursor: wait !important;
     a:hover {
@@ -71,3 +72,9 @@ img.grayscale {
     -webkit-filter: grayscale(0);
   }
 }
+
+// @media only screen and (max-width: 40em) {
+//   html,body {
+//     font-size: 110%;
+//   }
+// }

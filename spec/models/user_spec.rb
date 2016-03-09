@@ -83,6 +83,18 @@ feature User, type: :model do
 
     end
 
+    feature 'billed_in_7_days' do
+
+      scenario 'should only include users with correct next_billing_date' do
+        subscribed_one_month_user = create(:user, :subscribed_one_month)
+        expect(User.billed_in_7_days.include? subscribed_one_month_user).to eq false
+        Timecop.freeze(subscribed_one_month_user.next_billing_date - 7.days) do
+          expect(User.billed_in_7_days.include? subscribed_one_month_user).to eq true
+        end
+      end
+
+    end
+
     feature 'confirmed' do
 
       scenario 'should not include unconfirmed/[ending_reconfirmation users' do

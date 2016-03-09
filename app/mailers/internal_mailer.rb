@@ -1,4 +1,5 @@
 class InternalMailer < ApplicationMailer
+  helper BrainTreeHelper
   self.delivery_method = :sendmail if (Rails.env.production? || Rails.env.staging?)
 
   default from: 'notification@tengence.com.sg'
@@ -27,5 +28,10 @@ class InternalMailer < ApplicationMailer
     @subject = "TA #{@date} for #{@user.email}"
     mail(to: 'tengencesingapore@gmail.com', subject: @subject, cc: 'vljc17@gmail.com', template_path: 'alerts_mailer', template_name: 'alert_mail')
       # , :'X-MC-SendAt' => (Time.now.in_time_zone('Asia/Singapore') + 8.hours).utc.strftime("%Y-%m-%d %H:%M:%S"))
+  end
+
+  def subscription_ending_reminder user_id
+    @user = User.find(user_id)
+    mail(to: 'tengencesingapore@gmail.com', subject: "#{@user.email} subscription ending in 7 days time", cc: 'vljc17@gmail.com', template_path: 'alerts_mailer', template_name: 'subscription_ending_reminder')
   end
 end

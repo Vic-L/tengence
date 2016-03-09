@@ -10,63 +10,116 @@ feature 'scheduler' do
     Tengence::Application.load_tasks
   end
 
-  scenario "should not charge the subscribed user if user's next_billing_date is not today" do
-    
-    expect(subscribed_one_month_user.braintree.transactions.count).to eq 0
-    expect(subscribed_three_months_user.braintree.transactions.count).to eq 0
+  feature "charge_users" do
 
-    Rake::Task['maintenance:charge_users'].reenable
-    Rake::Task['maintenance:charge_users'].invoke
+    scenario "should not charge the subscribed user if user's next_billing_date is not today" do
+      
+      expect(subscribed_one_month_user.braintree.transactions.count).to eq 0
+      expect(subscribed_three_months_user.braintree.transactions.count).to eq 0
 
-    # NOTE: DONT subscribed_one_month_user.reload as it will change braintree_customer_id
-    expect(subscribed_one_month_user.braintree.transactions.count).to eq 0
-    expect(subscribed_three_months_user.braintree.transactions.count).to eq 0
+      Rake::Task['maintenance:charge_users'].reenable
+      Rake::Task['maintenance:charge_users'].invoke
+
+      # NOTE: DONT subscribed_one_month_user.reload as it will change braintree_customer_id
+      expect(subscribed_one_month_user.braintree.transactions.count).to eq 0
+      expect(subscribed_three_months_user.braintree.transactions.count).to eq 0
+    end
+
+    scenario "should charge the subscribed user if user's next_billing_date is today" do
+      subscribed_one_month_user.update(next_billing_date: Time.now.in_time_zone('Singapore').to_date)
+
+      Rake::Task['maintenance:charge_users'].reenable
+      Rake::Task['maintenance:charge_users'].invoke
+
+      # NOTE: DONT subscribed_one_month_user.reload as it will change braintree_customer_id
+      expect(subscribed_one_month_user.braintree.transactions.count).to eq 1
+    end
+
+    scenario "should not charge unsubscribed_user" do
+      expect(unsubscribed_user.braintree.transactions.count).to eq 0
+
+      Rake::Task['maintenance:charge_users'].reenable
+      Rake::Task['maintenance:charge_users'].invoke
+
+      # NOTE: DONT subscribed_one_month_user.reload as it will change braintree_customer_id
+      expect(unsubscribed_user.braintree.transactions.count).to eq 0
+    end
+
+    scenario 'should change next_billing_date of users correctly' do
+      subscribed_one_month_user.update(next_billing_date: Time.now.in_time_zone('Singapore').to_date)
+      subscribed_one_month_user_initial_next_billing_date = subscribed_one_month_user.next_billing_date
+      subscribed_three_months_user_initial_next_billing_date = subscribed_three_months_user.next_billing_date
+
+      Rake::Task['maintenance:charge_users'].reenable
+      Rake::Task['maintenance:charge_users'].invoke
+
+      subscribed_one_month_user.reload
+      subscribed_three_months_user.reload
+      expect(subscribed_one_month_user.next_billing_date).to eq subscribed_one_month_user_initial_next_billing_date + 30.days
+      expect(subscribed_three_months_user.next_billing_date).to eq subscribed_three_months_user_initial_next_billing_date
+
+      subscribed_three_months_user.update(next_billing_date: Time.now.in_time_zone('Singapore').to_date)
+      subscribed_one_month_user_initial_next_billing_date = subscribed_one_month_user.next_billing_date
+      subscribed_three_months_user_initial_next_billing_date = subscribed_three_months_user.next_billing_date
+
+      Rake::Task['maintenance:charge_users'].reenable
+      Rake::Task['maintenance:charge_users'].invoke
+
+      subscribed_one_month_user.reload
+      subscribed_three_months_user.reload
+      expect(subscribed_one_month_user.next_billing_date).to eq subscribed_one_month_user_initial_next_billing_date
+      expect(subscribed_three_months_user.next_billing_date).to eq subscribed_three_months_user_initial_next_billing_date + 90.days
+    end
+
   end
 
-  scenario "should charge the subscribed user if user's next_billing_date is today" do
-    subscribed_one_month_user.update(next_billing_date: Time.now.in_time_zone('Singapore').to_date)
+  feature "subscription_ending_reminder" do
 
-    Rake::Task['maintenance:charge_users'].reenable
-    Rake::Task['maintenance:charge_users'].invoke
+    before :each do
+      ActionMailer::Base.deliveries.clear
+    end
 
-    # NOTE: DONT subscribed_one_month_user.reload as it will change braintree_customer_id
-    expect(subscribed_one_month_user.braintree.transactions.count).to eq 1
-  end
+    scenario 'should not send to users with next_billing_date not 7 days later' do
+      Rake::Task['maintenance:subscription_ending_reminder'].reenable
+      Rake::Task['maintenance:subscription_ending_reminder'].invoke
+      expect(ActionMailer::Base.deliveries.count).to eq 0
+    end
 
-  scenario "should not charge unsubscribed_user" do
-    expect(unsubscribed_user.braintree.transactions.count).to eq 0
+    scenario 'should send to users with next_billing_date in 7 days time' do
+      Timecop.freeze(subscribed_one_month_user.next_billing_date - 7.days) do
+        Rake::Task['maintenance:subscription_ending_reminder'].reenable
+        Rake::Task['maintenance:subscription_ending_reminder'].invoke
 
-    Rake::Task['maintenance:charge_users'].reenable
-    Rake::Task['maintenance:charge_users'].invoke
+        expect(ActionMailer::Base.deliveries.count).to eq 2 # InternalMailer and AlertsMailer
+        expect(ActionMailer::Base.deliveries.map(&:subject).include?("Subscription ending in 7 days")).to eq true
+        expect(ActionMailer::Base.deliveries.map(&:subject).include?("#{subscribed_one_month_user.email} subscription ending in 7 days time")).to eq true
+      end
+    end
 
-    # NOTE: DONT subscribed_one_month_user.reload as it will change braintree_customer_id
-    expect(unsubscribed_user.braintree.transactions.count).to eq 0
-  end
+    scenario 'should give different texts for auto_renew on and off users' do
+      Timecop.freeze(subscribed_one_month_user.next_billing_date - 7.days) do
+        
+        subscribed_one_month_user.update(auto_renew: true)
+        Rake::Task['maintenance:subscription_ending_reminder'].reenable
+        Rake::Task['maintenance:subscription_ending_reminder'].invoke
 
-  scenario 'should change next_billing_date of users correctly' do
-    subscribed_one_month_user.update(next_billing_date: Time.now.in_time_zone('Singapore').to_date)
-    subscribed_one_month_user_initial_next_billing_date = subscribed_one_month_user.next_billing_date
-    subscribed_three_months_user_initial_next_billing_date = subscribed_three_months_user.next_billing_date
+        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "This is an email to remind you that your current subscription cycle will end on #{subscribed_one_month_user.next_billing_date.strftime('%e %b %Y')}.").to eq true
+        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "No action is required on your part.").to eq true
 
-    Rake::Task['maintenance:charge_users'].reenable
-    Rake::Task['maintenance:charge_users'].invoke
+        ActionMailer::Base.deliveries.clear
 
-    subscribed_one_month_user.reload
-    subscribed_three_months_user.reload
-    expect(subscribed_one_month_user.next_billing_date).to eq subscribed_one_month_user_initial_next_billing_date + 30.days
-    expect(subscribed_three_months_user.next_billing_date).to eq subscribed_three_months_user_initial_next_billing_date
+        subscribed_one_month_user.update(auto_renew: false)
+        subscribed_one_month_user.reload
+        Rake::Task['maintenance:subscription_ending_reminder'].reenable
+        Rake::Task['maintenance:subscription_ending_reminder'].invoke
 
-    subscribed_three_months_user.update(next_billing_date: Time.now.in_time_zone('Singapore').to_date)
-    subscribed_one_month_user_initial_next_billing_date = subscribed_one_month_user.next_billing_date
-    subscribed_three_months_user_initial_next_billing_date = subscribed_three_months_user.next_billing_date
+        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "This is an email to remind you that your current subscription cycle will end on #{subscribed_one_month_user.next_billing_date.strftime('%e %b %Y')}.").to eq false
+        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "No action is required on your part.").to eq false
 
-    Rake::Task['maintenance:charge_users'].reenable
-    Rake::Task['maintenance:charge_users'].invoke
+        # TODO check the no auto renew text
+      end
+    end
 
-    subscribed_one_month_user.reload
-    subscribed_three_months_user.reload
-    expect(subscribed_one_month_user.next_billing_date).to eq subscribed_one_month_user_initial_next_billing_date
-    expect(subscribed_three_months_user.next_billing_date).to eq subscribed_three_months_user_initial_next_billing_date + 90.days
   end
 
 end

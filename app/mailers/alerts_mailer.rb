@@ -1,4 +1,5 @@
 class AlertsMailer < ApplicationMailer
+  helper BrainTreeHelper
   self.smtp_settings = {
     :address => ENV['MAIL_ADDRESS'],
     :port => 587,
@@ -39,5 +40,10 @@ class AlertsMailer < ApplicationMailer
     @email = email
     @subject = "[Tengence] Demo Email"
     mail(to: @email, subject: @subject)
+  end
+
+  def subscription_ending_reminder user_id
+    @user = User.find(user_id)
+    mail(from: 'payments@tengence.com.sg', to: @user.email, subject: "Subscription ending in 7 days", reply_to: 'payments@tengence.com.sg')
   end
 end

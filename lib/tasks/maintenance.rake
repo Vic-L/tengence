@@ -1,4 +1,5 @@
 namespace :maintenance do
+
   task :remove_trial_tenders => :environment do
     TrialTender.destroy_all
     content = "Removed all trial tenders\r\nNumber of users with trial_tenders_count > 0 = #{User.where.not(trial_tenders_count: 0).count}"
@@ -47,7 +48,6 @@ namespace :maintenance do
   end
 
   task :charge_users => :environment do
-
     User.subscribed.billed_today.each do |user|
 
       next if user.email == 'vljc17@gmail.com'
@@ -98,9 +98,16 @@ namespace :maintenance do
         NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} NOT successfully charged")
 
       end
-
     end
 
+  end
+
+  task :subscription_ending_reminder => :environment do
+    User.subscribed.billed_in_7_days.each do |user|
+      NotifyViaSlack.call(content: "Emailed #{user.email} subscription_ending_reminder")
+      AlertsMailer.subscription_ending_reminder(user.id).deliver_now
+      InternalMailer.subscription_ending_reminder(user.id).deliver_now
+    end
   end
 
 end

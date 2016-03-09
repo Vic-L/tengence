@@ -72,15 +72,15 @@ class CreateSubscription
 
       when "one_month_plan"
 
-        "60.00"
+        "59.00"
 
       when "three_months_plan"
 
-        "150.00"
+        "147.00"
 
       when "one_year_plan"
 
-        "480.00"
+        "468.00"
 
       end
 

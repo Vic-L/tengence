@@ -13,6 +13,7 @@
             %li.description * billed $59 every 30 days
             %li.bullet-item Access FULL information of ALL #{CurrentTender.count} open tenders each day
             %li.cta-button
+              %h4 -
               = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
         .medium-3.columns
           %ul.pricing-table
@@ -62,6 +63,7 @@
                 %li.description * billed $59 every 30 days
                 %li.bullet-item Access FULL information of ALL #{CurrentTender.count} open tenders each day
                 %li.cta-button
+                  %h4 -
                   = link_to 'Change Plan', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
             .medium-1.columns
           - unless current_user.subscribed_plan == 'three_months_plan'
@@ -113,6 +115,7 @@
               %li.description * billed $59 every 30 days
               %li.bullet-item Access FULL information of ALL #{CurrentTender.count} open tenders each day
               %li.cta-button
+                %h4 -
                 = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
           .medium-4.columns
             %ul.pricing-table

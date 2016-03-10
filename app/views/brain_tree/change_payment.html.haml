@@ -6,26 +6,26 @@
       .medium-8.columns.medium-centered
 
         .row
-          .small-12.medium-8.column
+          .small-12.medium-7.column
             %h4
               %strong Next Billing Date:
-          .small-12.medium-4.column
+          .small-12.medium-5.column
             %h4
               %strong #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
         .row
-          .small-12.medium-8.column
+          .small-12.medium-7.column
             %h4
               %strong Plan:
-          .small-12.medium-4.column
+          .small-12.medium-5.column
             %h4
               %strong #{subscription_rate(current_user.subscribed_plan)}
 
         .row
-          .small-12.medium-8.column
+          .small-12.medium-7.column
             %h4
               %strong Current Payment Card:
-          .small-12.medium-4.column
+          .small-12.medium-5.column
             %h6
               %img{src: @payment_method.image_url}
               %strong=@payment_method.card_type
@@ -111,9 +111,6 @@
       client_token,
       'dropin', {
         container: 'dropin'
-      },
-      onError: function(obj) {
-        console.log(obj);
       });
     $('#renew-toggle').click(function(event){
       event.preventDefault();

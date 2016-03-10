@@ -10,14 +10,16 @@
       .medium-8.columns.medium-centered
 
         .row
-          .small-12.medium-8.column.text-center
+          .small-12.column.text-center
             - if current_user.yet_to_subscribe?
             - else
               - if current_user.subscribed? && @payment_method
                 %h4 You are subscribed to the PRO version of Tengence
+                %br
               - elsif current_user.unsubscribed? && @payment_method
                 - if current_user.unsubscribed_and_yet_to_finish_cycle?
                   %h4 You are subscribed to the PRO version of Tengence
+                  %br
                 - elsif current_user.unsubscribed_and_finished_cycle?
 
         - if current_user.yet_to_subscribe?
@@ -109,22 +111,19 @@
 
       .row
         .medium-8.columns.medium-centered.text-center
-          = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
-            Unsubscribe 
-          from Tengence. Your subscription will still continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
-
-    %br
+          %p
+            = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
+              Unsubscribe 
+            from Tengence. Your subscription will still continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
 
     .row
       .medium-8.columns.medium-centered.text-center
-        %span
+        %p
           Read our <a href='/terms-of-service' class='ga-static-pages' data-gtm-category='' data-gtm-action='read tos' data-gtm-label='tos (billing page)' target='_blank'> terms of service</a>.
 
-    %br
-
     .row
       .medium-8.columns.medium-centered.text-center
-        %span
+        %p
           Read our <a href='/faq' class='ga-static-pages' data-gtm-category='' data-gtm-action='read faq' data-gtm-label='faq (billing page)' target='_blank'> FAQ</a>.
 
     -# - if current_user.trial?

@@ -181,9 +181,7 @@
             %fieldset
               = email_field_tag 'demo_email'
               = check_box_tag 'agree', '1', false
-              %span#agree-notice By requesting this demo email, you agree to sign up for Tengence's newsletter.
-              %br
-              %br
+              %p#agree-notice By requesting this demo email, you agree to sign up for Tengence's newsletter.
               -# TODO fix this dirty fix for recapthca in tests
               - unless Rails.env.test?
                 .text-center

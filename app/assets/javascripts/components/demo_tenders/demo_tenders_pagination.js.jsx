@@ -53,7 +53,7 @@ var DemoTendersPagination = React.createClass({
       links.push(<a href='' className='ga-static-pages' data-gtm-category='' data-gtm-action='pagination last' data-gtm-label='demo' onClick={this.handleClick}>Last »</a>);
     }
     return (
-      <div className='row'>
+      <div className='row pagination-row'>
         <div className='small-6 medium-3 column'>
           Sort By:<select className='sort' onChange={this.handleChange} value='newest'><option value="newest">Newest</option><option value="expiring">Expiring</option></select>
         </div>

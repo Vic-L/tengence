@@ -11,7 +11,7 @@
               %span.value 59
               %span.rate / mo
             %li.description * billed $59 every 30 days
-            %li.bullet-item Basic Tier. You will be charged monthly.
+            %li.bullet-item.feature Basic Tier. You will be charged monthly.
             %li.cta-button
               %h4 -
               = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
@@ -22,7 +22,7 @@
               %span.value 49
               %span.rate / mo
             %li.description * billed $147 every 90 days
-            %li.bullet-item Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
+            %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
             %li.cta-button
               %h4 Save 17%
               = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button round', id: 'subscribe-quarterly'
@@ -34,7 +34,7 @@
               %span.value 39
               %span.rate / mo
             %li.description * billed $468 every year
-            %li.bullet-item Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
+            %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
             %li.cta-button
               %h4 Save 33%
               = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button round', id: 'subscribe-annually'
@@ -43,8 +43,8 @@
             %li.title Free
             %li.price
               %span.value 0
-            %li.description Free Tier
-            %li.bullet-item Access FULL information of ONLY up to 3 out of #{CurrentTender.count} open tenders per day
+            %li.description -
+            %li.bullet-item.feature Free Tier. You can only view up the full detail of up to 3 tenders each week.
       
   - else
 
@@ -61,7 +61,7 @@
                 %span.value 59
                 %span.rate / mo
               %li.description * billed $59 every 30 days
-              %li.bullet-item Basic Tier. You will be charged monthly.
+              %li.bullet-item.feature Basic Tier. You will be charged monthly.
               %li.cta-button
                 %h4 -
                 = link_to 'Change Plan', subscribe_one_month_path, class: "button round #{current_user.subscribed_plan == 'one_month_plan' ? 'disabled' : ''}", id: 'subscribe-monthly'
@@ -75,7 +75,7 @@
                 %span.value 49
                 %span.rate / mo
               %li.description * billed $147 every 90 days
-              %li.bullet-item Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
+              %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
               %li.cta-button
                 %h4 Save 17%
                 = link_to 'Change Plan', subscribe_three_months_path, class: "button round #{current_user.subscribed_plan == 'three_months_plan' ? 'disabled' : ''}", id: 'subscribe-quarterly'
@@ -91,7 +91,7 @@
                 %span.value 39
                 %span.rate / mo
               %li.description * billed $468 every year
-              %li.bullet-item Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
+              %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
               %li.cta-button
                 %h4 Save 33%
                 = link_to 'Change Plan', subscribe_one_year_path, class: "button round #{current_user.subscribed_plan == 'one_year_plan' ? 'disabled' : ''}", id: 'subscribe-annually'
@@ -100,7 +100,7 @@
 
       - if current_user.unsubscribed_and_yet_to_finish_cycle?
 
-        %section
+        %section.no-margin
           .row
             .medium-8.columns.medium-centered
               %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
@@ -115,7 +115,7 @@
                 %span.value 59
                 %span.rate / mo
               %li.description * billed $59 every 30 days
-              %li.bullet-item Access FULL information of ALL #{CurrentTender.count} open tenders each day
+              %li.bullet-item.feature Basic Tier. You will be charged monthly.
               %li.cta-button
                 %h4 -
                 = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
@@ -126,7 +126,7 @@
                 %span.value 49
                 %span.rate / mo
               %li.description * billed $147 every 90 days
-              %li.bullet-item Access FULL information of ALL #{CurrentTender.count} open tenders each day
+              %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
               %li.cta-button
                 %h4 Save 17%
                 = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button round', id: 'subscribe-quarterly'
@@ -138,7 +138,15 @@
                 %span.value 39
                 %span.rate / mo
               %li.description * billed $468 every year
-              %li.bullet-item Access FULL information of ALL #{CurrentTender.count} open tenders each day
+              %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
               %li.cta-button
                 %h4 Save 33%
                 = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button round', id: 'subscribe-annually'
+
+- content_for :javascript do
+  :javascript
+    var heights = $('.bullet-item.feature').map(function(){
+      return $(this).outerHeight()
+    });
+    var maxHeight = Math.max.apply(null, heights);
+    $('.bullet-item.feature').css('height', maxHeight + 'px');

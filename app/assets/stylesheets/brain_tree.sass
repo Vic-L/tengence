@@ -56,10 +56,20 @@
         background-color: #386ec4
         color: white
 
+    @media only screen and (max-width: 40rem)
+      #change-card-option-label,
+      #auto-renew-option-label
+        font-size: 0.9rem
+
+    #change-card-option-label
+      margin-left: 0
+
     #change-card-content
       display: none
 
   &.plans
+
+    padding-top: 60px
 
     ul.pricing-table
       border-radius: 10px
@@ -119,7 +129,7 @@
         font-weight: bold
         border: 0
         span.value
-          font-size: 40px
+          font-size: 80px
         span.rate
           font-size: 16px
       

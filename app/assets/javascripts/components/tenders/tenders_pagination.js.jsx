@@ -58,7 +58,7 @@ var TendersPagination = React.createClass({
       );
     } else {
       return (
-        <div className='row'>
+        <div className='row pagination-row'>
           <div className='small-6 medium-3 column'>
             Sort By:<select className='sort' onChange={this.handleChange} value={this.props.sort}><option value="newest">Newest</option><option value="expiring">Expiring</option></select>
           </div>

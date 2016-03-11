@@ -176,7 +176,9 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                         <thead>
                                           <tr>
                                             <th width="350" style='padding: 5px; border: 1px solid black;'>Description</th>
-                                            <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %>
+                                              <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <% end %>
                                             <th width="100" style='padding: 5px; border: 1px solid black;'>Closing Date</th>
                                             <th width="50" style='padding: 5px; border: 1px solid black;'>Action</th>
                                           </tr>
@@ -186,14 +188,18 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                             <% if index.even? %>
                                               <tr>
                                                 <td width="350" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                                <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %>
+                                                  <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <% end %>
                                                 <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                                 <td width="50" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no, utm_source: 'dailyEmailNotifications', utm_medium: 'email', utm_campaign: "dailyEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d')), target: "_blank" %></td>
                                               </tr>
                                             <% else %>
                                               <tr>
                                                 <td width="350" style='padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                                <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                 <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %> 
+                                                  <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <% end %>
                                                 <td width="100" style='padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                                 <td width="50" style='padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no, utm_source: 'dailyEmailNotifications', utm_medium: 'email', utm_campaign: "dailyEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d')), target: "_blank" %></td>
                                               </tr>
@@ -225,14 +231,18 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                             <% if index.even? %>
                                               <tr>
                                                 <td width="350" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                                <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %>
+                                                  <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <% end %>
                                                 <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                                 <td width="50" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no, utm_source: 'dailyEmailNotifications', utm_medium: 'email', utm_campaign: "dailyEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d')), target: "_blank" %></td>
                                               </tr>
                                             <% else %>
                                               <tr>
                                                 <td width="350" style='padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                                <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                 <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %> 
+                                                  <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                  <% end %>
                                                 <td width="100" style='padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                                 <td width="50" style='padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no, utm_source: 'dailyEmailNotifications', utm_medium: 'email', utm_campaign: "dailyEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d')), target: "_blank" %></td>
                                               </tr>
@@ -267,14 +277,18 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                             <% if index.even? %>
                                               <tr>
                                                 <td width="350" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                                <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %>
+                                                  <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                <% end %>
                                                 <td width="100" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                                 <td width="50" style='background-color: rgb(255, 255, 255); padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no, utm_source: 'dailyEmailNotifications', utm_medium: 'email', utm_campaign: "dailyEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d')), target: "_blank" %></td>
                                               </tr>
                                             <% else %>
                                               <tr>
                                                 <td width="350" style='padding: 5px; border: 1px solid black;'><%= tender.description %></td>
-                                                <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                 <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %> 
+                                                  <td width="100" style='padding: 5px; border: 1px solid black;'><%= tender.buyer_company_name %></td>
+                                                  <% end %>
                                                 <td width="100" style='padding: 5px; border: 1px solid black;'><%= "#{tender.closing_datetime.day.ordinalize} #{tender.closing_datetime.strftime('%b %Y')}" %></td>
                                                 <td width="50" style='padding: 5px; border: 1px solid black;'><%= link_to "View More", tender_url(id: tender.ref_no, utm_source: 'dailyEmailNotifications', utm_medium: 'email', utm_campaign: "dailyEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d')), target: "_blank" %></td>
                                               </tr>

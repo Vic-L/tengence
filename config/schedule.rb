@@ -29,7 +29,10 @@ end
 # end
 
 every :day, :at => local('7am'), :tz => 'Asia/Singapore' do
-  rake "maintenance:remove_trial_tenders"
   rake "maintenance:cleanup_past_tenders"
   rake "maintenance:refresh_cache"
+end
+
+every :monday, :at => local('6am'), :tz => 'Asia/Singapore' do
+  rake "maintenance:remove_trial_tenders"
 end

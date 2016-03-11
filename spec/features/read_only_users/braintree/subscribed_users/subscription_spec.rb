@@ -61,7 +61,7 @@ feature 'subscription', type: :feature, js: true do
         wait_for_page_load
 
         expect(page).not_to have_content "Free"
-        expect(page).not_to have_content "billed $59 every 30 days"
+        expect(page).to have_content "billed $59 every 30 days"
         expect(page).to have_content "billed $147 every 90 days"
         expect(page).to have_content "billed $468 every year"
       end
@@ -73,7 +73,7 @@ feature 'subscription', type: :feature, js: true do
 
         expect(page).not_to have_content "Free"
         expect(page).to have_content "billed $59 every 30 days"
-        expect(page).not_to have_content "billed $147 every 90 days"
+        expect(page).to have_content "billed $147 every 90 days"
         expect(page).to have_content "billed $468 every year"
       end
 
@@ -85,7 +85,7 @@ feature 'subscription', type: :feature, js: true do
         expect(page).not_to have_content "Free"
         expect(page).to have_content "billed $59 every 30 days"
         expect(page).to have_content "billed $147 every 90 days"
-        expect(page).not_to have_content "billed $468 every year"
+        expect(page).to have_content "billed $468 every year"
       end
 
     end

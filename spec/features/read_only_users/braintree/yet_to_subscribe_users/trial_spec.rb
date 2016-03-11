@@ -340,7 +340,7 @@ feature 'trial_tenders', type: :feature, js: true do
 
           tenders_page.click_common '.more-button', 3
           expect(page).to have_selector '#view-more-modal'
-          expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
+          expect(page).to have_content 'You have used up your credits for the week to unlock business leads.'
           expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
         end
       end
@@ -379,9 +379,9 @@ feature 'trial_tenders', type: :feature, js: true do
           tenders_page.click_common '.more-button', 3
           expect(page).to have_selector '#view-more-modal'
           tenders_page.click_unique '#buy-details'
-          expect(page.driver.browser.switch_to.alert.text).to eq "You have used up all your credits for the day. Please come back next week."
+          expect(page.driver.browser.switch_to.alert.text).to eq "You have used up all your credits for the week. Please come back next week."
           tenders_page.accept_confirm
-          expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
+          expect(page).to have_content 'You have used up your credits for the week to unlock business leads.'
           expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
         end
       end
@@ -559,7 +559,7 @@ feature 'trial_tenders', type: :feature, js: true do
 
           tenders_page.click_common '.more-button', 3
           expect(page).to have_selector '#view-more-modal'
-          expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
+          expect(page).to have_content 'You have used up your credits for the week to unlock business leads.'
           expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
         end
       end
@@ -730,7 +730,7 @@ feature 'trial_tenders', type: :feature, js: true do
           expect(page).not_to have_selector '#view-more-modal'
 
           tenders_page.visit_show_tender_page Tender.find_by_description(first_tender_description).ref_no
-          expect(page).to have_content 'You have used up your credits for the day to unlock business leads.'
+          expect(page).to have_content 'You have used up your credits for the week to unlock business leads.'
           expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
         end
       end

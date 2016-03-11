@@ -55,12 +55,12 @@ end;nil
 
 # things to do
 # setup live braintree account settings
- # set up logic to automate emails when subscription is nearing end date
 # finalize faq
 # will test a subscription of 1 cent or 1 dollar
 
 # holiday gem for automating emails
 # front page
+# filter out gmail yahoo and the other emails
 # email on unsent tenders
 # quick feedback feature
 # landing pages

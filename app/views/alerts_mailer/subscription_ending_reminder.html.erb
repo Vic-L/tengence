@@ -165,7 +165,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                       <br>
                                       <br>
 
-                                      You will be charged <%= transaction_amount @user.plan %> on <%= @user.next_billing_date.strftime('%e %b %Y') %>.
+                                      You will be charged <%= transaction_amount @user.subscribed_plan %> on <%= @user.next_billing_date.strftime('%e %b %Y') %>.
 
                                       <br>
                                       <br>

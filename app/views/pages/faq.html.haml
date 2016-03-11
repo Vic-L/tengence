@@ -19,13 +19,13 @@
               %p We understand that SMEs have limited resources and manpower. We also understand that there are many tenders & business opportunities out there in Singapore.
               %p Did you know that there are more than 60 different sources in Singapore that releases business opportunities on a regular basis? Examples of these sources include GeBIZ, Sesami and Ariba procurement portals.
               %p As such, it is not productive or economically feasible for SMEs to constantly monitor these 60 sources for new business opportunities.
-              %p Let us do the monitoring for you.
-              %p One of our early beta users (an events company based locally) had an increase of 280% in sales just after one month of subscription to our services!
+              %p Let us do the monitoring for you and bring all the relevant potential business leads and tenders right to your doorstep.
+              %p One of our early beta users (an events company based locally) had an increase of 280% in sales just after one month of subscription to our services! We will want to bring this value to all our users.
 
           %li.accordion-navigation
             %a{:href => "#faq-general-start"} How to I get started with Tengence?
             #faq-general-start.content
-              %p Simply drop by over to this link to sign up!
+              %p Simply drop by over #{link_to 'here', register_path} to sign up!
 
           %li.accordion-navigation
             %a{:href => "#faq-general-keywords"} Why do I have to add keywords?
@@ -72,9 +72,9 @@
           %li.accordion-navigation
             %a{:href => "#faq-billing-security"} How will Tengence handle your credit card security and information?
             #faq-billing-security.content
-              %p Tengence is certified by RapidSSL and encrypts your information before sending them across the Internet to our 
-              %p Tengence follows the Payment Card Industry Data Security Standard (PCI DSS), as required by our 3rd party payment system vendor, Braintree, which is a highly reliable electronics payment subsidiary under PayPal®.
-              %p Tengence will not store your credit card information on our servers but in Braintree's vault.
+              %p Tengence is certified by RapidSSL and encrypts sensitive credit card information before sending them across the Internet to our 3rd party payment system vendor, #{link_to "Braintree", "https://articles.braintreepayments.com/reference/security/pci-compliance"}, for credit card transactions.
+              %p Tengence follows the Payment Card Industry Data Security Standard (PCI DSS), as required by Braintree, which is a highly reliable electronics payment subsidiary under #{link_to "PayPal®", "http://www.paypal.com"}.
+              %p Tengence will NOT store any of our users credit card information on our servers but in Braintree's vault.
               %p Click the badge below to view our verfication seal credited under Braintree.
               %p
                 %a{href: "https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified", target: "_blank"}
@@ -90,14 +90,14 @@
             #faq-billing-trial.content
               %p We understand that some of you might not be using Tengence’s services frequently. We really want all of you to be part of Tengence’s community!
               %p As such, the free tier is specially designed for these users.
-              %p Our free tier starts right after the end of the free trial period should you not wish to subscribe to our services. Under the free trial, you can only see the full details of a tender up to a limit of 3 for a week. The limit will be reset next week.
+              %p Our free tier starts right after the end of the free trial period should you not wish to subscribe to our services. Under the free trial, you can only see the full details of a tender up to a limit of 3 for a week. The limit will be reset in the following week.
 
           %li.accordion-navigation
             %a{:href => "#faq-billing-refund"} What is our refund policy?
             #faq-billing-refund.content
               %p As we have provided our users with a one month free trial to our services, Tengence will not refund any subscription thereafter should you decide to subscribe to our paid subscription fees.
               %p Also, we do not refund the remainder of the billing cycling if you choose to unsubscribe in the middle of your paid subscription.
-              %p If you choose to cancel your recurring payment to Tengence, you will still be able to enjoy the full privileges of a subscribed user until the end of the billing cycle! After which, you will be automatically downgraded to our free tier.
+              %p If you choose to cancel your recurring payment to Tengence, you will still be able to enjoy the full privileges of a subscribed user until the end of the billing cycle. After which, you will be automatically downgraded to our free tier.
 
           %li.accordion-navigation
             %a{:href => "#faq-billing-receipt"} Do I get a copy of your subscription receipt?
@@ -105,10 +105,11 @@
               %p Yes, it will be sent to your registered email address each time you/your company is billed at the start of each billing cycle. The receipt will be made to your name, company and email address as indicated during the registration page. So please fill up those accurately!
 
           %li.accordion-navigation
-            %a{:href => "#faq-billing-upgrade"} How can I upgrade or downgrade my subscription plan?
+            %a{:href => "#faq-billing-upgrade"} How can I change my subscription plan?
             #faq-billing-upgrade.content
-              %p To change subscription, simply unsubscribe from the current subscription and resubscribe again to the desired new subscription after the billing cycle of the current subscription ends. (Users will still be able to enjoy the privileges of a subscribed user even if the user unsubscribe prematurely, as long as the billing cycle of the subscription has not ended.)
-              %p Therefore, there will be, by any means, no proration for a change in subscription.
+              %p You can change subscription plan or unsubscribe any time during or after your subscription period.
+              %p If you change subscription plan in the middle of your current subscription cycle, you will NOT be billed immediately. Billing will take place at the end of your current cycle to kickstart a new subscription cycle under the newly subscribed plan.
+              %p If you unsubscribe in the middle of your current subscription cycle, you will still be able to enjoy the full privileges of a subscribed user until the end of the billing cycle.
 
   %section#contacts
     .row

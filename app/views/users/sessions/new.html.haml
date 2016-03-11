@@ -16,28 +16,24 @@
           = f.email_field :email, placeholder: 'Email'
         .small-12.medium-6.column.small-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
-          %a.show-password Show Password
+          %a#show-password Show Password
         %br
         .small-12.medium-6.column.small-centered
-          = label_tag 'remember_me' do
-            = f.check_box :remember_me
-            %span Keep me logged in
-          %br
-          %br
+          %p
+            = label_tag 'remember_me' do
+              = f.check_box :remember_me
+              Keep me logged in
         .small-12.medium-6.columns.small-centered.text-center
           %button#submit{:type => "submit"} Login
         .small-12.medium-6.columns.small-centered.shared-links
-          -# = render "users/shared/links"
-          = link_to "Forgot your password?", new_password_path(resource_name)
-          %br
-          = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
-          %br
+          = render "users/shared/links"
+          
 - content_for :javascript do
   :javascript
     $(function(){
       $("form#new_user input[type='password']").each(function (index, input) {
         var $input = $(input);
-        $("form#new_user .show-password").click(function () {
+        $("form#new_user #show-password").click(function () {
           var change = "";
           if ($(this).html() === "Show Password") {
             $(this).html("Hide Password")

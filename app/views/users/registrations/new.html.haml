@@ -23,15 +23,17 @@
         .small-12.medium-6.column.small-centered
           = f.text_field :company_name, placeholder: 'Company'
         .small-12.medium-6.columns.small-centered
+          %label#alert-email Please use your company email.
           = f.email_field :email, placeholder: 'Email'
         .small-12.medium-6.column.small-centered
           = f.password_field :password, autocomplete: "off", placeholder: "Password (8 characters minimum)"
-          %a.show-password Show Password
+          %a#show-password Show Password
           %br
           %br
         .small-12.medium-6.columns.small-centered
-          = check_box_tag 'eula', 1, false
-          By signing up, you agree to Tengence's <a href="/terms-of-service" target="_blank">Terms Of Service</a>.
+          %p
+            = check_box_tag 'eula', 1, false
+            By signing up, you agree to Tengence's <a href="/terms-of-service" target="_blank">Terms Of Service</a>.
         .small-12.medium-6.columns.small-centered.text-center
           %button#submit{type: 'submit'} Sign Up
         .small-12.medium-6.columns.small-centered.shared-links
@@ -43,7 +45,7 @@
       /* logic for show/hide password */
       $("form#new_user input[type='password']").each(function (index, input) {
         var $input = $(input);
-        $("form#new_user .show-password").click(function () {
+        $("form#new_user #show-password").click(function () {
           var change = "";
           if ($(this).html() === "Show Password") {
             $(this).html("Hide Password")

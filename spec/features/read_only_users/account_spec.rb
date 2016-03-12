@@ -34,6 +34,24 @@ feature 'account', type: :feature, js: :true do
       expect(page).to have_content 'Please enter a valid email.'
     end
 
+    scenario 'with commain email domain' do
+      fill_in 'user_email', with: "onepiece@gmail.com"
+      devise_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+
+      fill_in 'user_email', with: "onepiece@yahoo.co.uk"
+      devise_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+
+      fill_in 'user_email', with: "onepiece@live.com.sg"
+      devise_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+
+      fill_in 'user_email', with: "onepiece@hotmail.com"
+      devise_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+    end
+
     scenario 'with short password' do
       fill_in 'user_password', with: Faker::Internet.password(4,7)
       devise_page.click_unique '#submit'

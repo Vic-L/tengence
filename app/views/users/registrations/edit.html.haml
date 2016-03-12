@@ -29,6 +29,12 @@
     var initialEmail = "#{resource.email}";
     var getPassword = function(){return $("input[name='user[password]']").val()};
     var getPasswordConfirmation = function(){return $("input[name='user[password_confirmation]']").val()};
+    jQuery.validator.addMethod("domain", function(value, element) {
+      return !(/@gmail\./i.test(value) ||
+        /@yahoo\./i.test(value) ||
+        /@live\./i.test(value) ||
+        /@hotmail\./i.test(value));
+    }, "Please use your company's email.");
     $('form.edit_user').validate({
       rules: {
         'user[first_name]': {
@@ -40,6 +46,7 @@
         'user[email]': {
           required: true,
           email: true,
+          domain: true,
           remote: {
             param: '/users/check_email_taken',
             depends: function(){

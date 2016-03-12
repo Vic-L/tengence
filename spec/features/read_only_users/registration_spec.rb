@@ -42,6 +42,25 @@ feature "registration as read_only users", js: true, type: :feature do
       registration_page.click_unique '#submit'
       expect(page).to have_content 'Your email is in an invalid format.'
     end
+
+    scenario 'with commain email domain' do
+      fill_in 'user_email', with: "onepiece@gmail.com"
+      registration_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+
+      fill_in 'user_email', with: "onepiece@yahoo.co.uk"
+      registration_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+
+      fill_in 'user_email', with: "onepiece@live.com.sg"
+      registration_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+
+      fill_in 'user_email', with: "onepiece@hotmail.com"
+      registration_page.click_unique '#submit'
+      expect(page).to have_content "Please use your company's email."
+    end
+
   end
 
   scenario 'access_level' do

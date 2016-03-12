@@ -65,11 +65,18 @@
           $input = rep;
         });
       });
+      jQuery.validator.addMethod("domain", function(value, element) {
+        return !(/@gmail\./i.test(value) ||
+          /@yahoo\./i.test(value) ||
+          /@live\./i.test(value) ||
+          /@hotmail\./i.test(value));
+      }, "Please use your company's email.");
       $("form#new_user").validate({
         rules: {
           "user[email]": {
             required: true,
             email: true,
+            domain: true,
             remote: "#{check_email_taken_path}"
           },
           "user[first_name]": {

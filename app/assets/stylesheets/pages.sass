@@ -119,12 +119,22 @@
             color: white
           input#agree
             margin: 0
-          span#agree-notice
+          #agree-notice
             white-space: normal
+            color: white
 
+      .email-demo-submit-button
+        border: 1px solid white
+        color: white
+        &:hover 
+          border: 1px solid #386ec4
       #email-demo-submitted-button
         display: none
         background-color: #44cc9b
+        cursor: default
+        pointer-events: none
+        color: white
+        border: 1px solid #44cc9b
 
     section#demo
       select.sort
@@ -140,6 +150,7 @@
         .sources-count
           color: #386ec4
           font-size: 100px
+          font-family: "PT Serif"
 
       p.recommendation
         font-style: italic
@@ -154,6 +165,9 @@
       #show-all,
       #hide-all
         margin: 16px auto
+        background-color: white
+        &:hover
+          background-color: #386ec4
 
       ul
         margin: 0

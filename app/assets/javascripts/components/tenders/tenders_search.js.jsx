@@ -32,7 +32,7 @@ var TendersSearch = React.createClass({
                 </div>
                 <div className="small-3 medium-2 column">
                   <div className="section-desc">
-                    <button className="search-submit-button" type="submit">
+                    <button className="search-submit-button round" type="submit">
                       <i className="fa fa-search"></i>
                     </button>
                   </div>

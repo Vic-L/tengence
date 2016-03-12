@@ -34,10 +34,10 @@ var TenderTabs = React.createClass({
         <div className="small-12 column">
           <ul className="tabs" data-tab=''>
             <li className={tabClasses[0]}>
-              <a href="" onClick={this.getCurrentWatchedTenders} >Current Tenders</a>
+              <a onClick={this.getCurrentWatchedTenders} >Current Tenders</a>
             </li>
             <li className={tabClasses[1]}>
-              <a href="" onClick={this.getPastWatchedTenders}>Past Tenders</a>
+              <a onClick={this.getPastWatchedTenders}>Past Tenders</a>
             </li>
           </ul>
         </div>

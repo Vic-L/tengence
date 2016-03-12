@@ -38,7 +38,7 @@
         margin-left: 5px
 
 .past_posted_tenders,
-.current_posted_tenders,
+.current_posted_tenders
   &.index
     #wrapper
       section#post-tender
@@ -103,14 +103,9 @@
   #query-field
     background: #e5e5e5
 
-  button.search-submit-button,
-  button.back-button
-    margin-bottom: 0
-
   button.search-submit-button
-    background: #386ec4
-    &:hover
-      background: darken(#386ec4,20%)
+    margin-bottom: 0
+    border: 0
 
 #tender-results
   padding-top: 20px
@@ -123,19 +118,25 @@
       padding-right: 0
 
     &.unwatch-button
-      background: #ff4444
+      border: 1px solid #ff4444
+      color: #ff4444
       &:hover
-        background: darken(#ff4444,20%)
+        background: #ff4444
+        color: white
 
     &.watch-button
-      background: #44cc9b
+      border: 1px solid #44cc9b
+      color: #44cc9b
       &:hover
-        background: darken(#44cc9b,20%)
+        background: #44cc9b
+        color: white
 
-    &.more-button
-      background: #238aae
+    &.more-button:not(.disabled)
+      border: 1px solid #386ec4
+      color: #386ec4
       &:hover
-        background: darken(#238aae,20%)
+        background: #386ec4
+        color: white
 
   nav.pagination
     display: inline

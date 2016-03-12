@@ -149,8 +149,8 @@
           %li.remainder-tender-source http://app.cias.com.sg/tender.asp
           %li.remainder-tender-source http://www.sentosa.com.sg/en/about-us/tender-notices/
         .text-center
-          #show-all.button.active.ga-static-pages{data: {gtm_category: '', gtm_action: 'show full list', gtm_label: "sources-and-counting"}} Show Full List
-          #hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}} Hide Full List
+          %button.round#show-all.button.active.ga-static-pages{data: {gtm_category: '', gtm_action: 'show full list', gtm_label: "sources-and-counting"}} Show Full List
+          %button.round#hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}} Hide Full List
     .row
       .small-12.columns
         %p.white.recommendation Have a tender source that you would like us to track? <a class='ga-static-pages' onClick="Tengence.HomePage.scrollTo('contacts')" data-gtm-category='' data-gtm-action='let us know' data-gtm-label='sources-and-counting'>Let us know</a>!
@@ -179,15 +179,16 @@
         .ghost-block
           = form_tag api_v1_demo_email_path, id:'demo-email-form', remote: true do
             %fieldset
-              = email_field_tag 'demo_email'
-              = check_box_tag 'agree', '1', false
-              %p#agree-notice By requesting this demo email, you agree to sign up for Tengence's newsletter.
+              = email_field_tag 'demo_email' 
+              %p#agree-notice
+                = check_box_tag 'agree', '1', false
+                By requesting this demo email, you agree to sign up for Tengence's newsletter.
               -# TODO fix this dirty fix for recapthca in tests
               - unless Rails.env.test?
                 .text-center
                   .g-recaptcha{"data-sitekey" => "6LfSgRUTAAAAAC9gv7LrOBb9Fr50HCPqlqUSCz1_"}
-              = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button', type: 'submit', data: {disable_with: 'Processing'}  
-            .button#email-demo-submitted-button{disabled: ''} Demo Email Sent Successfully
+              = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button round', type: 'submit', data: {disable_with: 'Processing'}  
+            .button#email-demo-submitted-button.round Demo Email Sent Successfully
 
 -# %section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
 -#   .bg-overlay
@@ -228,7 +229,7 @@
         .small-12.columns
           = text_area_tag "comments", nil, placeholder: "Message"
         .small-12.columns.text-center
-          %button#submit{:type => "submit"} SEND
+          %button#submit.round{:type => "submit"} SEND
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
 #sample-email-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

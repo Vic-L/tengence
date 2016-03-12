@@ -6,12 +6,12 @@
 }
 
 /* background */
-a.slider-link:link, a.slider-link:visited, a.link-btn span, .button, button#submit, ul.pagination li.current a, .cbp-l-caption-buttonLeft, .cbp-l-caption-buttonRight, .cbp-l-filters-alignCenter .cbp-filter-counter, .cbp-l-filters-alignRight .cbp-filter-item-active, .cbp-l-filters-alignCenter .cbp-filter-item-active, .overlay-menu ul li  a span::after  {
+a.slider-link:link, a.slider-link:visited, a.link-btn span, ul.pagination li.current a, .cbp-l-caption-buttonLeft, .cbp-l-caption-buttonRight, .cbp-l-filters-alignCenter .cbp-filter-counter, .cbp-l-filters-alignRight .cbp-filter-item-active, .cbp-l-filters-alignCenter .cbp-filter-item-active, .overlay-menu ul li  a span::after  {
   background: #386ec4;
 }
 
 /* hover-state */
-.button:hover, a.link-btn::before, button#submit:hover, ul.pagination li.current a:hover, .cbp-l-caption-buttonLeft:hover, .cbp-l-caption-buttonRight:hover {
+a.link-btn::before, ul.pagination li.current a:hover, .cbp-l-caption-buttonLeft:hover, .cbp-l-caption-buttonRight:hover {
   background: darken(#386ec4,20%);
 }
 

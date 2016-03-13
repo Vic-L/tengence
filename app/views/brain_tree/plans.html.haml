@@ -14,7 +14,7 @@
             %li.bullet-item.feature Basic Tier. You will be charged monthly.
             %li.cta-button
               %h4 -
-              = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
+              = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
         .medium-3.columns
           %ul.pricing-table
             %li.title Quarterly
@@ -25,7 +25,7 @@
             %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
             %li.cta-button
               %h4 Save 17%
-              = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button round', id: 'subscribe-quarterly'
+              = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
         .medium-3.columns
           %ul.pricing-table.spot-light
             %li.title Annually
@@ -37,7 +37,7 @@
             %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
             %li.cta-button
               %h4 Save 33%
-              = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button round', id: 'subscribe-annually'
+              = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
         .medium-3.columns
           %ul.pricing-table
             %li.title Free
@@ -64,7 +64,7 @@
               %li.bullet-item.feature Basic Tier. You will be charged monthly.
               %li.cta-button
                 %h4 -
-                = link_to 'Change Plan', subscribe_one_month_path, class: "button round #{current_user.subscribed_plan == 'one_month_plan' ? 'disabled' : ''}", id: 'subscribe-monthly'
+                = link_to 'Change Plan', subscribe_one_month_path, class: "button #{current_user.subscribed_plan == 'one_month_plan' ? 'disabled' : ''}", id: 'subscribe-monthly'
 
           .medium-4.columns
             %ul.pricing-table{class: "#{current_user.subscribed_plan == 'three_months_plan' ? 'spot-light' : ''}"}
@@ -78,7 +78,7 @@
               %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
               %li.cta-button
                 %h4 Save 17%
-                = link_to 'Change Plan', subscribe_three_months_path, class: "button round #{current_user.subscribed_plan == 'three_months_plan' ? 'disabled' : ''}", id: 'subscribe-quarterly'
+                = link_to 'Change Plan', subscribe_three_months_path, class: "button #{current_user.subscribed_plan == 'three_months_plan' ? 'disabled' : ''}", id: 'subscribe-quarterly'
 
           .medium-4.columns
             %ul.pricing-table.spot-light
@@ -94,7 +94,7 @@
               %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
               %li.cta-button
                 %h4 Save 33%
-                = link_to 'Change Plan', subscribe_one_year_path, class: "button round #{current_user.subscribed_plan == 'one_year_plan' ? 'disabled' : ''}", id: 'subscribe-annually'
+                = link_to 'Change Plan', subscribe_one_year_path, class: "button #{current_user.subscribed_plan == 'one_year_plan' ? 'disabled' : ''}", id: 'subscribe-annually'
 
     - elsif current_user.unsubscribed?
 
@@ -118,7 +118,7 @@
               %li.bullet-item.feature Basic Tier. You will be charged monthly.
               %li.cta-button
                 %h4 -
-                = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button round', id: 'subscribe-monthly'
+                = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
           .medium-4.columns
             %ul.pricing-table
               %li.title Quarterly
@@ -129,7 +129,7 @@
               %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
               %li.cta-button
                 %h4 Save 17%
-                = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button round', id: 'subscribe-quarterly'
+                = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
           .medium-4.columns
             %ul.pricing-table.spot-light
               %li.title Annually
@@ -141,7 +141,7 @@
               %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
               %li.cta-button
                 %h4 Save 33%
-                = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button round', id: 'subscribe-annually'
+                = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
 
 - content_for :javascript do
   :javascript

@@ -7,7 +7,7 @@ var DemoTenderRow = React.createClass({
     if (this.props.index === 0) {
       moreButton = <MoreButton refNo={this.props.refNo}/>
     } else {
-      moreButton = <a className='button more-button disabled round' onClick={this.handleClick} disabled>More</a>;
+      moreButton = <a className='button more-button disabled' onClick={this.handleClick} disabled>More</a>;
     };
     return (
       <tr>
@@ -16,7 +16,7 @@ var DemoTenderRow = React.createClass({
         <td>{this.props.closingDate}</td>
         <td className='hide-for-small'>{this.props.closingTime}</td>
         <td>{this.props.buyerCompanyName}</td>
-        <td className='hide-for-small'><a className='button watch-button round' onClick={this.handleClick}>Watch</a></td>
+        <td className='hide-for-small'><a className='button watch-button' onClick={this.handleClick}>Watch</a></td>
         <td>{moreButton}</td>
       </tr>
     );

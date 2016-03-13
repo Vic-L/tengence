@@ -1,3 +1,5 @@
+@import "variables_and_mixins"
+
 .pages
   &.home
     
@@ -5,21 +7,18 @@
       position: absolute
 
     header
-      background: transparent
-      
 
       .header-logo a
         color: white
-        &:hover
-          color: black
-      
+        &:before
+          background-color: #fff
+
       ul.menu-list
         & > li > a
           color: white
-        & > li > a:hover,
-        & > li.active > a,
-        & > li.active > a:hover
-          color: black
+          text-align: right
+          &:before
+            background-color: #fff
       
       .menu-toggle-button, .menu-toggle-button.active
         color: white
@@ -31,22 +30,16 @@
       .menu-toggle-button.active
         i.icon
           color: black
-      
-      &.shrink
-        background-color: #212121
-        
-        .header-logo a:hover
-          color: #386ec4
 
-        ul.menu-list
-          & > li > a:hover,
-          & > li.active > a,
-          & > li.active > a:hover
-            color: #386ec4
-
-        .menu-toggle-button.active
-          i.icon
-            color: #386ec4
+    h1
+      margin-top: 0
+      margin-left: auto
+      margin-right: auto
+      max-width: 800px
+      color: white
+      text-align: center
+      border-bottom: 1px solid
+      border-color:rgba(255,255,255,0.6)
 
     .bg-overlay
       position: absolute
@@ -54,34 +47,60 @@
       left: 0px
       height: 100%
       width: 100%
-      background-color: #386ec4
+      background-color: $color-blue
       opacity: 0.8
 
-    section#how-it-works
-      p
+    .sub-content
+      p,span
+        color: #fff
         font-size: 1.2rem
+        padding-top: 15px
+
+      .button
+        background: rgba(255,255,255,0.5)
+        font-weight: bold
+        color: white
+        border: 0
+        &:hover
+          background: rgba(0,0,0,0.5)
+          color: white
+          border: 0
+
+      span.number
+        font-family: "PT Sans", sans-serif, sans-serif
+        font-size: 3rem
+
+
+    section#how-it-works
 
       .title-section
         margin-bottom: 0
+      
+      .section-desc h2
+        font-size: 1.4375rem
 
-      a.service
-        .animated
+      #services-container
+
+        .button
+          border: none
+          background: $color-blue
+          color: white
+
+        span.number
+          font-size: 1rem
+          line-height: 1
+
+        p.counter
+          font-size: 0.9rem
+
+        .service
           text-align: center
-          padding: 15px
 
           .icon
-            margin-bottom: 40px
-            color: #386ec4
+            font-size: 2.5rem
+            margin-bottom: 1.5rem
+            color: $color-blue
 
-          h3
-            margin-bottom: 25px
-
-          &:hover
-            background: #386ec4
-            .icon,
-            h3,
-            p
-              color: white
 
     section#email
 
@@ -127,7 +146,7 @@
         border: 1px solid white
         color: white
         &:hover 
-          border: 1px solid #386ec4
+          border: 1px solid $color-blue
       #email-demo-submitted-button
         display: none
         background-color: #44cc9b
@@ -137,6 +156,13 @@
         border: 1px solid #44cc9b
 
     section#demo
+
+      p
+        font-size: 1rem
+
+      #search-field
+        padding: 0
+
       select.sort
         display: inline-block
         width: auto
@@ -148,12 +174,14 @@
         margin-bottom: 0
 
         .sources-count
-          color: #386ec4
+          color: $color-blue
           font-size: 100px
-          font-family: "PT Serif"
+          font-family: "PT Sans", sans-serif
 
       p.recommendation
         font-style: italic
+        a
+          color: $color-light-blue
 
       .remainder-tender-source,
       #show-all,
@@ -165,9 +193,11 @@
       #show-all,
       #hide-all
         margin: 16px auto
-        background-color: white
+        color: white
+        border: 1px solid white
         &:hover
-          background-color: #386ec4
+          border: 1px solid $color-blue
+          background-color: $color-blue
 
       ul
         margin: 0
@@ -191,6 +221,9 @@
         color: #ff4444
       .register-now-button
         font-size: 30px
+
+    #submit
+      margin-bottom: 11rem
 
   &.faq
 

@@ -200,163 +200,8 @@ jQuery(document).ready(function($){
 		$('div.overlay-menu').removeClass('open');
 	});
 
-
-
-
-
-
-
-	//  main slider
-	var page_title = $('body');
-	var intro = page_title.find('#slider');
-	if( intro.length > 0 ) var intro_top = intro.offset().top;  
-	$( window ).scroll(function() {
-		var current_top = $(document).scrollTop(); 
-		var intro_height = $('#slider').height();  
-		intro.css('top', (current_top*0.50)); 
-		intro.css('opacity', (1 - current_top/intro_height*1.2));
-	});
-
-	$("#slider").owlCarousel({
-		transitionStyle: "fade",
-		slideSpeed: 350,
-		singleItem: true,
-		autoHeight: true,
-		pagination: true,
-		autoPlay: 5000,
-		navigation: false,
-		afterMove: function(){
-			$('[data-caption-animate]').each(function(){
-				var $toAnimateElement = $(this);
-				var toAnimateDelay = $(this).attr('data-caption-delay');
-				var toAnimateDelayTime = 0;
-				if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 750; } else { toAnimateDelayTime = 750; }
-				if( !$toAnimateElement.hasClass('animated') ) {
-					$toAnimateElement.addClass('not-animated');
-					var elementAnimation = $toAnimateElement.attr('data-caption-animate');
-					setTimeout(function() {
-						$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
-					}, toAnimateDelayTime);
-				}
-			});
-		}, 
-
-		beforeMove: function(){
-			$('[data-caption-animate]').each(function(){
-				var $toAnimateElement = $(this);
-				var elementAnimation = $toAnimateElement.attr('data-caption-animate');
-				$toAnimateElement.removeClass('animated').removeClass(elementAnimation).addClass('not-animated');
-			});
-		},
-
-		afterAction: function(){
-			$('[data-caption-animate]').each(function(){
-				var $toAnimateElement = $(this);
-				var toAnimateDelay = $(this).attr('data-caption-delay');
-				var toAnimateDelayTime = 0;
-				if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 300; } else { toAnimateDelayTime = 300; }
-				if( !$toAnimateElement.hasClass('animated') ) {
-					$toAnimateElement.addClass('not-animated');
-					var elementAnimation = $toAnimateElement.attr('data-caption-animate');
-					setTimeout(function() {
-						$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
-					}, toAnimateDelayTime);
-				}
-			});
-		}
-	});
-
 });
 /* end ready function */
-
-
-
-
-/*********************************
-   CUBEPORTFOLIO SETTINGS FOR SERVICES, TEAM AND PORTFOLIO
-*********************************/
-
-/* TEAM SLIDER */
-(function($, window, document, undefined) {
-	'use strict';
-	
-	/* SERVICES */
-
-	var gridContainer = $('#services-container'),
-		filtersContainer = $('#services-filters'),
-		wrap, filtersCallback;
-
-	gridContainer.cubeportfolio({
-		layoutMode: 'grid',
-		rewindNav: true,
-		scrollByPage: false,
-		mediaQueries: [{
-			width: 1100,
-			cols: 2
-		}, {
-			width: 800,
-			cols: 2
-		}, {
-			width: 500,
-			cols: 2
-		}, {
-			width: 320,
-			cols: 1
-		}],
-		defaultFilter: '*',
-		animationType: 'rotateSides',
-		gapHorizontal: 30,
-		gapVertical: 30,
-		gridAdjustment: 'responsive',
-		caption: 'overlayBottomPush',
-		displayType: 'sequentially',
-		displayTypeSpeed: 100,
-
-
-		// singlePageInline
-		singlePageInlineDelegate: '.cbp-singlePageInline',
-		singlePageInlinePosition: 'top',
-		singlePageInlineInFocus: true,
-		singlePageInlineCallback: function(url, element) {
-			// to update singlePageInline content use the following method: this.updateSinglePageInline(yourContent)
-			var t = this;
-
-			$.ajax({
-				url: url,
-				type: 'GET',
-				dataType: 'html',
-				timeout: 5000
-			})
-				.done(function(result) {
-
-				t.updateSinglePageInline(result);
-
-			})
-				.fail(function() {
-				t.updateSinglePageInline("Error! Please refresh the page!");
-			});
-		}
-	});
-
-
-	// when the height of grid is changed
-	gridContainer.on('filterComplete.cbp', function() {
-		//  loadMoreObject.window.trigger('scroll.loadMoreObject');
-	});
-	
-	
-
-})(jQuery, window, document);
-/* END CUBEPORTFOLIO SETINGS */
-
-
-
-
-
-
-
-
-
 
 
 
@@ -365,26 +210,17 @@ jQuery(document).ready(function($){
 	Main Slider Full Height
 =============================================== */
 var windowHeight = $(window).height();
-$('#slider .slider-cont').height( windowHeight );
-$('#slider .slider-cont.mvisible').height( windowHeight - 80 ); // add blog class to hero in order to show menu
-if( !device.tablet() && !device.mobile() ) {
-	$('#slider .slider-cont-single').height( windowHeight / 2 );
-} 
-else {
-	$('#slider .slider-cont-single').height( windowHeight );
-}
+var mainContentHeight = $('.main-content').height();
+var difference = windowHeight - mainContentHeight;
+$('#slider .bg1').height( windowHeight );
+$('.main-content').css('top',difference/2 + 'px');
 
 $(window).resize(function() {
 	var windowHeight = $(window).height();
-	$('#slider .slider-cont').height( windowHeight );
-	$('#slider .slider-cont.mvisible').height( windowHeight - 80 ); // add blog class to hero in order to show menu
-	if( !device.tablet() && !device.mobile() ) {
-		$('#slider .slider-cont-single').height( windowHeight / 2 );
-	}
-
-	else {
-		$('#slider .slider-cont-single').height( windowHeight );
-	}
+	var mainContentHeight = $('.main-content').height();
+	var difference = windowHeight - mainContentHeight;
+	$('#slider .bg1').height( windowHeight );
+	$('.main-content').css('top',difference/2 + 'px');
 });
 
 
@@ -400,7 +236,7 @@ $(window).load(function() {
 				$(this).find(".number").delay(3000).countTo({
 				from: 0,
 				to: dataperc,
-				speed: 3000,
+				speed: 2000,
 				refreshInterval: 50,
 
 			});  

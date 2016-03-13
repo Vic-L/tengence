@@ -30,7 +30,7 @@ ul.menu-list li li.has-submenu>a>span.menu-expand{} /* Level 2 */
 ul.menu-list li li.has-submenu>a>span.menu-expand:after{content:'\25BA'} /* Level 2 */
 
 /* You can manage with of elements by width of a-tag */
-ul.menu-list li a{font-size:13px;color:#000;text-decoration:none;padding:5px;text-transform:uppercase;} /* All levels */
+ul.menu-list li a{font-size:13px;color:#000;text-decoration:none;padding:3px 5px;text-transform:uppercase;} /* All levels */
 ul.menu-list li>a{} /* Level 1 */
 ul.menu-list li li>a{width:150px;} /* Level 2 */
 ul.menu-list li li li>a{} /* Level 3 */

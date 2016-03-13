@@ -6,36 +6,27 @@
 - cache 'home main-slider', expires_in: 1.month do
   %section#main-slider
     #slider
-      .slider-cont.parallax-background.bg1
+      .bg1
         .bg-overlay
-        .slider-caption.slider-caption-center
-          %h1{"data-caption-animate" => "fadeInUp"}
-            %span We Track Tenders (Gebiz, Sesami, Ariba and More)
-          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} To bring you business opportunities
-      .slider-cont.parallax-background.bg2
-        .bg-overlay
-        .slider-caption.slider-caption-center
-          %h2{"data-caption-animate" => "fadeInUp"}
-            %span Get Email Alerts
-          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Receive email alerts for potential business leads
-      .slider-cont.parallax-background.bg3
-        .bg-overlay
-        .slider-caption.slider-caption-center
-          %h2{"data-caption-animate" => "fadeInUp"}
-            %span Exclusive Tenders
-          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders available only on Tengence from our exclusive partners
-      .slider-cont.parallax-background.bg4
-        .bg-overlay
-        .slider-caption.slider-caption-center
-          %h2{"data-caption-animate" => "fadeInUp"}
-            %span 62
-          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Tenders Sources Tracked and Counting
-      .slider-cont.parallax-background.bg5
-        .bg-overlay
-        .slider-caption.slider-caption-center
-          %h2{"data-caption-animate" => "fadeInUp"}
-            %span Stay Informed
-          %p{"data-caption-animate" => "fadeInUp", "data-caption-delay" => "200"} Never missed any more tenders
+        .row
+          .small-12.column
+            .main-content
+              %h1
+                %span We Track Tenders
+                %br
+                %span (GeBIZ, Sesami, Ariba and More)
+              .sub-content
+                %p
+                  %span.counter.animated{data: {perc: CurrentTender.count}} Search among <span class="number"></span> tenders 
+                  %br.show-for-small-only
+                  %br.show-for-small-only
+                  %span.counter.animated{data: {perc: 62}} from <span class="number"></span> sources.
+                %br
+                .row
+                  .small-12.column
+                    = link_to register_path, class: 'button' do
+                      30 days free trial 
+                      %i.fa.fa-chevron-right
 
 - cache 'home how-it-works', expires_in: 1.month do
   %section#how-it-works
@@ -46,31 +37,33 @@
             %strong How It Works
       .medium-9.columns.animated{"data-animate" => "fadeInUp", "data-animate-delay" => "0"}
         .section-desc
-          %h4
-            %strong We track tenders and notify you whenever you have related tender opportunities. Find out more below.
-    .row
-      .medium-12.columns
-        #services-container.cbp-l-grid-gallery
-          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('sources-and-counting')"}
-            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'track', gtm_label: "how-it-works"}}
-              %i.fa.fa-binoculars.icon
-              %h3 Track Tenders
-              %p We Track Tender Opportunities from >60 Sources in Singapore. Some of Our Sources include: Gebiz, Sesami and Ariba. View the Full List Below!
-          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('contacts')"}
-            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'alerts', gtm_label: "how-it-works"}}
-              %i.fa.fa-envelope.icon
-              %h3 Alerts
-              %p We Will Send you a Daily Email Notification on Suitable Business Leads  from >60 Sources
-          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
-            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInLeft', gtm_category: '', gtm_action: 'watch', gtm_label: "how-it-works"}}
-              %i.fa.fa-eye.icon
-              %h3 Watch
-              %p Watchlist Feature to Allow You to Easily Add or Remove These Leads
-          %a.cbp-item.service{onClick: "Tengence.HomePage.scrollTo('demo')"}
-            .animated.ga-static-pages{data: {animate_delay: '0', animate: 'fadeInRight', gtm_category: '', gtm_action: 'never lose out', gtm_label: "how-it-works"}}
-              %i.fa.fa-globe.icon
-              %h3 Never Lose Out
-              %p Be Updated and Never Miss Out Another Tender
+          %h2 We track tenders from GeBIZ, Sesami, Ariba etc.,<br/>and notify you there are relevant potential tender opportunities for you.
+
+    .row#services-container
+      .medium-4.column.service
+        .animated{data: {animate_delay: '0', animate: 'fadeInUp'}}
+          %i.fa.fa-binoculars.icon
+          %h3 Search Tenders
+          %p.counter.animated{data: {perc: CurrentTender.count}} Search among <span class="number"></span> tenders on Tengence easily with keywords
+          = link_to '#demo', class: 'button hvr-float-shadow', onClick: "Tengence.HomePage.scrollTo('demo')", data: {gtm_category: '', gtm_action: 'demo', gtm_label: 'how-it-works'} do
+            Try Demo 
+            %i.fa.fa-chevron-right
+      .medium-4.column.service
+        .animated{data: {animate_delay: '0', animate: 'fadeInUp'}}
+          %i.fa.fa-envelope.icon
+          %h3 Email Alerts
+          %p Be notified of new tenders matching your keywords via email
+          = link_to '#email', class: 'button hvr-float-shadow ga-static-pages', onClick: "Tengence.HomePage.scrollTo('email')", data: {gtm_category: '', gtm_action: 'email', gtm_label: 'how-it-works'} do
+            Sample Email 
+            %i.fa.fa-chevron-right
+      .medium-4.column.service
+        .animated{data: {animate_delay: '0', animate: 'fadeInUp'}}
+          %i.fa.fa-globe.icon
+          %h3 Never Lose Out
+          %p.counter.animated{data: {perc: 62}} Stay connected and never miss out another tender opportunity from all <span class="number"></span> sources
+          = link_to '#sources-and-counting', class: 'button hvr-float-shadow', onClick: "Tengence.HomePage.scrollTo('sources-and-counting')", data: {gtm_category: '', gtm_action: 'sources', gtm_label: 'how-it-works'} do
+            List of Sources 
+            %i.fa.fa-chevron-right
 
 - cache 'home sources-and-counting', expires_in: 1.month do
   %section#sources-and-counting.dark
@@ -149,9 +142,13 @@
           %li.remainder-tender-source http://app.cias.com.sg/tender.asp
           %li.remainder-tender-source http://www.sentosa.com.sg/en/about-us/tender-notices/
         .text-center
-          %button.round#show-all.button.active.ga-static-pages{data: {gtm_category: '', gtm_action: 'show full list', gtm_label: "sources-and-counting"}} Show Full List
-          %button.round#hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}} Hide Full List
-    .row
+          %button#show-all.button.active.ga-static-pages{data: {gtm_category: '', gtm_action: 'show full list', gtm_label: "sources-and-counting"}} 
+            Show Full List 
+            %i.fa.fa-chevron-down
+          %button#hide-all.button.ga-static-pages{data: {gtm_category: '', gtm_action: 'hide full list', gtm_label: "sources-and-counting"}}
+            Hide Full List 
+            %i.fa.fa-chevron-up
+    .row  
       .small-12.columns
         %p.white.recommendation Have a tender source that you would like us to track? <a class='ga-static-pages' onClick="Tengence.HomePage.scrollTo('contacts')" data-gtm-category='' data-gtm-action='let us know' data-gtm-label='sources-and-counting'>Let us know</a>!
 
@@ -175,6 +172,7 @@
               %i.fa.fa-search-plus.ga-static-pages{data: {gtm_category: '', gtm_action: 'sample email icon', gtm_label: "email"}}
           = image_tag "https://#{ENV['CDN_HOST']}/static_assets/home/sample_email.jpg", alt: 'Gebiz-Tenders-Alerts-Tender-Singapore', id: 'sample-email'
       .medium-6.columns.animated.text-center{"data-animate" => "fadeInRight", "data-animate-delay" => "0", 'data-equalizer-watch' => ''}
+        %hr.show-for-small-only
         %h5.white Request a sample email from us
         .ghost-block
           = form_tag api_v1_demo_email_path, id:'demo-email-form', remote: true do
@@ -187,8 +185,8 @@
               - unless Rails.env.test?
                 .text-center
                   .g-recaptcha{"data-sitekey" => "6LfSgRUTAAAAAC9gv7LrOBb9Fr50HCPqlqUSCz1_"}
-              = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button round', type: 'submit', data: {disable_with: 'Processing'}  
-            .button#email-demo-submitted-button.round Demo Email Sent Successfully
+              = button_tag 'Send Me a Demo Email', class: 'email-demo-submit-button button', type: 'submit', data: {disable_with: 'Processing'}  
+            .button#email-demo-submitted-button Demo Email Sent Successfully
 
 -# %section.parallax.testimonial{"data-stellar-background-ratio" => "0.5"}
 -#   .bg-overlay
@@ -229,7 +227,7 @@
         .small-12.columns
           = text_area_tag "comments", nil, placeholder: "Message"
         .small-12.columns.text-center
-          %button#submit.round{:type => "submit"} SEND
+          %button#submit{:type => "submit"} SEND
 
 #view-more-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}
 #sample-email-modal.reveal-modal{:'data-reveal' => '', :'aria-hidden' => "true", role: "dialog"}

@@ -54,14 +54,10 @@ end;nil
 
 
 # things to do
-# setup live braintree account settings
-# finalize faq
 # will test a subscription of 1 cent or 1 dollar
 
 # holiday gem for automating emails
 # front page
-# filter out gmail yahoo and the other emails
 # email on unsent tenders
 # quick feedback feature
 # landing pages
-# add info to signup page to use company emai

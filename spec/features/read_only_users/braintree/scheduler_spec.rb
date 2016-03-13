@@ -89,7 +89,7 @@ feature 'scheduler' do
       Timecop.freeze(subscribed_one_month_user.next_billing_date - 7.days) do
         Rake::Task['maintenance:subscription_ending_reminder'].reenable
         Rake::Task['maintenance:subscription_ending_reminder'].invoke
-
+binding.pry if ActionMailer::Base.deliveries.count == 12 # wonder y
         expect(ActionMailer::Base.deliveries.count).to eq 2 # InternalMailer and AlertsMailer
         expect(ActionMailer::Base.deliveries.map(&:subject).include?("Subscription ending in 7 days")).to eq true
         expect(ActionMailer::Base.deliveries.map(&:subject).include?("#{subscribed_one_month_user.email} subscription ending in 7 days time")).to eq true

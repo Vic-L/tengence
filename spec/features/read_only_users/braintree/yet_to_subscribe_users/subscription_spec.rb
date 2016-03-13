@@ -93,7 +93,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+      expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
       expect(page.current_path).to eq billing_path
       
       yet_to_subscribe_user.reload
@@ -125,7 +125,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+      expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
       yet_to_subscribe_user.reload
       expect(yet_to_subscribe_user.next_billing_date).to eq Date.today + 30.day
@@ -149,7 +149,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+      expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
       yet_to_subscribe_user.reload
       expect(yet_to_subscribe_user.next_billing_date).to eq Date.today + 90.day
@@ -172,7 +172,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+      expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
       yet_to_subscribe_user.reload
       expect(yet_to_subscribe_user.next_billing_date).to eq Date.today + 1.year
@@ -205,7 +205,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content "You have successfully subscribed to Tengence. Welcome to the community."
+      expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
       yet_to_subscribe_user.reload
       expect(yet_to_subscribe_user.braintree.transactions.count).to eq 1
 
@@ -236,7 +236,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+      expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
       expect(yet_to_subscribe_user.auto_renew).to eq false
       yet_to_subscribe_user.reload
@@ -266,7 +266,7 @@ feature 'subscription', type: :feature, js: true do
       brain_tree_page.click_unique '#submit'
       wait_for_page_load
 
-      expect(page).to have_content 'You have successfully subscribed to Tengence. Welcome to the community.'
+      expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
       expect(yet_to_subscribe_user.auto_renew).to eq false
       yet_to_subscribe_user.reload

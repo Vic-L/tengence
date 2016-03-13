@@ -33,7 +33,7 @@ class CreateSubscription
             next_billing_date: get_next_billing_date,
             auto_renew: renew)
 
-          return {status: 'success', message: 'You have successfully subscribed to Tengence. Welcome to the community.'}
+          return {status: 'success', message: "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."}
 
         else
 

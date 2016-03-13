@@ -15,7 +15,8 @@ feature "access pages by read_only resubscribe users" do
       expect(page).not_to have_content 'Days left till end of Free Trial'
       expect(page).not_to have_content 'Auto Renew:'
       expect(page).not_to have_content 'Plan:'
-      expect(page).to have_content 'Next Billing Date:'
+      expect(page).not_to have_content 'Next Billing Date:'
+      expect(page).to have_content 'Valid Till:'
       expect(page).not_to have_content 'Card to charge:'
       expect(page).not_to have_content "Your subscription has ended."
       expect(page).to have_link 'Pricing & Plans', href: plans_path
@@ -95,6 +96,7 @@ feature "access pages by read_only resubscribe users" do
         expect(page).not_to have_content 'Auto Renew:'
         expect(page).not_to have_content 'Plan:'
         expect(page).not_to have_content 'Next Billing Date:'
+        expect(page).not_to have_content 'Valid Till:'
         expect(page).not_to have_content 'Card to charge:'
         expect(page).to have_content "Your subscription has ended."
         expect(page).to have_link 'Pricing & Plans', href: plans_path

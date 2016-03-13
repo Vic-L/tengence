@@ -42,7 +42,7 @@ feature 'subscription', type: :feature, js: true do
         brain_tree_page.click_unique '#submit'
         wait_for_page_load
 
-        expect(page).to have_content "You have successfully subscribed to Tengence. Welcome to the community."
+        expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
         unsubscribed_user.reload
         expect(unsubscribed_user.braintree.transactions.count).to eq 1
       end

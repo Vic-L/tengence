@@ -27,6 +27,7 @@ feature 'scheduler' do
 
     scenario "should charge the subscribed user if user's next_billing_date is today" do
       subscribed_one_month_user.update(next_billing_date: Time.now.in_time_zone('Singapore').to_date)
+      expect(subscribed_one_month_user.braintree.transactions.count).to eq 0
 
       Rake::Task['maintenance:charge_users'].reenable
       Rake::Task['maintenance:charge_users'].invoke

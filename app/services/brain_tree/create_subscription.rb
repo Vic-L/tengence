@@ -17,7 +17,8 @@ class CreateSubscription
 
         result = Braintree::Transaction.sale(
             :payment_method_token => payment_method_token,
-            amount: get_amount,
+            # amount: get_amount,
+            amount: '0.00',
             :options => {
               :submit_for_settlement => true
             }

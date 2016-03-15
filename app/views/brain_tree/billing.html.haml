@@ -44,6 +44,13 @@
 
           - if current_user.subscribed? && @payment_method
 
+            .row
+              .small-12.medium-6.column
+                %h4
+                  %strong Auto Renew:
+              .small-12.medium-6.column
+                %h4 #{current_user.auto_renew ? 'On' : 'Off'}
+
             %hr.show-for-small-only
 
             .row

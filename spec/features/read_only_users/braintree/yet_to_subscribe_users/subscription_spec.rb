@@ -219,7 +219,8 @@ feature 'subscription', type: :feature, js: true do
       login_as(yet_to_subscribe_user, scope: :user)
     end
 
-    scenario 'should remain false if not toggle to true' do
+    scenario 'should be set to true automatically' do
+      expect(yet_to_subscribe_user.auto_renew).to eq false
       brain_tree_page.visit_subscribe_one_year_page
       wait_for_page_load
 
@@ -230,7 +231,7 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
       expect(page).to have_content "You will be billed $468 immediately."
-      expect(page).to have_content "You will NOT be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
       
       brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
@@ -238,12 +239,12 @@ feature 'subscription', type: :feature, js: true do
 
       expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
-      expect(yet_to_subscribe_user.auto_renew).to eq false
       yet_to_subscribe_user.reload
-      expect(yet_to_subscribe_user.auto_renew).to eq false
+      expect(yet_to_subscribe_user.auto_renew).to eq true
     end
 
-    scenario 'should be true if toggle to true' do
+    scenario 'should be false if toggle to false' do
+      expect(yet_to_subscribe_user.auto_renew).to eq false
       brain_tree_page.visit_subscribe_one_year_page
       wait_for_page_load
 
@@ -254,13 +255,13 @@ feature 'subscription', type: :feature, js: true do
         fill_in 'cvv', with: brain_tree_page.valid_cvv
       end
       expect(page).to have_content "You will be billed $468 immediately."
-      expect(page).to have_content "You will NOT be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
 
       brain_tree_page.scroll_into_view '#renewal-toggle'
       brain_tree_page.click_unique '#renewal-toggle'
 
       expect(page).to have_content "You will be billed $468 immediately."
-      expect(page).to have_content "You will be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
+      expect(page).to have_content "You will NOT be automatically billed $468 on your next billing date on #{(Date.today + 1.year).strftime('%e %b %Y')}."
 
       brain_tree_page.scroll_into_view '#submit'
       brain_tree_page.click_unique '#submit'
@@ -268,12 +269,13 @@ feature 'subscription', type: :feature, js: true do
 
       expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
-      expect(yet_to_subscribe_user.auto_renew).to eq false
       yet_to_subscribe_user.reload
-      expect(yet_to_subscribe_user.auto_renew).to eq true
+      expect(yet_to_subscribe_user.auto_renew).to eq false
     end
 
-    scenario 'toggle in billing path' do
+    scenario 'no toggle of auto renew in billing path' do
+      brain_tree_page.visit_billing_page
+      wait_for_page_load
       expect(page).not_to have_content "Auto Renew?"
     end
 

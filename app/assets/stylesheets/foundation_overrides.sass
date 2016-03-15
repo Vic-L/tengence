@@ -22,3 +22,10 @@
     background: #777777
     border: 1px solid #777777
     color: white
+
+.f-dropdown
+  &:before,
+  &:after
+    border-width: 2rem
+    z-index: -10 // offset from top but still can scroll over
+    border-color: transparent

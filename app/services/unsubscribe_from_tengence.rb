@@ -9,7 +9,7 @@ class UnsubscribeFromTengence
 
     begin
         
-      user.update!(subscribed_plan: "free_plan")
+      user.update!(subscribed_plan: "free_plan", auto_renew: false)
 
       NotifyViaSlack.delay.call(content: "#{user.email} unsubscribed")
 

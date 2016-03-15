@@ -162,61 +162,6 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-
-
-/* ==============================================
-Header
-=============================================== */
-header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	background-color: transparent;
-	color: black;
-	z-index: 10000;
-	padding: 4px 0px;
-	// overflow: hidden;
-	overflow: visible;
-	-webkit-transition: background-color 0.3s;
-	-moz-transition: background-color 0.3s;
-	transition: background-color 0.3s;
-	max-width:1903px;
-}
-
-header.shrink {
-	background-color: $color-blue;
-	border-bottom: 1px solid transparent;
-}
-
-ul#account-drop,
-ul#tenders-drop,
-ul#help-drop {
-	width: auto;
-	border: 1px solid #E3E6E6;
-	border-radius: 5px;
-	li {
-		background: none;
-		color: $color-blue;
-		&:first-child,
-		&:first-child > a, {
-			border-top-left-radius: 5px;
-			border-top-right-radius: 5px;
-		}
-		&:last-child,
-		&:last-child > a {
-			border-bottom-left-radius: 5px;
-			border-bottom-right-radius: 5px;
-		}
-		a:hover {
-			background: $color-blue;
-			color: white;
-		}
-	}
-}
-
-
-
 /* ==============================================
 Main Slider
 =============================================== */
@@ -395,7 +340,7 @@ Counter
 	font-weight: 900;
 	font-size: 1.6rem;
 	line-height: 2.2rem;
-	font-family: "PT Serif", serif;
+	font-family: "PT Sans", sans-serif;
 }
 
 .number-detail {

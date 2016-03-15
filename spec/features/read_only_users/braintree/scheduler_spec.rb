@@ -76,11 +76,8 @@ feature 'scheduler' do
 
   feature "subscription_ending_reminder" do
 
-    before :each do
-      ActionMailer::Base.deliveries.clear
-    end
-
     scenario 'should not send to users with next_billing_date not 7 days later' do
+      ActionMailer::Base.deliveries.clear
       Rake::Task['maintenance:subscription_ending_reminder'].reenable
       Rake::Task['maintenance:subscription_ending_reminder'].invoke
       expect(ActionMailer::Base.deliveries.count).to eq 0
@@ -88,9 +85,10 @@ feature 'scheduler' do
 
     scenario 'should send to users with next_billing_date in 7 days time' do
       Timecop.freeze(subscribed_one_month_user.next_billing_date - 7.days) do
+        ActionMailer::Base.deliveries.clear
         Rake::Task['maintenance:subscription_ending_reminder'].reenable
         Rake::Task['maintenance:subscription_ending_reminder'].invoke
-binding.pry if ActionMailer::Base.deliveries.count == 12 # wonder y
+# binding.pry if ActionMailer::Base.deliveries.count == 12 # wonder y
         expect(ActionMailer::Base.deliveries.count).to eq 2 # InternalMailer and AlertsMailer
         expect(ActionMailer::Base.deliveries.map(&:subject).include?("Subscription ending in 7 days")).to eq true
         expect(ActionMailer::Base.deliveries.map(&:subject).include?("#{subscribed_one_month_user.email} subscription ending in 7 days time")).to eq true
@@ -101,20 +99,19 @@ binding.pry if ActionMailer::Base.deliveries.count == 12 # wonder y
       Timecop.freeze(subscribed_one_month_user.next_billing_date - 7.days) do
         
         subscribed_one_month_user.update(auto_renew: true)
+        ActionMailer::Base.deliveries.clear
         Rake::Task['maintenance:subscription_ending_reminder'].reenable
         Rake::Task['maintenance:subscription_ending_reminder'].invoke
 
-        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "This is an email to remind you that your current subscription cycle will end on #{subscribed_one_month_user.next_billing_date.strftime('%e %b %Y')}.").to eq true
+        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "You have chosen to auto renew your subscription monthly ($59 / month).").to eq true
         expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "No action is required on your part.").to eq true
 
-        ActionMailer::Base.deliveries.clear
-
         subscribed_one_month_user.update(auto_renew: false)
-        subscribed_one_month_user.reload
+        ActionMailer::Base.deliveries.clear
         Rake::Task['maintenance:subscription_ending_reminder'].reenable
         Rake::Task['maintenance:subscription_ending_reminder'].invoke
 
-        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "This is an email to remind you that your current subscription cycle will end on #{subscribed_one_month_user.next_billing_date.strftime('%e %b %Y')}.").to eq false
+        expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "You have chosen to NOT auto renew your subscription monthly ($59 / month).").to eq true
         expect(ActionMailer::Base.deliveries.last.body.raw_source.include? "No action is required on your part.").to eq false
 
         # TODO check the no auto renew text

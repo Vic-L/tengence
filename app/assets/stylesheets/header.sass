@@ -2,6 +2,42 @@
 
 header
 
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  background-color: white
+  color: black
+  z-index: 10000
+  padding: 4px 0px
+  // overflow: hidden
+  overflow: visible
+  -webkit-transition: background-color 0.3s
+  -moz-transition: background-color 0.3s
+  transition: background-color 0.3s
+  max-width: 1903px
+
+  ul#account-drop,
+  ul#tenders-drop,
+  ul#help-drop
+    width: auto
+    border: 1px solid #E3E6E6
+    border-radius: 5px
+    li
+      background: none
+      color: black
+      &:first-child,
+      &:first-child > a,
+        border-top-left-radius: 5px
+        border-top-right-radius: 5px
+      &:last-child,
+      &:last-child > a
+        border-bottom-left-radius: 5px
+        border-bottom-right-radius: 5px
+      a:hover
+        background: $color-blue
+        color: white
+
   .header-logo a:link, .header-logo a:visited
     bottom: 4px
     font-family: "PT Sans",serif
@@ -56,6 +92,7 @@ header
         transform: scaleX(0)
         -webkit-transition: all 0.3s ease-in-out 0s
         transition: all 0.3s ease-in-out 0s
+    & > li:hover > a,
     & > li > a:hover,
     & > li.active > a,
     & > li.active > a:hover
@@ -88,6 +125,8 @@ header
       background: yellow
 
 header.shrink
+  background-color: $color-blue
+  border-bottom: 1px solid transparent
   .header-logo a
     color: white
     &:before
@@ -116,10 +155,13 @@ header.shrink
     ul.menu-list
       text-align: left
       & > li > a,
+      & > li:hover > a,
       & > li > a:hover,
       & > li.active > a,
       & > li.active > a:hover
         color: white
+        &:before
+          background: white
 
     label.subscription-level
       bottom: 4px

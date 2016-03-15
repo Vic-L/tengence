@@ -11,7 +11,7 @@ ul.menu-list li a{display:inline-block;}
 ul.menu-list li a{display:block;}
 
 /* Handling Submenu */
-ul.menu-list ul{display:none;padding:0px;margin:0px;position:absolute;top:100%;left:0%;list-style:none;z-index: 999999;}
+ul.menu-list ul{display:none;padding:0px;margin:0px;position:absolute;top:130%;left:0%;list-style:none;z-index: 999999;}
 ul.menu-list ul li{position:relative;float:none;padding:0px;margin:0px;}
 ul.menu-list ul ul{position:absolute;top:0%;left:100%;z-index: 700}
 ul.menu-list li:hover>ul{display:inline-block;}

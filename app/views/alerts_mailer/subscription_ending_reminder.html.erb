@@ -152,15 +152,15 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                     
                                     <br>
                                     <br>
+                                    
+                                    This is an email to remind you that your current subscription cycle will end on <%= @user.next_billing_date.strftime('%e %b %Y') %>.
+
+                                    <br>
+                                    <br>
 
                                     <% if @user.auto_renew %>
-                                      
-                                      This is an email to remind you that your current subscription cycle will end on <%= @user.next_billing_date.strftime('%e %b %Y') %>.
 
-                                      <br>
-                                      <br>
-
-                                      You have chosen to auto renew your subscription <%= plan @user.subscribed_plan %>.
+                                      You have chosen to auto renew your subscription <%= plan(@user.subscribed_plan).downcase %>.
 
                                       <br>
                                       <br>
@@ -174,10 +174,14 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
 
                                     <% else %>
 
-                                      In 7 days, you will no longer have access to pro account benefits. Renew your subscription with Tengence to keep your apps on the App Store and Mac App Store, submit new apps, utilize advanced app capabilities, and get personal technical support. 
+                                      You have chosen to NOT auto renew your subscription <%= plan(@user.subscribed_plan).downcase %>.
+
+                                      <br>
+                                      <br>
+                                      
+                                      <%= link_to "Renew Now.", change_payment_url, target: '_blank'%>
 
                                     <% end %>
-                                    
                                     
 
                                     <br>

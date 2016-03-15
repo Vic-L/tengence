@@ -29,11 +29,11 @@
           - elsif current_user.unsubscribed?
             %h5 You have chosen to resubscribe to Tengence #{plan(@plan).downcase}.
 
-          %h5 You will be billed to the chosen payment card below.
+          %h5 You will be billed to the chosen payment option below.
           %p
             NOTE: You will receive email receipts for every transaction.
             %br
-            NOTE: Tengence does NOT store you credit card details. Tengence works with <a href="https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified" target="_blank" >Braintree</a> to handle payments.
+            NOTE: Tengence does NOT store your credit card details. Tengence works with <a href="https://www.braintreegateway.com/merchants/#{ENV['BRAINTREE_MERCHANT_ID']}/verified" target="_blank" >Braintree</a> to handle payments.
 
           %hr
 
@@ -58,7 +58,10 @@
               .row
                 .small-3.medium-2.column
                   %fieldset#renewal-toggle.switch.round.large{:tabindex => "0"}
-                    %input#renew{name: "renew", :type => "checkbox", checked: current_user.auto_renew}
+                    - if current_user.trial? or current_user.finished_trial_but_yet_to_subscribe?
+                      %input#renew{name: "renew", :type => "checkbox", checked: true}
+                    - else
+                      %input#renew{name: "renew", :type => "checkbox", checked: current_user.auto_renew}
                     %label{:for => "renew"}
                 .small-9.medium-10.column
                   
@@ -147,7 +150,7 @@
 
 - content_for :javascript do
   = javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js"
-  - if current_user.auto_renew
+  - if current_user.auto_renew or current_user.trial? or current_user.finished_trial_but_yet_to_subscribe?
     :javascript
       $('#renew-true').show()
   - else

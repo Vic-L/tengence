@@ -45,20 +45,6 @@
           - if current_user.subscribed? && @payment_method
 
             %hr.show-for-small-only
-    
-            .row
-              .small-8.medium-6.column
-                %h4
-                  %strong Auto Renew:
-              .small-4.medium-2.column
-                %fieldset#renewal-toggle.switch.round{:tabindex => "0"}
-                  %input#renew-toggle{:type => "checkbox", checked: current_user.auto_renew}
-                  %label{:for => "renew-toggle"}
-              .small-12.medium-4.column
-                %p.strong#renew-true Your subscription will auto renew
-                %p.strong#renew-false Your subscription will not auto renew
-
-            %hr.show-for-small-only
 
             .row
               .small-12.medium-6.column
@@ -131,35 +117,3 @@
     -#   .row
     -#     .medium-8.columns.medium-centered
     -#       = link_to "I want to check Tengence out first. Skip", root_path
-
-- content_for :javascript do
-  :javascript
-    var renewTrueTimeout, renewFalseTimeout;
-    $('#renew-toggle').click(function(event){
-      event.preventDefault();
-      event.stopPropagation();
-      $.ajax({
-        url: '#{toggle_renew_path}',
-        method: "POST",
-        dataType: 'json'
-      }).success(function(data,status,xhr){
-        $('#renew-toggle').prop('checked', data)
-      }).error(function(xhr,status,error){
-        $('#renew-toggle').prop('checked', data);
-        alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.");
-      }).done(function(){
-        if ($('#renew-toggle').prop('checked') === true) {
-          clearTimeout(renewTrueTimeout);
-          clearTimeout(renewFalseTimeout);
-          $('#renew-true').slideDown();
-          $('#renew-false').slideUp();
-          renewTrueTimeout = setTimeout(function(){ $('#renew-true').slideUp(); }, 3000);
-        } else {
-          clearTimeout(renewTrueTimeout);
-          clearTimeout(renewFalseTimeout);
-          $('#renew-false').slideDown();
-          $('#renew-true').slideUp();
-          renewTrueTimeout = setTimeout(function(){ $('#renew-false').slideUp(); }, 3000);
-        }
-      })
-    });

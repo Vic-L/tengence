@@ -13,7 +13,6 @@ feature "access pages by read_only resubscribe users" do
     scenario 'billing page' do
       brain_tree_page.visit_billing_page
       expect(page).not_to have_content 'Days left till end of Free Trial'
-      expect(page).not_to have_content 'Auto Renew:'
       expect(page).not_to have_content 'Plan:'
       expect(page).not_to have_content 'Next Billing Date:'
       expect(page).to have_content 'Valid Till:'
@@ -93,7 +92,6 @@ feature "access pages by read_only resubscribe users" do
       Timecop.freeze(unsubscribed_user.next_billing_date) do
         brain_tree_page.visit_billing_page
         expect(page).not_to have_content 'Days left till end of Free Trial'
-        expect(page).not_to have_content 'Auto Renew:'
         expect(page).not_to have_content 'Plan:'
         expect(page).not_to have_content 'Next Billing Date:'
         expect(page).not_to have_content 'Valid Till:'

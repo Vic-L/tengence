@@ -34,8 +34,10 @@ feature "home_page", type: :feature, js: true do
       expect(Sidekiq::Worker.jobs.size).to eq 0
       home_page.fill_up_demo_email_form
       home_page.click_common '.email-demo-submit-button'
-      expect {home_page.click_common '.email-demo-submit-button'}.to change( Sidekiq::Worker.jobs, :size ).by(2)
+      # expect {home_page.click_common '.email-demo-submit-button'}.to change( Sidekiq::Worker.jobs, :size ).by(2)
       # 1 is slack ping
+      sleep 2
+      expect(Sidekiq::Worker.jobs.size).to eq 2
     end
 
     scenario 'invalid email' do

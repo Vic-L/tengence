@@ -63,3 +63,9 @@ end;nil
 # landing pages
 
 # open links in our page?
+
+
+
+### things to change soon
+# if not auto renew n after subscription, automatically downgrade to free tier during scheduler
+# plans page accessible by non logged in users and to allow redirect nicely if they click from reminder email

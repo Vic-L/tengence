@@ -13,7 +13,6 @@ feature "access pages by subscribed read_only users" do
     scenario 'billing page' do
       brain_tree_page.visit_billing_page
       expect(page).not_to have_content 'Days left till end of Free Trial'
-      expect(page).to have_content 'Auto Renew:'
       expect(page).to have_content 'Plan:'
       expect(page).to have_content 'Next Billing Date:'
       expect(page).not_to have_content 'Valid Till:'

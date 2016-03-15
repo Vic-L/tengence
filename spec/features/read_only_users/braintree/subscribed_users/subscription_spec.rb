@@ -171,6 +171,16 @@ feature 'subscription', type: :feature, js: true do
       expect(page.current_path).to eq billing_path
     end
 
+    scenario 'set auto_renew to false if unsubscribe' do
+      subscribed_user.update(auto_renew: true)
+      expect(subscribed_user.auto_renew).to eq true
+      brain_tree_page.click_unique '#unsubscribe'
+      brain_tree_page.accept_confirm
+      wait_for_page_load
+      expect(page).to have_content 'You have successfully unsubscribed from Tengence.'
+      expect(subscribed_user.reload.auto_renew).to eq false
+    end
+
   end
 
   feature 'toggle renew' do
@@ -179,25 +189,6 @@ feature 'subscription', type: :feature, js: true do
       login_as(subscribed_user, scope: :user)
       brain_tree_page.visit_billing_page
       wait_for_page_load
-    end
-
-    scenario 'toggle in billing path' do
-      brain_tree_page.scroll_into_view '#renewal-toggle'
-
-      expect(subscribed_user.auto_renew).to eq false
-      brain_tree_page.click_unique '#renewal-toggle'
-      wait_for_ajax
-      expect(page).to have_content "Your subscription will auto renew"
-      expect(page).not_to have_content "Your subscription will not auto renew"
-      subscribed_user.reload
-      expect(subscribed_user.auto_renew).to eq true
-
-      brain_tree_page.click_unique '#renewal-toggle'
-      wait_for_ajax
-      expect(page).not_to have_content "Your subscription will auto renew"
-      expect(page).to have_content "Your subscription will not auto renew"
-      subscribed_user.reload
-      expect(subscribed_user.auto_renew).to eq false
     end
 
   end

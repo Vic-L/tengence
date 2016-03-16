@@ -1,6 +1,151 @@
 #wrapper
-  
-  - if current_user.yet_to_subscribe?
+
+  - if user_signed_in?
+
+    - if current_user.yet_to_subscribe?
+
+      %section
+        .row.text-center
+          .medium-3.columns
+            %ul.pricing-table
+              %li.title Monthly
+              %li.price
+                %span.value 59
+                %span.rate / mo
+              %li.description * billed $59 every 30 days
+              %li.bullet-item.feature Basic Tier. You will be charged monthly.
+              %li.cta-button
+                %h4 -
+                = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
+          .medium-3.columns
+            %ul.pricing-table
+              %li.title Quarterly
+              %li.price
+                %span.value 49
+                %span.rate / mo
+              %li.description * billed $147 every 90 days
+              %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
+              %li.cta-button
+                %h4 Save 17%
+                = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
+          .medium-3.columns
+            %ul.pricing-table.spot-light
+              %li.title Annually
+              %li.bullet-item.advertise MOST WORTHWHILE
+              %li.price
+                %span.value 39
+                %span.rate / mo
+              %li.description * billed $468 every year
+              %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
+              %li.cta-button
+                %h4 Save 33%
+                = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
+          .medium-3.columns
+            %ul.pricing-table
+              %li.title Free
+              %li.price
+                %span.value 0
+              %li.description -
+              %li.bullet-item.feature Free Tier. You can only view up the full detail of up to 3 tenders each week.
+        
+    - else
+
+      - if current_user.subscribed?
+
+        %section
+          .row.text-center
+            .medium-4.columns
+              %ul.pricing-table{class: "#{current_user.subscribed_plan == 'one_month_plan' ? 'spot-light' : ''}"}
+                %li.title Monthly
+                - if current_user.subscribed_plan == 'one_month_plan'
+                  %li.bullet-item.current-plan Current Plan
+                %li.price
+                  %span.value 59
+                  %span.rate / mo
+                %li.description * billed $59 every 30 days
+                %li.bullet-item.feature Basic Tier. You will be charged monthly.
+                %li.cta-button
+                  %h4 -
+                  = link_to 'Change Plan', subscribe_one_month_path, class: "button #{current_user.subscribed_plan == 'one_month_plan' ? 'disabled' : ''}", id: 'subscribe-monthly'
+
+            .medium-4.columns
+              %ul.pricing-table{class: "#{current_user.subscribed_plan == 'three_months_plan' ? 'spot-light' : ''}"}
+                %li.title Quarterly
+                - if current_user.subscribed_plan == 'three_months_plan'
+                  %li.bullet-item.current-plan Current Plan
+                %li.price
+                  %span.value 49
+                  %span.rate / mo
+                %li.description * billed $147 every 90 days
+                %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
+                %li.cta-button
+                  %h4 Save 17%
+                  = link_to 'Change Plan', subscribe_three_months_path, class: "button #{current_user.subscribed_plan == 'three_months_plan' ? 'disabled' : ''}", id: 'subscribe-quarterly'
+
+            .medium-4.columns
+              %ul.pricing-table.spot-light
+                %li.title Annually
+                - if current_user.subscribed_plan == 'one_year_plan'
+                  %li.bullet-item.current-plan Current Plan
+                - unless current_user.subscribed_plan == 'one_year_plan'
+                  %li.bullet-item.advertise MOST WORTHWHILE
+                %li.price
+                  %span.value 39
+                  %span.rate / mo
+                %li.description * billed $468 every year
+                %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
+                %li.cta-button
+                  %h4 Save 33%
+                  = link_to 'Change Plan', subscribe_one_year_path, class: "button #{current_user.subscribed_plan == 'one_year_plan' ? 'disabled' : ''}", id: 'subscribe-annually'
+
+      - elsif current_user.unsubscribed?
+
+        - if current_user.unsubscribed_and_yet_to_finish_cycle?
+
+          %section.no-margin
+            .row
+              .medium-8.columns.medium-centered
+                %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+                %h5 Resubscribing now will not start immediately. It will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
+
+        %section
+          .row.text-center
+            .medium-4.columns
+              %ul.pricing-table
+                %li.title Monthly
+                %li.price
+                  %span.value 59
+                  %span.rate / mo
+                %li.description * billed $59 every 30 days
+                %li.bullet-item.feature Basic Tier. You will be charged monthly.
+                %li.cta-button
+                  %h4 -
+                  = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
+            .medium-4.columns
+              %ul.pricing-table
+                %li.title Quarterly
+                %li.price
+                  %span.value 49
+                  %span.rate / mo
+                %li.description * billed $147 every 90 days
+                %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
+                %li.cta-button
+                  %h4 Save 17%
+                  = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
+            .medium-4.columns
+              %ul.pricing-table.spot-light
+                %li.title Annually
+                %li.bullet-item.advertise MOST WORTHWHILE
+                %li.price
+                  %span.value 39
+                  %span.rate / mo
+                %li.description * billed $468 every year
+                %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
+                %li.cta-button
+                  %h4 Save 33%
+                  = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
+
+  - else
 
     %section
       .row.text-center
@@ -14,7 +159,6 @@
             %li.bullet-item.feature Basic Tier. You will be charged monthly.
             %li.cta-button
               %h4 -
-              = link_to 'Subscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
         .medium-3.columns
           %ul.pricing-table
             %li.title Quarterly
@@ -25,7 +169,6 @@
             %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
             %li.cta-button
               %h4 Save 17%
-              = link_to 'Subscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
         .medium-3.columns
           %ul.pricing-table.spot-light
             %li.title Annually
@@ -37,7 +180,6 @@
             %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
             %li.cta-button
               %h4 Save 33%
-              = link_to 'Subscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
         .medium-3.columns
           %ul.pricing-table
             %li.title Free
@@ -45,103 +187,12 @@
               %span.value 0
             %li.description -
             %li.bullet-item.feature Free Tier. You can only view up the full detail of up to 3 tenders each week.
-      
-  - else
 
-    - if current_user.subscribed?
-
-      %section
-        .row.text-center
-          .medium-4.columns
-            %ul.pricing-table{class: "#{current_user.subscribed_plan == 'one_month_plan' ? 'spot-light' : ''}"}
-              %li.title Monthly
-              - if current_user.subscribed_plan == 'one_month_plan'
-                %li.bullet-item.current-plan Current Plan
-              %li.price
-                %span.value 59
-                %span.rate / mo
-              %li.description * billed $59 every 30 days
-              %li.bullet-item.feature Basic Tier. You will be charged monthly.
-              %li.cta-button
-                %h4 -
-                = link_to 'Change Plan', subscribe_one_month_path, class: "button #{current_user.subscribed_plan == 'one_month_plan' ? 'disabled' : ''}", id: 'subscribe-monthly'
-
-          .medium-4.columns
-            %ul.pricing-table{class: "#{current_user.subscribed_plan == 'three_months_plan' ? 'spot-light' : ''}"}
-              %li.title Quarterly
-              - if current_user.subscribed_plan == 'three_months_plan'
-                %li.bullet-item.current-plan Current Plan
-              %li.price
-                %span.value 49
-                %span.rate / mo
-              %li.description * billed $147 every 90 days
-              %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
-              %li.cta-button
-                %h4 Save 17%
-                = link_to 'Change Plan', subscribe_three_months_path, class: "button #{current_user.subscribed_plan == 'three_months_plan' ? 'disabled' : ''}", id: 'subscribe-quarterly'
-
-          .medium-4.columns
-            %ul.pricing-table.spot-light
-              %li.title Annually
-              - if current_user.subscribed_plan == 'one_year_plan'
-                %li.bullet-item.current-plan Current Plan
-              - unless current_user.subscribed_plan == 'one_year_plan'
-                %li.bullet-item.advertise MOST WORTHWHILE
-              %li.price
-                %span.value 39
-                %span.rate / mo
-              %li.description * billed $468 every year
-              %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
-              %li.cta-button
-                %h4 Save 33%
-                = link_to 'Change Plan', subscribe_one_year_path, class: "button #{current_user.subscribed_plan == 'one_year_plan' ? 'disabled' : ''}", id: 'subscribe-annually'
-
-    - elsif current_user.unsubscribed?
-
-      - if current_user.unsubscribed_and_yet_to_finish_cycle?
-
-        %section.no-margin
-          .row
-            .medium-8.columns.medium-centered
-              %h5 Your next billing date is on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-              %h5 Resubscribing now will not start immediately. It will start on #{current_user.next_billing_date.strftime('%e %b %Y')}.
-
-      %section
-        .row.text-center
-          .medium-4.columns
-            %ul.pricing-table
-              %li.title Monthly
-              %li.price
-                %span.value 59
-                %span.rate / mo
-              %li.description * billed $59 every 30 days
-              %li.bullet-item.feature Basic Tier. You will be charged monthly.
-              %li.cta-button
-                %h4 -
-                = link_to 'Resubscribe Now', subscribe_one_month_path, class: 'button', id: 'subscribe-monthly'
-          .medium-4.columns
-            %ul.pricing-table
-              %li.title Quarterly
-              %li.price
-                %span.value 49
-                %span.rate / mo
-              %li.description * billed $147 every 90 days
-              %li.bullet-item.feature Premium Tier. You will be charged quarterly with a SLA of 99.9% uptime.
-              %li.cta-button
-                %h4 Save 17%
-                = link_to 'Resubscribe Now', subscribe_three_months_path, class: 'button', id: 'subscribe-quarterly'
-          .medium-4.columns
-            %ul.pricing-table.spot-light
-              %li.title Annually
-              %li.bullet-item.advertise MOST WORTHWHILE
-              %li.price
-                %span.value 39
-                %span.rate / mo
-              %li.description * billed $468 every year
-              %li.bullet-item.feature Enterprise Tier. You will be charged annually, a SLA of 99.99% uptime and a dedicated support feature.
-              %li.cta-button
-                %h4 Save 33%
-                = link_to 'Resubscribe Now', subscribe_one_year_path, class: 'button', id: 'subscribe-annually'
+      .row.text-center
+        .medium-4.medium-centered.columns
+          = link_to register_path, class: 'button' do
+            30 days free trial 
+            %li.fa.fa-chevron-right
 
 - content_for :javascript do
   :javascript

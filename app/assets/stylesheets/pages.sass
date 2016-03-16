@@ -16,6 +16,17 @@
           background-color: #fff
 
       ul.menu-list
+
+        li.separator
+          border-left: 2px solid white
+          padding-left: 5px
+          &:hover > a,
+          & > a:hover
+            &:before
+              left: 5%
+              -webkit-transform: scaleX(0.9)
+              transform: scaleX(0.9)
+
         & > li > a
           color: white
           text-align: right
@@ -271,3 +282,18 @@
     ol, p
       color: #666
       font-size: 1rem
+
+@media only screen and (max-width: 40em)
+  .pages
+    &.home
+      header
+        ul.menu-list
+          li.separator
+            border-left: none
+            padding-left: 0
+            &:hover > a,
+            & > a:hover
+              &:before
+                left: 0
+                -webkit-transform: scaleX(1)
+                transform: scaleX(1)

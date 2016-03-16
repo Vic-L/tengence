@@ -4,6 +4,7 @@ feature "access pages by non_logged_in users" do
   let(:tenders_page) { TendersPage.new }
   let(:pages_page) { PagesPage.new }
   let(:devise_page) { DevisePage.new }
+  let(:brain_tree_page) { BrainTreePage.new }
   let(:tender) {create(:tender)}
   let(:past_tender) {create(:tender, :past)}
 
@@ -174,6 +175,16 @@ feature "access pages by non_logged_in users" do
       tenders_page.visit_past_posted_tenders_page
       expect(tenders_page.current_path).to eq new_user_session_path
       expect(tenders_page).to have_content 'You need to sign in or sign up before continuing.'
+    end
+
+  end
+
+  feature 'brain_tree_controller' do
+
+    scenario 'plans' do
+      brain_tree_page.visit_plans_page
+      expect(pages_page.current_path).to eq plans_path
+      expect(page).to have_link '30 days free trial ', href: register_path
     end
 
   end

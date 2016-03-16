@@ -118,6 +118,8 @@
               %a.ga-static-pages{href: "#email", data: {gtm_category:'', gtm_action: 'emails', gtm_label: 'header', scroll: ""}} Emails
             %li
               %a.ga-static-pages{href: "#contacts", data: {gtm_category:'', gtm_action: 'contacts', gtm_label: 'header', scroll: ""}} Contacts
+            %li.separator
+              = link_to "Pricing", plans_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'pricing & plans', gtm_label: 'header'}
             %li
               = link_to "Login", new_user_session_path, class: 'unscrollable ga-static-pages', data: {gtm_category:'', gtm_action: 'login', gtm_label: 'header'}
             %li

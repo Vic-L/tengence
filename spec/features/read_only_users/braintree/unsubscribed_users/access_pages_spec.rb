@@ -25,6 +25,7 @@ feature "access pages by read_only resubscribe users" do
 
     scenario "plans" do
       brain_tree_page.visit_plans_page
+      expect(page).not_to have_link '30 days free trial ', href: register_path
       expect(page).not_to have_content "Free"
       expect(page.current_path).to eq plans_path
     end
@@ -106,6 +107,7 @@ feature "access pages by read_only resubscribe users" do
     scenario "plans" do
       Timecop.freeze(unsubscribed_user.next_billing_date) do
         brain_tree_page.visit_plans_page
+        expect(page).not_to have_link '30 days free trial ', href: register_path
         expect(page).not_to have_content "Free"
         expect(page).not_to have_content "Your next billing date is on #{unsubscribed_user.next_billing_date.strftime('%e %b %Y')}."
         expect(page).not_to have_content "Resubscribing now will not start immediately. It will start on #{unsubscribed_user.next_billing_date.strftime('%e %b %Y')}."

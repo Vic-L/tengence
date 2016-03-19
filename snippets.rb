@@ -68,6 +68,7 @@ end;nil
 
 ### things to change soon
 # getTenders notify error to refresh auto
+# feedback
 # plans page accessible by non logged in users and to allow redirect nicely if they click from reminder email
 # modernizer
 
@@ -79,3 +80,10 @@ end;nil
 # you have no keywords should be beside/below the update button
 # redirect back to tender show when login after redirected to loogin page from email link
 # pings on who subscribed or unsubscribed or subscribed to what plan
+# unwatch n go next page make them miss
+# they dont really look at al the tenders ah
+# or even go to next page
+# hard time looking thru the tenders
+# only see one n never comeback liao?
+# subscribed users testing - they still don believe
+# allow to watch in modal

@@ -34,6 +34,10 @@ FactoryGirl.define do
     unconfirmed_email {Faker::Internet.email}
   end
 
+  trait :auto_renew do
+    auto_renew true
+  end
+
   trait :braintree do
     after :create do |user|
       user.register_braintree_customer

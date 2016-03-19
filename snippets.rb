@@ -67,5 +67,15 @@ end;nil
 
 
 ### things to change soon
-# if not auto renew n after subscription, automatically downgrade to free tier during scheduler
+# getTenders notify error to refresh auto
 # plans page accessible by non logged in users and to allow redirect nicely if they click from reminder email
+# modernizer
+
+
+## hotjar
+# add more link to beside tender description
+# reduce number of tenders in a page or make search bar always present
+# after finish update keywrds, they dunno need to scroll down, so they click update again
+# you have no keywords should be beside/below the update button
+# redirect back to tender show when login after redirected to loogin page from email link
+# pings on who subscribed or unsubscribed or subscribed to what plan

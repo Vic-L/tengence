@@ -25,16 +25,18 @@ feature "home_page", type: :feature, js: true do
   feature 'demo email' do
 
     scenario 'invalid fields' do
-      home_page.click_common '.email-demo-submit-button'
+      home_page.scroll_into_view('#email-demo-submit-button')
+      home_page.click_unique '#email-demo-submit-button'
       expect(page).to have_content 'Please enter your email'
       expect(page).to have_content 'Please acknowledge this checkbox'
     end
 
     scenario 'valid fields' do
       expect(Sidekiq::Worker.jobs.size).to eq 0
+
       home_page.fill_up_demo_email_form
-      home_page.click_common '.email-demo-submit-button'
-      # expect {home_page.click_common '.email-demo-submit-button'}.to change( Sidekiq::Worker.jobs, :size ).by(2)
+      home_page.click_unique '#email-demo-submit-button'
+      # expect {home_page.click_unique '#email-demo-submit-button'}.to change( Sidekiq::Worker.jobs, :size ).by(2)
       # 1 is slack ping
       sleep 2
       expect(Sidekiq::Worker.jobs.size).to eq 2
@@ -43,7 +45,7 @@ feature "home_page", type: :feature, js: true do
     scenario 'invalid email' do
       home_page.fill_up_demo_email_form
       fill_in 'demo_email', with: Faker::Lorem.word
-      home_page.click_common '.email-demo-submit-button'
+      home_page.click_unique '#email-demo-submit-button'
       expect(page).to have_content 'Please enter a valid email'
       expect(page).not_to have_content 'Please acknowledge this checkbox'
     end

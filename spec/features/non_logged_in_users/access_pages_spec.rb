@@ -184,7 +184,7 @@ feature "access pages by non_logged_in users" do
     scenario 'plans' do
       brain_tree_page.visit_plans_page
       expect(pages_page.current_path).to eq plans_path
-      expect(page).to have_link '30 days free trial ', href: register_path
+      expect(page).to have_link '30 days free trial', href: register_path
     end
 
   end

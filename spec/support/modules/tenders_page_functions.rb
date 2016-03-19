@@ -40,15 +40,18 @@ module TendersPageFunctions
 
   def scroll_into_view selector
     eval("execute_script(\"$('#{selector}')[0].scrollIntoView(false);\")")
+    sleep 1
   end
 
   def click_common selector, counter=0
     if counter.zero?
       eval("execute_script(\"$('#{selector}')[0].scrollIntoView(false);\")")
       eval("execute_script(\"$('#{selector}')[0].click();\")")
+      sleep 1
     else
       eval("execute_script(\"$('#{selector}').slice(#{counter},#{counter+1})[0].scrollIntoView(false);\")")
       eval("execute_script(\"$('#{selector}').slice(#{counter},#{counter+1})[0].click();\")")
+      sleep 1
     end
   end
 

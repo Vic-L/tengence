@@ -28,7 +28,7 @@ class Users::SessionsController < Devise::SessionsController
     # end
 
     def after_sign_in_path_for resource
-      current_user.write_only? ? current_posted_tenders_path : root_path
+      current_user.write_only? ? current_posted_tenders_path : stored_location_for(resource) || root_path
       # if resource.braintree_customer_id
       #   root_path
       # else

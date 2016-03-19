@@ -51,53 +51,69 @@ namespace :maintenance do
     User.subscribed.billed_today.each do |user|
 
       next if user.email == 'vljc17@gmail.com'
+      next if user.email == 'ganthertay@gmail.com'
+
+      if user.auto_renew
       
-      amount = ""
-      next_billing_date = ""
-      
-      case user.subscribed_plan
-      when "one_month_plan"
-        amount = "59.00"
-      when "three_months_plan"
-        amount = "147.00"
-      when "one_year_plan"
-        amount = "468.00"
-      else
-        NotifyViaSlack.call(content: "<@vic-l> maintenance.rake User #{user.email} subscribed_plan is weird")
-        next
-      end
-
-      case user.subscribed_plan
-      when "one_month_plan"
-        next_billing_date = Time.now.in_time_zone('Singapore').to_date + 30.days
-      when "three_months_plan"
-        next_billing_date = Time.now.in_time_zone('Singapore').to_date + 90.days
-      when "one_year_plan"
-        next_billing_date = Time.now.in_time_zone('Singapore').to_date + 1.year
-      end
-
-      result = Braintree::Transaction.sale(
-        :payment_method_token => user.default_payment_method_token,
-        amount: amount,
-        :options => {
-          :submit_for_settlement => true
-        }
-      )
-
-      if result.success?
-
-        NotifyViaSlack.call(content: "#{user.email} charged")
-        begin
-          user.update!(next_billing_date: next_billing_date)
-        rescue => e
-          NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} cannot update next_billing_date")
+        amount = ""
+        next_billing_date = ""
+        
+        case user.subscribed_plan
+        when "one_month_plan"
+          amount = "59.00"
+        when "three_months_plan"
+          amount = "147.00"
+        when "one_year_plan"
+          amount = "468.00"
+        else
+          NotifyViaSlack.call(content: "<@vic-l> maintenance.rake User #{user.email} subscribed_plan is weird")
+          next
         end
-      
+
+        case user.subscribed_plan
+        when "one_month_plan"
+          next_billing_date = Time.now.in_time_zone('Singapore').to_date + 30.days
+        when "three_months_plan"
+          next_billing_date = Time.now.in_time_zone('Singapore').to_date + 90.days
+        when "one_year_plan"
+          next_billing_date = Time.now.in_time_zone('Singapore').to_date + 1.year
+        end
+
+        result = Braintree::Transaction.sale(
+          :payment_method_token => user.default_payment_method_token,
+          amount: amount,
+          :options => {
+            :submit_for_settlement => true
+          }
+        )
+
+        if result.success?
+
+          NotifyViaSlack.call(content: "#{user.email} charged #{amount}")
+          begin
+            user.update!(next_billing_date: next_billing_date)
+          rescue => e
+            NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} cannot update next_billing_date")
+          end
+        
+        else
+
+          NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} NOT successfully charged")
+
+        end
+
       else
 
-        NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} NOT successfully charged")
+        begin
+          user.update!(subscribed_plan: 'free_plan')
+          NotifyViaSlack.call(content: "#{user.email} not auto_renew")
+        rescue => e
+          NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} not auto_renew but cannot downgrade subscribed_plan")
+          next
+        end
 
       end
+
     end
 
   end

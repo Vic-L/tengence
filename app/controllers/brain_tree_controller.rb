@@ -47,7 +47,6 @@ class BrainTreeController < ApplicationController
 
     else
 
-      # binding.pry
       NotifyViaSlack.call(content: "This should not happen in brain_tree_controller#update_payment")
 
     end

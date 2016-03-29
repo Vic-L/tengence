@@ -26,6 +26,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     if resource.errors.empty?
 
       ::UpdateBrainTreeCustomerEmailWorker.perform_async(resource.id)
+
+      if params[:lead]
+        NotifyViaSlack.delay.call(content: "#{resource.email} heard of Tengence from #{params[:lead]}")
+      end
       
       set_flash_message(:notice, :confirmed) if is_flashing_format?
       respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }

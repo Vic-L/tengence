@@ -1,5 +1,6 @@
 class KeywordsTendersPage
   include Capybara::DSL
+  include TendersPageFunctions
   
   def visit_page
     visit '/keywords_tenders'

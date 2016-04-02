@@ -95,7 +95,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, 
       return
     error: (xhr, status, err) ->
       Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText);
-      if xhr.statusText == "Forbidden"
+      if xhr.statusText.trim() == "Forbidden"
         alert("Sorry you are not authorized to visit this page.\r\nThe page will now refresh.")
         window.location.reload()
       else

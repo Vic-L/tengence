@@ -17,10 +17,10 @@ feature 'errors', js: true, type: :feature do
     user.destroy
 
     current_tenders_page.click_unique ".search-submit-button"
-    # expect(current_tenders_page.alert_text).to have_content "Sorry you are not authorized to visit this page."
-    # expect(current_tenders_page.alert_text).not_to have_content "Our developers are notified and are working on it."
+    expect(current_tenders_page.alert_text).to have_content "Sorry you are not authorized to visit this page."
+    expect(current_tenders_page.alert_text).not_to have_content "Our developers are notified and are working on it."
     current_tenders_page.accept_confirm
 
-    expect(page.current_path).to eq root_path
+    expect(page.current_path).to eq new_user_session_path
   end
 end

@@ -71,4 +71,27 @@ feature "registration as read_only users", js: true, type: :feature do
     expect(User.count).to eq 1
     expect(User.first.access_level).to eq 'read_only'
   end
+
+  feature 'confirmation emails' do
+    scenario 'should have survey' do
+      registration_page.fill_up_form
+      wait_for_ajax
+      registration_page.click_unique '#submit'
+      expect(page).to have_content "Resend confirmation instructions"
+
+      expect(CustomDeviseMailer.deliveries.count).to eq 1
+      expect(CustomDeviseMailer.deliveries.last.body.include?("Let us know where you heard of Tengence as you confirm your account by clicking on one of the options below.")).to eq true
+    end
+
+    scenario 'should be able to successfully confirm' do
+      registration_page.fill_up_form
+      wait_for_ajax
+      registration_page.click_unique '#submit'
+      expect(page).to have_content "Resend confirmation instructions"
+
+      # last option
+      visit ActionMailer::Base.deliveries.last.body.match(/\/users\/confirmation\?confirmation_token=[^"]+/).to_s
+      expect(page.current_path).to eq keywords_tenders_path
+    end
+  end
 end

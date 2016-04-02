@@ -28,7 +28,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       ::UpdateBrainTreeCustomerEmailWorker.perform_async(resource.id)
 
       if params[:lead]
-        NotifyViaSlack.delay.call(content: "#{resource.email} heard of Tengence from #{params[:lead]}")
+        NotifyViaSlack.delay.call(channel: 'ida-hackathon', content: "#{resource.email} heard of Tengence from #{params[:lead]}")
       end
       
       set_flash_message(:notice, :confirmed) if is_flashing_format?

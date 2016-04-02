@@ -2,11 +2,11 @@ require 'spec_helper'
 
 feature 'current_tenders', js: true, type: :feature do
   let(:current_tenders_page) { CurrentTendersPage.new }
-  let(:read_only_user) {create(:user, :read_only)}
+  let(:user) {create(:user)}
 
   before :each do
     current_tenders_page.seed_data
-    login_as(read_only_user, scope: :user)
+    login_as(user, scope: :user)
     current_tenders_page.visit_page
     wait_for_page_load
     page.driver.browser.manage.window.resize_to(1432, 782)

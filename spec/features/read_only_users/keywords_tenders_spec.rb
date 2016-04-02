@@ -34,7 +34,7 @@ feature 'keywords_tenders', js: true, type: :feature do
     scenario 'should add too many keywords unsuccessfully' do
       keywords_tenders_page.add_too_many_keywords(21)
       keywords_tenders_page.update_keywords
-      expect(page.driver.browser.switch_to.alert.text).to eq "Keywords can't be more than 20"
+      expect(keywords_tenders_page.alert_text).to eq "Keywords can't be more than 20"
     end
   end
 end

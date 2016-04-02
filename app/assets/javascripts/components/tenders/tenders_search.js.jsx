@@ -3,11 +3,19 @@ var TendersSearch = React.createClass({
     e.preventDefault();
     var urlFragments = Tengence.ReactFunctions.dissectUrl(this.props.url);
     var searchField = document.getElementById('query-field');
+    this.scrollAdjust();
     if (searchField != null && searchField.value != '') {
       Tengence.ReactFunctions.trackQuery(searchField.value);
       this.props.getTenders(urlFragments.path, null, urlFragments.table, searchField.value, urlFragments.keywords, urlFragments.sortOrder);
     } else {
       this.props.getTenders(urlFragments.path, null, urlFragments.table, null, urlFragments.keywords, urlFragments.sortOrder);
+    }
+  },
+  scrollAdjust: function() {
+    var buffer = 150;
+    var heightDifference = ($(window).scrollTop() + windowHeight) - ($('#results-table').offset().top + buffer)
+    if (heightDifference < 0) {
+      $('body').animate({ scrollTop: $('#search-field').offset().top - buffer });
     }
   },
   render: function(){

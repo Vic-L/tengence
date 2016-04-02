@@ -11,9 +11,13 @@ class BrainTreeController < ApplicationController
   end
 
   def plans
+    if user_signed_in?
+      NotifyViaSlack.delay.call(content: "#{current_user.email} enter PLANS page")
+    end
   end
 
   def subscribe
+    NotifyViaSlack.delay.call(content: "#{current_user.email} enter SUBSCRIPTIONS page")
     @plan = params[:plan]
     @client_token = Braintree::ClientToken.generate(customer_id: current_user.braintree_customer_id)
   end

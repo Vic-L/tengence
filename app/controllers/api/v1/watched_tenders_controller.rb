@@ -15,6 +15,7 @@ module Api
 
       def create
         @watched_tender = WatchedTender.create(user_id: current_user.id, tender_id: params[:id])
+        NotifyViaSlack.delay.call(content: "Tender (#{params[:id]}) watched by #{current_user.email}\r\n#{tender_url(id: params[:id])}")
         render json: params[:id].to_json
       end
 

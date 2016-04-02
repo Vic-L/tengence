@@ -386,6 +386,44 @@ feature 'trial_tenders', type: :feature, js: true do
         end
       end
 
+      scenario 'can reveal details of an already unlocked tender in another tab' do
+        Timecop.freeze(Date.today + 2.months) do
+          tenders_page.seed_current_tenders_data
+          tenders_page.visit_current_tenders_page
+          wait_for_page_load
+          yet_to_subscribe_user.reload
+          first_tender_description = tenders_page.find_css('tbody tr td')[0].all_text
+          
+          tenders_page.click_common '.more-button'
+          expect(page).to have_selector '#view-more-modal'
+
+          tenders_page.in_browser(:one) do
+            login_as(yet_to_subscribe_user, scope: :user)
+            tenders_page.visit_current_tenders_page
+            wait_for_page_load
+
+            tenders_page.click_common '.more-button'
+            expect(page).to have_selector '#view-more-modal'
+            tenders_page.click_unique '#buy-details'
+            tenders_page.click_common '.close-reveal-modal'
+            expect(page).not_to have_selector '#view-more-modal'
+          end
+
+          expect(page).not_to have_content 'Buyer Company Name'
+          expect(page).not_to have_content 'Buyer Name'
+          expect(page).not_to have_content 'Buyer Contact Number'
+
+          tenders_page.click_unique '#buy-details'
+
+          tenders_page.click_common '.more-button', 3
+          expect(page).to have_selector '#view-more-modal'
+          tenders_page.click_unique '#buy-details'
+          expect(page).to have_content 'Buyer Company Name'
+          expect(page).to have_content 'Buyer Name'
+          expect(page).to have_content 'Buyer Contact Number'
+        end
+      end
+
     end
 
     feature 'watched_tenders page' do
@@ -732,6 +770,38 @@ feature 'trial_tenders', type: :feature, js: true do
           tenders_page.visit_show_tender_page Tender.find_by_description(first_tender_description).ref_no
           expect(page).to have_content 'You have used up your credits for the week to unlock business leads.'
           expect(page).to have_link 'SUBSCRIBE now', href: '/billing'
+        end
+      end
+
+      scenario 'can reveal details of an already unlocked tender in another tab' do
+        Timecop.freeze(Date.today + 2.months) do
+          tenders_page.seed_current_tenders_data
+          tenders_page.visit_show_tender_page Tender.first.ref_no
+          wait_for_page_load
+
+          expect(page).not_to have_content 'Buyer Company Name'
+          expect(page).not_to have_content 'Buyer Name'
+          expect(page).not_to have_content 'Buyer Contact Number'
+          expect(page).not_to have_content 'Original Link'
+
+          tenders_page.in_browser(:one) do
+            login_as(yet_to_subscribe_user, scope: :user)
+            tenders_page.visit_show_tender_page Tender.first.ref_no
+            wait_for_page_load
+
+            tenders_page.click_unique '#buy-details'
+            wait_for_ajax
+
+            expect(page).to have_content 'Buyer Company Name'
+          end
+
+          tenders_page.click_unique '#buy-details'
+          wait_for_ajax
+          
+          expect(page).to have_content 'Buyer Company Name'
+          expect(page).to have_content 'Buyer Name'
+          expect(page).to have_content 'Buyer Contact Number'
+          expect(page).to have_content 'Original Link'
         end
       end
 

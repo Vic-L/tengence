@@ -113,7 +113,7 @@ before_action :deny_write_only_access, only: [:new_vendors]
     # The path used after sign up.
     def after_sign_up_path_for(resource)
       # upgrade_path
-      new_user_confirmation_path(resource)
+      welcome_path
     end
 
     def after_inactive_sign_in_path_for resource

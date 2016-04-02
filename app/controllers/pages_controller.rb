@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_current_user, only: [:home]
   before_action :deny_write_only_access, only: [:faq]
+  before_action :deny_confirmed_users, only: [:welcome]
 
   def home
   end
@@ -58,6 +59,9 @@ class PagesController < ApplicationController
       @message += "</div>"
     end
     render json: @message.to_json
+  end
+
+  def welcome
   end
 
   private

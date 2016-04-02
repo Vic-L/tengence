@@ -23,9 +23,10 @@ feature "registration as write_only users", js: true, type: :feature do
 
     scenario 'with everything filled up' do
       registration_page.fill_up_form
-      registration_page.click_unique '#submit';registration_page.click_unique '#submit'
-      expect(page.current_path.include? new_user_confirmation_path).to eq true
+      registration_page.click_unique '#submit';
       expect(page).to have_content 'Welcome! You have signed up successfully.'
+      expect(page.current_path.include? new_user_confirmation_path).to eq false
+      expect(page.current_path).to eq welcome_path
     end
 
     scenario 'with short password' do

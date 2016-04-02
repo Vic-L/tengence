@@ -30,6 +30,11 @@ feature "access pages by pending_reconfirmation_users (only test without keyword
       expect(pages_page.current_path).to eq faq_path
     end
 
+    scenario 'welcome' do
+      pages_page.visit_welcome_page
+      expect(tenders_page.current_path).to eq welcome_path
+    end
+
   end
 
   feature 'passwords_controller' do

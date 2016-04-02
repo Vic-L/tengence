@@ -16,4 +16,9 @@ class PagesPage
     self
   end
 
+  def visit_welcome_page
+    visit '/welcome'
+    self
+  end
+
 end

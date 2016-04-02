@@ -26,7 +26,8 @@ feature "registration as read_only users", js: true, type: :feature do
       wait_for_ajax
       registration_page.click_unique '#submit'
       expect(page).to have_content 'Welcome! You have signed up successfully.'
-      expect(page.current_path.include? new_user_confirmation_path).to eq true
+      expect(page.current_path.include? new_user_confirmation_path).to eq false
+      expect(page.current_path).to eq welcome_path
     end
 
     scenario 'with short password' do

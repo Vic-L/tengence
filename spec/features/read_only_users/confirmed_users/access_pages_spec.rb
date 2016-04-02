@@ -32,6 +32,13 @@ feature "access pages by confirmed read_only users" do
         expect(pages_page.current_path).to eq faq_path
       end
 
+      scenario 'welcome' do
+        pages_page.visit_welcome_page
+        expect(tenders_page.current_path).not_to eq welcome_path
+        expect(tenders_page.current_path).to eq current_tenders_path
+        expect(page).to have_content "Your account has been confirmed."
+      end
+
     end
 
     feature 'passwords_controller' do

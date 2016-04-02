@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get 'refresh_cloudsearch', to: 'pages#refresh_cloudsearch'
   get 'faq', to: 'pages#faq'
   get 'contact', to: 'pages#contact'
+  get 'welcome', to: 'pages#welcome'
 
   # braintree
   # resources :payment_methods, path: '/payment-methods'

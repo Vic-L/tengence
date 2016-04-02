@@ -30,6 +30,11 @@ feature "access pages by unconfirmed users (only test without keywords)" do
       expect(pages_page.current_path).to eq faq_path
     end
 
+    scenario 'welcome' do
+      pages_page.visit_welcome_page
+      expect(tenders_page.current_path).to eq welcome_path
+    end
+
   end
 
   feature 'passwords_controller' do

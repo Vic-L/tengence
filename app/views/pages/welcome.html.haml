@@ -1,0 +1,11 @@
+#wrapper
+  %section
+    .row
+      .small-12.columns.animated{"data-animate" => "fadeInDown", "data-animate-delay" => "0"}
+        .title-section
+          %h3 Just one more step...
+          %h6 Verify your account from the confirmation email that is sent to your email account.
+          %h6 Also, check your junk/spam folder in case the confirmation email got delivered there instead of your inbox.
+    .row
+      .small-6.column.small-centered.text-center
+        %p= link_to "Didn't receive confirmation instructions?", new_confirmation_path(:user)

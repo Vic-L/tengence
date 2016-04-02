@@ -94,8 +94,12 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, 
         sort: sort})
       return
     error: (xhr, status, err) ->
-      Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText)
-      alert("Sorry there has been an error. \r\nOur developers are notified and are working on it. \r\nSorry for the inconvenience caused.")
+      Tengence.ReactFunctions.notifyError(window.location.href,'getTenders', xhr.statusText);
+      if xhr.statusText == "Forbidden"
+        alert("Sorry you are not authorized to visit this page.\r\nThe page will now refresh.")
+        window.location.reload()
+      else
+        alert("Sorry there has been an error\r\nPlease refresh the page.\r\nOur developers are notified and are working on it.\r\nSorry for the inconvenience caused.")
       return
     complete: (xhr, status) ->
       Tengence.ReactFunctions.stopLoading()

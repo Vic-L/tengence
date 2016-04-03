@@ -7,7 +7,7 @@ namespace :maintenance do
 
   task :remove_trial_tenders => :environment do
     TrialTender.destroy_all
-    content = "Removed all trial tenders\r\nNumber of users with trial_tenders_count > 0 = #{User.where.not(trial_tenders_count: 0).count}"
+    content = "Removed all trial tenders"
     NotifyViaSlack.call(content: content)
   end
 

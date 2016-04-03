@@ -1,5 +1,10 @@
 namespace :maintenance do
 
+  task :ping_sidekiq => :environment do
+    NotifyViaSlack.call(content: "<@vic-l> Mayday! Asynchronous server 死んだ！！") if Sidekiq::ProcessSet.new.size == 0
+    # NotifyViaSlack.call(content: "Sidekiq up and running") if Sidekiq::ProcessSet.new.size == 1
+  end
+
   task :remove_trial_tenders => :environment do
     TrialTender.destroy_all
     content = "Removed all trial tenders\r\nNumber of users with trial_tenders_count > 0 = #{User.where.not(trial_tenders_count: 0).count}"

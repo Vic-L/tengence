@@ -36,3 +36,7 @@ end
 every :sunday, :at => local('6am'), :tz => 'Asia/Singapore' do
   rake "maintenance:remove_trial_tenders"
 end
+
+every 10.minutes do
+  rake 'maintenance:ping_sidekiq'
+end

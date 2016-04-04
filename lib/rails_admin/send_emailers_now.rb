@@ -36,6 +36,7 @@ module EmailerActions
 
               no_keywords = 0
               no_matches = 0
+              matches = 0
               total_valid_users = User.read_only.confirmed.count
               total_valid_tenders = validTenders.count
               overall_ref_nos = []
@@ -68,13 +69,14 @@ module EmailerActions
                     
                     if current_tenders_ref_nos.blank?
                       NotifyViaSlack.delay.call(content: "#{user.email} has no tenders matching his/her keywords")
+                      no_matches += 1
                       next
                     else
 
                       AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size,  @page_name.to_i).deliver_now
                       InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size, @page_name.to_i).deliver_now
 
-                      no_matches += 1
+                      matches += 1
 
                       current_tenders_ref_nos.each do |ref_no|
                         WatchedTender.create(tender_id: ref_no, user_id: user.id)
@@ -91,7 +93,7 @@ module EmailerActions
 
               overall_ref_nos.flatten!.uniq!
 
-              NotifyViaSlack.delay.call(content: "Total Valid Tenders: #{total_valid_tenders}\r\nTotal Matching Tenders: #{overall_ref_nos.count}\r\n\r\nTotal Users: #{total_valid_users}\r\nUsers without keywords: #{no_keywords}\r\nUsers without matches: #{no_matches}")
+              NotifyViaSlack.delay.call(content: "Total Valid Tenders: #{total_valid_tenders}\r\nTotal Matching Tenders: #{overall_ref_nos.count}\r\n\r\nTotal Users: #{total_valid_users}\r\nUsers without keywords: #{no_keywords}\r\nUsers without matches: #{no_matches}\r\nUsers with matches: #{matches}")
 
               redirect_to '/admin', flash: {success: "Alert Emails from #{@page_name} days ago have been sent to ALL users."}
             end

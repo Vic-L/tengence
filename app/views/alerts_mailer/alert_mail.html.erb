@@ -221,7 +221,9 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                         <thead>
                                           <tr>
                                             <th width="350" style='padding: 5px; border: 1px solid black;'>Description</th>
-                                            <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %>
+                                              <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <% end %>
                                             <th width="100" style='padding: 5px; border: 1px solid black;'>Closing Date</th>
                                             <th width="50" style='padding: 5px; border: 1px solid black;'>Action</th>
                                           </tr>
@@ -267,7 +269,9 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                         <thead>
                                           <tr>
                                             <th width="350" style='padding: 5px; border: 1px solid black;'>Description</th>
-                                            <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <% unless @user.unsubscribed_and_finished_cycle? || @user.finished_trial_but_yet_to_subscribe? %>
+                                              <th width="100" style='padding: 5px; border: 1px solid black;'>Buyer</th>
+                                            <% end %>
                                             <th width="100" style='padding: 5px; border: 1px solid black;'>Closing Date</th>
                                             <th width="50" style='padding: 5px; border: 1px solid black;'>Action</th>
                                           </tr>

@@ -11,7 +11,7 @@ class GetTenders
     begin
       set_sort_order
       unless params['query'].blank?
-        NotifyViaSlack.delay.call(content: "Non Demo Search: #{params['query']}")
+        NotifyViaSlack.delay.call(content: "Non Demo Search by #{user.email}: #{params['query']}")
 
         results_ref_nos = AwsManager.search(keyword: params['query'])
         

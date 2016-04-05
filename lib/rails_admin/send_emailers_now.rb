@@ -34,9 +34,9 @@ module EmailerActions
               # tender published from x days ago based on @page_name's value which is intiated in config/locale/en.yml en > admin > actions > x_day_ago > title
               validTenders = CurrentTender.where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - @page_name.to_i.days).where("published_date < ?", Time.now.in_time_zone('Asia/Singapore').to_date)
 
-              no_keywords = 0
-              no_matches = 0
-              matches = 0
+              no_keywords = []
+              no_matches = []
+              matches = []
               total_valid_users = User.read_only.confirmed.count
               total_valid_tenders = validTenders.count
               overall_ref_nos = []
@@ -46,7 +46,7 @@ module EmailerActions
                   if user.keywords.blank?
                     
                     NotifyViaSlack.delay.call(content: "#{user.email} has no keywords")
-                    no_keywords += 1
+                    no_keywords << user.email
                     next
                   
                   else
@@ -68,15 +68,15 @@ module EmailerActions
                     overall_ref_nos << current_tenders_ref_nos
                     
                     if current_tenders_ref_nos.blank?
-                      NotifyViaSlack.delay.call(content: "#{user.email} has no tenders matching his/her keywords")
-                      no_matches += 1
+                      # NotifyViaSlack.delay.call(content: "#{user.email} has no tenders matching his/her keywords")
+                      no_matches << user.email
                       next
                     else
 
-                      AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size,  @page_name.to_i).deliver_now
-                      InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size, @page_name.to_i).deliver_now
+                      # AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size,  @page_name.to_i).deliver_now
+                      # InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size, @page_name.to_i).deliver_now
 
-                      matches += 1
+                      matches << user.email
 
                       current_tenders_ref_nos.each do |ref_no|
                         WatchedTender.create(tender_id: ref_no, user_id: user.id)
@@ -93,7 +93,9 @@ module EmailerActions
 
               overall_ref_nos.flatten!.uniq!
 
-              NotifyViaSlack.delay.call(content: "Total Valid Tenders: #{total_valid_tenders}\r\nTotal Matching Tenders: #{overall_ref_nos.count}\r\n\r\nTotal Users: #{total_valid_users}\r\nUsers without keywords: #{no_keywords}\r\nUsers without matches: #{no_matches}\r\nUsers with matches: #{matches}")
+              non_matching_tenders = validTenders.where.not(ref_no: overall_ref_nos).pluck(:description)
+
+              NotifyViaSlack.delay.call(content: "Total Valid Tenders: #{total_valid_tenders}\r\nTotal Matching Tenders: #{overall_ref_nos.count}\r\n\r\nTotal Users: #{total_valid_users}\r\nUsers without keywords: #{no_keywords.count}\r\n#{no_keywords}\r\nUsers without matches: #{no_matches.count}\r\n#{no_matches}\r\nUsers with matches: #{matches.count}\r\n\r\nTenders that were not matched:\r\n#{non_matching_tenders.join("\r\n")}")
 
               redirect_to '/admin', flash: {success: "Alert Emails from #{@page_name} days ago have been sent to ALL users."}
             end

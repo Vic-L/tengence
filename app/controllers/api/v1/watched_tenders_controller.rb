@@ -20,8 +20,9 @@ module Api
       end
 
       def destroy
-        DestroyWatchedTenderWorker.perform_async(current_user.id,params[:id])
-        render json: params[:id].to_json
+        tender_id = URI.unescape(params[:id])
+        DestroyWatchedTenderWorker.perform_async(current_user.id,tender_id)
+        render json: tender_id.to_json
       end
 
       def mass_destroy

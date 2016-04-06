@@ -4,7 +4,7 @@ module Api
       skip_before_action :api_deny_non_logged_in_user
 
       def show
-        @tender = Tender.find_by(ref_no: params[:id])
+        @tender = Tender.find_by(ref_no: URI.unescape(params[:id]))
       end
     end
   end

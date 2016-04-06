@@ -107,8 +107,7 @@ Tengence.ReactFunctions.getTenders = (parentComponent, url, table, page, query, 
 
 Tengence.ReactFunctions.showTender = (ref_no, trial_tender_ids, parentComponent) ->
   Tengence.ReactFunctions.showLoading()
-  url = "/api/v1/tenders/" + encodeURIComponent(ref_no).replace(/\./g,"%252E")
-  console.log(url)
+  url = "/api/v1/tenders/" + encodeURIComponent(ref_no).replace(/\-/g,"%252D").replace(/\_/g,"%255F").replace(/\./g,"%252E").replace(/\!/g,"%2521").replace(/\~/g,"%257E").replace(/\*/g,"%252A").replace(/\'/g,"%2527").replace(/\(/g,"%2528").replace(/\)/g,"%2529")
   $.ajax
     url: url
     dataType: 'json'
@@ -156,7 +155,7 @@ Tengence.ReactFunctions.watchTender = (parentComponent,ref_no) ->
 Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) -> 
   Tengence.ReactFunctions.showLoading()
   $.ajax
-    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no).replace(/\./g,"%252E")
+    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no).replace(/\-/g,"%252D").replace(/\_/g,"%255F").replace(/\./g,"%252E").replace(/\!/g,"%2521").replace(/\~/g,"%257E").replace(/\*/g,"%252A").replace(/\'/g,"%2527").replace(/\(/g,"%2528").replace(/\)/g,"%2529")
     dataType: 'json'
     method: 'DELETE'
     success: (ref_no) ->

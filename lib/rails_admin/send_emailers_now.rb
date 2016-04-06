@@ -45,7 +45,7 @@ module EmailerActions
                 begin
                   if user.keywords.blank?
                     
-                    NotifyViaSlack.delay.call(content: "#{user.email} has no keywords")
+                    # NotifyViaSlack.delay.call(content: "#{user.email} has no keywords")
                     no_keywords << user.email
                     next
                   
@@ -73,8 +73,8 @@ module EmailerActions
                       next
                     else
 
-                      # AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size,  @page_name.to_i).deliver_now
-                      # InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size, @page_name.to_i).deliver_now
+                      AlertsMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size,  @page_name.to_i).deliver_now
+                      InternalMailer.alert_mail(user.id, current_tenders_ref_nos, current_tenders_ref_nos.size, @page_name.to_i).deliver_now
 
                       matches << user.email
 

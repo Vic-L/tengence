@@ -154,7 +154,7 @@ Tengence.ReactFunctions.watchTender = (parentComponent,ref_no) ->
 Tengence.ReactFunctions.unwatchTender = (parentComponent,ref_no) -> 
   Tengence.ReactFunctions.showLoading()
   $.ajax
-    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no).replace('.','&2E')
+    url: '/api/v1/watched_tenders/' + encodeURIComponent(ref_no).replace(/\./g,"&2E")
     dataType: 'json'
     method: 'DELETE'
     success: (ref_no) ->

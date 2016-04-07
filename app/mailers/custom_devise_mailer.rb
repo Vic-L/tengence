@@ -1,11 +1,12 @@
 class CustomDeviseMailer < Devise::Mailer
   self.smtp_settings = {
-    :address => ENV['MAIL_ADDRESS'],
+    :address => ENV['SENDGRID_ADDRESS'],
     :port => 587,
-    :user_name => ENV['ADMIN_MAIL_USERNAME'],
-    :password => ENV['ADMIN_MAIL_PASSWORD'],
+    :domain => ENV['SENDGRID_DOMAIN']
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
     :authentication => 'plain',
-    enable_starttls_auto: true  }
+    :enable_starttls_auto => true}
 
   default from: "Tengence Team <hello@tengence.com.sg>"
   default reply_to: "hello@tengence.com.sg"

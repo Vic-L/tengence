@@ -2,7 +2,7 @@ class CustomDeviseMailer < Devise::Mailer
   self.smtp_settings = {
     :address => ENV['SENDGRID_ADDRESS'],
     :port => 587,
-    :domain => ENV['SENDGRID_DOMAIN']
+    :domain => ENV['SENDGRID_DOMAIN'],
     :user_name => ENV['SENDGRID_USERNAME'],
     :password => ENV['SENDGRID_PASSWORD'],
     :authentication => 'plain',

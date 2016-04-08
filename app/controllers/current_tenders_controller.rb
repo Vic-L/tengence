@@ -1,5 +1,6 @@
 class CurrentTendersController < ApplicationController
   before_action :authenticate_user!
+  before_action :deny_chosen_users
   before_action :deny_write_only_access
   before_action :deny_unconfirmed_users
   before_action :check_user_keywords

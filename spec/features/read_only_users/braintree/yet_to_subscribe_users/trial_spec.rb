@@ -2,14 +2,14 @@ require 'spec_helper'
 
 feature 'trial_tenders', type: :feature, js: true do
   let(:tenders_page) { TendersPage.new }
+  let(:brain_tree_page) { BrainTreePage.new }
   let!(:yet_to_subscribe_user) { create(:user, :braintree) }
 
-  before :each do
-    login_as(yet_to_subscribe_user, scope: :user)
-    page.driver.browser.manage.window.resize_to(1432, 782)
-  end
-
   feature 'during trial' do
+    before :each do
+      login_as(yet_to_subscribe_user, scope: :user)
+      page.driver.browser.manage.window.resize_to(1432, 782)
+    end
 
     feature 'current_tenders page' do
 
@@ -178,6 +178,11 @@ feature 'trial_tenders', type: :feature, js: true do
   end
 
   feature 'after trial' do
+
+    before :each do
+      login_as(yet_to_subscribe_user, scope: :user)
+      page.driver.browser.manage.window.resize_to(1432, 782)
+    end
 
     feature 'current_tenders page' do
 
@@ -803,6 +808,77 @@ feature 'trial_tenders', type: :feature, js: true do
           expect(page).to have_content 'Buyer Contact Number'
           expect(page).to have_content 'Original Link'
         end
+      end
+
+    end
+
+  end
+
+  feature 'chosen user' do
+
+    let!(:chosen_user) { create(:user, :braintree, email: ENV['CHOSEN_USERS_EMAIL'].split(',').first) }
+   
+    before :each do
+      tenders_page.seed_current_tenders_data
+      login_as(chosen_user, scope: :user)
+      page.driver.browser.manage.window.resize_to(1432, 782)
+    end
+
+    feature 'during trial' do
+
+      scenario 'should be not redirected to plans page' do
+        tenders_page.visit_current_tenders_page
+        expect(page.current_path).not_to eq plans_path
+
+        tenders_page.visit_watched_tenders_page
+        expect(page.current_path).not_to eq plans_path
+
+        tenders_page.visit_show_tender_page Tender.first.ref_no
+        expect(page.current_path).not_to eq plans_path
+      end
+
+    end
+
+    feature 'after trial' do
+
+      scenario 'should be redirected to plans page' do
+        Timecop.freeze(Date.today + 2.months) do
+          tenders_page.visit_current_tenders_page
+          expect(page.current_path).to eq plans_path
+
+          tenders_page.visit_watched_tenders_page
+          expect(page.current_path).to eq plans_path
+
+          tenders_page.visit_show_tender_page Tender.first.ref_no
+          expect(page.current_path).to eq plans_path
+        end
+      end
+
+      scenario 'should be not be redirected to plans page once signed up' do
+        Timecop.freeze(Date.today + 2.months) do
+          brain_tree_page.visit_subscribe_one_month_page
+          expect(page).to have_selector 'iframe'
+          page.within_frame 'braintree-dropin-frame' do
+            fill_in 'credit-card-number', with: brain_tree_page.valid_visa
+            fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
+            fill_in 'cvv', with: brain_tree_page.valid_cvv
+          end
+          brain_tree_page.scroll_into_view '#submit'
+          brain_tree_page.click_unique '#submit'
+          wait_for_page_load
+
+          expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
+
+          tenders_page.visit_current_tenders_page
+          expect(page.current_path).not_to eq plans_path
+
+          tenders_page.visit_watched_tenders_page
+          expect(page.current_path).not_to eq plans_path
+
+          tenders_page.visit_show_tender_page Tender.first.ref_no
+          expect(page.current_path).not_to eq plans_path
+        end
+
       end
 
     end

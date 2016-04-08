@@ -24,7 +24,7 @@ end; nil
 AwsManager.upload_document array.to_json
 
 # things to run before implementing braintree
-User.find(2).update(default_payment_method_token: nil, next_billing_date: nil, auto_renew: false)
+User.find(2).update(default_payment_method_token: nil, next_billing_date: nil, auto_renew: false, subscribed_plan: 'free_plan')
 User.all.each do |user|
   result = Braintree::Customer.create(
     first_name: user.first_name,

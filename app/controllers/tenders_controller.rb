@@ -1,6 +1,7 @@
 class TendersController < ApplicationController
   before_action :store_location
   before_action :authenticate_user!
+  before_action :deny_chosen_users
   before_action :deny_read_only_access, except: [:show, :reveal_buyer_details]
   before_action :check_user_keywords, only: [:show]
   before_action :deny_write_only_access, only: [:show, :reveal_buyer_details]

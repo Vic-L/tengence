@@ -11,6 +11,13 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+    def deny_chosen_users
+      if user_signed_in? && ENV['CHOSEN_USERS_EMAIL'].split(",").include?(current_user.email) && current_user.finished_trial_but_yet_to_subscribe?
+        flash[:info] = "Your free trial has expired. Please consider upgrading to enjoy all of Tengence's features."
+        redirect_to plans_path
+      end
+    end
+
     def deny_read_only_access
       if user_signed_in? && current_user.read_only?
         flash[:alert] = "You are not authorized to view this page."

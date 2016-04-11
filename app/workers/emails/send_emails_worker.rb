@@ -14,16 +14,16 @@ class SendEmailsWorker
     overall_ref_nos = []
 
     User.read_only.confirmed.each do |user|
+
       if ENV['EMAIL_DEBUG_MODE'] == 'true'
         next unless user.email == 'vljc17@gmail.com'
       end
+
       begin
+
         if user.keywords.blank?
-          
-          # NotifyViaSlack.call(content: "#{user.email} has no keywords")
           no_keywords << user.email
           next
-        
         else
         
           results_ref_nos = []
@@ -33,17 +33,10 @@ class SendEmailsWorker
           end
           results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
 
-          # if Time.now.in_time_zone('Asia/Singapore').to_date.monday?
-          #   current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
-          # else
-          #   current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
-          # end
-
           current_tenders_ref_nos = validTenders.where(ref_no: results_ref_nos).pluck(:ref_no)
           overall_ref_nos << current_tenders_ref_nos
           
           if current_tenders_ref_nos.blank?
-            # NotifyViaSlack.call(content: "#{user.email} has no tenders matching his/her keywords")
             no_matches << user.email
             next
           else

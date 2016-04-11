@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :tender do
-    ref_no {Faker::Company.ein + "-_.!~*'()" + Faker::Company.ein}
+    ref_no {Faker::Company.ein}
     buyer_company_name {Faker::Company.name}
     buyer_name {Faker::Name.name}
     buyer_contact_number '67757981' # {Faker::PhoneNumber.phone_number}

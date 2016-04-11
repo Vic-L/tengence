@@ -42,6 +42,9 @@ module EmailerActions
               overall_ref_nos = []
 
               User.read_only.confirmed.each do |user|
+                if ENV['EMAIL_DEBUG_MODE'] == 'true'
+                  next unless user.email == 'vljc17@gmail.com'
+                end
                 begin
                   if user.keywords.blank?
                     

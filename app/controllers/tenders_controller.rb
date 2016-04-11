@@ -28,7 +28,7 @@ class TendersController < ApplicationController
   end
 
   def show
-    @tender = Tender.find_by(ref_no: params[:id])
+    @tender = Tender.find_by(ref_no: URI.unescape(params[:id]))
   end
 
   def edit

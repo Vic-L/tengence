@@ -97,7 +97,7 @@
                     console.log(data);
                     if (data.statusCode !== 'maxed_for_the_day') {
                       $.ajax({
-                        url: "/tenders/#{@tender.ref_no}/reveal_buyer_details",
+                        url: "/tenders/#{@tender.ref_no.custom_uri_encode}/reveal_buyer_details",
                         method: 'GET',
                       });
                     } else {

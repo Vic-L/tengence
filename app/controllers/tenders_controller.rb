@@ -28,7 +28,7 @@ class TendersController < ApplicationController
   end
 
   def show
-    @tender = Tender.find_by(ref_no: params[:id])
+    @tender = Tender.find_by(ref_no: URI.unescape(params[:id]))
   end
 
   def edit
@@ -51,7 +51,7 @@ class TendersController < ApplicationController
     if current_user.trial_tenders_count > 3
       @tender = nil
     else
-      @tender = Tender.find(params[:id])
+      @tender = Tender.find(URI.unescape(params[:id]))
     end
   end
 
@@ -66,9 +66,9 @@ class TendersController < ApplicationController
 
     def check_inhouse_tender
       if params[:id]
-        @tender = Tender.find(params[:id])
+        @tender = Tender.find(URI.unescape(params[:id]))
       elsif tender_params[:ref_no]
-        @tender = Tender.find(tender_params[:ref_no])
+        @tender = Tender.find(URI.unescape(tender_params[:ref_no]))
       end
       if !@tender.in_house?
         flash[:alert] = 'This tender is not editable.'

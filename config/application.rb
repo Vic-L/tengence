@@ -43,3 +43,5 @@ module Tengence
     config.force_ssl = (ENV['FORCE_HTTPS'] == 'true')
   end
 end
+
+require 'extension/string'

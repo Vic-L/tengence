@@ -78,7 +78,7 @@ feature "registration as read_only users", js: true, type: :feature do
       registration_page.fill_up_form
       wait_for_ajax
       registration_page.click_unique '#submit'
-      expect(page).to have_content "Resend confirmation instructions"
+      expect(page).to have_content "Just one more step..."
 
       expect(CustomDeviseMailer.deliveries.count).to eq 1
       expect(CustomDeviseMailer.deliveries.last.body.include?("Let us know where you heard of Tengence as you confirm your account by clicking on one of the options below.")).to eq true
@@ -88,7 +88,7 @@ feature "registration as read_only users", js: true, type: :feature do
       registration_page.fill_up_form
       wait_for_ajax
       registration_page.click_unique '#submit'
-      expect(page).to have_content "Resend confirmation instructions"
+      expect(page).to have_content "Just one more step..."
 
       # last option
       visit ActionMailer::Base.deliveries.last.body.match(/\/users\/confirmation\?confirmation_token=[^"]+/).to_s

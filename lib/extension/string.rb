@@ -1,7 +1,7 @@
 class String
   def custom_uri_encode
-    gsub("-","%252D").
-    gsub("_","%255F").
+    # gsub("-","%252D").
+    # gsub("_","%255F").
     gsub("~","%257E").
     gsub("!","%2521").
     # gsub("'","%2591").

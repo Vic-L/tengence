@@ -36,6 +36,6 @@ Tengence.ReactFunctions ||= {}
 Tengence.HomePage ||= {}
 
 window.fixedEncodeURIComponent = (str) ->
-  #  skip encoding '
-  encodeURIComponent(str).replace /[-_~!()*.]/g, (c) ->
+  #  skip encoding ',-,_
+  encodeURIComponent(str).replace /[~!()*.]/g, (c) ->
     '%25' + c.charCodeAt(0).toString(16)

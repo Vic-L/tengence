@@ -7,4 +7,15 @@ module ApplicationHelper
     end
     link_to name, '#', class: 'add-upload', data: {id: id, fields: fields.gsub("\n", "")}
   end
+
+  def custom_tender_path tender, options={}
+    if options.blank?
+      "/tenders/#{tender.ref_no.custom_uri_encode}"
+    else
+      params = options.map do |k,v|
+        "#{k}=#{v}"
+      end.join("&")
+      "/tenders/#{tender.ref_no.custom_uri_encode}?" + params
+    end
+  end
 end

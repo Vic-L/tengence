@@ -162,7 +162,7 @@ feature "access pages by confirmed read_only users" do
 
       scenario 'show_tender' do
         tenders_page.visit_show_tender_page tender.ref_no
-        expect(devise_page.current_path).to eq tender_path(tender)
+        expect(devise_page.current_path).to eq custom_tender_path(tender)
       end
 
       feature 'edit_tender' do

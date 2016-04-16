@@ -6,7 +6,8 @@ feature "access pages by confirmed write_only users" do
   let(:devise_page) { DevisePage.new }
   let(:write_only_user) {create(:user, :write_only)}
   let(:write_only_user_without_keywords) {create(:user, :write_only, :without_keywords)}
-  let(:tender) {create(:tender)}
+  # use normal ref_no for Faker::Company.ein since write only tenders wont have these characters
+  let(:tender) {create(:tender, ref_no: Faker::Company.ein)}
   let(:past_tender) {create(:tender, :past)}
 
   let(:gebiz_tender) {create(:tender, :gebiz)}

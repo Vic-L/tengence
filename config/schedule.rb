@@ -31,6 +31,7 @@ end
 every :day, :at => local('7am'), :tz => 'Asia/Singapore' do
   rake "maintenance:cleanup_past_tenders"
   rake "maintenance:refresh_cache"
+  rake "maintenance:check_holiday"
 end
 
 every :sunday, :at => local('6am'), :tz => 'Asia/Singapore' do

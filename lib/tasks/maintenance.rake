@@ -1,5 +1,20 @@
 namespace :maintenance do
 
+  task :check_holiday => :environment do
+    holidays = Holidays.on(Date.today, :sg)
+    if holidays.blank?
+      if Date.today.saturday? || Date.today.sunday?
+        NotifyViaSlack.call(content: "Its the weekends..Go watch One Piece")
+      elsif Date.today.monday?
+        NotifyViaSlack.call(content: "Send 3 days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+      else
+        NotifyViaSlack.call(content: "Send 1 days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+      end
+    else
+      NotifyViaSlack.call(content: "TODAY IS HOLIDAY DONT SEND EMAILS!!")
+    end
+  end
+
   task :ping_sidekiq => :environment do
     NotifyViaSlack.call(content: "<@vic-l> Mayday! Asynchronous server 死んだ！！") if Sidekiq::ProcessSet.new.size == 0
     # NotifyViaSlack.call(content: "Sidekiq up and running") if Sidekiq::ProcessSet.new.size == 1

@@ -1,17 +1,43 @@
 namespace :maintenance do
 
   task :check_holiday => :environment do
-    holidays = Holidays.on(Date.today, :sg)
-    if holidays.blank?
-      if Time.now.in_time_zone('Singapore').to_date.saturday? || Time.now.in_time_zone('Singapore').to_date.sunday?
-        NotifyViaSlack.call(content: "Its the weekends..Go watch One Piece")
-      elsif Date.today.monday?
-        NotifyViaSlack.call(content: "Send 3 days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+    today = Time.now.in_time_zone('Singapore').to_date
+    if today.sunday? || today.saturday?
+      NotifyViaSlack.call(content: "Its the weekends..Go watch One Piece")
+    elsif !Holidays.on(today, :sg).blank?
+      NotifyViaSlack.call(content: "TODAY IS HOLIDAY DONT SEND EMAILS!!")
+    else
+      days = holidayCheck(1)
+      NotifyViaSlack.call(content: "Send #{days} days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+    end
+  end
+
+  def holidayCheck n
+    date = Time.now.in_time_zone('Singapore').to_date - n.days
+    puts date.strftime("%A, %b %d")
+    if date.sunday? || date.saturday?
+      puts "weekends"
+      n+=1
+      holidayCheck(n)
+    elsif date.monday?
+      puts "monday"
+      if !Holidays.on(date - 2.days, :sg).blank? || 
+        !Holidays.on(date - 1.days, :sg).blank? ||
+        !Holidays.on(date).blank?
+        puts "holiday"
+        n+=1
+        holidayCheck(n)
       else
-        NotifyViaSlack.call(content: "Send 1 days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+        return n
       end
     else
-      NotifyViaSlack.call(content: "TODAY IS HOLIDAY DONT SEND EMAILS!!")
+      if !Holidays.on(date).blank?
+        puts "holiday"
+        n+=1
+        holidayCheck(n)
+      else
+        return n
+      end
     end
   end
 

@@ -3,7 +3,7 @@ namespace :maintenance do
   task :check_holiday => :environment do
     holidays = Holidays.on(Date.today, :sg)
     if holidays.blank?
-      if Date.today.saturday? || Date.today.sunday?
+      if Time.now.in_time_zone('Singapore').to_date.saturday? || Time.now.in_time_zone('Singapore').to_date.sunday?
         NotifyViaSlack.call(content: "Its the weekends..Go watch One Piece")
       elsif Date.today.monday?
         NotifyViaSlack.call(content: "Send 3 days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")

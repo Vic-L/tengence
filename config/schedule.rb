@@ -34,7 +34,7 @@ every :day, :at => local('7am'), :tz => 'Asia/Singapore' do
   rake "maintenance:check_holiday"
 end
 
-every :sunday, :at => local('6am'), :tz => 'Asia/Singapore' do
+every '0 0 1 * *' do
   rake "maintenance:remove_trial_tenders"
 end
 

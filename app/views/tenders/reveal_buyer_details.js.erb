@@ -1,6 +1,6 @@
 $('#buyer-details').empty();
 <% if @tender.nil? %>
-  $('#buyer-details').html("<div class='small-12 column'>You have used up your credits for the week to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label=<%= params[:id] %>>SUBSCRIBE now</a>!</div>");
+  $('#buyer-details').html("<div class='small-12 column'>You have used up your credits for the month to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label=<%= params[:id] %>>SUBSCRIBE now</a>!</div>");
 <% else %>
   $('#buyer-details').append("<%= j render partial: 'tenders/buyer_details', locals: {tender: @tender} %>");
 <% end %>

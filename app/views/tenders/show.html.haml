@@ -71,7 +71,7 @@
         - if current_user.trial_tender_ids.size >= 3
 
           .small-12.column
-            You have used up your credits for the week to unlock business leads.
+            You have used up your credits for the month to unlock business leads.
             %br
             To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label={@tender.ref_no}>SUBSCRIBE now</a>!
 
@@ -81,7 +81,7 @@
             .small-12.column
               %span
                 %a#buy-details.ga-tenders{data: {gtm_category: '', gtm_action: 'buy details', gtm_label: @tender.ref_no}} Reveal buyer details with 1 credit
-              (You have #{3 - current_user.trial_tender_ids.size} credits left for the week)
+              (You have #{3 - current_user.trial_tender_ids.size} credits left for the month)
 
           - content_for :javascript do
             :javascript
@@ -101,9 +101,9 @@
                         method: 'GET',
                       });
                     } else {
-                      $('#buyer-details').html("<div class='small-12 column'>You have used up your credits for the week to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label=<%= @tender.ref_no %>>SUBSCRIBE now</a>!</div>");
+                      $('#buyer-details').html("<div class='small-12 column'>You have used up your credits for the month to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label=<%= @tender.ref_no %>>SUBSCRIBE now</a>!</div>");
                       document.body.classList.remove('loading');
-                      alert('You have used up all your credits for the week. Please come back next week.');
+                      alert('You have used up all your credits for the month. Please come back next month.');
                     }
                   },
                   error: function(xhr, status, err){

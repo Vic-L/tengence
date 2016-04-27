@@ -32,8 +32,8 @@ var ShowTender = React.createClass({
       success: function(data){
         this.props.parentComponent.setState({trial_tender_ids: data.trial_tender_ids});
         if (data.statusCode === 'maxed_for_the_day') {
-          alert('You have used up all your credits for the week. Please come back next week.');
-          $('#buyer-details').html("You have used up your credits for the week to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label='" + this.props.tender.ref_no + "'>SUBSCRIBE now</a>!");
+          alert('You have used up all your credits for the month. Please come back next month.');
+          $('#buyer-details').html("You have used up your credits for the month to unlock business leads.<br/>To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' class='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label='" + this.props.tender.ref_no + "'>SUBSCRIBE now</a>!");
         } else {
           this.revealBoughtDetails();
         }
@@ -203,7 +203,7 @@ var ShowTender = React.createClass({
                   {this.getClosingTime()}
                   {this.getLongDescription()}
                   <hr/>
-                  You have used up your credits for the week to unlock business leads.
+                  You have used up your credits for the month to unlock business leads.
                   <br/>
                   To get UNLIMITED access to ALL tenders on Tengence, <a href='/billing' className='ga-tenders' data-gtm-category='' data-gtm-action='prompt subscribe' data-gtm-label={this.props.tender.ref_no}>SUBSCRIBE now</a>!
                 </div>
@@ -227,7 +227,7 @@ var ShowTender = React.createClass({
                   <hr/>
                   <div id='buyer-details'></div>
                   <span id='buy-details-notice'>
-                  <a id='buy-details' onClick={this.buyDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='buy details' data-gtm-label={this.props.tender.ref_no}>Reveal buyer details with 1 credit</a> (You have {3 - this.props.trial_tender_ids.length} credits left for the week)
+                  <a id='buy-details' onClick={this.buyDetails} className='ga-tenders' data-gtm-category='' data-gtm-action='buy details' data-gtm-label={this.props.tender.ref_no}>Reveal buyer details with 1 credit</a> (You have {3 - this.props.trial_tender_ids.length} credits left for the month)
                   </span>
                 </div>
               </div>

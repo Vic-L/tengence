@@ -26,7 +26,7 @@ class CreateSubscription
 
         if result.success?
 
-          NotifyViaSlack.delay.call(content: "#{user.email} subscribed")
+          NotifyViaSlack.delay.call(content: "#{user.email} subscribed to #{plan}")
           
           user.update!(
             subscribed_plan: plan,

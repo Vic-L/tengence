@@ -169,17 +169,17 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                       <br>
                                       <br>
 
-                                      <%= link_to 'Emails', confirmation_url(@user, confirmation_token: @token, lead: "email") %>
+                                      <%= link_to 'Emails', confirmation_url(@user, confirmation_token: @token, lead: "email", utm_source: 'confirmationEmailSurvey', utm_medium: 'email', utm_campaign: "confirmationEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') + "_emails") %>
 
                                       <br>
                                       <br>
 
-                                      <%= link_to 'Google Search', confirmation_url(@user, confirmation_token: @token, lead: "google") %>
+                                      <%= link_to 'Google Search', confirmation_url(@user, confirmation_token: @token, lead: "google", utm_source: 'confirmationEmailSurvey', utm_medium: 'email', utm_campaign: "confirmationEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') + "_google") %>
 
                                       <br>
                                       <br>
 
-                                      <%= link_to 'Referrals', confirmation_url(@user, confirmation_token: @token, lead: "referral") %>
+                                      <%= link_to 'Referrals', confirmation_url(@user, confirmation_token: @token, lead: "referral", utm_source: 'confirmationEmailSurvey', utm_medium: 'email', utm_campaign: "confirmationEmail_<" + @user.hashed_email + ">_" + Time.now.in_time_zone('Singapore').to_date.strftime('%Y%m%d') + "_referrals") %>
 
                                       <br>
                                       <br>

@@ -98,6 +98,7 @@ namespace :maintenance do
 
       next if user.email == 'vljc17@gmail.com'
       next if user.email == 'ganthertay@gmail.com'
+      next if user.trial? || user.finished_trial_but_yet_to_subscribe?
 
       if user.auto_renew
       
@@ -151,8 +152,10 @@ namespace :maintenance do
       else
 
         begin
+          # users here are subscribed, billed today, but nvr put auto renew
+          # so need to terminate their subscription
           user.update!(subscribed_plan: 'free_plan')
-          NotifyViaSlack.call(content: "#{user.email} not auto_renew")
+          NotifyViaSlack.call(content: "#{user.email} not auto_renew and downgraded. NO EMAIL was sent to tell him abt termination")
         rescue => e
           NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} not auto_renew but cannot downgrade subscribed_plan")
           next

@@ -32,6 +32,8 @@ every :day, :at => local('7am'), :tz => 'Asia/Singapore' do
   rake "maintenance:cleanup_past_tenders"
   rake "maintenance:refresh_cache"
   rake "maintenance:check_holiday"
+  rake "maintenance:subscription_ending_reminder"
+  rake "maintenance:charge_users"
 end
 
 every '0 0 1 * *' do

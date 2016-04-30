@@ -59,11 +59,28 @@ class SendEmailsWorker
       end
     end
 
-    overall_ref_nos.flatten!.uniq!
+    overall_ref_nos.flatten!
+
+    low_demand_tenders = validTenders.where(ref_no: overall_ref_nos.find_all{ |e| overall_ref_nos.count(e) <= 2 }.uniq).pluck(:description)
+
+    overall_ref_nos.uniq!
 
     non_matching_tenders = validTenders.where.not(ref_no: overall_ref_nos).pluck(:description)
 
-    NotifyViaSlack.call(content: "Total Valid Tenders: #{total_valid_tenders}\r\nTotal Matching Tenders: #{overall_ref_nos.count}\r\n\r\nTotal Users: #{total_valid_users}\r\nUsers without keywords: #{no_keywords.count}\r\n#{no_keywords}\r\nUsers without matches: #{no_matches.count}\r\n#{no_matches}\r\nUsers with matches: #{matches.count}\r\n\r\nTenders that were not matched:\r\n#{non_matching_tenders.join("\r\n")}")
+    content = ["Total Valid Tenders: #{total_valid_tenders}"]
+    content += ["Total Matching Tenders: #{overall_ref_nos.count}"]
+    content += ["Total Users: #{total_valid_users}\r\n"]
+    content += ["Users without keywords: #{no_keywords.count}"]
+    content += ["#{no_keywords}\r\n"]
+    content += ["Users without matches: #{no_matches.count}"]
+    content += ["#{no_matches}\r\n"]
+    content += ["Users with matches: #{matches.count}\r\n"]
+    content += ["Tenders that were not matched:"]
+    content += ["#{non_matching_tenders.join("\r\n")}"]
+    content += ["Tenders with <= 2 matches: #{low_demand_tenders.count}"]
+    content += ["#{low_demand_tenders.join("\r\n")}"]
+
+    NotifyViaSlack.call(content: content.join("\r\n"))
 
   end
 end

@@ -4,6 +4,15 @@ namespace :maintenance do
     today = Time.now.in_time_zone('Singapore').to_date
     if today.sunday? || today.saturday?
       NotifyViaSlack.call(content: "Its the weekends..Go watch One Piece")
+    elsif today.monday?
+      if !Holidays.on(today - 2.days, :sg).blank? || 
+        !Holidays.on(today - 1.days, :sg).blank? ||
+        !Holidays.on(today, :sg).blank?
+        NotifyViaSlack.call(content: "TODAY IS MONDAY AND HOLIDAY! DONT SEND EMAILS!!")
+      else
+        days = holidayCheck(1)
+        NotifyViaSlack.call(content: "<@vic-l> Send #{days} days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+      end
     elsif !Holidays.on(today, :sg).blank?
       NotifyViaSlack.call(content: "TODAY IS HOLIDAY DONT SEND EMAILS!!")
     else

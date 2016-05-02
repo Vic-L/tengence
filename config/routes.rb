@@ -89,4 +89,19 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end
+
+  # Phase2
+  get '/services/landscaping', to: 'pages#landscaping', as: :landscaping
+  get '/services/security', to: 'pages#security', as: :security
+  get '/services/pest-control', to: 'pages#pest_control', as: :pest_control
+  get '/services/swimming-pool', to: 'pages#swimming_pool', as: :swimming_pool
+  get '/services/commerical-cleaning', to: 'pages#commerical_cleaning', as: :commerical_cleaning
+  get '/services/cctv', to: 'pages#cctv', as: :cctv
+  get '/services/gates-barriers', to: 'pages#gates_barriers', as: :gates_barriers
+  get '/services/gym-contractors', to: 'pages#gym_contractors', as: :gym_contractors
+  get '/services/private-investigators', to: 'pages#private_investigators', as: :private_investigators
+  get '/services/office-renovation-interior-design', to: 'pages#office_renovation_interior_design', as: :office_renovation_interior_design
+  get '/services/events-management', to: 'pages#events_management', as: :events_management
+  get '/services/catering', to: 'pages#catering', as: :catering
+  get '/services/printing', to: 'pages#printing', as: :printing
 end

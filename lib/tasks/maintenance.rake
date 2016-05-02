@@ -106,6 +106,7 @@ namespace :maintenance do
     User.subscribed.billed_today.each do |user|
 
       next if user.email == 'vljc17@gmail.com'
+      next if user.email == 'john@tengence.com.sg'
       next if user.email == 'ganthertay@gmail.com'
       next if user.trial? || user.finished_trial_but_yet_to_subscribe?
 

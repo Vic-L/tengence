@@ -45,5 +45,5 @@ p 'create current tenders'
   end
 end
 p 'seeding ended'
-# p "Create vljc17@gmail.com User"
-# User.create(email: "vljc17@gmail.com", company_name: "qweqwe", first_name: "qwe", last_name: "qwe", password: "qweqweqwe")
+# p "Create john@tengence.com.sg User"
+# User.create(email: "john@tengence.com.sg", company_name: "qweqwe", first_name: "qwe", last_name: "qwe", password: "qweqweqwe")

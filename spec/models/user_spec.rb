@@ -39,7 +39,7 @@ feature User, type: :model do
       end
 
       scenario 'valid for users with whitelisted emails for more than 20 keywords' do
-        user = create(:user, email: 'vljc17@gmail.com')
+        user = create(:user, email: 'john@tengence.com.sg')
         user.keywords = "lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,lol,"
         expect(user.valid?).to eq true
       end

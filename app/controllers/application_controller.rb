@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :intercept_bots
 
   before_action do
-    if user_signed_in? && current_user.email == 'vljc17@gmail.com'
+    if user_signed_in? && current_user.email == 'john@tengence.com.sg'
       Rack::MiniProfiler.authorize_request
     end
   end

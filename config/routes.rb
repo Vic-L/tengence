@@ -85,7 +85,7 @@ Rails.application.routes.draw do
   end
 
   require 'sidekiq/web'
-  authenticate :user, lambda { |u| ["vljc17@gmail.com","ganthertay@gmail.com"].include? u.email } do
+  authenticate :user, lambda { |u| ["john@tengence.com.sg","ganthertay@gmail.com"].include? u.email } do
     mount Sidekiq::Web => '/sidekiq'
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end

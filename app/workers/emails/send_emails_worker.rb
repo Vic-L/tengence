@@ -69,16 +69,17 @@ class SendEmailsWorker
 
     content = ["Total Valid Tenders: #{total_valid_tenders}"]
     content += ["Total Matching Tenders: #{overall_ref_nos.count}"]
-    content += ["Total Users: #{total_valid_users}\r\n"]
-    content += ["Users without keywords: #{no_keywords.count}"]
-    content += ["#{no_keywords}\r\n"]
-    content += ["Users without matches: #{no_matches.count}"]
-    content += ["#{no_matches}\r\n"]
-    content += ["Users with matches: #{matches.count}\r\n"]
-    content += ["Tenders that were not matched:"]
-    content += ["#{non_matching_tenders.join("\r\n")}"]
+    content += ["Tenders that were not matched: #{non_matching_tenders.count}"]
+    # content += ["#{non_matching_tenders.join("\r\n")}"]
     content += ["Tenders with <= 2 matches: #{low_demand_tenders.count}"]
-    content += ["#{low_demand_tenders.join("\r\n")}"]
+    # content += ["#{low_demand_tenders.join("\r\n")}"]
+
+    content += ["\r\nTotal Users: #{total_valid_users}"]
+    content += ["Users without keywords: #{no_keywords.count}"]
+    # content += ["#{no_keywords}\r\n"]
+    content += ["Users without matches: #{no_matches.count}"]
+    # content += ["#{no_matches}\r\n"]
+    content += ["Users with matches: #{matches.count}"]
 
     NotifyViaSlack.call(content: content.join("\r\n"))
 

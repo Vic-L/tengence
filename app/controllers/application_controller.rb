@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :intercept_bots
+  before_action :ping_fucked_user
 
   before_action do
     if user_signed_in? && current_user.email == 'john@tengence.com.sg'
@@ -69,6 +70,14 @@ class ApplicationController < ActionController::Base
       user_agent = request.user_agent
       if user_agent =~ /libwww-perl/
         render nothing: true, status: 403
+      end
+    end
+
+    def ping_fucked_user
+      if user_signed_in?
+        if current_user.trial_tenders_count >= 3
+          NotifyViaSlack.delay.call(content: "FUCKED user (#{current_user.email}) enters #{request.fullpath}")
+        end
       end
     end
 end

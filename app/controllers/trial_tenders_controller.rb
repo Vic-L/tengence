@@ -11,7 +11,7 @@ class TrialTendersController < ApplicationController
           render json: {statusCode: 'success',trial_tender_ids: current_user.trial_tender_ids}.to_json
         end
       else
-        NotifyViaSlack.delay.call(content: "FUCKED user (#{current_user.email}) reached limit and cannot unlock trial tender #{params[:ref_no]}")
+        NotifyViaSlack.delay.call(content: "FUCKED user (#{current_user.email}) reached limit and tried to unlock trial tender #{params[:ref_no]}")
         render json: {statusCode: 'maxed_for_the_day',trial_tender_ids: current_user.trial_tender_ids}.to_json
       end
     else

@@ -44,6 +44,7 @@ group :development, :test do
   gem 'timecop' # for time manipulation
   gem "fakeredis", :require => "fakeredis/rspec"
   gem 'shoulda-callback-matchers'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -80,7 +81,6 @@ gem 'slack-notifier', '~> 1.3.1'
 gem 'rack-mini-profiler'
 gem "strip_attributes", '~> 1.7.1'
 gem 'paperclip', :git=> 'https://github.com/thoughtbot/paperclip', :ref => '523bd46c768226893f23889079a7aa9c73b57d68'
-gem 'selenium-webdriver', '~> 2.48.0'
 gem 'react-rails', '~> 1.5.0'
 gem 'metamagic', '~> 3.1.7'
 gem 'dalli', '~> 2.7.5'

@@ -18,6 +18,7 @@ feature User, type: :model do
   it { should callback(:hash_email).before(:create) }
   it { should callback(:register_braintree_customer).after(:commit).on(:create).if(:read_only?) }
   it { should callback(:destroy_braintree_customer).before(:destroy).if(:read_only?) }
+  it { should callback(:send_password_change_email).after(:update).if(:needs_password_change_email?) }
   it { should_not callback(:hash_email).before(:save) }
 
   let!(:user) { create(:user) }

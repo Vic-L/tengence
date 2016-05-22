@@ -16,4 +16,15 @@ class CustomDeviseMailer < Devise::Mailer
     @token = token
     mail(to: @user.email, subject: "Welcome to Tengence", template_path: 'users/mailer', template_name: 'confirmation_instructions')
   end
+
+  def reset_password_instructions record, token, opts={}
+    @user = record
+    @token = token
+    mail(to: @user.email, subject: "Reset Password | Tengence", template_path: 'users/mailer', template_name: 'reset_password_instructions')
+  end
+
+  def password_changed id
+    @user = User.find(id)
+    mail to: @user.email, subject: "Your password has changed @ Tengence", template_path: 'users/mailer', template_name: 'password_changed'
+  end
 end

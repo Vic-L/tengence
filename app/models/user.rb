@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   before_create :hash_email
   after_commit :register_braintree_customer, on: :create, if: :read_only?
   before_destroy :destroy_braintree_customer, if: :read_only?
+  after_update :send_password_change_email, if: :needs_password_change_email?
 
   def self.email_available?(email)
     User.find_by_email(email).blank?
@@ -125,6 +126,14 @@ class User < ActiveRecord::Base
   private
     def hash_email
       self.hashed_email = Digest::SHA256.hexdigest(email)
+    end
+
+    def needs_password_change_email?
+      encrypted_password_changed? && persisted?
+    end
+    
+    def send_password_change_email
+      CustomDeviseMailer.password_changed(id).deliver_later
     end
 end
 

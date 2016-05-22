@@ -12,14 +12,18 @@ module Api
         end
 
         def api_deny_read_only_user
-          if user_signed_in? && current_user.read_only?
-            render json: {error: "Access Denied"}, status: 403
+          if user_signed_in? && !current_user.god_user?
+            if current_user.read_only?
+              render json: {error: "Access Denied"}, status: 403
+            end
           end
         end
 
         def api_deny_write_only_user
-          if user_signed_in? && current_user.write_only?
-            render json: {error: "Access Denied"}, status: 403
+          if user_signed_in? && !current_user.god_user?
+            if current_user.write_only?
+              render json: {error: "Access Denied"}, status: 403
+            end
           end
         end
     end

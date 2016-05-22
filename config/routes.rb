@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  constraints DomainConstraint.new('tengence.com.sg') do
+  constraints DomainConstraint.new('www.tengence.com.sg') do
     namespace :api, defaults: {format: 'json'} do
       # scope module: :v1, constraints: ApiConstraints.new(version: 1) do
       namespace :v1 do

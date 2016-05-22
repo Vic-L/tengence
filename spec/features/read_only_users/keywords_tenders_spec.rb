@@ -36,5 +36,21 @@ feature 'keywords_tenders', js: true, type: :feature do
       keywords_tenders_page.update_keywords
       expect(keywords_tenders_page.alert_text).to eq "Keywords can't be more than 20"
     end
+
+    scenario 'should be able to update keywords' do
+      keywords_tenders_page.add_1_keyword
+      keywords_tenders_page.update_keywords
+      wait_for_ajax
+      expect(user_without_keywords.reload.keywords).not_to eq nil
+      initial_keywords = user_without_keywords.keywords
+
+      keywords_tenders_page.visit_page
+      wait_for_page_load
+
+      keywords_tenders_page.add_2_keywords
+      keywords_tenders_page.update_keywords
+      wait_for_ajax
+      expect(user_without_keywords.reload.keywords).not_to eq initial_keywords
+    end
   end
 end

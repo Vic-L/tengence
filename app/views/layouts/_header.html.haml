@@ -63,6 +63,9 @@
                     = link_to "Change Payment Settings", change_payment_path
                 %li
                   = link_to "Payment History", payment_history_path
+                - if current_user.email == 'john@tengence.com.sg'
+                  %li
+                    = link_to "Test", landscaping_path
 
             %li.show-for-small-only
               = link_to "Current Tenders", current_tenders_path

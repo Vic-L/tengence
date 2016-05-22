@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   end
 
   # static pages
-  root 'pages#home'
+  # root 'pages#home'
+  get'/', :to => 'pages#home', as: nil
   post 'contact_us_email', to: 'pages#contact_us_email'
   get 'terms-of-service', to: 'pages#terms_of_service'
   get 'refresh_cloudsearch', to: 'pages#refresh_cloudsearch'
@@ -92,8 +93,8 @@ Rails.application.routes.draw do
 
   # Phase2
   # TrackTango
-  constraints TrackTangoDomain.new do
-    root :to => 'pages#faq'
+  constraints DomainConstraint.new('utrade.pw') do
+    get'/', :to => 'pages#faq', as: nil
     get '/services/landscaping', to: 'pages#landscaping', as: :landscaping
     get '/services/security', to: 'pages#security', as: :security
     get '/services/pest-control', to: 'pages#pest_control', as: :pest_control

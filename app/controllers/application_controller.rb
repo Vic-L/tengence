@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :ping_fucked_user
 
   before_action do
-    if user_signed_in? && current_user.email == 'john@tengence.com.sg'
+    if user_signed_in? && current_user.god_user?
       Rack::MiniProfiler.authorize_request
     end
   end

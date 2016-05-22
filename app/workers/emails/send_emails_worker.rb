@@ -16,7 +16,7 @@ class SendEmailsWorker
     User.read_only.confirmed.each do |user|
 
       if ENV['EMAIL_DEBUG_MODE'] == 'true'
-        next unless user.email == 'john@tengence.com.sg'
+        next unless user.god_user?
       end
 
       begin

@@ -236,14 +236,24 @@ feature User, type: :model do
       expect(user.reload.trial_tenders.count).to eq 1
     end
 
+    let!(:god_user) { create(:user, email: ENV['GOD_USER']) }
+
     scenario 'read_only?' do
+      expect(god_user.read_only?).to eq true
       expect(user.read_only?).to eq true
       expect(write_only_user.read_only?).to eq false
     end
 
     scenario 'write_only?' do
+      expect(god_user.write_only?).to eq true
       expect(user.write_only?).to eq false
       expect(write_only_user.write_only?).to eq true
+    end
+
+    scenario 'god_user?' do
+      expect(god_user.god_user?).to eq true
+      expect(user.god_user?).to eq false
+      expect(write_only_user.god_user?).to eq false
     end
 
   end

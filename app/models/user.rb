@@ -87,11 +87,17 @@ class User < ActiveRecord::Base
   end
 
   def write_only?
+    return true if god_user?
     access_level == 'write_only'
   end
 
   def read_only?
+    return true if god_user?
     access_level == 'read_only'
+  end
+
+  def god_user?
+    email == ENV['GOD_USER']
   end
 
   def braintree_payment_methods

@@ -11,13 +11,13 @@ namespace :maintenance do
         NotifyViaSlack.call(content: "TODAY IS MONDAY AND HOLIDAY! DONT SEND EMAILS!!")
       else
         days = holidayCheck(1)
-        NotifyViaSlack.call(content: "<@vic-l> Send #{days} days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+        NotifyViaSlack.call(content: "<@vic-l> Send #{days} days ago - https://www.tengence.com.sg/admin")
       end
     elsif !Holidays.on(today, :sg).blank?
       NotifyViaSlack.call(content: "TODAY IS HOLIDAY DONT SEND EMAILS!!")
     else
       days = holidayCheck(1)
-      NotifyViaSlack.call(content: "<@vic-l> Send #{days} days ago - #{Rails.application.routes.url_helpers.root_url(host: 'https://www.tengence.com.sg')}admin")
+      NotifyViaSlack.call(content: "<@vic-l> Send #{days} days ago - https://www.tengence.com.sg/admin")
     end
   end
 

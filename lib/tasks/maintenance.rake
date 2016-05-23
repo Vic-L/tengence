@@ -1,6 +1,7 @@
 namespace :maintenance do
 
   task :check_holiday => :environment do
+    NotifyViaSlack.call(content: "Checking holiday")
     today = Time.now.in_time_zone('Singapore').to_date
     if today.sunday? || today.saturday?
       NotifyViaSlack.call(content: "Its the weekends..Go watch One Piece")

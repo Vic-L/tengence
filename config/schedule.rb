@@ -31,7 +31,6 @@ end
 every :day, :at => local('7am'), :tz => 'Asia/Singapore' do
   rake "maintenance:cleanup_past_tenders"
   rake "maintenance:refresh_cache"
-  NotifyViaSlack.call(content: "Checking holiday")
   rake "maintenance:check_holiday"
   rake "maintenance:subscription_ending_reminder"
   rake "maintenance:charge_users"

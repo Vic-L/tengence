@@ -30,6 +30,7 @@ module TenderFunctions
       # scope :non_gebiz, -> {where("NOT(external_link like '%gebiz.gov%') OR external_link IS NULL")}
       scope :non_inhouse, -> {where.not("ref_no like '%InHouse-%'")}
       scope :inhouse, -> {where("ref_no like '%InHouse-%'")}
+      scope :non_sesami, -> { where("external_link NOT LIKE '%www.sesami.com%' OR external_link IS NULL") }
     end
   end
 

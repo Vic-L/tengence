@@ -17,12 +17,20 @@ class GetTenders
         
         results_ref_nos = results_ref_nos & user.watched_tenders.pluck(:tender_id) if only_watched_tenders?
 
-        eval("@tenders = #{table}.where(ref_no: results_ref_nos).#{@sort}")
+        if user.subscribed?
+          eval("@tenders = #{table}.where(ref_no: results_ref_nos).#{@sort}")
+        else
+          eval("@tenders = #{table}.non_sesami.where(ref_no: results_ref_nos).#{@sort}")
+        end
         @results_count = @tenders.count
         @tenders = @tenders.page(params['page']).per(50)
       else
         if only_watched_tenders?
-          eval("@tenders = #{table}.where(ref_no: user.watched_tenders.pluck(:tender_id)).#{@sort}")
+          if user.subscribed?
+            eval("@tenders = #{table}.non_sesami.where(ref_no: user.watched_tenders.pluck(:tender_id)).#{@sort}")
+          else
+            eval("@tenders = #{table}.where(ref_no: user.watched_tenders.pluck(:tender_id)).#{@sort}")
+          end
           @results_count = @tenders.count
           @tenders = @tenders.page(params['page']).per(50)
         else

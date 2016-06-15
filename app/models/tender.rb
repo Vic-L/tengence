@@ -11,7 +11,8 @@ class Tender < ActiveRecord::Base
   has_many :documents, as: :uploadable, dependent: :destroy
   accepts_nested_attributes_for :documents, :reject_if => lambda { |t| t['upload'].nil? }, allow_destroy: true
 
-  default_scope { order(published_date: :desc) } 
+  default_scope { order(published_date: :desc) }
+  scope :non_sesami, -> { where("external_link NOT LIKE '%www.sesami.com%' OR external_link IS NULL") }
   validates_presence_of :published_date, :closing_datetime
 
   after_commit :add_to_cloudsearch, on: :create

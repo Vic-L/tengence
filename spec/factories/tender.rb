@@ -13,13 +13,17 @@ FactoryGirl.define do
       external_link "gebiz.gov"
     end
 
+    trait :sesami do
+      external_link "http://www.sesami.com/lol"
+    end
+
     trait :non_gebiz do
       external_link {Faker::Internet.url}
     end
 
     trait :inhouse do
       ref_no {'InHouse-' + (Faker::Time.between(Time.current - 1.hours, Time.current).to_f*1000).to_i.to_s}
-      external_link 'InHouse'
+      external_link nil
       long_description {Faker::Lorem.sentences(10).join("\r\n")}
     end
 
@@ -29,6 +33,8 @@ FactoryGirl.define do
     end
 
     factory :gebiz_tender, traits: [:gebiz]
+    factory :sesami_tender, traits: [:sesami]
+    factory :inhouse_tender, traits: [:inhouse]
     factory :non_gebiz_tender, traits: [:non_gebiz]
   end
 end

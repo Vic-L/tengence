@@ -25,4 +25,27 @@ feature Tender, type: :model do
   it { should_not validate_presence_of :buyer_name }
   it { should_not validate_presence_of :buyer_email }
   it { should_not validate_presence_of :buyer_contact_number }
+
+  feature 'scopes' do
+
+    feature 'non_sesami' do
+
+      let!(:sesami_tender) { create(:sesami_tender) }
+      let!(:tender) { create(:non_gebiz_tender) }
+      let!(:gebiz_tender) { create(:gebiz_tender) }
+      let!(:inhouse_tender) { create(:inhouse_tender) }
+
+      scenario 'should not include sesami_tender' do
+        expect(Tender.non_sesami.count).to eq 3
+        expect(Tender.non_sesami.include? sesami_tender).to eq false
+      end
+
+      scenario 'should include inhouse_tender where external_link is nil' do
+        expect(Tender.non_sesami.include? inhouse_tender).to eq true
+      end
+
+    end
+
+  end
+
 end

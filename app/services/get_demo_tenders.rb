@@ -10,11 +10,11 @@ class GetDemoTenders
       unless params['query'].blank?
         results_ref_nos = AwsManager.search(keyword: params['query'])
 
-        eval("@tenders = #{table}.where(ref_no: results_ref_nos).order(published_date: :desc)")
+        eval("@tenders = #{table}.non_sesami.where(ref_no: results_ref_nos).order(published_date: :desc)")
         @results_count = @tenders.count
         @tenders = @tenders.page(params['page']).per(10)
       else
-        eval("@tenders = #{table}.order(published_date: :desc).page(params['page']).per(10)")
+        eval("@tenders = #{table}.non_sesami.order(published_date: :desc).page(params['page']).per(10)")
         eval("@results_count = #{table}.count")
       end
 

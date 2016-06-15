@@ -38,9 +38,17 @@ module RailsAdmin
                   results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
 
                   if Time.now.in_time_zone('Asia/Singapore').to_date.monday?
-                    current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+                    if @object.subscribed?
+                      current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+                    else
+                      current_tenders_ref_nos = CurrentTender.non_sesami.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+                    end
                   else
-                    current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+                    if @object.subscribed?
+                      current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+                    else
+                      current_tenders_ref_nos = CurrentTender.non_sesami.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+                    end
                   end
 
                   if current_tenders_ref_nos.blank?

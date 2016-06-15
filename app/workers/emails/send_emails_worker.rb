@@ -33,7 +33,12 @@ class SendEmailsWorker
           end
           results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
 
-          current_tenders_ref_nos = validTenders.where(ref_no: results_ref_nos).pluck(:ref_no)
+          if @object.subscribed?
+            current_tenders_ref_nos = validTenders.where(ref_no: results_ref_nos).pluck(:ref_no)
+          else
+            current_tenders_ref_nos = validTenders.non_sesami.where(ref_no: results_ref_nos).pluck(:ref_no)
+          end
+
           overall_ref_nos << current_tenders_ref_nos
           
           if current_tenders_ref_nos.blank?

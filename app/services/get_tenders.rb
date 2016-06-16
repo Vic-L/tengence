@@ -34,7 +34,11 @@ class GetTenders
           @results_count = @tenders.count
           @tenders = @tenders.page(params['page']).per(50)
         else
-          eval("@tenders = #{table}.#{@sort}.page(params['page']).per(50)")
+          if user.subscribed?
+            eval("@tenders = #{table}.#{@sort}.page(params['page']).per(50)")
+          else
+            eval("@tenders = #{table}.non_sesami.#{@sort}.page(params['page']).per(50)")
+          end
           eval("@results_count = #{table}.count")
         end
       end

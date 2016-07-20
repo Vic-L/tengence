@@ -33,6 +33,9 @@
       return !(/@gmail\./i.test(value) ||
         /@yahoo\./i.test(value) ||
         /@live\./i.test(value) ||
+        /@mailinator\./i.test(value) ||
+        /@outlook\./i.test(value) ||
+        /@rocketmail\./i.test(value) ||
         /@hotmail\./i.test(value));
     }, "Please use your company's email.");
     $('form.edit_user').validate({

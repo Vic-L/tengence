@@ -1,56 +1,5 @@
 namespace :maintenance do
 
-  task :check_holiday => :environment do
-    NotifyViaSlack.call(content: "Checking holiday")
-    today = Time.now.in_time_zone('Singapore').to_date
-    if today.sunday? || today.saturday?
-      NotifyViaSlack.call(content: "Its the weekends..Go watch One Piece")
-    elsif today.monday?
-      if !Holidays.on(today - 2.days, :sg).blank? || 
-        !Holidays.on(today - 1.days, :sg).blank? ||
-        !Holidays.on(today, :sg).blank?
-        NotifyViaSlack.call(content: "TODAY IS MONDAY AND HOLIDAY! DONT SEND EMAILS!!")
-      else
-        days = holidayCheck(1)
-        NotifyViaSlack.call(content: "<@vic-l> Send #{days} days ago - https://www.tengence.com.sg/admin")
-      end
-    elsif !Holidays.on(today, :sg).blank?
-      NotifyViaSlack.call(content: "TODAY IS HOLIDAY DONT SEND EMAILS!!")
-    else
-      days = holidayCheck(1)
-      NotifyViaSlack.call(content: "<@vic-l> Send #{days} days ago - https://www.tengence.com.sg/admin")
-    end
-  end
-
-  def holidayCheck n
-    date = Time.now.in_time_zone('Singapore').to_date - n.days
-    puts date.strftime("%A, %b %d")
-    if date.sunday? || date.saturday?
-      puts "weekends"
-      n+=1
-      holidayCheck(n)
-    elsif date.monday?
-      puts "monday"
-      if !Holidays.on(date - 2.days, :sg).blank? || 
-        !Holidays.on(date - 1.days, :sg).blank? ||
-        !Holidays.on(date).blank?
-        puts "holiday"
-        n+=1
-        holidayCheck(n)
-      else
-        return n
-      end
-    else
-      if !Holidays.on(date).blank?
-        puts "holiday"
-        n+=1
-        holidayCheck(n)
-      else
-        return n
-      end
-    end
-  end
-
   task :ping_sidekiq => :environment do
     NotifyViaSlack.call(content: "<@vic-l> Mayday! Asynchronous server 死んだ！！") if Sidekiq::ProcessSet.new.size == 0
     # NotifyViaSlack.call(content: "Sidekiq up and running") if Sidekiq::ProcessSet.new.size == 1

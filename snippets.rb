@@ -56,7 +56,6 @@ end;nil
 # things to do
 # will test a subscription of 1 cent or 1 dollar
 
-# holiday gem for automating emails
 # front page
 # email on unsent tenders
 # quick feedback feature

@@ -8,8 +8,7 @@ namespace :emailer do
     today = Time.now.in_time_zone('Asia/Singapore').to_date
     if (today.saturday? || today.sunday?)
 
-      NotifyViaSlack.delay.call(content: "Give me a break its the weekend!")
-      redirect_to '/admin', flash: {alert: "Give me a break its the weekend!"}
+      NotifyViaSlack.call(content: "Give me a break its the weekend!")
 
     else
 

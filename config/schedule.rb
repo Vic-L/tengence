@@ -46,4 +46,5 @@ end
 every 1.hour do
   # free mem to fix swap
   command 'free'
+  rake 'ts:index'
 end

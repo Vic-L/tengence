@@ -28,6 +28,7 @@ require 'capistrano/thin'
 require 'capistrano/nginx'
 require 'capistrano/sidekiq'
 require 'capistrano/sitemap_generator'
+require 'thinking_sphinx/capistrano'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }

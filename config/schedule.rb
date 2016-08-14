@@ -42,3 +42,8 @@ end
 every 10.minutes do
   rake 'maintenance:ping_sidekiq'
 end
+
+every 1.hour do
+  # free mem to fix swap
+  command 'free'
+end

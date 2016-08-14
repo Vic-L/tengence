@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814091022) do
+ActiveRecord::Schema.define(version: 20160814145512) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160814091022) do
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
     t.text     "long_description",     limit: 65535
+    t.integer  "thinking_sphinx_id",   limit: 4,                      null: false
   end
 
   create_table "current_tenders", id: false, force: :cascade do |t|
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160814091022) do
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
     t.text     "long_description",     limit: 65535
+    t.integer  "thinking_sphinx_id",   limit: 4,                      null: false
   end
 
   create_table "documents", force: :cascade do |t|
@@ -79,6 +81,7 @@ ActiveRecord::Schema.define(version: 20160814091022) do
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
     t.text     "long_description",     limit: 65535
+    t.integer  "thinking_sphinx_id",   limit: 4,                      null: false
   end
 
   create_table "past_tenders", id: false, force: :cascade do |t|
@@ -97,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160814091022) do
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
     t.text     "long_description",     limit: 65535
+    t.integer  "thinking_sphinx_id",   limit: 4,                      null: false
   end
 
   create_table "shortened_urls", force: :cascade do |t|

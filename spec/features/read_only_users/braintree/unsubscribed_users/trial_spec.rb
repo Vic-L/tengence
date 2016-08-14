@@ -152,8 +152,9 @@ feature 'trial_tenders', type: :feature, js: true do
           tenders_page.visit_current_tenders_page
           wait_for_page_load
           unsubscribed_user.reload
+
           first_tender_description = tenders_page.find_css('tbody tr td')[0].all_text
-          
+
           tenders_page.click_common '.more-button'
           expect(page).to have_selector '#view-more-modal'
           tenders_page.click_unique '#buy-details'

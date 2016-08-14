@@ -24,7 +24,7 @@ class GetDemoTenders
       @tenders = @tenders.to_a
       @watched_tender_ids = []
 
-      return [@tenders, @current_page, @total_pagesCHAT_MESSAGE_UNAUTHORIZED, @last_page, @watched_tender_ids, @results_count]
+      return [@tenders, @current_page, @total_pages, @last_page, @watched_tender_ids, @results_count]
     rescue => e
       NotifyViaSlack.delay.call(content: "<@vic-l> Error GetDemoTenders.rb\r\n#{e.message}\r\n#{e.backtrace.to_s}")
     end

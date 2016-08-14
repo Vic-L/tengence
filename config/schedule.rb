@@ -46,7 +46,5 @@ end
 every 1.hour do
   # free mem to fix swap
   command 'free'
-  NotifyViaSlack.delay.call(content: "execute 'free'")
   rake 'ts:index'
-  NotifyViaSlack.delay.call(content: "execute updated index")
 end

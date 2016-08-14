@@ -17,6 +17,7 @@ class Tender < ActiveRecord::Base
   after_commit :add_to_cloudsearch, on: :create
   before_update :update_cloudsearch
   after_commit :remove_from_cloudsearch, on: :destroy
+  before_create :add_thinking_sphinx_id
 
   def add_to_cloudsearch
     AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no, self.description)
@@ -59,4 +60,14 @@ class Tender < ActiveRecord::Base
       end
     end
   end
+
+  private
+    def add_thinking_sphinx_id
+      random_id = ''
+      loop do
+        random_id = SecureRandom.random_number(9999).to_i
+        break random_id unless self.class.exists?(thinking_sphinx_id: random_id)
+      end
+      self.thinking_sphinx_id = random_id
+    end
 end

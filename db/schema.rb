@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227141736) do
+ActiveRecord::Schema.define(version: 20160814091022) do
 
   create_table "current_posted_tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
@@ -99,6 +99,20 @@ ActiveRecord::Schema.define(version: 20160227141736) do
     t.text     "long_description",     limit: 65535
   end
 
+  create_table "shortened_urls", force: :cascade do |t|
+    t.integer  "owner_id",   limit: 4
+    t.string   "owner_type", limit: 20
+    t.text     "url",        limit: 65535,             null: false
+    t.string   "unique_key", limit: 10,                null: false
+    t.integer  "use_count",  limit: 4,     default: 0, null: false
+    t.datetime "expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shortened_urls", ["owner_id", "owner_type"], name: "index_shortened_urls_on_owner_id_and_owner_type", using: :btree
+  add_index "shortened_urls", ["unique_key"], name: "index_shortened_urls_on_unique_key", unique: true, using: :btree
+
   create_table "tenders", id: false, force: :cascade do |t|
     t.string   "ref_no",               limit: 255
     t.string   "buyer_company_name",   limit: 255
@@ -115,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160227141736) do
     t.string   "budget",               limit: 255
     t.integer  "postee_id",            limit: 4
     t.text     "long_description",     limit: 65535
+    t.integer  "thinking_sphinx_id",   limit: 4,                      null: false
   end
 
   add_index "tenders", ["ref_no"], name: "index_tenders_on_ref_no", unique: true, using: :btree

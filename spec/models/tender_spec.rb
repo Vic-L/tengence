@@ -17,6 +17,7 @@ feature Tender, type: :model do
   it { should callback(:add_to_cloudsearch).after(:commit).on(:create) }
   it { should callback(:update_cloudsearch).before(:update) }
   it { should callback(:remove_from_cloudsearch).after(:commit).on(:destroy) }
+  it { should callback(:add_thinking_sphinx_id).before(:create) }
 
   it { should accept_nested_attributes_for(:documents).allow_destroy(true) }
 

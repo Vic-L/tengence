@@ -47,4 +47,5 @@ every 1.hour do
   # free mem to fix swap
   command 'free'
   rake 'ts:index'
+  rake 'maintenance:ping_index_complete'
 end

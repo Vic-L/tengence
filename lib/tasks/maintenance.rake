@@ -1,5 +1,9 @@
 namespace :maintenance do
 
+  task :ping_index_complete => :environment do
+    NotifyViaSlack.call(content: "updated sphinx index")
+  end
+
   task :ping_sidekiq => :environment do
     NotifyViaSlack.call(content: "<@vic-l> Mayday! Asynchronous server 死んだ！！") if Sidekiq::ProcessSet.new.size == 0
     # NotifyViaSlack.call(content: "Sidekiq up and running") if Sidekiq::ProcessSet.new.size == 1

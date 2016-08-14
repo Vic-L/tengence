@@ -23,3 +23,7 @@ config/thin/production.yml
 dump.rdb
 /public/assets
 /tengence-ssl
+
+# sphinx
+db/sphinx/development
+config/*.sphinx.conf

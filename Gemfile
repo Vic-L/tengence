@@ -86,3 +86,4 @@ gem 'metamagic', '~> 3.1.7'
 gem 'dalli', '~> 2.7.5'
 gem 'connection_pool', '~> 2.2.0' # for sidekiq threads to work with dalli store
 gem 'sitemap_generator', '~> 5.1.0'     # generating sitemaps
+gem 'thinking-sphinx', '~> 3.2.0'

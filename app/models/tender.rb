@@ -65,7 +65,7 @@ class Tender < ActiveRecord::Base
     def add_thinking_sphinx_id
       random_id = ''
       loop do
-        random_id = SecureRandom.random_number(9999).to_i
+        random_id = SecureRandom.random_number(1..9999).to_i
         break random_id unless self.class.exists?(thinking_sphinx_id: random_id)
       end
       self.thinking_sphinx_id = random_id

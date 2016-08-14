@@ -3,7 +3,6 @@ json.pagination do
   json.path request.path
   json.current_page @current_page
   json.total_pages @total_pages
-  json.limit_value @limit_value
   json.last_page @last_page
 end
 json.tenders do

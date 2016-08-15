@@ -44,8 +44,7 @@ every 10.minutes do
 end
 
 every 1.hour do
-  # free mem to fix swap
-  command 'free'
+  rake 'maintenance:set_thinking_sphinx_id'
   rake 'ts:index'
   rake 'maintenance:ping_index_complete'
 end

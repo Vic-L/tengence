@@ -1,5 +1,16 @@
 namespace :maintenance do
 
+  task :set_thinking_sphinx_id => :environment do
+    Tender.where(thinking_sphinx_id: 0).each do |tender|
+      random_id = 0
+      loop do
+        random_id = SecureRandom.random_number(1..9999).to_i
+        break random_id unless Tender.exists?(thinking_sphinx_id: random_id)
+      end
+      tender.update(thinking_sphinx_id: random_id)
+    end
+  end
+
   task :ping_index_complete => :environment do
     NotifyViaSlack.call(content: "updated sphinx index")
   end

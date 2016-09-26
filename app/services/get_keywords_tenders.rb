@@ -7,10 +7,11 @@ class GetKeywordsTenders
   attribute :params, Hash
 
   def call
-    set_sort_order
 
     ## use thinking sphinx
     begin
+      set_sort_order
+
       thinking_sphinx_ids = []
       (user.keywords || '').split(",").each do |keyword|
         # get tenders for each keyword belonging to a user

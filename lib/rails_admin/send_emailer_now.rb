@@ -30,24 +30,33 @@ module RailsAdmin
                 # if new_tenders_ref_nos_array.blank?
                 #   redirect_to back_or_index, flash: {error: "There are no new tenders published yesterday."}
                 # else
-                  results_ref_nos = []
-                  @object.keywords.split(",").each do |keyword|
+
+                  # AWS Cloudsearch version
+                  # results_ref_nos = []
+                  # @object.keywords.split(",").each do |keyword|
+                  #   # get tenders for each keyword belonging to a user
+                  #   results_ref_nos << AwsManager.search(keyword: keyword)
+                  # end
+                  # results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
+
+                  thinking_sphinx_ids = []
+                  (@object.keywords || '').split(",").each do |keyword|
                     # get tenders for each keyword belonging to a user
-                    results_ref_nos << AwsManager.search(keyword: keyword)
+                    thinking_sphinx_ids << Tender.search_for_ids(keyword).to_a
                   end
-                  results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
+                  thinking_sphinx_ids = thinking_sphinx_ids.flatten.compact.uniq #remove any duplicate tender ref nos
 
                   if Time.now.in_time_zone('Asia/Singapore').to_date.monday?
                     if @object.subscribed?
-                      current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+                      current_tenders_ref_nos = CurrentTender.where(thinking_sphinx_id: thinking_sphinx_ids).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
                     else
-                      current_tenders_ref_nos = CurrentTender.non_sesami.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+                      current_tenders_ref_nos = CurrentTender.non_sesami.where(thinking_sphinx_id: thinking_sphinx_ids).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
                     end
                   else
                     if @object.subscribed?
-                      current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+                      current_tenders_ref_nos = CurrentTender.where(thinking_sphinx_id: thinking_sphinx_ids, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
                     else
-                      current_tenders_ref_nos = CurrentTender.non_sesami.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+                      current_tenders_ref_nos = CurrentTender.non_sesami.where(thinking_sphinx_id: thinking_sphinx_ids, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
                     end
                   end
 

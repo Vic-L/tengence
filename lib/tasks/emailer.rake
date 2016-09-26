@@ -34,17 +34,17 @@ namespace :emailer do
     User.read_only.each do |user|
       begin
         NotifyViaSlack.call(content: "#{user.email} has no keywords") and next if user.keywords.blank?
-        results_ref_nos = []
+        thinking_sphinx_ids = []
         user.keywords.split(",").each do |keyword|
           # get tenders for each keyword belonging to a user
-          results_ref_nos << AwsManager.search(keyword: keyword)
+          thinking_sphinx_ids << AwsManager.search(keyword: keyword)
         end
-        results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
+        thinking_sphinx_ids = thinking_sphinx_ids.flatten.compact.uniq #remove any duplicate tender ref nos
 
         if Time.now.in_time_zone('Asia/Singapore').to_date.monday?
-          current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
+          current_tenders_ref_nos = CurrentTender.where(thinking_sphinx_id: thinking_sphinx_ids).where("published_date >= ?", Time.now.in_time_zone('Asia/Singapore').to_date - 3.days).pluck(:ref_no) # get all tenders published from friday
         else
-          current_tenders_ref_nos = CurrentTender.where(ref_no: results_ref_nos, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
+          current_tenders_ref_nos = CurrentTender.where(thinking_sphinx_id: thinking_sphinx_ids, published_date: Time.now.in_time_zone('Asia/Singapore').to_date.yesterday).pluck(:ref_no)
         end
         NotifyViaSlack.call(content: "#{user.email} has no tenders matching his/her keywords") and next if current_tenders_ref_nos.blank?
 

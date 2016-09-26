@@ -32,11 +32,16 @@ namespace :maintenance do
       t = t.utc + t.utc_offset()
       ref_nos = Tender.non_inhouse.where("closing_datetime < ?", t - 1.month).pluck(:ref_no)
       if ref_nos.blank?
-        NotifyViaSlack.call(content: "No ancient tenders on AWSCloudSearch")
+        NotifyViaSlack.call(content: "No ancient tenders")
       else
         WatchedTender.where(tender_id: ref_nos).destroy_all
         Tender.where(ref_no: ref_nos).delete_all
-        
+
+        Tengence::Application.load_tasks
+        Rake::Task['maintenance:refresh_cache'].reenable
+        Rake::Task['maintenance:refresh_cache'].invoke
+
+        # to be deleted
         array = []
         ref_nos.each do |ref_no|
           array << {
@@ -49,8 +54,9 @@ namespace :maintenance do
         if response.class == String
           NotifyViaSlack.call(content: "<@vic-l> ERROR removing ancient tenders from AWSCloudSearch!!\r\n#{response}")
         else
-          NotifyViaSlack.call(content: "Removed ancient tenders on AWSCloudSearch")
-        end
+
+          NotifyViaSlack.call(content: "Removed ancient tenders")
+        # end
       end
     else
       puts "execute 'rake maintenance:cleanup_past_tenders'"
@@ -60,11 +66,17 @@ namespace :maintenance do
   task :refresh_cache => :environment do
     Rails.cache.clear
     keywords = User.pluck(:keywords).flatten.compact.uniq.join(',')
+
     results_ref_nos = []
     keywords.split(',').each do |keyword|
       results_ref_nos << AwsManager.search(keyword: keyword.strip.downcase)
     end
     results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
+
+    keywords.each do |keyword|
+      # get tenders for each keyword belonging to a user
+      Tender.search_for_ids(keyword).to_a
+    end
   end
 
   task :charge_users => :environment do

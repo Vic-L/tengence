@@ -18,6 +18,7 @@ class Tender < ActiveRecord::Base
   before_update :update_cloudsearch
   after_commit :remove_from_cloudsearch, on: :destroy
   before_create :add_thinking_sphinx_id
+  after_save ThinkingSphinx::RealTime.callback_for(:tender)
 
   def add_to_cloudsearch
     AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no, self.description)

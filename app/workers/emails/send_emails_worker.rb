@@ -25,18 +25,18 @@ class SendEmailsWorker
           no_keywords << user.email
           next
         else
-        
-          results_ref_nos = []
+
+          thinking_sphinx_ids = []
           user.keywords.split(",").each do |keyword|
             # get tenders for each keyword belonging to a user
-            results_ref_nos << AwsManager.search(keyword: keyword)
+            thinking_sphinx_ids << Tender.search_for_ids(keyword).to_a
           end
-          results_ref_nos = results_ref_nos.flatten.compact.uniq #remove any duplicate tender ref nos
+          thinking_sphinx_ids = thinking_sphinx_ids.flatten.compact.uniq #remove any duplicate tender ref nos
 
           if user.subscribed?
-            current_tenders_ref_nos = validTenders.where(ref_no: results_ref_nos).pluck(:ref_no)
+            current_tenders_ref_nos = validTenders.where(thinking_sphinx_id: thinking_sphinx_ids).pluck(:ref_no)
           else
-            current_tenders_ref_nos = validTenders.non_sesami.where(ref_no: results_ref_nos).pluck(:ref_no)
+            current_tenders_ref_nos = validTenders.non_sesami.where(thinking_sphinx_id: thinking_sphinx_ids).pluck(:ref_no)
           end
 
           overall_ref_nos << current_tenders_ref_nos

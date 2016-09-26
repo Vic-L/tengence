@@ -65,6 +65,9 @@ RSpec.configure do |config|
   # test strip_attribute
   config.include StripAttributes::Matchers
 
+  # test thinking_sphinx
+  config.include SphinxHelpers, js: :true
+
   # undo database cleaner config; prevent running examples in a transaction
   config.use_transactional_fixtures = false
 
@@ -88,6 +91,11 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :truncation
+    # Ensure sphinx directories exist for the test environment
+    ThinkingSphinx::Test.init
+    # Configure and start Sphinx, and automatically
+    # stop Sphinx at the end of the test suite.
+    ThinkingSphinx::Test.start_with_autostop
   end
   config.before(:each) do
     DatabaseCleaner.start
@@ -97,6 +105,8 @@ RSpec.configure do |config|
     ActionMailer::Base.deliveries.clear
   end
   config.before(:each, js: true) do
+    DatabaseCleaner.start
+    index
     DatabaseCleaner.strategy = :truncation
     Sidekiq::Worker.clear_all
     ActionMailer::Base.deliveries.clear

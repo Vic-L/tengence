@@ -15,7 +15,11 @@ class GetTenders
 
         thinking_sphinx_ids = Tender.search_for_ids(params['query']).to_a
         
-        thinking_sphinx_ids = thinking_sphinx_ids & user.watched_tenders.pluck(:thinking_sphinx_id) if only_watched_tenders?
+        if only_watched_tenders?
+          watched_tender_ids = user.watched_tenders.pluck(:tender_id)
+          tender_ts_ids = Tender.where(ref_no: watched_tender_ids).pluck(:thinking_sphinx_id)
+          thinking_sphinx_ids = thinking_sphinx_ids & tender_ts_ids
+        end
 
         if user.subscribed?
           eval("@tenders = #{table}.where(thinking_sphinx_id: thinking_sphinx_ids).#{@sort}")

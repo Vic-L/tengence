@@ -25,5 +25,7 @@ dump.rdb
 /tengence-ssl
 
 # sphinx
-db/sphinx/development
-config/*.sphinx.conf
+/db/sphinx/
+/binlog
+/config/*.sphinx.conf
+/config/thinking_sphinx.yml

@@ -56,7 +56,7 @@ namespace :maintenance do
         else
 
           NotifyViaSlack.call(content: "Removed ancient tenders")
-        # end
+        end
       end
     else
       puts "execute 'rake maintenance:cleanup_past_tenders'"

@@ -13,7 +13,7 @@ class GetTenders
       unless params['query'].blank?
         NotifyViaSlack.delay.call(content: "Non Demo Search by #{user.email}: #{params['query']}")
 
-        thinking_sphinx_ids = Tender.search_for_ids(keyword).to_a
+        thinking_sphinx_ids = Tender.search_for_ids(params['query']).to_a
         
         thinking_sphinx_ids = thinking_sphinx_ids & user.watched_tenders.pluck(:tender_id) if only_watched_tenders?
 

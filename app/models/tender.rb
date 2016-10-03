@@ -14,22 +14,22 @@ class Tender < ActiveRecord::Base
   default_scope { order(published_date: :desc) }
   validates_presence_of :published_date, :closing_datetime
 
-  after_commit :add_to_cloudsearch, on: :create
-  before_update :update_cloudsearch
-  after_commit :remove_from_cloudsearch, on: :destroy
+  # after_commit :add_to_cloudsearch, on: :create
+  # before_update :update_cloudsearch
+  # after_commit :remove_from_cloudsearch, on: :destroy
   before_create :add_thinking_sphinx_id
 
-  def add_to_cloudsearch
-    AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no, self.description)
-  end
+  # def add_to_cloudsearch
+  #   AddSingleTenderToCloudsearchWorker.perform_async(self.ref_no, self.description)
+  # end
 
-  def update_cloudsearch
-    UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no, self.description) if self.description_changed?
-  end
+  # def update_cloudsearch
+  #   UpdateSingleTenderInCloudsearchWorker.perform_async(self.ref_no, self.description) if self.description_changed?
+  # end
 
-  def remove_from_cloudsearch
-    RemoveSingleTenderFromCloudsearchWorker.perform_async(self.ref_no, self.description)
-  end
+  # def remove_from_cloudsearch
+  #   RemoveSingleTenderFromCloudsearchWorker.perform_async(self.ref_no, self.description)
+  # end
 
   rails_admin do
     edit do

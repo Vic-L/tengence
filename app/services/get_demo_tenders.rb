@@ -9,7 +9,7 @@ class GetDemoTenders
     ## use thinking sphinx
     begin
       unless params['query'].blank?
-        thinking_sphinx_ids = Tender.search_for_ids(params['query']).to_a
+        thinking_sphinx_ids = Tender.search_for_ids(params['query'], {per_page: TS_MAX_PER_PAGE}).to_a
 
         eval("@tenders = #{table}.non_sesami.where(thinking_sphinx_id: thinking_sphinx_ids).order(published_date: :desc)")
         @results_count = @tenders.count

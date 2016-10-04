@@ -75,7 +75,7 @@ namespace :maintenance do
 
     keywords.each do |keyword|
       # get tenders for each keyword belonging to a user
-      Tender.search_for_ids(keyword).to_a
+      Tender.search_for_ids(keyword, {per_page: TS_MAX_PER_PAGE}).to_a
     end
   end
 

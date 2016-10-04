@@ -15,7 +15,7 @@ class GetKeywordsTenders
       thinking_sphinx_ids = []
       (user.keywords || '').split(",").each do |keyword|
         # get tenders for each keyword belonging to a user
-        thinking_sphinx_ids << Tender.search_for_ids(keyword).to_a
+        thinking_sphinx_ids << Tender.search_for_ids(keyword, {per_page: TS_MAX_PER_PAGE}).to_a
       end
       thinking_sphinx_ids = thinking_sphinx_ids.flatten.compact.uniq #remove any duplicate tender ref nos
 

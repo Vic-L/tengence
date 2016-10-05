@@ -13,32 +13,7 @@ class PagesController < ApplicationController
   end
 
   def refresh_cloudsearch
-    begin
-      array = []
-      Tender.all.each do |tender|
-        array << {
-          'type': "add",
-          'id': tender.ref_no,
-          'fields': {
-            'ref_no': tender.ref_no,
-            'description': tender.description
-          }
-        }
-      end; nil
-      response = AwsManager.upload_document array.to_json
-      if response.class == String
-        NotifyViaSlack.delay.call(content: "<@vic-l> ERROR adding records to AWSCloudSearch!!\r\n#{response}")
-      else
-        NotifyViaSlack.delay.call(content: "Added all records on AWSCloudSearch")
-      end
-    rescue => e
-      NotifyViaSlack.delay.call(content: "Error when refreshing cloudsearch:\r\n#{e.message}\r\n#{e.backtrace.to_s}")
-    ensure
-      Tengence::Application.load_tasks
-      Rake::Task['maintenance:refresh_cache'].reenable
-      Rake::Task['maintenance:refresh_cache'].invoke
-      render json: "success".to_json
-    end
+    render status: 200, text: ""
   end
 
   def contact_us_email

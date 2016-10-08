@@ -12,7 +12,10 @@ namespace :maintenance do
   end
 
   task :ping_index_complete => :environment do
-    NotifyViaSlack.call(content: "updated sphinx index")
+    toto = (1..10).sample
+    if toto == 1
+      NotifyViaSlack.call(content: "updated sphinx index")
+    end
   end
 
   task :ping_sidekiq => :environment do

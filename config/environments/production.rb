@@ -86,4 +86,7 @@ Rails.application.configure do
 
   # default host
   config.action_mailer.default_url_options = { host: 'www.tengence.com.sg' }
+
+  # react.js build
+  config.react.variant = :production
 end

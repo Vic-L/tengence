@@ -144,8 +144,11 @@ namespace :maintenance do
         begin
           # users here are subscribed, billed today, but nvr put auto renew
           # so need to terminate their subscription
+          # leave next_billing_date there
           user.update!(subscribed_plan: 'free_plan')
-          NotifyViaSlack.call(content: "#{user.email} not auto_renew and downgraded. NO EMAIL was sent to tell him abt termination")
+          AlertsMailer.subscription_terminated(user.id).deliver_now
+          InternalMailer.subscription_terminated(user.id).deliver_now
+          NotifyViaSlack.call(content: "#{user.email} not auto_renew and downgraded. Termination email was sent to tell him abt termination")
         rescue => e
           NotifyViaSlack.call(content: "<@vic-l> ERROR #{user.email} not auto_renew but cannot downgrade subscribed_plan")
           next

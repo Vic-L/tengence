@@ -34,4 +34,9 @@ class InternalMailer < ApplicationMailer
     @user = User.find(user_id)
     mail(to: 'tengencesingapore@gmail.com', subject: "#{@user.email} subscription ending in 7 days time", cc: 'john@tengence.com.sg', template_path: 'alerts_mailer', template_name: 'subscription_ending_reminder')
   end
+
+  def subscription_terminated user_id
+    @user = User.find(user_id)
+    mail(to: 'tengencesingapore@gmail.com', subject: "#{@user.email} subscription expired", cc: 'john@tengence.com.sg', template_path: 'alerts_mailer', template_name: 'subscription_terminated')
+  end
 end

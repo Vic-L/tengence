@@ -1,0 +1,121 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+<title>Subscription Expired</title>
+
+<%= render 'layouts/emails/styling' %>
+
+<!-- Wrapper 5 (Banner + 2 Column) -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full" >
+  <tbody>
+    <tr mc:repeatable>
+      <td width="100%" valign="top" bgcolor="#f8f8f8" style="background-color: rgb(255, 255, 255);">
+          <div mc:hideable>
+            
+            <!-- Wrapper -->
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="mobile">
+              <tbody>
+                <tr>
+                  <td>
+                  
+                    <!-- Space -->
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full">
+                      <tbody>
+                        <tr>
+                          <td width="100%" height="15"></td>
+                        </tr>
+                      </tbody>
+                    </table><!-- End Space -->
+                          
+                    <!-- Wrapper -->
+                    <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="full">
+                      <tbody>
+                        <tr>
+                          <td width="100%" class="image600">
+                          
+                            <!-- Image Long 1 -->
+                            <table width="600" border="0" cellpadding="0" cellspacing="0" align="left" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
+                              <tbody>
+                                <tr>
+                                  <td width="100%" height="15"></td>
+                                </tr>
+                                <tr>
+                                  <td valign="middle" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(0,0,0); line-height: 22px;"mc:edit="11">
+                                    <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->
+
+                                    <%= "Dear #{@user.first_name}," %>
+                                    
+                                    <br>
+                                    <br>
+                                    
+                                    This is an email to remind you that your current subscription cycle has expired on <%= @user.next_billing_date.strftime('%e %b %Y') %>.
+
+                                    <br>
+                                    <br>
+
+                                    You have chosen to NOT auto renew your subscription <%= plan(@user.subscribed_plan).downcase %>.
+
+                                    <br>
+                                    <br>
+                                    
+                                    <%= link_to "Resubscribe here", change_payment_url, target: '_blank'%>
+
+                                    <br>
+                                    <br>
+
+                                  </td>
+                                </tr>
+
+                                <tr><td width="100%" height="15"></td></tr>
+
+                                <tr>
+                                  <td valign="middle" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(0,0,0); line-height: 22px;"mc:edit="11">
+                                    <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->
+                                      Thank you for using Tengence!
+                                      <br>
+                                      <br>
+                                      Sincerely,
+                                      <br>
+                                      Tengence Team
+                                      <br>
+                                      <br>
+                                      -- This is a system generated email. Please do not reply. --
+                                      <br>
+                                      <br>
+                                    <!--[if !mso]><!--></span><!--<![endif]-->
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table><!-- End Wrapper 2 -->
+                  </td>
+                </tr>
+              </tbody>
+            </table><!-- End Wrapper -->
+          </div>
+      </td>
+    </tr>
+  </tbody>
+</table><!-- Wrapper 5 -->
+
+<%= render partial: 'layouts/emails/footer_wave' %>
+
+</div>
+<style type="text/css">
+.pic180 {width:180px;height:154px;overflow:hidden;}
+.grow180 img{width:180px;height:154px;
+-webkit-transition:all 1.5s ease;-moz-transition:all 1s ease;-o-transition:all 1s ease;-ms-transition:all 1s ease;transition:all 1s ease;}
+.grow180 img:hover{width:250px;height:210px;}
+
+.pic600 {width:600px;height:200px;overflow:hidden;}
+.grow600 img{width:600px;height:200px;
+-webkit-transition:all 1.5s ease;-moz-transition:all 1s ease;-o-transition:all 1s ease;-ms-transition:all 1s ease;transition:all 1s ease;}
+.grow600 img:hover{/*width:730px;height:410px;*/}
+
+.pic269 {width:269px;height:179px;overflow:hidden;}
+.grow269 img{width:269px;height:179px;
+-webkit-transition:all 1.5s ease;-moz-transition:all 1s ease;-o-transition:all 1s ease;-ms-transition:all 1s ease;transition:all 1s ease;}
+.grow269 img:hover{width:370px;height:250px;}
+</style>  <style>body{ background: none !important; } </style>

@@ -47,4 +47,9 @@ class AlertsMailer < ApplicationMailer
     @user = User.find(user_id)
     mail(from: 'payments@tengence.com.sg', to: @user.email, subject: "Subscription ending in 7 days", reply_to: 'payments@tengence.com.sg')
   end
+
+  def subscription_terminated user_id
+    @user = User.find(user_id)
+    mail(from: 'payments@tengence.com.sg', to: @user.email, subject: "Subscription expired", reply_to: 'payments@tengence.com.sg')
+  end
 end

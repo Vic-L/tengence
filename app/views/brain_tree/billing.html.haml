@@ -32,26 +32,11 @@
               %h4
                 %strong #{days_left(current_user.created_at)}
 
-          -# %hr
-          
-          -# .row
-          -#   .small-12.column.text-center
-          -#     = link_to 'Find out more about upgrading', plans_path, class: 'button'
-
           %hr
 
         - else
 
           - if current_user.subscribed? && @payment_method
-
-            -# .row
-            -#   .small-12.medium-6.column
-            -#     %h4
-            -#       %strong Auto Renew:
-            -#   .small-12.medium-6.column
-            -#     %h4 #{current_user.auto_renew ? 'On' : 'Off'}
-
-            -# %hr.show-for-small-only
 
             .row
               .small-12.medium-6.column
@@ -68,20 +53,6 @@
                   %strong Valid Till:
               .small-12.medium-6.column
                 %h4 #{current_user.next_billing_date.strftime('%e %b %Y')}
-
-            -# %hr.show-for-small-only
-
-            -# .row
-            -#   .small-12.medium-6.column
-            -#     %h4
-            -#       %strong Card to charge:
-            -#   .small-12.medium-6.column
-            -#     %h6
-            -#       %img{src: @payment_method.image_url}
-            -#       %strong=@payment_method.card_type
-            -#       ending with #{@payment_method.last_4}
-
-            -# %hr.show-for-small-only
 
           - elsif current_user.unsubscribed? && @payment_method
 
@@ -100,15 +71,6 @@
 
         %br
 
-    - if current_user.subscribed?
-
-      -# .row
-      -#   .medium-8.columns.medium-centered.text-center
-      -#     %p
-      -#       = link_to unsubscribe_path, method: :post, id: 'unsubscribe', data: {confirm: 'Are you sure?'} do
-      -#         Unsubscribe 
-      -#       from Tengence. Your subscription will still continue till #{current_user.next_billing_date.strftime('%e %b %Y')}.
-
     .row
       .medium-8.columns.medium-centered.text-center
         %p
@@ -118,9 +80,3 @@
       .medium-8.columns.medium-centered.text-center
         %p
           Read our <a href='/faq' class='ga-static-pages' data-gtm-category='' data-gtm-action='read faq' data-gtm-label='faq (billing page)' target='_blank'> FAQ</a>.
-
-    -# - if current_user.trial?
-    -#   %br
-    -#   .row
-    -#     .medium-8.columns.medium-centered
-    -#       = link_to "I want to check Tengence out first. Skip", root_path

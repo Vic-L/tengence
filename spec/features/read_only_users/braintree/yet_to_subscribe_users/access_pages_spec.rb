@@ -18,8 +18,6 @@ feature "access pages by read_only yet_to_subscribe users" do
       expect(page).not_to have_content 'Valid Till:'
       expect(page).not_to have_content 'Card to charge:'
       expect(page).not_to have_content "Your subscription has ended."
-      # expect(page).to have_link 'Pricing & Plans', href: plans_path
-      expect(page).not_to have_link 'Unsubscribe', href: unsubscribe_path
       expect(page.current_path).to eq billing_path
     end
 
@@ -52,15 +50,6 @@ feature "access pages by read_only yet_to_subscribe users" do
       expect(page.current_path).to eq subscribe_one_year_path
     end
 
-    # scenario "plans" do
-    #   brain_tree_page.visit_plans_page
-    #   expect(page).not_to have_link '30 days free trial ', href: register_path
-    #   expect(page).to have_content "Free"
-    #   expect(page).not_to have_content "Your next billing date is on "
-    #   expect(page).not_to have_content "Resubscribing now will not start immediately. It will start on "
-    #   expect(page.current_path).to eq plans_path
-    # end
-
     scenario 'change_payment' do
       brain_tree_page.visit_change_payment_page
       expect(page).to have_content 'You are not authorized to view this page.'
@@ -71,11 +60,6 @@ feature "access pages by read_only yet_to_subscribe users" do
       brain_tree_page.visit_payment_history_page
       expect(page).to have_content 'You are not authorized to view this page.'
       expect(page.current_path).to eq billing_path
-    end
-
-    scenario "update_payment" do
-      pending("how to do post in feature (non controller) spec")
-      fail
     end
 
     scenario "toggle_renew" do

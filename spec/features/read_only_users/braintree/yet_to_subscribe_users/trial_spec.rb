@@ -824,62 +824,62 @@ feature 'trial_tenders', type: :feature, js: true do
       page.driver.browser.manage.window.resize_to(1432, 782)
     end
 
-    feature 'during trial' do
+    # feature 'during trial' do
 
-      scenario 'should be not redirected to plans page' do
-        tenders_page.visit_current_tenders_page
-        expect(page.current_path).not_to eq plans_path
+    #   scenario 'should be not redirected to plans page' do
+    #     tenders_page.visit_current_tenders_page
+    #     expect(page.current_path).not_to eq plans_path
 
-        tenders_page.visit_watched_tenders_page
-        expect(page.current_path).not_to eq plans_path
+    #     tenders_page.visit_watched_tenders_page
+    #     expect(page.current_path).not_to eq plans_path
 
-        tenders_page.visit_show_tender_page Tender.first.ref_no
-        expect(page.current_path).not_to eq plans_path
-      end
+    #     tenders_page.visit_show_tender_page Tender.first.ref_no
+    #     expect(page.current_path).not_to eq plans_path
+    #   end
 
-    end
+    # end
 
     feature 'after trial' do
 
-      scenario 'should be redirected to plans page' do
-        Timecop.freeze(Date.today + 2.months) do
-          tenders_page.visit_current_tenders_page
-          expect(page.current_path).to eq plans_path
+      # scenario 'should be redirected to plans page' do
+      #   Timecop.freeze(Date.today + 2.months) do
+      #     tenders_page.visit_current_tenders_page
+      #     expect(page.current_path).to eq plans_path
 
-          tenders_page.visit_watched_tenders_page
-          expect(page.current_path).to eq plans_path
+      #     tenders_page.visit_watched_tenders_page
+      #     expect(page.current_path).to eq plans_path
 
-          tenders_page.visit_show_tender_page Tender.first.ref_no
-          expect(page.current_path).to eq plans_path
-        end
-      end
+      #     tenders_page.visit_show_tender_page Tender.first.ref_no
+      #     expect(page.current_path).to eq plans_path
+      #   end
+      # end
 
-      scenario 'should be not be redirected to plans page once signed up' do
-        Timecop.freeze(Date.today + 2.months) do
-          brain_tree_page.visit_subscribe_one_month_page
-          expect(page).to have_selector 'iframe'
-          page.within_frame 'braintree-dropin-frame' do
-            fill_in 'credit-card-number', with: brain_tree_page.valid_visa
-            fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
-            fill_in 'cvv', with: brain_tree_page.valid_cvv
-          end
-          brain_tree_page.scroll_into_view '#submit'
-          brain_tree_page.click_unique '#submit'
-          wait_for_page_load
+      # scenario 'should be not be redirected to plans page once signed up' do
+      #   Timecop.freeze(Date.today + 2.months) do
+      #     brain_tree_page.visit_subscribe_one_month_page
+      #     expect(page).to have_selector 'iframe'
+      #     page.within_frame 'braintree-dropin-frame' do
+      #       fill_in 'credit-card-number', with: brain_tree_page.valid_visa
+      #       fill_in 'expiration', with: (Time.current + 2.years).strftime('%m%y')
+      #       fill_in 'cvv', with: brain_tree_page.valid_cvv
+      #     end
+      #     brain_tree_page.scroll_into_view '#submit'
+      #     brain_tree_page.click_unique '#submit'
+      #     wait_for_page_load
 
-          expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
+      #     expect(page).to have_content "Congratulations, you have successfully subscribed to Tengence. Welcome to the community!\nAn invoice of this transaction will be sent to your registered email shortly."
 
-          tenders_page.visit_current_tenders_page
-          expect(page.current_path).not_to eq plans_path
+      #     tenders_page.visit_current_tenders_page
+      #     expect(page.current_path).not_to eq plans_path
 
-          tenders_page.visit_watched_tenders_page
-          expect(page.current_path).not_to eq plans_path
+      #     tenders_page.visit_watched_tenders_page
+      #     expect(page.current_path).not_to eq plans_path
 
-          tenders_page.visit_show_tender_page Tender.first.ref_no
-          expect(page.current_path).not_to eq plans_path
-        end
+      #     tenders_page.visit_show_tender_page Tender.first.ref_no
+      #     expect(page.current_path).not_to eq plans_path
+      #   end
 
-      end
+      # end
 
     end
 

@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
   protected
     def deny_chosen_users
       if user_signed_in? && ENV['CHOSEN_USERS_EMAIL'].split(",").include?(current_user.email) && current_user.finished_trial_but_yet_to_subscribe?
-        flash[:info] = "Your free trial has expired. Please consider upgrading to enjoy all of Tengence's features."
-        redirect_to plans_path
+        flash[:info] = "Your free trial has expired. Tengence will be ceasing operations in the near future. We hope you enjoyed our service."
+        redirect_to current_tenders_path
       end
     end
 

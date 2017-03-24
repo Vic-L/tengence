@@ -50,16 +50,16 @@ Rails.application.routes.draw do
   # braintree
   # resources :payment_methods, path: '/payment-methods'
   get "/billing", to: 'brain_tree#billing'
-  get "/plans", to: 'brain_tree#plans'
-  get "/subscribe-monthly", to: 'brain_tree#subscribe', as: 'subscribe_one_month', defaults: {plan: 'one_month_plan'}
-  get "/subscribe-quarterly", to: 'brain_tree#subscribe', as: 'subscribe_three_months', defaults: {plan: 'three_months_plan'}
-  get "/subscribe-annually", to: 'brain_tree#subscribe', as: 'subscribe_one_year', defaults: {plan: 'one_year_plan'}
-  get "/change-payment", to: 'brain_tree#change_payment', as: 'change_payment'
-  get "/edit-payment", to: 'brain_tree#edit_payment', as: 'edit_payment'
-  post "/create-payment", to: 'brain_tree#create_payment', as: 'create_payment'
-  post "/update-payment", to: 'brain_tree#update_payment', as: 'update_payment'
+  # get "/plans", to: 'brain_tree#plans'
+  # get "/subscribe-monthly", to: 'brain_tree#subscribe', as: 'subscribe_one_month', defaults: {plan: 'one_month_plan'}
+  # get "/subscribe-quarterly", to: 'brain_tree#subscribe', as: 'subscribe_three_months', defaults: {plan: 'three_months_plan'}
+  # get "/subscribe-annually", to: 'brain_tree#subscribe', as: 'subscribe_one_year', defaults: {plan: 'one_year_plan'}
+  # get "/change-payment", to: 'brain_tree#change_payment', as: 'change_payment'
+  # get "/edit-payment", to: 'brain_tree#edit_payment', as: 'edit_payment'
+  # post "/create-payment", to: 'brain_tree#create_payment', as: 'create_payment'
+  # post "/update-payment", to: 'brain_tree#update_payment', as: 'update_payment'
   get "/payment-history", to: 'brain_tree#payment_history', as: 'payment_history'
-  post "/unsubscribe", to: 'brain_tree#unsubscribe', as: 'unsubscribe'
+  # post "/unsubscribe", to: 'brain_tree#unsubscribe', as: 'unsubscribe'
   post "/toggle-renew", to: 'brain_tree#toggle_renew', as: 'toggle_renew'
   post "/braintree_slack_pings", to: 'brain_tree#braintree_slack_pings'
   post "/sandbox_braintree_slack_pings", to: 'brain_tree#sandbox_braintree_slack_pings'

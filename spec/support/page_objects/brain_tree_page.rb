@@ -31,10 +31,10 @@ class BrainTreePage
     self
   end
 
-  def visit_edit_payment_page
-    visit '/edit-payment'
-    self
-  end
+  # def visit_edit_payment_page
+  #   visit '/edit-payment'
+  #   self
+  # end
 
   def visit_unsubscribe_page
     visit '/unsubscribe'
